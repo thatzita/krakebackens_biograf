@@ -1,0 +1,30 @@
+[
+  {
+  "bookingId": "someSortofBookingId1",
+  "seatsTaken": [
+    "R1S1",
+    "R1S2",
+    "R2S5",
+    "R2S6",
+    "R3S11"
+  ],
+  "cinemaId": "someSortofCinemaId12"
+},
+{
+  "bookingId": "someSortofBookingId10",
+  "seatsTaken": [
+    "R1S1",
+    "R1S2",
+    "R2S5",
+    "R2S7",
+    "R3S11",
+    "R2S8"
+  ],
+  "cinemaId": "someSortofCinemaId87"
+}
+]
+
+//Information om vem som bokat VIP
+//Kolla om användare äger VIP eller inte
+
+
