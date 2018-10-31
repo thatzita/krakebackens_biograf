@@ -55,4 +55,12 @@
     }
   ]
 
-  
+  vip: {
+    status: null,
+    seat: null
+  },
+  stats: {
+    total: 0,
+    season: 0
+  },
+  booking: []
