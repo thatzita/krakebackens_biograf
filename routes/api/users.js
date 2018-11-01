@@ -5,24 +5,33 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
 
+//Validering för användare
+const validateRegInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
+
 //User model
 const User = require("../../models/User.js");
 
-//GET api/users/test
-router.get("/test", (req, res) => {
-  res.json({ message: "User route works" });
-});
-
 //POST api/users/register
 router.post("/register", (req, res) => {
+  const { errors, isValid } = validateRegInput(req.body);
+
+  //Validering av registrering
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      return res.status(400).json({ email: "E-post existerar redan" });
+      errors.email = "E-post existerar redan";
+      return res.status(400).json(errors);
     } else {
       const newUser = new User({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        vip: req.body.vip,
+        stats: req.body.stats
       });
 
       //hasha lösenordet
@@ -44,15 +53,21 @@ router.post("/register", (req, res) => {
 //Returnera JWT Token för att komma åt information
 
 router.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  //Validering av login
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const email = req.body.email;
   const password = req.body.password;
 
   //Hitta användare efter mail
   User.findOne({ email }).then(user => {
     if (!user) {
-      return res
-        .status(404)
-        .json({ email: "Finns ingen användare med den mailen." });
+      errors.email = "Finns ingen användare med den mailen.";
+      return res.status(404).json(errors.email);
     }
 
     //Hittar användare, kolla lösenord
@@ -80,7 +95,8 @@ router.post("/login", (req, res) => {
           }
         );
       } else {
-        res.status(400).json({ password: "Fel lösenord" });
+        errors.password = "Fel lösenord";
+        res.status(400).json(errors.password);
       }
     });
   });
@@ -92,7 +108,11 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     res.json({
-      user: req.user,
+      id: req.user.id,
+      username: req.user.username,
+      email: req.user.email,
+      vip: req.user.vip,
+      stats: req.user.stats,
       varning: "DENNA INFORMATIONEN SKA TAS BORT SENARE"
     });
   }
