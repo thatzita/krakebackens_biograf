@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 class Landing extends Component {
   render() {
@@ -15,15 +16,18 @@ class Landing extends Component {
                   </h1>
                   <p className="lead"> Wall of text</p>
                   <hr />
-                  <a href="login.html">
+                  <Link to="/login">
                     <Button primary>Logga in</Button>
-                  </a>
-                  <a href="register.html">
+                  </Link>
+                  <Link to="/apply">
                     <Button primary>Bli medlem</Button>
-                  </a>
-                  <a href="forgot.html">
+                  </Link>
+                  <Link to="/forgot">
                     <Button secondary>Glömt lösenord?</Button>
-                  </a>
+                  </Link>
+                  <Link to="/register">
+                    <Button secondary>Registerar medlem (ADMIN)</Button>
+                  </Link>
                 </div>
               </div>
             </div>
