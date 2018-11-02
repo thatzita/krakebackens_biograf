@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Button, Form, Header, Message } from "semantic-ui-react";
 import axios from "axios";
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/authActions";
+import PropTypes from "prop-types";
 
 class Register extends Component {
   constructor() {
@@ -39,21 +42,22 @@ class Register extends Component {
       }
     };
 
-    console.log(newUser);
-    axios
-      .post("/api/users/register", newUser)
-      .then(res => console.log(res.data))
-      .catch(err =>
-        this.setState({
-          errors: err.response.data
-        })
-      );
+    console.log("newUser ", newUser);
+    this.props.registerUser(newUser);
+    // axios
+    //   .post("/api/users/register", newUser)
+    //   .then(res => console.log(res.data))
+    //   .catch(err =>
+    //     this.setState({
+    //       errors: err.response.data
+    //     })
+    //   );
   }
 
   render() {
     //samma som = errors = this.state.errors
     const { errors } = this.state;
-    console.log("Errors in Register.js", errors);
+
     return (
       <div>
         <Header as="h1">Skapa ny användare</Header>
@@ -110,4 +114,16 @@ class Register extends Component {
   }
 }
 
-export default Register;
+Register.PropTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(Register);
