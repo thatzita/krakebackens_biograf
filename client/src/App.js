@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 //Store https://redux.js.org/api/createstore
 import { Provider } from "react-redux";
 import store from "./store";
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./utils/setAuthToken";
+import { setCurrentUser, logoutUser } from "./actions/authActions";
 
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
@@ -15,6 +18,25 @@ import Forgot from "./components/auth/Forgot";
 import Register from "./components/auth/Register";
 
 import "./App.css";
+
+//kolla om token finns
+if (localStorage.jwtToken) {
+  //Sätter vi till header auth
+  setAuthToken(localStorage.jwtToken);
+  //Avkoda token för att se vem det är som är inloggad
+  const decoded = jwt_decode(localStorage.jwtToken);
+  //Applicera user och isAuthenticated i state
+  store.dispatch(setCurrentUser(decoded));
+  //kolla om token gått ut
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    //Logga ut
+    store.dispatch(logoutUser());
+
+    //redirect till landing
+    window.location.href = "/";
+  }
+}
 
 class App extends Component {
   render() {
