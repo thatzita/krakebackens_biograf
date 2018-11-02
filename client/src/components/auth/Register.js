@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button, Form, Header } from "semantic-ui-react";
+import { Button, Form, Header, Message } from "semantic-ui-react";
+import axios from "axios";
 
 class Register extends Component {
   constructor() {
@@ -22,6 +23,7 @@ class Register extends Component {
   }
   onSubmit(event) {
     event.preventDefault();
+
     const newUser = {
       username: this.state.username,
       email: this.state.email,
@@ -36,14 +38,26 @@ class Register extends Component {
         season: 0
       }
     };
+
     console.log(newUser);
+    axios
+      .post("/api/users/register", newUser)
+      .then(res => console.log(res.data))
+      .catch(err =>
+        this.setState({
+          errors: err.response.data
+        })
+      );
   }
 
   render() {
+    //samma som = errors = this.state.errors
+    const { errors } = this.state;
+    console.log("Errors in Register.js", errors);
     return (
       <div>
         <Header as="h1">Skapa ny användare</Header>
-        <Form>
+        <Form error>
           <Form.Field>
             <label>Användarnamn</label>
             <input
@@ -53,6 +67,7 @@ class Register extends Component {
               value={this.state.username}
               onChange={this.onChange}
             />
+            <Message error content={errors.username} />
           </Form.Field>
           <Form.Field>
             <label>Epost</label>
@@ -63,6 +78,7 @@ class Register extends Component {
               value={this.state.email}
               onChange={this.onChange}
             />
+            <Message error content={errors.email} />
           </Form.Field>
           <Form.Field>
             <label>Lösenord</label>
@@ -73,6 +89,7 @@ class Register extends Component {
               value={this.state.password}
               onChange={this.onChange}
             />
+            <Message error content={errors.password} />
           </Form.Field>
           <Form.Field>
             <input
@@ -82,6 +99,7 @@ class Register extends Component {
               value={this.state.password2}
               onChange={this.onChange}
             />
+            <Message error content={errors.password2} />
           </Form.Field>
           <Button type="submit" onClick={this.onSubmit}>
             Skapa användare
