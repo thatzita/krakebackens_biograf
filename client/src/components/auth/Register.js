@@ -23,9 +23,9 @@ class Register extends Component {
   }
 
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/mainpage");
-    }
+    // if (this.props.auth.isAuthenticated) {
+    //   this.props.history.push("/mainpage");
+    // }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -71,7 +71,8 @@ class Register extends Component {
       stats: {
         total: 0,
         season: 0
-      }
+      },
+      moviesViewed: []
     };
 
     // this.handleSubmit();
