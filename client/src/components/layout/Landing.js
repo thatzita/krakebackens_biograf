@@ -36,7 +36,7 @@ class Landing extends Component {
                     <Button primary>Logga in</Button>
                   </Link>
                   <Link to="/apply">
-                    <Button primary>Bli medlem</Button>
+                    <Button primary>Ansök om medlemskap</Button>
                   </Link>
                   <Link to="/forgot">
                     <Button secondary>Glömt lösenord?</Button>

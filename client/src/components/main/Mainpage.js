@@ -1,23 +1,23 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getCurrentProfile } from "../../actions/profileActions";
+// import { getCurrentProfile } from "../../actions/profileActions";
 
 class Mainpage extends Component {
   componentDidMount() {
-    this.props.getCurrentProfile();
+    // this.props.getCurrentProfile();
   }
   render() {
     const { user } = this.props.auth;
-    const { profile, loading } = this.props.profile;
+    // const { profile, loading } = this.props.profile;
 
     let mainpageContent;
 
-    if (profile === null || loading) {
-      mainpageContent = <h4>Laddar innehåll...</h4>;
-    } else {
-      mainpageContent = <h1>Välkommen {user.username}</h1>;
-    }
+    // if (profile === null || loading) {
+    //   mainpageContent = <h4>Laddar innehåll...</h4>;
+    // } else {
+    mainpageContent = <h1>Välkommen {user.username}</h1>;
+    // }
 
     return (
       <div className="mainpage">
@@ -31,17 +31,17 @@ class Mainpage extends Component {
 }
 
 Mainpage.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  // getCurrentProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+  // profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile,
+  // profile: state.profile,
   auth: state.auth
 });
 
 export default connect(
-  mapStateToProps,
-  { getCurrentProfile }
+  mapStateToProps
+  // { getCurrentProfile }
 )(Mainpage);

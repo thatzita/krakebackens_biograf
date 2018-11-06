@@ -1,7 +1,7 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, USER_CREATED } from "./types";
 
 //Skickas till reducer
 //Används för att skapa användare. ADMIN ska använda denna. Ändra history(vart man hamnar efter att ha skapat användare)
@@ -10,7 +10,13 @@ export const registerUser = (userData, history) => dispatch => {
   axios
     .post("/api/users/register", userData)
     // .then(res => history.push("/login"))
-    .then(res => console.log("Användare skapad"))
+    .then(res => {
+      let success = {
+        title: "Användare skapad!",
+        msg: "Ett mail har skickats till " + userData.email + "."
+      };
+      dispatch(creationSuccess(success));
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -48,6 +54,13 @@ export const setCurrentUser = decoded => {
   return {
     type: SET_CURRENT_USER,
     payload: decoded
+  };
+};
+
+export const creationSuccess = success => {
+  return {
+    type: USER_CREATED,
+    payload: success
   };
 };
 

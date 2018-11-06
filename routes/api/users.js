@@ -1,9 +1,12 @@
+require("dotenv").config(); // inlogg till epost som skickar mail
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+
+const nodemailer = require("nodemailer");
 
 //Validering för användare
 const validateRegInput = require("../../validation/register");
@@ -35,6 +38,8 @@ router.post("/register", (req, res) => {
         stats: req.body.stats
       });
 
+      const passwordForUser = newUser.password;
+
       //hasha lösenordet
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -42,7 +47,56 @@ router.post("/register", (req, res) => {
           newUser.password = hash;
           newUser
             .save()
-            .then(user => res.json({ user }))
+            .then(user => {
+              const output = `
+        <h1>Välkommen till Kråkebackens biograf!</h1>
+        <p>${
+          req.body.username
+        }, du har blivit godkänd av dom högre höjderna och är nu
+        medlem i Kråkebackens biograf!</p>
+        <ul>
+            <li>Ditt användarnamn är:<br>
+            <strong>${req.body.username}</strong></li>
+            <li>Använd följande epost för att logga: <br>
+            <strong>${req.body.email}</strong>
+            </li>
+            <li>Använd följande lösenord när du loggar in första gången: <br>
+            <strong>${passwordForUser}</strong> <br>
+            Observera att du kan ändra lösenord när du väl loggat in!
+            </li>
+        </ul>
+
+        Med vänlig hälsning,
+        Kråkebackens biograf
+        `;
+              let transporter = nodemailer.createTransport({
+                service: "Gmail",
+                host: "smtp.gmail.com",
+                auth: {
+                  user: process.env.MAIL_ADDR,
+                  pass: process.env.MAIL_PW
+                }
+              });
+
+              // setup email data with unicode symbols
+              let mailOptions = {
+                from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
+                to: `${req.body.email}`, // list of receivers
+                subject: `Välkommen till Kråkebackens biograf ${
+                  req.body.username
+                }!`, // Subject line
+                html: output // html body
+              };
+
+              // send mail with defined transport object
+              transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                  return console.log(error);
+                }
+              });
+
+              res.json({ user });
+            })
             .catch(err => console.log(err));
         });
       });

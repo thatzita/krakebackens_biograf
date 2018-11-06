@@ -6,7 +6,7 @@ import store from "./store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
-import { clearCurrentProfile } from "./actions/profileActions";
+// import { clearCurrentProfile } from "./actions/profileActions";
 
 import PrivateRoute from "./components/common/PrivateRoute";
 
@@ -36,7 +36,7 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     //Logga ut
     store.dispatch(logoutUser());
-    store.dispatch(clearCurrentProfile());
+    // store.dispatch(clearCurrentProfile());
     //redirect till landing
     window.location.href = "/login";
   }
