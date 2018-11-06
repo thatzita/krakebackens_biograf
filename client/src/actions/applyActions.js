@@ -1,6 +1,4 @@
 import axios from "axios";
-// import setAuthToken from "../utils/setAuthToken";
-// import jwt_decode from "jwt-decode";
 import { GET_ERRORS, USER_REQUEST } from "./types";
 
 export const userRequest = (userData, history) => dispatch => {
@@ -21,12 +19,12 @@ export const userRequest = (userData, history) => dispatch => {
         payload: errors
       });
     })
-    .catch(err =>
+    .catch(err => {
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+      });
+    });
 };
 
 export const requestSuccess = success => {

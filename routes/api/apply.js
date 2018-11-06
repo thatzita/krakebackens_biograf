@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
-const bodyParser = require("body-parser");
 
 //Validering
 const validateApplicationInput = require("../../validation/userApplication");
@@ -28,10 +27,8 @@ router.post("/form", (req, res) => {
         user.forEach(function(data) {
           if (data.username === req.body.username) {
             errors.username = "Användarnamnet existerar redan";
-            // return res.status(400).json(errors);
           } else if (data.email === req.body.email) {
             errors.email = "E-post existerar redan";
-            // return res.status(400).json(errors);
           }
         });
         return res.status(400).json(errors);
