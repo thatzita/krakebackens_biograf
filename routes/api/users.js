@@ -22,6 +22,7 @@ router.post("/register", (req, res) => {
   }
 
   User.findOne({ email: req.body.email }).then(user => {
+    console.log(user);
     if (user) {
       errors.email = "E-post existerar redan";
       return res.status(400).json(errors);
