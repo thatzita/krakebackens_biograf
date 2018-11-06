@@ -37,7 +37,7 @@ router.post("/register", (req, res) => {
         vip: req.body.vip,
         stats: req.body.stats
       });
-
+      console.log(newUser);
       const passwordForUser = newUser.password;
 
       //hasha lösenordet
@@ -170,6 +170,18 @@ router.get(
       stats: req.user.stats,
       moviesViewed: req.user.moviesViewed
     });
+  }
+);
+
+//DELETE api/users/
+
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findOneAndDelete({ _id: req.user.id }).then(() =>
+      res.json({ success: true })
+    );
   }
 );
 

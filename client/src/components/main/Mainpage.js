@@ -15,9 +15,9 @@ class Mainpage extends Component {
     let mainpageContent;
 
     if (profile === null || loading) {
-      mainpageContent = <h4>Laddar innehåll...</h4>;
+      mainpageContent = <h2>Laddar innehåll...</h2>;
     } else {
-      mainpageContent = <h1>Välkommen {user.username}</h1>;
+      mainpageContent = <h2>Välkommen {user.username}</h2>;
     }
 
     return (

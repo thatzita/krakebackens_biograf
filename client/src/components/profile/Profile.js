@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Button } from "semantic-ui-react";
-import { getCurrentProfile } from "../../actions/profileActions";
+import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
 
 class Profile extends Component {
   constructor() {
@@ -10,6 +10,10 @@ class Profile extends Component {
     this.state = {
       errors: {}
     };
+  }
+
+  onDeleteClick(event) {
+    this.props.deleteAccount();
   }
 
   componentDidMount() {
@@ -77,7 +81,9 @@ class Profile extends Component {
       <div>
         <h1>Profilsida</h1>
         {loggedInProfile}
-        <Button basic>Ta bort konto</Button>
+        <Button basic onClick={this.onDeleteClick.bind(this)}>
+          Ta bort konto
+        </Button>
         <Button primary>Uppdatera konto</Button>
       </div>
     );
@@ -86,6 +92,7 @@ class Profile extends Component {
 
 Profile.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -96,5 +103,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { getCurrentProfile }
+  { getCurrentProfile, deleteAccount }
 )(Profile);

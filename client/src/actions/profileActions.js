@@ -4,7 +4,8 @@ import {
   GET_PROFILE,
   PROFILE_LOADING,
   GET_ERRORS,
-  CLEAR_CURRENT_PROFILE
+  CLEAR_CURRENT_PROFILE,
+  SET_CURRENT_USER
 } from "./types";
 
 export const getCurrentProfile = () => dispatch => {
@@ -33,7 +34,26 @@ export const setProfileLoading = () => {
   };
 };
 
-//Ta bort profilen
+//Ta bort kontot
+export const deleteAccount = () => dispatch => {
+  if (window.confirm("Är du säker? Du kan inte få tillbaka kontot!")) {
+    axios.delete("/api/users").then(
+      res =>
+        dispatch({
+          type: SET_CURRENT_USER,
+          payload: {}
+        })
+      // .catch(err =>
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: err.response.data
+      // })
+      // )
+    );
+  }
+};
+
+//Rensa profilen som är inloggad
 export const clearCurrentProfile = () => {
   return {
     type: CLEAR_CURRENT_PROFILE
