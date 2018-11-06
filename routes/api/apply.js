@@ -21,8 +21,6 @@ router.post("/form", (req, res) => {
   User.find()
     .or([{ email: req.body.email }, { username: req.body.username }])
     .then(user => {
-      console.log(user);
-
       if (user.length > 0) {
         user.forEach(function(data) {
           if (data.username === req.body.username) {
@@ -33,9 +31,8 @@ router.post("/form", (req, res) => {
         });
         return res.status(400).json(errors);
       }
-      // console.log(user);
+
       if (user.length === 0) {
-        console.log(user.length);
         success.title = "Förfrågan skickad!";
         res.json(success);
 

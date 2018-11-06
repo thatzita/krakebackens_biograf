@@ -10,7 +10,6 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case USER_CREATED:
-      console.log(action.payload);
       return {
         ...state,
         success: action.payload

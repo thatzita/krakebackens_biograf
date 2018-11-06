@@ -27,7 +27,8 @@ const UserSchema = new Schema({
   stats: {
     total: { type: Number },
     season: { type: Number }
-  }
+  },
+  moviesViewed: []
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

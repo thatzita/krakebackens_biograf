@@ -138,12 +138,17 @@ router.post("/login", (req, res) => {
         };
 
         //Sign Token, dokumentationen beskriver allt
-        jwt.sign(payload, keys.secretOrKey, { expiresIn: 60 }, (err, token) => {
-          res.json({
-            success: true,
-            token: "Bearer " + token
-          });
-        });
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 720 }, //Hur länge din token ska vara giltlig
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          }
+        );
       } else {
         errors.password = "Fel lösenord";
         res.status(400).json(errors);
@@ -163,7 +168,7 @@ router.get(
       email: req.user.email,
       vip: req.user.vip,
       stats: req.user.stats,
-      varning: "DENNA INFORMATIONEN SKA TAS BORT SENARE"
+      moviesViewed: req.user.moviesViewed
     });
   }
 );

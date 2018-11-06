@@ -28,8 +28,6 @@ class Register extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.auth.success.title);
-    console.log(nextProps.errors);
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors,

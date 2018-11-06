@@ -6,7 +6,7 @@ import store from "./store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
-// import { clearCurrentProfile } from "./actions/profileActions";
+import { clearCurrentProfile } from "./actions/profileActions";
 
 import PrivateRoute from "./components/common/PrivateRoute";
 
@@ -17,6 +17,7 @@ import Login from "./components/auth/Login";
 import Apply from "./components/auth/Apply";
 import Forgot from "./components/auth/Forgot";
 import Mainpage from "./components/main/Mainpage";
+import Profile from "./components/profile/Profile";
 
 //FÖR ADMINS, SKA INTE VARA I LANDING
 import Register from "./components/auth/Register";
@@ -36,7 +37,7 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     //Logga ut
     store.dispatch(logoutUser());
-    // store.dispatch(clearCurrentProfile());
+    store.dispatch(clearCurrentProfile());
     //redirect till landing
     window.location.href = "/login";
   }
@@ -59,6 +60,7 @@ class App extends Component {
 
               <Switch>
                 <PrivateRoute exact path="/mainpage" component={Mainpage} />
+                <PrivateRoute exact path="/profile" component={Profile} />
                 {/* <PrivateRoute exact path="/register" component={Register} /> */}
               </Switch>
             </div>
