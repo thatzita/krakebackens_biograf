@@ -16,6 +16,7 @@ import Footer from "./components/layout/Footer";
 import Login from "./components/auth/Login";
 import Apply from "./components/auth/Apply";
 import Forgot from "./components/auth/Forgot";
+import Reset from "./components/auth/Reset";
 import Mainpage from "./components/main/Mainpage";
 import Profile from "./components/profile/Profile";
 
@@ -55,6 +56,7 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/apply" component={Apply} />
               <Route exact path="/forgot" component={Forgot} />
+              <Route exact path="/reset/:token" component={Reset} />
               {/* Ska vara privat route */}
               <Route exact path="/register" component={Register} />
 
