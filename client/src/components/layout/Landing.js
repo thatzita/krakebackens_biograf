@@ -1,7 +1,24 @@
 import React, { Component } from "react";
 import { Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { PropTypes } from "prop-types";
+import { connect } from "react-redux";
 
 class Landing extends Component {
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/mainpage");
+    } else {
+      this.props.history.push("/");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/");
+    }
+  }
+
   render() {
     return (
       <div>
@@ -15,15 +32,18 @@ class Landing extends Component {
                   </h1>
                   <p className="lead"> Wall of text</p>
                   <hr />
-                  <a href="login.html">
+                  <Link to="/login">
                     <Button primary>Logga in</Button>
-                  </a>
-                  <a href="register.html">
+                  </Link>
+                  <Link to="/apply">
                     <Button primary>Bli medlem</Button>
-                  </a>
-                  <a href="forgot.html">
+                  </Link>
+                  <Link to="/forgot">
                     <Button secondary>Glömt lösenord?</Button>
-                  </a>
+                  </Link>
+                  <Link to="/register">
+                    <Button secondary>Registerar medlem (ADMIN)</Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -34,4 +54,10 @@ class Landing extends Component {
   }
 }
 
-export default Landing;
+Landing.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps)(Landing);

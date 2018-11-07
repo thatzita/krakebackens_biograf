@@ -66,8 +66,8 @@ router.post("/login", (req, res) => {
   //Hitta användare efter mail
   User.findOne({ email }).then(user => {
     if (!user) {
-      errors.email = "Finns ingen användare med den mailen.";
-      return res.status(404).json(errors.email);
+      errors.email = "Finns ingen användare med den eposten.";
+      return res.status(404).json(errors);
     }
 
     //Hittar användare, kolla lösenord
@@ -83,20 +83,15 @@ router.post("/login", (req, res) => {
         };
 
         //Sign Token, dokumentationen beskriver allt
-        jwt.sign(
-          payload,
-          keys.secretOrKey,
-          { expiresIn: 3600 },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: "Bearer " + token
-            });
-          }
-        );
+        jwt.sign(payload, keys.secretOrKey, { expiresIn: 60 }, (err, token) => {
+          res.json({
+            success: true,
+            token: "Bearer " + token
+          });
+        });
       } else {
         errors.password = "Fel lösenord";
-        res.status(400).json(errors.password);
+        res.status(400).json(errors);
       }
     });
   });

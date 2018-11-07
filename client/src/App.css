@@ -1,3 +1,9 @@
+/*  LILA = rgba(71, 8, 119, 0.7) */
+/*  LILA = rgba(71, 8, 119, 1) */
+
+body {
+  background-color: ghostwhite;
+}
 img {
   width: 100%;
 }
@@ -167,8 +173,9 @@ img {
 .navbar-dark .navbar-text a:focus {
   color: #fff;
 }
+
 .bg-dark {
-  background-color: #343a40 !important;
+  background-color: rgba(71, 8, 119, 0.7) !important;
 }
 
 a.bg-dark:hover,

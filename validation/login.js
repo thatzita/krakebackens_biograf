@@ -13,12 +13,12 @@ module.exports = function validateLoginInput(data) {
     errors.email = "Felaktig e-post";
   }
 
-  if (Validator.isEmpty(data.password)) {
-    errors.password = "Du måste skriva ett lösenord";
-  }
-
   if (!Validator.isLength(data.password, { min: 6, max: 20 })) {
     errors.password = "Lösenord måste vara minst 6 tecken långt";
+  }
+
+  if (Validator.isEmpty(data.password)) {
+    errors.password = "Du måste skriva ett lösenord";
   }
 
   if (Validator.isEmpty(data.email)) {
