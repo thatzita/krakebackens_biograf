@@ -17,6 +17,7 @@ import Login from "./components/auth/Login";
 import Apply from "./components/auth/Apply";
 import Forgot from "./components/auth/Forgot";
 import Mainpage from "./components/main/Mainpage";
+import Profile from "./components/profile/Profile";
 
 //FÖR ADMINS, SKA INTE VARA I LANDING
 import Register from "./components/auth/Register";
@@ -54,9 +55,12 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/apply" component={Apply} />
               <Route exact path="/forgot" component={Forgot} />
+              {/* Ska vara privat route */}
               <Route exact path="/register" component={Register} />
+
               <Switch>
                 <PrivateRoute exact path="/mainpage" component={Mainpage} />
+                <PrivateRoute exact path="/profile" component={Profile} />
                 {/* <PrivateRoute exact path="/register" component={Register} /> */}
               </Switch>
             </div>

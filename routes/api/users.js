@@ -1,9 +1,12 @@
+require("dotenv").config(); // inlogg till epost som skickar mail
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+
+const nodemailer = require("nodemailer");
 
 //Validering för användare
 const validateRegInput = require("../../validation/register");
@@ -22,6 +25,7 @@ router.post("/register", (req, res) => {
   }
 
   User.findOne({ email: req.body.email }).then(user => {
+    console.log(user);
     if (user) {
       errors.email = "E-post existerar redan";
       return res.status(400).json(errors);
@@ -33,6 +37,8 @@ router.post("/register", (req, res) => {
         vip: req.body.vip,
         stats: req.body.stats
       });
+      console.log(newUser);
+      const passwordForUser = newUser.password;
 
       //hasha lösenordet
       bcrypt.genSalt(10, (err, salt) => {
@@ -41,7 +47,56 @@ router.post("/register", (req, res) => {
           newUser.password = hash;
           newUser
             .save()
-            .then(user => res.json({ user }))
+            .then(user => {
+              const output = `
+        <h1>Välkommen till Kråkebackens biograf!</h1>
+        <p>${
+          req.body.username
+        }, du har blivit godkänd av dom högre höjderna och är nu
+        medlem i Kråkebackens biograf!</p>
+        <ul>
+            <li>Ditt användarnamn är:<br>
+            <strong>${req.body.username}</strong></li>
+            <li>Använd följande epost för att logga: <br>
+            <strong>${req.body.email}</strong>
+            </li>
+            <li>Använd följande lösenord när du loggar in första gången: <br>
+            <strong>${passwordForUser}</strong> <br>
+            Observera att du kan ändra lösenord när du väl loggat in!
+            </li>
+        </ul>
+
+        Med vänlig hälsning,
+        Kråkebackens biograf
+        `;
+              let transporter = nodemailer.createTransport({
+                service: "Gmail",
+                host: "smtp.gmail.com",
+                auth: {
+                  user: process.env.MAIL_ADDR,
+                  pass: process.env.MAIL_PW
+                }
+              });
+
+              // setup email data with unicode symbols
+              let mailOptions = {
+                from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
+                to: `${req.body.email}`, // list of receivers
+                subject: `Välkommen till Kråkebackens biograf ${
+                  req.body.username
+                }!`, // Subject line
+                html: output // html body
+              };
+
+              // send mail with defined transport object
+              transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                  return console.log(error);
+                }
+              });
+
+              res.json({ user });
+            })
             .catch(err => console.log(err));
         });
       });
@@ -83,12 +138,17 @@ router.post("/login", (req, res) => {
         };
 
         //Sign Token, dokumentationen beskriver allt
-        jwt.sign(payload, keys.secretOrKey, { expiresIn: 60 }, (err, token) => {
-          res.json({
-            success: true,
-            token: "Bearer " + token
-          });
-        });
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 720 }, //Hur länge din token ska vara giltlig
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          }
+        );
       } else {
         errors.password = "Fel lösenord";
         res.status(400).json(errors);
@@ -108,8 +168,20 @@ router.get(
       email: req.user.email,
       vip: req.user.vip,
       stats: req.user.stats,
-      varning: "DENNA INFORMATIONEN SKA TAS BORT SENARE"
+      moviesViewed: req.user.moviesViewed
     });
+  }
+);
+
+//DELETE api/users/
+
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findOneAndDelete({ _id: req.user.id }).then(() =>
+      res.json({ success: true })
+    );
   }
 );
 
