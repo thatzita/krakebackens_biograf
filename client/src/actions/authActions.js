@@ -1,7 +1,13 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_CURRENT_USER, USER_CREATED } from "./types";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  USER_CREATED,
+  FORGOT_USER,
+  RESET_USER
+} from "./types";
 
 //Skickas till reducer
 //Används för att skapa användare. ADMIN ska använda denna. Ändra history(vart man hamnar efter att ha skapat användare)
@@ -64,6 +70,20 @@ export const creationSuccess = success => {
   };
 };
 
+export const forgotSuccess = success => {
+  return {
+    type: FORGOT_USER,
+    payload: success
+  };
+};
+
+export const resetSuccess = success => {
+  return {
+    type: RESET_USER,
+    payload: success
+  };
+};
+
 //Logga ut
 export const logoutUser = () => dispatch => {
   //Ta bort token från localStorage
@@ -73,4 +93,43 @@ export const logoutUser = () => dispatch => {
 
   //Set currentUser till {} och isAuthenticated till false
   dispatch(setCurrentUser({})); //kolla authReducer.js för mer information
+};
+
+//Glömt lösenord, skicka mail till användaren med instruktioner
+export const forgotPassword = data => dispatch => {
+  axios
+    .post("/api/users/forgot", data)
+    .then(res => {
+      let success = {
+        title: "Epost skickad!",
+        msg: "Ett mail har skickats till " + data.email + "."
+      };
+      dispatch(forgotSuccess(success));
+    })
+    .catch(err => {
+      //TODO: fixa errors
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+export const resetPassword = (userData, history) => dispatch => {
+  axios
+    .post("/api/users/reset/:token", userData)
+    // .then(res => history.push("/login"))
+    .then(res => {
+      let success = {
+        title: "Lösenord bytt!",
+        msg: "Ett bekräftalesemail har skickats."
+      };
+      dispatch(resetSuccess(success));
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };

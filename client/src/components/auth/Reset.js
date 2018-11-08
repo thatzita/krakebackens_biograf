@@ -3,18 +3,25 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button, Form, Message } from "semantic-ui-react";
 
-import { forgotPassword } from "../../actions/authActions";
+import { resetPassword } from "../../actions/authActions";
 
-class Forgot extends Component {
+class Reset extends Component {
   constructor() {
     super();
     this.state = {
       success: {},
       errors: {},
-      email: ""
+      password: "",
+      password2: ""
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    // let str = window.location.href;
+    // let lastSlash = str.lastIndexOf("/");
+    // let token = str.substring(lastSlash + 1);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,7 +35,9 @@ class Forgot extends Component {
       console.log(nextProps.auth.success);
       this.setState({
         success: nextProps.auth.success,
-        email: ""
+        password: "",
+        password2: "",
+        errors: {}
       });
     }
   }
@@ -38,38 +47,52 @@ class Forgot extends Component {
       [event.target.name]: event.target.value
     });
   }
+
   onSubmit(event) {
     event.preventDefault();
+    let str = window.location.href;
+    let lastSlash = str.lastIndexOf("/");
+    let token = str.substring(lastSlash + 1);
 
     const user = {
-      email: this.state.email
+      password: this.state.password,
+      password2: this.state.password2,
+      token: token
     };
-
-    // console.log(`Skicka ett mail till ${user.email}`);
-    this.props.forgotPassword(user);
+    this.props.resetPassword(user);
   }
 
   render() {
     const { errors } = this.state;
+    const { password, password2 } = this.state;
     const { success } = this.state;
-
     return (
       <div>
-        <h1>Glömt lösenord?</h1>
+        <h1>Återställ lösenord</h1>
         <Form error success>
           <Form.Field>
-            <label>Epost</label>
+            <label>Lösenord</label>
             <input
-              type="email"
-              placeholder="Epost"
-              name="email"
-              value={this.state.email}
+              type="password"
+              placeholder="Skriv ett lösenord"
+              name="password"
+              value={password}
               onChange={this.onChange}
             />
-            <Message error content={errors.email} />
+            <Message error content={errors.password} />
+          </Form.Field>
+          <Form.Field>
+            <input
+              type="password"
+              placeholder="Bekräfta lösenord "
+              name="password2"
+              value={password2}
+              onChange={this.onChange}
+            />
+            <Message error content={errors.password2} />
           </Form.Field>
           <Button type="submit" onClick={this.onSubmit}>
-            Skicka
+            Återställ mitt lösenord!
           </Button>
           <Message success header={success.title} content={success.msg} />
         </Form>
@@ -78,9 +101,9 @@ class Forgot extends Component {
   }
 }
 
-Forgot.propTypes = {
-  forgotPassword: PropTypes.func.isRequired,
+Reset.propTypes = {
   errors: PropTypes.object.isRequired,
+  resetPassword: PropTypes.func.isRequired,
   success: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -95,6 +118,9 @@ export default connect(
   mapStateToProps,
   {
     //prop func goes here
-    forgotPassword
+    resetPassword
   }
-)(Forgot);
+)(Reset);
+
+{
+}

@@ -28,7 +28,9 @@ const UserSchema = new Schema({
     total: { type: Number },
     season: { type: Number }
   },
-  moviesViewed: []
+  moviesViewed: [],
+  resetPwToken: String,
+  resetPwExpires: Date
 });
 
 module.exports = User = mongoose.model("users", UserSchema);
