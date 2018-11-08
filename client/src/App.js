@@ -19,6 +19,7 @@ import Forgot from "./components/auth/Forgot";
 import Reset from "./components/auth/Reset";
 import Mainpage from "./components/main/Mainpage";
 import Profile from "./components/profile/Profile";
+import Movies from "./components/movies/Movies";
 
 //FÖR ADMINS, SKA INTE VARA I LANDING
 import Register from "./components/auth/Register";
@@ -59,7 +60,7 @@ class App extends Component {
               <Route exact path="/reset/:token" component={Reset} />
               {/* Ska vara privat route */}
               <Route exact path="/register" component={Register} />
-
+              <Route exact path="/movies" component={Movies} />
               <Switch>
                 <PrivateRoute exact path="/mainpage" component={Mainpage} />
                 <PrivateRoute exact path="/profile" component={Profile} />

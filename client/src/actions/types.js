@@ -8,3 +8,4 @@ export const USER_REQUEST = "USER_REQUEST";
 export const USER_CREATED = "USER_CREATED";
 export const FORGOT_USER = "FORGOT_USER";
 export const RESET_USER = "RESET_USER";
+export const GET_MOVIES = "GET_MOVIES";

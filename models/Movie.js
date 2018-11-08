@@ -19,7 +19,7 @@ const MovieSchema = new Schema({
     type: String,
     required: true
   },
-  title: [],
+  genres: [],
   imdb_id: {
     type: String
   },
