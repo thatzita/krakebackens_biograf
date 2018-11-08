@@ -41,4 +41,19 @@ router.post("/addmovie", (req, res) => {
   });
 });
 
+//HÄMTA FILMERNA I DB
+router.get("/allmovies", (req, res) => {
+  // const { errors, isValid } = validateMovieInput(req.body);
+  // let success = {};
+
+  //Validering av listan
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
+
+  Movie.find({}).then(movies => {
+    res.json({ movies });
+  });
+});
+
 module.exports = router;
