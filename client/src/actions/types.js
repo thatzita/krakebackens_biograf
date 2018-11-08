@@ -7,3 +7,4 @@ export const CLEAR_CURRENT_PROFILE = "CLEAR_CURRENT_PROFILE";
 export const USER_REQUEST = "USER_REQUEST";
 export const USER_CREATED = "USER_CREATED";
 export const FORGOT_USER = "FORGOT_USER";
+export const RESET_USER = "RESET_USER";

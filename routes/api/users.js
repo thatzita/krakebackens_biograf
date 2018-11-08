@@ -15,6 +15,7 @@ const crypto = require("crypto");
 const validateRegInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const validateForgotInput = require("../../validation/forgot");
+const validateResetInput = require("../../validation/reset");
 
 //User model
 const User = require("../../models/User.js");
@@ -192,7 +193,7 @@ router.delete(
 router.post("/forgot", (req, res, next) => {
   //VALIDERING AV MAILINPUT MÅSTE SKAPAS
 
-  const { errors, isValid } = validateForgotInput(req.body); //
+  const { errors, isValid } = validateForgotInput(req.body);
 
   //Validering av email i (forgot.js)
   if (!isValid) {
@@ -276,15 +277,25 @@ router.post("/forgot", (req, res, next) => {
 });
 
 //TODO: Fixa errorhantering
+//TODO: Fixa req.body.token istället för params
 // api/users/reset/
 //http://localhost:5000/api/users/reset/
 router.post("/reset/:token", function(req, res) {
+  // console.log(req.body);
+
+  const { errors, isValid } = validateResetInput(req.body);
+
+  //Validering av password i (reset.js)
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   async.waterfall(
     [
       function(done) {
         User.findOne(
           {
-            resetPwToken: req.params.token,
+            resetPwToken: req.body.token,
             resetPwExpires: { $gt: Date.now() }
           },
           function(err, user) {
@@ -293,7 +304,7 @@ router.post("/reset/:token", function(req, res) {
                 "ERROR: Password reset token is invalid or has expired."
               );
             } else if (req.body.password === req.body.password2) {
-              User.findOne({ resetPwToken: req.params.token }, function(
+              User.findOne({ resetPwToken: req.body.token }, function(
                 err,
                 user
               ) {
@@ -317,44 +328,43 @@ router.post("/reset/:token", function(req, res) {
                     });
                   });
                 });
-              });
-            } else {
-              res.send("ERROR:Passwords do not match.");
-            }
-          }
-        );
-      },
-      function(user, done) {
-        const output = `
+
+                const output = `
     <h1>Vi har återställt ditt lösenord</h1>
     <p>Du kan logga in med dina nya uppgifter.</p>
     <p>Med vänlig hälsning,<br>
     Kråkebackens biograf</p>
     `;
 
-        let transporter = nodemailer.createTransport({
-          service: "Gmail",
-          host: "smtp.gmail.com",
-          auth: {
-            user: process.env.MAIL_ADDR,
-            pass: process.env.MAIL_PW
-          }
-        });
+                let transporter = nodemailer.createTransport({
+                  service: "Gmail",
+                  host: "smtp.gmail.com",
+                  auth: {
+                    user: process.env.MAIL_ADDR,
+                    pass: process.env.MAIL_PW
+                  }
+                });
 
-        // setup email data with unicode symbols
-        let mailOptions = {
-          from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
-          to: `${req.body.email}`, // list of receivers
-          subject: `Lösenord återställt!`, // Subject line
-          html: output // html body
-        };
+                // setup email data with unicode symbols
+                let mailOptions = {
+                  from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
+                  to: user.email, // list of receivers
+                  subject: `Lösenord återställt!`, // Subject line
+                  html: output // html body
+                };
 
-        // send mail with defined transport object
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            return console.log(error);
+                // send mail with defined transport object
+                transporter.sendMail(mailOptions, (error, info) => {
+                  if (error) {
+                    return console.log(error);
+                  }
+                });
+              });
+            } else {
+              res.send("ERROR:Passwords do not match.");
+            }
           }
-        });
+        );
       }
     ],
     function(err) {

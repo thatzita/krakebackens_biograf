@@ -5,7 +5,8 @@ import {
   GET_ERRORS,
   SET_CURRENT_USER,
   USER_CREATED,
-  FORGOT_USER
+  FORGOT_USER,
+  RESET_USER
 } from "./types";
 
 //Skickas till reducer
@@ -76,6 +77,13 @@ export const forgotSuccess = success => {
   };
 };
 
+export const resetSuccess = success => {
+  return {
+    type: RESET_USER,
+    payload: success
+  };
+};
+
 //Logga ut
 export const logoutUser = () => dispatch => {
   //Ta bort token från localStorage
@@ -92,9 +100,6 @@ export const forgotPassword = data => dispatch => {
   axios
     .post("/api/users/forgot", data)
     .then(res => {
-      console.log("1");
-      console.log(data);
-      console.log("____");
       let success = {
         title: "Epost skickad!",
         msg: "Ett mail har skickats till " + data.email + "."
@@ -103,10 +108,28 @@ export const forgotPassword = data => dispatch => {
     })
     .catch(err => {
       //TODO: fixa errors
-      console.log(err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       });
     });
+};
+
+export const resetPassword = (userData, history) => dispatch => {
+  axios
+    .post("/api/users/reset/:token", userData)
+    // .then(res => history.push("/login"))
+    .then(res => {
+      let success = {
+        title: "Lösenord bytt!",
+        msg: "Ett bekräftalesemail har skickats."
+      };
+      dispatch(resetSuccess(success));
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };

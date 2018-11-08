@@ -3,10 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button, Form, Message } from "semantic-ui-react";
 
+import { resetPassword } from "../../actions/authActions";
+
 class Reset extends Component {
   constructor() {
     super();
     this.state = {
+      success: {},
       errors: {},
       password: "",
       password2: ""
@@ -14,6 +17,13 @@ class Reset extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  componentDidMount() {
+    // let str = window.location.href;
+    // let lastSlash = str.lastIndexOf("/");
+    // let token = str.substring(lastSlash + 1);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({
@@ -21,31 +31,45 @@ class Reset extends Component {
         success: {}
       });
     }
+    if (nextProps.auth.success) {
+      console.log(nextProps.auth.success);
+      this.setState({
+        success: nextProps.auth.success,
+        password: "",
+        password2: "",
+        errors: {}
+      });
+    }
   }
+
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
+
   onSubmit(event) {
     event.preventDefault();
+    let str = window.location.href;
+    let lastSlash = str.lastIndexOf("/");
+    let token = str.substring(lastSlash + 1);
 
     const user = {
       password: this.state.password,
-      password2: this.state.password2
+      password2: this.state.password2,
+      token: token
     };
-
-    // console.log(`Skicka ett mail till ${user.email}`);
-    // this.props.loginUser(user);
+    this.props.resetPassword(user);
   }
 
   render() {
     const { errors } = this.state;
     const { password, password2 } = this.state;
+    const { success } = this.state;
     return (
       <div>
         <h1>Återställ lösenord</h1>
-        <Form error>
+        <Form error success>
           <Form.Field>
             <label>Lösenord</label>
             <input
@@ -70,6 +94,7 @@ class Reset extends Component {
           <Button type="submit" onClick={this.onSubmit}>
             Återställ mitt lösenord!
           </Button>
+          <Message success header={success.title} content={success.msg} />
         </Form>
       </div>
     );
@@ -77,52 +102,25 @@ class Reset extends Component {
 }
 
 Reset.propTypes = {
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  resetPassword: PropTypes.func.isRequired,
+  success: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  errors: state.errors
+  errors: state.errors,
+  success: state.success,
+  auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
   {
     //prop func goes here
+    resetPassword
   }
 )(Reset);
 
 {
-  /* <div class="row">
-        <div class="col-md-12">
-          <form action="/reset/<%= token %>" method="POST">
-            <legend>Reset Password</legend>
-            <div class="form-group">
-              <label for="password">New Password</label>
-              <input
-                type="password"
-                name="password"
-                value=""
-                placeholder="New password"
-                autofocus="autofocus"
-                class="form-control"
-              />
-            </div>
-            <div class="form-group">
-              <label for="confirm">Confirm Password</label>
-              <input
-                type="password"
-                name="confirm"
-                value=""
-                placeholder="Confirm password"
-                class="form-control"
-              />
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary">
-                Update Password
-              </button>
-            </div>
-          </form>
-        </div>
-      </div> */
 }
