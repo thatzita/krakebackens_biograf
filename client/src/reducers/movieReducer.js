@@ -51,7 +51,7 @@ export default function(state = initialState, action) {
     case MOVIE_ADDED_SUCCESS:
       return {
         ...state,
-        ...(state.showOrHideImdb = true)
+        ...(state.showOrHideImdb = false)
       };
     default:
       return state;
