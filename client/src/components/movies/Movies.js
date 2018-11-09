@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import Popup from "./Popup";
 
-import { Card, Image, Button, Input, Icon, Modal } from "semantic-ui-react";
+import { Card, Image, Button, Input, Icon } from "semantic-ui-react";
 
-import { getAllMovies } from "../../actions/movieActions";
+import { getAllMovies, moviePopup } from "../../actions/movieActions";
+import "./movies.css";
 
 class Movies extends Component {
   constructor() {
     super();
     this.state = {
       errors: {},
-      open: false,
-      movies: []
+      movies: [],
+      movieInfo: {}
     };
   }
 
-  showPopup() {
-    this.setState({
-      open: !this.state.open
-    });
+  showPopup(movie) {
+    this.props.moviePopup(movie);
   }
 
   componentDidMount() {
@@ -28,7 +28,8 @@ class Movies extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      movies: nextProps.movies
+      movies: nextProps.movies,
+      movieInfo: nextProps.movieInfo
     });
   }
   render() {
@@ -39,9 +40,9 @@ class Movies extends Component {
     if (movies !== undefined) {
       let movieCards = movies.map(movie => {
         return (
-          <Card key={movie.imdb_id}>
+          <Card onClick={e => this.showPopup(movie)} key={movie.imdb_id}>
             {/* <Card fluid key={movie.imdb_id}> */}
-            <Image src={movie.poster} />
+            <Image className="posterImg" src={movie.poster} />
             {/* <Image size="small" src={movie.poster} /> */}
             <Card.Content>
               <Card.Header>{movie.title}</Card.Header>
@@ -59,7 +60,7 @@ class Movies extends Component {
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
-              <a>Speltid: {movie.runtime}</a>
+              <p className="date">Speltid: {movie.runtime}</p>
             </Card.Content>
           </Card>
         );
@@ -86,10 +87,12 @@ class Movies extends Component {
             placeholder="Search..."
           />
 
-          <Button onClick={this.showPopup.bind(this)} color="purple">
+          <Button color="purple">
             <Icon name="plus" />
-            Lägg till film
+            Lägg till film i databasen
           </Button>
+
+          <Popup />
 
           {movieContent}
         </div>
@@ -100,6 +103,8 @@ class Movies extends Component {
 
 Movies.propTypes = {
   getAllMovies: PropTypes.func.isRequired,
+  // movieInfo: PropTypes.func.isRequired,
+  // popupMovie: PropTypes.object.isRequired,
   //   auth: PropTypes.object.isRequired,
   // profile: PropTypes.object.isRequired
   movies: PropTypes.object.isRequired
@@ -114,6 +119,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    getAllMovies
+    getAllMovies,
+    moviePopup
   }
 )(Movies);

@@ -7,8 +7,9 @@ const validateMovieInput = require("../../validation/movies");
 //Apply model
 const Movie = require("../../models/Movie.js");
 
-//POST api/movies/form
+//POST api/movies/addmovie
 router.post("/addmovie", (req, res) => {
+  console.log(req.body);
   const { errors, isValid } = validateMovieInput(req.body);
   let success = {};
 
