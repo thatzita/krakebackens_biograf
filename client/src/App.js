@@ -22,7 +22,7 @@ import Profile from "./components/profile/Profile";
 import Movies from "./components/movies/Movies";
 import AddMovie from "./components/movies/AddMovie";
 
-import MonMovieForm from "./components/admin/monMovies/MonMovie";
+import CreateMonMovie from "./components/admin/monMovies/CreateMonMovie";
 
 //FÖR ADMINS, SKA INTE VARA I LANDING
 import Register from "./components/auth/Register";
@@ -57,7 +57,7 @@ class App extends Component {
             <Navbar />
             <Route exact path="/" component={Landing} />
             <div className="container">
-              <Route exact path="/monMovieForm" component={MonMovieForm} />
+              <Route exact path="/createMonMovie" component={CreateMonMovie} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/apply" component={Apply} />
               <Route exact path="/forgot" component={Forgot} />

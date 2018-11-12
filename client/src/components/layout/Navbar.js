@@ -112,7 +112,7 @@ class Navbar extends Component {
 
               <Menu.Item
                   as={Link}
-                  to="/monMovieForm"
+                  to="/createMonMovie"
                   name='Monthly movies form'
                   active={activeItem === 'Monthly movies form'}
                   onClick={this.handleItemClick}
