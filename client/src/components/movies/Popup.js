@@ -1,20 +1,94 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { moviePopupClose } from "../../actions/movieActions";
-import { Button, Header, Container, Divider, Image } from "semantic-ui-react";
+import {
+  moviePopupClose,
+  updateDb,
+  deleteMovie
+} from "../../actions/movieActions";
+import {
+  Button,
+  Header,
+  Container,
+  Divider,
+  Image,
+  Icon
+} from "semantic-ui-react";
 
 class Popup extends Component {
   constructor() {
     super();
     this.state = {
       showOrHide: false,
-      movieInfo: {}
+      movieInfo: {},
+      title: "",
+      description: ""
     };
+    this.editValues = this.editValues.bind(this);
   }
 
   closePopup() {
     this.props.moviePopupClose();
+  }
+
+  deleteMovie(movie) {
+    this.props.deleteMovie(movie);
+    this.props.moviePopupClose();
+  }
+
+  updateMovieDb() {
+    let { movieInfo } = this.state;
+    let { title, description } = this.state;
+    let movieDb;
+
+    if (title === "" && description !== "") {
+      movieDb = {
+        title: movieInfo.title,
+        description: description,
+        id: movieInfo._id
+      };
+    } else if (title !== "" && description === "") {
+      movieDb = {
+        title: title,
+        description: movieInfo.description,
+        id: movieInfo._id
+      };
+    } else if (title !== "" && description !== "") {
+      movieDb = {
+        title: title,
+        description: description,
+        id: movieInfo._id
+      };
+    } else {
+      movieDb = {
+        title: movieInfo.title,
+        description: movieInfo.description,
+        id: movieInfo._id
+      };
+    }
+    this.props.updateDb(movieDb);
+    this.closePopup();
+  }
+
+  changeInput(event) {
+    let nameOfClass = event.target.className;
+    this.editValues(nameOfClass, event.target.textContent);
+  }
+
+  editValues(nameOfClass, data) {
+    switch (nameOfClass) {
+      case "ui grey inverted header title":
+        this.setState({
+          title: data
+        });
+        break;
+      case "description":
+        this.setState({
+          description: data
+        });
+        break;
+      default:
+    }
   }
 
   //TODO: Ta bort från DB
@@ -37,40 +111,79 @@ class Popup extends Component {
     if (showOrHide) {
       moviePopup = (
         <div className="popup">
-          <Image.Group>
-            <Image centered size="medium" src={movieInfo.poster} />
-            <Image size="large" src={movieInfo.background} />
-          </Image.Group>
-          <Header as="h1" inverted color="grey">
+          <Image
+            floated="right"
+            className="imageBorder"
+            size="large"
+            src={movieInfo.background}
+          />
+          <Image
+            size="small"
+            className="imageBorder"
+            floated="right"
+            src={movieInfo.poster}
+          />
+
+          <Header
+            as="h1"
+            inverted
+            color="grey"
+            className="title"
+            contentEditable={true}
+            suppressContentEditableWarning="true"
+            onInput={event => this.changeInput(event)}
+          >
             {movieInfo.title}
           </Header>
-          <Divider />
-          <Container className="containerInPopup" textAlign="justified">
-            <span className="date">Släpptes: {movieInfo.release}</span>
-            <p>{movieInfo.description}</p>
+          <Container className="containerInPopup">
+            <span className="date boldSpan">{movieInfo.release}</span>
+            <br />
+            <br />
+            <div className="descriptionContainer">
+              <p
+                className="description"
+                contentEditable={true}
+                suppressContentEditableWarning="true"
+                onInput={event => this.changeInput(event)}
+              >
+                {movieInfo.description}
+              </p>
+            </div>
+            <br />
+
             <p>
-              Genres:{" "}
+              <strong>Genres:</strong> <br />
               {movieInfo.genres.map((genre, i) => {
                 return (
                   <span key={i} className="date">
-                    {genre} |{" "}
+                    {genre}{" "}
                   </span>
                 );
               })}
             </p>
-            <p className="date">Speltid: {movieInfo.runtime}</p>
+            <Icon name="time" />
+            <span className="date boldSpan">{movieInfo.runtime} min</span>
           </Container>
+          <br />
+          <br />
           <Divider />
           <Button.Group>
-            <Button inverted color="purple" onClick={e => this.closePopup()}>
-              Stäng
+            <Button
+              inverted
+              color="green"
+              onClick={e => this.updateMovieDb(movieInfo)}
+            >
+              Uppdatera databasen
             </Button>
             <Button
               inverted
               color="red"
-              onClick={e => this.deleteFromDb(movieInfo.imdb_id)}
+              onClick={e => this.deleteMovie(movieInfo)}
             >
               Ta bort från databasen
+            </Button>
+            <Button inverted color="purple" onClick={e => this.closePopup()}>
+              Stäng
             </Button>
           </Button.Group>
         </div>
@@ -84,6 +197,8 @@ class Popup extends Component {
 
 Popup.propTypes = {
   moviePopupClose: PropTypes.func.isRequired,
+  updateDb: PropTypes.func.isRequired,
+  deleteMovie: PropTypes.func.isRequired,
   // movieInfo: PropTypes.object.isRequired,
   movies: PropTypes.object.isRequired
 };
@@ -97,6 +212,8 @@ export default connect(
   mapStateToProps,
   {
     //func goes here
-    moviePopupClose
+    moviePopupClose,
+    deleteMovie,
+    updateDb
   }
 )(Popup);

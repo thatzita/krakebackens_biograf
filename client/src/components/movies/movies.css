@@ -1,24 +1,59 @@
+.ui.attached.button {
+  margin-top: 55px;
+  margin-left: 10px;
+}
+.ui.header {
+  padding-left: 15px;
+}
+
 .posterImg {
   cursor: pointer;
+}
+.boldSpan {
+  font-weight: 700;
 }
 .editIcon,
 .deleteIcon {
   cursor: pointer;
 }
+
 .popup {
+  padding: 20px;
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 10;
-
-  /* background-size: 80% 90%; */
   position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  right: 0;
-  top: 0;
-
+  /* width: 80%;*/
+  height: 70%;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: 1px solid whitesmoke;
   overflow-y: scroll;
 }
 .containerInPopup {
   color: ghostwhite;
+  padding-right: 200px;
+}
+
+.descriptionContainer {
+  margin-right: 50px;
+  width: 35rem;
+}
+
+[contenteditable="true"]:active,
+[contenteditable="true"]:focus {
+  border: none;
+  outline: none;
+}
+
+[contenteditable="true"]:focus > style {
+  display: block;
+}
+.ui.attached.buttons .button {
+  padding: 10px 5px;
+  left: 4%;
+  position: relative;
+}
+.imageBorder {
+  border: 1px solid whitesmoke;
 }
