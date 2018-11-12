@@ -6,7 +6,8 @@ import {
   IMDB_POPUP,
   IMDB_POPUP_CLOSE,
   MOVIE_ADDED_SUCCESS,
-  DELETE_MOVIE_DB
+  DELETE_MOVIE_DB,
+  UPDATE_MOVIE_DB
 } from "../actions/types";
 
 const initialState = {};

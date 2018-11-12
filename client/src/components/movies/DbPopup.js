@@ -120,7 +120,6 @@ class DbPopup extends Component {
     let moviePopup;
 
     if (showOrHideImdb) {
-      //TODO: ska vara original när det ska upp i databasen
       let posterUrl = "http://image.tmdb.org/t/p/w300";
 
       moviePopup = (

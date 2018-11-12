@@ -49,12 +49,31 @@ router.get("/allmovies", (req, res) => {
 });
 
 //TA BORT FILMER FRÅN DB
-
 router.delete("/", (req, res) => {
   console.log(req.body.objId);
   Movie.findOneAndDelete({ _id: req.body.objId }).then(() =>
     res.json({ success: true })
   );
+});
+
+//UPDATERA FILM I DB
+// api/movies/update
+router.post("/update", (req, res) => {
+  let movieData = req.body.data.updatedMovie;
+  let errors = {};
+  let updateField = {
+    title: movieData.title,
+    description: movieData.description
+  };
+
+  Movie.findOneAndUpdate({ _id: movieData.id }, updateField).then(movie => {
+    if (movie) {
+      res.json({ movie });
+    } else {
+      errors.imdb = "Filmen finns inte i databasen";
+      return res.status(400).json(errors);
+    }
+  });
 });
 
 module.exports = router;

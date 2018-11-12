@@ -8,7 +8,8 @@ import {
   IMDB_POPUP,
   IMDB_POPUP_CLOSE,
   MOVIE_ADDED_SUCCESS,
-  DELETE_MOVIE_DB
+  DELETE_MOVIE_DB,
+  UPDATE_MOVIE_DB
 } from "./types";
 
 export const getAllMovies = movieData => dispatch => {
@@ -114,7 +115,7 @@ export const movieAddedSuccess = success => {
   };
 };
 
-//DELETE FROM DB
+//DELETE FRÅN DB
 export const deleteMovie = movie => dispatch => {
   let objId = movie._id;
   console.log(objId);
@@ -132,4 +133,12 @@ export const movieDeleteSuccess = deletedMovie => {
     type: DELETE_MOVIE_DB,
     payload: deletedMovie
   };
+};
+
+//UPPDATERA DB
+
+export const updateDb = updatedMovie => dispatch => {
+  axios.post("/api/movies/update", { data: { updatedMovie } }).then(res => {
+    console.log(res.body);
+  });
 };
