@@ -139,6 +139,15 @@ export const movieDeleteSuccess = deletedMovie => {
 
 export const updateDb = updatedMovie => dispatch => {
   axios.post("/api/movies/update", { data: { updatedMovie } }).then(res => {
-    console.log(res.body);
+    if (res) {
+      dispatch(movieUpdated(updatedMovie));
+    }
   });
+};
+
+export const movieUpdated = updated => {
+  return {
+    type: UPDATE_MOVIE_DB,
+    payload: updated
+  };
 };

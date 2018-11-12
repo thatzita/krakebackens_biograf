@@ -61,6 +61,13 @@ export default function(state = initialState, action) {
         ...state,
         movies: newMovieState
       };
+    case UPDATE_MOVIE_DB:
+      let updatedMovieState = updateMovie(action.payload, state.movies);
+
+      return {
+        ...state,
+        movies: updatedMovieState
+      };
     default:
       return state;
   }
@@ -71,4 +78,15 @@ function removeMovie(deleteData, movieArray) {
     return listItem !== deleteData;
   });
   return updatedMovieList;
+}
+
+function updateMovie(updateData, movieArray) {
+  let newState = movieArray;
+  for (let i = 0; i < newState.length; i++) {
+    if (updateData.id === newState[i]._id) {
+      newState[i].title = updateData.title;
+      newState[i].description = updateData.description;
+    }
+  }
+  return newState;
 }

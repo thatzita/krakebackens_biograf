@@ -22,11 +22,7 @@ class Popup extends Component {
 
   updateMovieDb() {
     let { movieInfo } = this.state;
-
-    console.log(movieInfo);
-
     let { title, description } = this.state;
-
     let movieDb;
 
     if (title === "" && description !== "") {
@@ -54,14 +50,11 @@ class Popup extends Component {
         id: movieInfo._id
       };
     }
-
-    console.log(movieDb);
     this.props.updateDb(movieDb);
   }
 
   changeInput(event) {
     let nameOfClass = event.target.className;
-    console.log(nameOfClass);
     this.editValues(nameOfClass, event.target.textContent);
   }
 
