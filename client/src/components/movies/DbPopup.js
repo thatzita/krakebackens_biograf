@@ -82,7 +82,6 @@ class DbPopup extends Component {
       };
     }
 
-    console.log(movieDb);
     this.props.addToMovieDb(movieDb);
   }
 

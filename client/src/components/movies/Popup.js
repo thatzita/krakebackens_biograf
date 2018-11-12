@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { moviePopupClose, updateDb } from "../../actions/movieActions";
+import {
+  moviePopupClose,
+  updateDb,
+  deleteMovie
+} from "../../actions/movieActions";
 import { Button, Header, Container, Divider, Image } from "semantic-ui-react";
 
 class Popup extends Component {
@@ -17,6 +21,11 @@ class Popup extends Component {
   }
 
   closePopup() {
+    this.props.moviePopupClose();
+  }
+
+  deleteMovie(movie) {
+    this.props.deleteMovie(movie);
     this.props.moviePopupClose();
   }
 
@@ -51,6 +60,7 @@ class Popup extends Component {
       };
     }
     this.props.updateDb(movieDb);
+    this.closePopup();
   }
 
   changeInput(event) {
@@ -133,25 +143,25 @@ class Popup extends Component {
             <p className="date">Speltid: {movieInfo.runtime}</p>
           </Container>
           <Divider />
-          <Button.Group>
-            <Button
-              inverted
-              color="green"
-              onClick={e => this.updateMovieDb(movieInfo)}
-            >
-              Uppdatera databasen
-            </Button>
-            <Button
-              inverted
-              color="red"
-              onClick={e => this.deleteFromDb(movieInfo.imdb_id)}
-            >
-              Ta bort från databasen
-            </Button>
-            <Button inverted color="purple" onClick={e => this.closePopup()}>
-              Stäng
-            </Button>
-          </Button.Group>
+          {/* <Button.Group> */}
+          <Button
+            inverted
+            color="green"
+            onClick={e => this.updateMovieDb(movieInfo)}
+          >
+            Uppdatera databasen
+          </Button>
+          <Button
+            inverted
+            color="red"
+            onClick={e => this.deleteMovie(movieInfo)}
+          >
+            Ta bort från databasen
+          </Button>
+          <Button inverted color="purple" onClick={e => this.closePopup()}>
+            Stäng
+          </Button>
+          {/* </Button.Group> */}
         </div>
       );
     } else {
@@ -164,6 +174,7 @@ class Popup extends Component {
 Popup.propTypes = {
   moviePopupClose: PropTypes.func.isRequired,
   updateDb: PropTypes.func.isRequired,
+  deleteMovie: PropTypes.func.isRequired,
   // movieInfo: PropTypes.object.isRequired,
   movies: PropTypes.object.isRequired
 };
@@ -178,6 +189,7 @@ export default connect(
   {
     //func goes here
     moviePopupClose,
+    deleteMovie,
     updateDb
   }
 )(Popup);

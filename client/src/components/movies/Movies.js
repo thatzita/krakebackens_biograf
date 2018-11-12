@@ -49,8 +49,12 @@ class Movies extends Component {
         return (
           <Card key={movie.imdb_id}>
             {/* <Card fluid key={movie.imdb_id}> */}
-            {/* <Image className="posterImg" src={movie.poster} /> */}
-            <Image src={movie.poster} />
+            <Image
+              className="posterImg"
+              onClick={e => this.showPopup(movie)}
+              src={movie.poster}
+            />
+            {/* <Image src={movie.poster} /> */}
             {/* <Image size="small" src={movie.poster} /> */}
             <Card.Content>
               <Card.Header>{movie.title}</Card.Header>

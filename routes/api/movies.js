@@ -50,7 +50,6 @@ router.get("/allmovies", (req, res) => {
 
 //TA BORT FILMER FRÅN DB
 router.delete("/", (req, res) => {
-  console.log(req.body.objId);
   Movie.findOneAndDelete({ _id: req.body.objId }).then(() =>
     res.json({ success: true })
   );
