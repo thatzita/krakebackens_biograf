@@ -9,7 +9,6 @@ const Movie = require("../../models/Movie.js");
 
 //POST api/movies/addmovie
 router.post("/addmovie", (req, res) => {
-  console.log(req.body);
   const { errors, isValid } = validateMovieInput(req.body);
   let success = {};
 
@@ -44,17 +43,18 @@ router.post("/addmovie", (req, res) => {
 
 //HÄMTA FILMERNA I DB
 router.get("/allmovies", (req, res) => {
-  // const { errors, isValid } = validateMovieInput(req.body);
-  // let success = {};
-
-  //Validering av listan
-  // if (!isValid) {
-  //   return res.status(400).json(errors);
-  // }
-
   Movie.find({}).then(movies => {
     res.json({ movies });
   });
+});
+
+//TA BORT FILMER FRÅN DB
+
+router.delete("/", (req, res) => {
+  console.log(req.body.objId);
+  Movie.findOneAndDelete({ _id: req.body.objId }).then(() =>
+    res.json({ success: true })
+  );
 });
 
 module.exports = router;

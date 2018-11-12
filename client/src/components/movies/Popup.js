@@ -17,6 +17,11 @@ class Popup extends Component {
     this.props.moviePopupClose();
   }
 
+  //TODO: Ta bort från DB
+  deleteFromDb(movieId) {
+    console.log(movieId);
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       movieInfo: nextProps.movies.movieInfo,
@@ -60,8 +65,12 @@ class Popup extends Component {
             <Button inverted color="purple" onClick={e => this.closePopup()}>
               Stäng
             </Button>
-            <Button inverted color="red" onClick={e => this.closePopup()}>
-              Uppdatera film
+            <Button
+              inverted
+              color="red"
+              onClick={e => this.deleteFromDb(movieInfo.imdb_id)}
+            >
+              Ta bort från databasen
             </Button>
           </Button.Group>
         </div>
