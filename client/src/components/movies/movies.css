@@ -5,30 +5,7 @@
 .ui.header {
   padding-left: 15px;
 }
-.ui.large.image,
-.ui.large.images .image,
-.ui.large.images img,
-.ui.large.images,
-.ui.small.image,
-.ui.small.images .image,
-.ui.small.images img,
-.ui.small.images {
-  /* position: relative; */
-  top: 4em;
-  margin-left: 10px;
-  float: right;
-  border: 1px solid whitesmoke;
-}
-.ui.small.image,
-.ui.small.images .image,
-.ui.small.images img,
-.ui.small.images {
-  /* position: relative; */
-  top: 6.2em;
 
-  float: right;
-  border: 1px solid whitesmoke;
-}
 .posterImg {
   cursor: pointer;
 }
@@ -41,15 +18,16 @@
 }
 
 .popup {
+  padding: 20px;
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 10;
   position: fixed;
   /* width: 80%;*/
-  height: 65%;
+  height: 70%;
   top: 10%;
   left: 50%;
   transform: translate(-50%, 0);
-
+  border: 1px solid whitesmoke;
   overflow-y: scroll;
 }
 .containerInPopup {
@@ -75,4 +53,7 @@
   padding: 10px 5px;
   left: 4%;
   position: relative;
+}
+.imageBorder {
+  border: 1px solid whitesmoke;
 }

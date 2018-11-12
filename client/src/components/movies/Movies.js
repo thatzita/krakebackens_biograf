@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Popup from "./Popup";
+import { Link } from "react-router-dom";
 
 import { Button, Input, Icon, Item } from "semantic-ui-react";
 
@@ -18,8 +19,16 @@ class Movies extends Component {
     this.state = {
       errors: {},
       movies: [],
-      movieInfo: {}
+      movieInfo: {},
+      search: ""
     };
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
 
   showPopup(movie) {
@@ -45,7 +54,13 @@ class Movies extends Component {
     let movieContent;
 
     if (movies !== undefined) {
-      let movieCards = movies.map(movie => {
+      let filteredMovies = this.props.movies.movies.filter(movie => {
+        return (
+          movie.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !==
+          -1
+        );
+      });
+      let movieCards = filteredMovies.map(movie => {
         return (
           <Item key={movie.imdb_id}>
             <Item.Image
@@ -70,11 +85,11 @@ class Movies extends Component {
               </Item.Description>
 
               <Item.Meta>
-                <Icon name="time" />
+                <Icon name="time" color="black" />
                 <span className="cinema boldSpan">{movie.runtime} min</span>
               </Item.Meta>
             </Item.Content>
-            <Item.Group attached="bottom">
+            <Item.Group>
               <Button
                 basic
                 color="red"
@@ -117,15 +132,18 @@ class Movies extends Component {
           <h1>Filmer</h1>
           <hr />
           <Input
-            icon={{ name: "search", circular: true, link: true }}
-            placeholder="Search..."
+            placeholder="Sök i databasen..."
+            onChange={this.onChange}
+            value={this.state.search}
+            name="search"
           />
 
-          <Button color="purple">
-            <Icon name="plus" />
-            Lägg till film i databasen
-          </Button>
-
+          <Link to="/addmovie">
+            <Button color="purple">
+              <Icon name="plus" />
+              Lägg till film i databasen
+            </Button>
+          </Link>
           <Popup />
 
           {movieContent}

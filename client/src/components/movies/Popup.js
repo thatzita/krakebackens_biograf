@@ -111,8 +111,18 @@ class Popup extends Component {
     if (showOrHide) {
       moviePopup = (
         <div className="popup">
-          <Image size="large" src={movieInfo.background} />
-          <Image size="small" src={movieInfo.poster} />
+          <Image
+            floated="right"
+            className="imageBorder"
+            size="large"
+            src={movieInfo.background}
+          />
+          <Image
+            size="small"
+            className="imageBorder"
+            floated="right"
+            src={movieInfo.poster}
+          />
 
           <Header
             as="h1"
@@ -157,7 +167,7 @@ class Popup extends Component {
           <br />
           <br />
           <Divider />
-          <Button.Group attached="bottom">
+          <Button.Group>
             <Button
               inverted
               color="green"

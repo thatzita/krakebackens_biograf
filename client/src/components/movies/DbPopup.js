@@ -2,7 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { imdbPopupClose, addToMovieDb } from "../../actions/movieActions";
-import { Button, Header, Container, Divider, Image } from "semantic-ui-react";
+import {
+  Button,
+  Header,
+  Container,
+  Divider,
+  Image,
+  Icon
+} from "semantic-ui-react";
 
 class DbPopup extends Component {
   constructor() {
@@ -123,14 +130,19 @@ class DbPopup extends Component {
 
       moviePopup = (
         <div className="popup">
-          <Image.Group>
-            <Image
-              centered
-              size="medium"
-              src={posterUrl + movieInfo.poster_path}
-            />
-            <Image size="large" src={posterUrl + movieInfo.backdrop_path} />
-          </Image.Group>
+          <Image
+            floated="right"
+            className="imageBorder"
+            size="large"
+            src={posterUrl + movieInfo.backdrop_path}
+          />
+          <Image
+            size="small"
+            className="imageBorder"
+            floated="right"
+            src={posterUrl + movieInfo.poster_path}
+          />
+
           <Header
             className="title"
             contentEditable={true}
@@ -143,8 +155,10 @@ class DbPopup extends Component {
             {movieInfo.title}
           </Header>
           <Divider />
-          <Container className="containerInPopup" textAlign="justified">
-            <span className="date">Släpptes: {movieInfo.release_date}</span>
+          <Container className="containerInPopup">
+            <span className="date boldSpan">{movieInfo.release_date}</span>
+            <br />
+            <br />
             <p
               className="description"
               contentEditable={true}
@@ -154,17 +168,23 @@ class DbPopup extends Component {
               {movieInfo.overview}
             </p>
             <p>
-              Genres:{" "}
+              <strong>Genres:</strong> <br />
               {movieInfo.genres.map((genre, i) => {
                 return (
                   <span key={i} className="date">
-                    {genre.name} |
+                    {genre.name}{" "}
                   </span>
                 );
               })}
             </p>
-            <p className="date">Speltid: {movieInfo.runtime}</p>
-            <p className="date">Status: {movieInfo.status}</p>
+
+            <Icon name="time" />
+            <span className="date boldSpan">{movieInfo.runtime} min</span>
+            <br />
+            <br />
+            <p className="date">
+              <strong>Status:</strong> {movieInfo.status}
+            </p>
           </Container>
           <Divider />
           <Button.Group>

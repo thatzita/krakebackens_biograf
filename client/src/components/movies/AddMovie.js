@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Input, Divider, Button, Card, Image } from "semantic-ui-react";
+import { Input, Divider, Button, Card, Image, Icon } from "semantic-ui-react";
 import { searchMovie, imdbPopup } from "../../actions/movieActions";
 import DbPopup from "./DbPopup";
+import { Link } from "react-router-dom";
 
 class AddMovie extends Component {
   constructor() {
@@ -80,16 +81,22 @@ class AddMovie extends Component {
     return (
       <div>
         <h1>Lägg till film</h1>
-
+        <hr />
         <Input
           name="searchedMovie"
           value={this.state.searchedMovie}
           onChange={this.onChange}
           placeholder="Skriv namn på film..."
         />
-        <Button type="submit" onClick={this.onSubmit}>
+        <Button basic color="violet" type="submit" onClick={this.onSubmit}>
           Sök
         </Button>
+        <Link to="/movies">
+          <Button color="purple">
+            <Icon name="left chevron" />
+            Tillbaka till databasen
+          </Button>
+        </Link>
         <Divider />
         <DbPopup />
         {movieList}
