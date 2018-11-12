@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Popup from "./Popup";
 
-import { Card, Image, Button, Input, Icon } from "semantic-ui-react";
+import { Button, Input, Icon, Item } from "semantic-ui-react";
 
 import {
   getAllMovies,
@@ -47,48 +47,55 @@ class Movies extends Component {
     if (movies !== undefined) {
       let movieCards = movies.map(movie => {
         return (
-          <Card key={movie.imdb_id}>
-            {/* <Card fluid key={movie.imdb_id}> */}
-            <Image
+          <Item key={movie.imdb_id}>
+            <Item.Image
               className="posterImg"
+              size="tiny"
               onClick={e => this.showPopup(movie)}
               src={movie.poster}
             />
-            {/* <Image src={movie.poster} /> */}
-            {/* <Image size="small" src={movie.poster} /> */}
-            <Card.Content>
-              <Card.Header>{movie.title}</Card.Header>
-              <Card.Meta>
-                <span className="date">Släpptes: {movie.release}</span>
-              </Card.Meta>
-              <Card.Description>
+            <Item.Content>
+              <Item.Header>{movie.title}</Item.Header>
+              <Item.Meta>
+                <span> {movie.release}</span>
+              </Item.Meta>
+              <Item.Description>
                 {movie.genres.map((genre, i) => {
                   return (
                     <span key={i} className="date">
-                      {genre} |{" "}
+                      {genre}{" "}
                     </span>
                   );
                 })}
-              </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-              <p className="date">Speltid: {movie.runtime}</p>
-            </Card.Content>
-            <Icon.Group>
-              <Icon
-                onClick={e => this.deleteMovie(movie)}
-                className="deleteIcon"
+              </Item.Description>
+
+              <Item.Meta>
+                <p className="cinema">Speltid: {movie.runtime}</p>
+              </Item.Meta>
+            </Item.Content>
+            <Item.Group attached="bottom">
+              <Button
+                basic
                 color="red"
-                name="delete"
-              />
-              <Icon
-                onClick={e => this.showPopup(movie)}
-                className="editIcon"
+                onClick={e => this.deleteMovie(movie)}
+                icon
+                attached="bottom"
+                floated="right"
+              >
+                <Icon color="red" name="delete" className="deleteIcon" />
+              </Button>
+              <Button
+                basic
                 color="green"
-                name="edit"
-              />
-            </Icon.Group>
-          </Card>
+                onClick={e => this.showPopup(movie)}
+                icon
+                attached="bottom"
+                floated="right"
+              >
+                <Icon color="green" name="edit" className="editIcon" />
+              </Button>
+            </Item.Group>
+          </Item>
         );
       });
 
@@ -96,7 +103,7 @@ class Movies extends Component {
         <div>
           <br />
           <h2>Filmdatabas</h2>
-          <Card.Group>{movieCards}</Card.Group>
+          <Item.Group divided>{movieCards}</Item.Group>
         </div>
       );
     } else {
