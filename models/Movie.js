@@ -16,8 +16,7 @@ const MovieSchema = new Schema({
     type: Number
   },
   description: {
-    type: String,
-    required: true
+    type: String
   },
   genres: [],
   imdb_id: {

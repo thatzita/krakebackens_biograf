@@ -1,6 +1,10 @@
 .posterImg {
   cursor: pointer;
 }
+.editIcon,
+.deleteIcon {
+  cursor: pointer;
+}
 .popup {
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 10;

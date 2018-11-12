@@ -5,7 +5,8 @@ import {
   SEARCH_MOVIE_TMDB,
   IMDB_POPUP,
   IMDB_POPUP_CLOSE,
-  MOVIE_ADDED_SUCCESS
+  MOVIE_ADDED_SUCCESS,
+  DELETE_MOVIE_DB
 } from "../actions/types";
 
 const initialState = {};
@@ -51,9 +52,22 @@ export default function(state = initialState, action) {
     case MOVIE_ADDED_SUCCESS:
       return {
         ...state,
-        ...(state.showOrHideImdb = true)
+        ...(state.showOrHideImdb = false)
+      };
+    case DELETE_MOVIE_DB:
+      let newMovieState = removeMovie(action.payload, state.movies);
+      return {
+        ...state,
+        movies: newMovieState
       };
     default:
       return state;
   }
+}
+
+function removeMovie(deleteData, movieArray) {
+  let updatedMovieList = movieArray.filter(listItem => {
+    return listItem !== deleteData;
+  });
+  return updatedMovieList;
 }

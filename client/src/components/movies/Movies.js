@@ -5,7 +5,11 @@ import Popup from "./Popup";
 
 import { Card, Image, Button, Input, Icon } from "semantic-ui-react";
 
-import { getAllMovies, moviePopup } from "../../actions/movieActions";
+import {
+  getAllMovies,
+  moviePopup,
+  deleteMovie
+} from "../../actions/movieActions";
 import "./movies.css";
 
 class Movies extends Component {
@@ -20,6 +24,9 @@ class Movies extends Component {
 
   showPopup(movie) {
     this.props.moviePopup(movie);
+  }
+  deleteMovie(movie) {
+    this.props.deleteMovie(movie);
   }
 
   componentDidMount() {
@@ -40,9 +47,10 @@ class Movies extends Component {
     if (movies !== undefined) {
       let movieCards = movies.map(movie => {
         return (
-          <Card onClick={e => this.showPopup(movie)} key={movie.imdb_id}>
+          <Card key={movie.imdb_id}>
             {/* <Card fluid key={movie.imdb_id}> */}
-            <Image className="posterImg" src={movie.poster} />
+            {/* <Image className="posterImg" src={movie.poster} /> */}
+            <Image src={movie.poster} />
             {/* <Image size="small" src={movie.poster} /> */}
             <Card.Content>
               <Card.Header>{movie.title}</Card.Header>
@@ -62,6 +70,20 @@ class Movies extends Component {
             <Card.Content extra>
               <p className="date">Speltid: {movie.runtime}</p>
             </Card.Content>
+            <Icon.Group>
+              <Icon
+                onClick={e => this.deleteMovie(movie)}
+                className="deleteIcon"
+                color="red"
+                name="delete"
+              />
+              <Icon
+                onClick={e => this.showPopup(movie)}
+                className="editIcon"
+                color="green"
+                name="edit"
+              />
+            </Icon.Group>
           </Card>
         );
       });
@@ -103,6 +125,7 @@ class Movies extends Component {
 
 Movies.propTypes = {
   getAllMovies: PropTypes.func.isRequired,
+  deleteMovie: PropTypes.func.isRequired,
   // movieInfo: PropTypes.func.isRequired,
   // popupMovie: PropTypes.object.isRequired,
   //   auth: PropTypes.object.isRequired,
@@ -120,6 +143,7 @@ export default connect(
   mapStateToProps,
   {
     getAllMovies,
-    moviePopup
+    moviePopup,
+    deleteMovie
   }
 )(Movies);

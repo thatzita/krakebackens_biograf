@@ -7,7 +7,8 @@ import {
   SEARCH_MOVIE_TMDB,
   IMDB_POPUP,
   IMDB_POPUP_CLOSE,
-  MOVIE_ADDED_SUCCESS
+  MOVIE_ADDED_SUCCESS,
+  DELETE_MOVIE_DB
 } from "./types";
 
 export const getAllMovies = movieData => dispatch => {
@@ -67,12 +68,10 @@ export const showMoviesFound = movieData => {
 //IMDB POPUP
 
 export const imdbPopup = movieId => dispatch => {
-  console.log(movieId);
   let url = "https://api.themoviedb.org/3/movie/";
   let key = "?api_key=1ca6bbafafae8cf950e1fbb80a4824c7&language=sv";
   axios.get(url + movieId + key).then(res => {
     let movie = res.data;
-    // console.log(res.data);
     dispatch(showSpecificMovie(movie));
   });
 };
@@ -93,9 +92,7 @@ export const showSpecificMovie = movieData => {
 
 //LÄGG TILL I DB
 export const addToMovieDb = addToDb => dispatch => {
-  console.log(addToDb);
   axios.post("/api/movies/addmovie", addToDb).then(res => {
-    console.log(res);
     let success = {
       title: "Film tillagd!",
       msg: "Filmen finns nu i databasen"
@@ -114,5 +111,25 @@ export const movieAddedSuccess = success => {
   return {
     type: MOVIE_ADDED_SUCCESS,
     payload: success
+  };
+};
+
+//DELETE FROM DB
+export const deleteMovie = movie => dispatch => {
+  let objId = movie._id;
+  console.log(objId);
+  axios.delete("/api/movies", { data: { objId } }).then(res => {
+    if (res) {
+      dispatch(movieDeleteSuccess(movie));
+    } else {
+      console.log("Något gick fel.");
+    }
+  });
+};
+
+export const movieDeleteSuccess = deletedMovie => {
+  return {
+    type: DELETE_MOVIE_DB,
+    payload: deletedMovie
   };
 };
