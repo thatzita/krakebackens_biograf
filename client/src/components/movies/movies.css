@@ -2,8 +2,38 @@
   margin-top: 55px;
   margin-left: 10px;
 }
+.ui.header {
+  padding-left: 15px;
+}
+.ui.large.image,
+.ui.large.images .image,
+.ui.large.images img,
+.ui.large.images,
+.ui.small.image,
+.ui.small.images .image,
+.ui.small.images img,
+.ui.small.images {
+  /* position: relative; */
+  top: 4em;
+  margin-left: 10px;
+  float: right;
+  border: 1px solid whitesmoke;
+}
+.ui.small.image,
+.ui.small.images .image,
+.ui.small.images img,
+.ui.small.images {
+  /* position: relative; */
+  top: 6.2em;
+
+  float: right;
+  border: 1px solid whitesmoke;
+}
 .posterImg {
   cursor: pointer;
+}
+.boldSpan {
+  font-weight: 700;
 }
 .editIcon,
 .deleteIcon {
@@ -14,14 +44,35 @@
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 10;
   position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  right: 0;
-  top: 0;
+  /* width: 80%;*/
+  height: 65%;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
 
   overflow-y: scroll;
 }
 .containerInPopup {
   color: ghostwhite;
+  padding-right: 200px;
+}
+
+.descriptionContainer {
+  margin-right: 50px;
+  width: 35rem;
+}
+
+[contenteditable="true"]:active,
+[contenteditable="true"]:focus {
+  border: none;
+  outline: none;
+}
+
+[contenteditable="true"]:focus > style {
+  display: block;
+}
+.ui.attached.buttons .button {
+  padding: 10px 5px;
+  left: 4%;
+  position: relative;
 }

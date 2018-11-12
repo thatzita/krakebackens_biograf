@@ -57,7 +57,7 @@ class Movies extends Component {
             <Item.Content>
               <Item.Header>{movie.title}</Item.Header>
               <Item.Meta>
-                <span> {movie.release}</span>
+                <span className="boldSpan"> {movie.release}</span>
               </Item.Meta>
               <Item.Description>
                 {movie.genres.map((genre, i) => {
@@ -70,7 +70,8 @@ class Movies extends Component {
               </Item.Description>
 
               <Item.Meta>
-                <p className="cinema">Speltid: {movie.runtime}</p>
+                <Icon name="time" />
+                <span className="cinema boldSpan">{movie.runtime} min</span>
               </Item.Meta>
             </Item.Content>
             <Item.Group attached="bottom">
@@ -146,7 +147,7 @@ Movies.propTypes = {
 
 const mapStateToProps = state => ({
   //   profile: state.profile,
-  //   auth: state.auth
+  // auth: state.auth,
   movies: state.movies
 });
 

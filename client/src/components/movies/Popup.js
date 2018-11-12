@@ -6,7 +6,14 @@ import {
   updateDb,
   deleteMovie
 } from "../../actions/movieActions";
-import { Button, Header, Container, Divider, Image } from "semantic-ui-react";
+import {
+  Button,
+  Header,
+  Container,
+  Divider,
+  Image,
+  Icon
+} from "semantic-ui-react";
 
 class Popup extends Component {
   constructor() {
@@ -104,10 +111,9 @@ class Popup extends Component {
     if (showOrHide) {
       moviePopup = (
         <div className="popup">
-          <Image.Group>
-            <Image centered size="medium" src={movieInfo.poster} />
-            <Image size="large" src={movieInfo.background} />
-          </Image.Group>
+          <Image size="large" src={movieInfo.background} />
+          <Image size="small" src={movieInfo.poster} />
+
           <Header
             as="h1"
             inverted
@@ -119,49 +125,57 @@ class Popup extends Component {
           >
             {movieInfo.title}
           </Header>
-          <Divider />
-          <Container className="containerInPopup" textAlign="justified">
-            <span className="date">Släpptes: {movieInfo.release}</span>
-            <p
-              className="description"
-              contentEditable={true}
-              suppressContentEditableWarning="true"
-              onInput={event => this.changeInput(event)}
-            >
-              {movieInfo.description}
-            </p>
+          <Container className="containerInPopup">
+            <span className="date boldSpan">{movieInfo.release}</span>
+            <br />
+            <br />
+            <div className="descriptionContainer">
+              <p
+                className="description"
+                contentEditable={true}
+                suppressContentEditableWarning="true"
+                onInput={event => this.changeInput(event)}
+              >
+                {movieInfo.description}
+              </p>
+            </div>
+            <br />
+
             <p>
-              Genres:{" "}
+              <strong>Genres:</strong> <br />
               {movieInfo.genres.map((genre, i) => {
                 return (
                   <span key={i} className="date">
-                    {genre} |{" "}
+                    {genre}{" "}
                   </span>
                 );
               })}
             </p>
-            <p className="date">Speltid: {movieInfo.runtime}</p>
+            <Icon name="time" />
+            <span className="date boldSpan">{movieInfo.runtime} min</span>
           </Container>
+          <br />
+          <br />
           <Divider />
-          {/* <Button.Group> */}
-          <Button
-            inverted
-            color="green"
-            onClick={e => this.updateMovieDb(movieInfo)}
-          >
-            Uppdatera databasen
-          </Button>
-          <Button
-            inverted
-            color="red"
-            onClick={e => this.deleteMovie(movieInfo)}
-          >
-            Ta bort från databasen
-          </Button>
-          <Button inverted color="purple" onClick={e => this.closePopup()}>
-            Stäng
-          </Button>
-          {/* </Button.Group> */}
+          <Button.Group attached="bottom">
+            <Button
+              inverted
+              color="green"
+              onClick={e => this.updateMovieDb(movieInfo)}
+            >
+              Uppdatera databasen
+            </Button>
+            <Button
+              inverted
+              color="red"
+              onClick={e => this.deleteMovie(movieInfo)}
+            >
+              Ta bort från databasen
+            </Button>
+            <Button inverted color="purple" onClick={e => this.closePopup()}>
+              Stäng
+            </Button>
+          </Button.Group>
         </div>
       );
     } else {
