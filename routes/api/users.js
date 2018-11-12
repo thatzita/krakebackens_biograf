@@ -1,13 +1,21 @@
+require("dotenv").config(); // inlogg till epost som skickar mail
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+const async = require("async");
+
+const nodemailer = require("nodemailer");
+
+const crypto = require("crypto");
 
 //Validering för användare
 const validateRegInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateForgotInput = require("../../validation/forgot");
+const validateResetInput = require("../../validation/reset");
 
 //User model
 const User = require("../../models/User.js");
@@ -33,6 +41,7 @@ router.post("/register", (req, res) => {
         vip: req.body.vip,
         stats: req.body.stats
       });
+      const passwordForUser = newUser.password;
 
       //hasha lösenordet
       bcrypt.genSalt(10, (err, salt) => {
@@ -41,7 +50,56 @@ router.post("/register", (req, res) => {
           newUser.password = hash;
           newUser
             .save()
-            .then(user => res.json({ user }))
+            .then(user => {
+              const output = `
+        <h1>Välkommen till Kråkebackens biograf!</h1>
+        <p>${
+          req.body.username
+        }, du har blivit godkänd av dom högre höjderna och är nu
+        medlem i Kråkebackens biograf!</p>
+        <ul>
+            <li>Ditt användarnamn är:<br>
+            <strong>${req.body.username}</strong></li>
+            <li>Använd följande epost för att logga: <br>
+            <strong>${req.body.email}</strong>
+            </li>
+            <li>Använd följande lösenord när du loggar in första gången: <br>
+            <strong>${passwordForUser}</strong> <br>
+            Observera att du kan ändra lösenord när du väl loggat in!
+            </li>
+        </ul>
+
+        Med vänlig hälsning,
+        Kråkebackens biograf
+        `;
+              let transporter = nodemailer.createTransport({
+                service: "Gmail",
+                host: "smtp.gmail.com",
+                auth: {
+                  user: process.env.MAIL_ADDR,
+                  pass: process.env.MAIL_PW
+                }
+              });
+
+              // setup email data with unicode symbols
+              let mailOptions = {
+                from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
+                to: `${req.body.email}`, // list of receivers
+                subject: `Välkommen till Kråkebackens biograf ${
+                  req.body.username
+                }!`, // Subject line
+                html: output // html body
+              };
+
+              // send mail with defined transport object
+              transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                  return console.log(error);
+                }
+              });
+
+              res.json({ user });
+            })
             .catch(err => console.log(err));
         });
       });
@@ -83,12 +141,17 @@ router.post("/login", (req, res) => {
         };
 
         //Sign Token, dokumentationen beskriver allt
-        jwt.sign(payload, keys.secretOrKey, { expiresIn: 60 }, (err, token) => {
-          res.json({
-            success: true,
-            token: "Bearer " + token
-          });
-        });
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 720 }, //Hur länge din token ska vara giltlig
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          }
+        );
       } else {
         errors.password = "Fel lösenord";
         res.status(400).json(errors);
@@ -108,9 +171,208 @@ router.get(
       email: req.user.email,
       vip: req.user.vip,
       stats: req.user.stats,
-      varning: "DENNA INFORMATIONEN SKA TAS BORT SENARE"
+      moviesViewed: req.user.moviesViewed
     });
   }
 );
+
+//DELETE api/users/
+
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findOneAndDelete({ _id: req.user.id }).then(() =>
+      res.json({ success: true })
+    );
+  }
+);
+
+//POST api/users/forgot
+
+router.post("/forgot", (req, res, next) => {
+  //VALIDERING AV MAILINPUT MÅSTE SKAPAS
+
+  const { errors, isValid } = validateForgotInput(req.body);
+
+  //Validering av email i (forgot.js)
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const email = req.body.email;
+
+  async.waterfall(
+    [
+      function(done) {
+        crypto.randomBytes(20, function(err, buf) {
+          var token = buf.toString("hex");
+          done(err, token);
+        });
+      },
+      function(token, done) {
+        User.findOne({ email }, function(err, user) {
+          if (!user) {
+            if (!user) {
+              errors.email = "Finns ingen användare med den eposten.";
+              return res.status(404).json(errors);
+            }
+          }
+
+          user.resetPwToken = token;
+          user.resetPwExpires = Date.now() + 7200000; // 2 timmar
+
+          // return res.json(user);
+          user.save(function(err) {
+            done(err, token, user);
+          });
+          res.send("Epost kommer");
+        });
+      },
+      function(token, user, done) {
+        const url = "http://localhost:3000/reset";
+        const output = `
+      <h1>Glömt lösenord?</h1>
+      
+      <p>Usch då det var ju dumt att du glömt ditt lösenord.</p>
+      <p>Klicka på länken nedan för att skapa ett nytt lösenord:</p>
+      <a href="${url}/${token}">Återställ mitt lösenord</a>
+      ${url}/${token}
+      <p>Med vänlig hälsning,
+      Kråkebackens biograf</p>
+      `;
+
+        let transporter = nodemailer.createTransport({
+          service: "Gmail",
+          host: "smtp.gmail.com",
+          auth: {
+            user: process.env.MAIL_ADDR,
+            pass: process.env.MAIL_PW
+          }
+        });
+
+        // setup email data with unicode symbols
+        let mailOptions = {
+          from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
+          to: `${req.body.email}`, // list of receivers
+          subject: `Glömt ditt lösenord?`, // Subject line
+          html: output // html body
+        };
+
+        // send mail with defined transport object
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            return console.log(error);
+          }
+        });
+        // .catch(err => console.log(err));
+      }
+    ],
+    function(err) {
+      if (err) {
+        return res.status(404).json(errors);
+      }
+    }
+  );
+});
+
+//TODO: Fixa errorhantering
+//TODO: Fixa req.body.token istället för params
+// api/users/reset/
+//http://localhost:5000/api/users/reset/
+router.post("/reset/:token", function(req, res) {
+  // console.log(req.body);
+
+  const { errors, isValid } = validateResetInput(req.body);
+
+  //Validering av password i (reset.js)
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  async.waterfall(
+    [
+      function(done) {
+        User.findOne(
+          {
+            resetPwToken: req.body.token,
+            resetPwExpires: { $gt: Date.now() }
+          },
+          function(err, user) {
+            if (!user) {
+              res.send(
+                "ERROR: Password reset token is invalid or has expired."
+              );
+            } else if (req.body.password === req.body.password2) {
+              User.findOne({ resetPwToken: req.body.token }, function(
+                err,
+                user
+              ) {
+                let success = {};
+                user.password = req.body.password;
+                user.resetPwToken = undefined;
+                user.resetPwExpires = undefined;
+
+                bcrypt.genSalt(10, (err, salt) => {
+                  bcrypt.hash(user.password, salt, (err, hash) => {
+                    if (err) throw err;
+                    user.password = hash;
+                    user.save(function(err) {
+                      if (err) {
+                        console.error("ERROR!");
+                      } else {
+                        success.msg = "Lösenordet är ändrat";
+                        res.json(success);
+                        done();
+                      }
+                    });
+                  });
+                });
+
+                const output = `
+    <h1>Vi har återställt ditt lösenord</h1>
+    <p>Du kan logga in med dina nya uppgifter.</p>
+    <p>Med vänlig hälsning,<br>
+    Kråkebackens biograf</p>
+    `;
+
+                let transporter = nodemailer.createTransport({
+                  service: "Gmail",
+                  host: "smtp.gmail.com",
+                  auth: {
+                    user: process.env.MAIL_ADDR,
+                    pass: process.env.MAIL_PW
+                  }
+                });
+
+                // setup email data with unicode symbols
+                let mailOptions = {
+                  from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
+                  to: user.email, // list of receivers
+                  subject: `Lösenord återställt!`, // Subject line
+                  html: output // html body
+                };
+
+                // send mail with defined transport object
+                transporter.sendMail(mailOptions, (error, info) => {
+                  if (error) {
+                    return console.log(error);
+                  }
+                });
+              });
+            } else {
+              res.send("ERROR:Passwords do not match.");
+            }
+          }
+        );
+      }
+    ],
+    function(err) {
+      if (err) {
+        return res.status(404).json(errors);
+      }
+    }
+  );
+});
 
 module.exports = router;

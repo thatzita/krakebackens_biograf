@@ -12,7 +12,7 @@ class Navbar extends Component {
     this.props.logoutUser();
   }
   render() {
-    const { isAuthenticated, user } = this.props.auth;
+    const { isAuthenticated } = this.props.auth;
 
     const authLinks = (
       <ul>
@@ -20,7 +20,7 @@ class Navbar extends Component {
           <Link to="/mainpage">Biljetter</Link>
         </li>
         <li>
-          <Link to="/mainpage">Profil</Link>
+          <Link to="/profile">Profil</Link>
         </li>
         <li>
           <Link to="/mainpage">Filmer och trailers</Link>
@@ -32,7 +32,7 @@ class Navbar extends Component {
           <Link to="/mainpage">Kontakta oss</Link>
         </li>
         <li>
-          <a href="#" onClick={this.onLogoutClick.bind(this)}>
+          <a href="/" onClick={this.onLogoutClick.bind(this)}>
             Logout
           </a>
         </li>
@@ -74,5 +74,8 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { logoutUser, clearCurrentProfile }
+  {
+    logoutUser,
+    clearCurrentProfile
+  }
 )(Navbar);

@@ -19,7 +19,6 @@ class Register extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -31,29 +30,26 @@ class Register extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({
-        errors: nextProps.errors
+        errors: nextProps.errors,
+        success: {}
+      });
+    }
+    if (nextProps.auth.success.title !== undefined) {
+      this.setState({
+        success: nextProps.auth.success,
+        username: "",
+        email: "",
+        password: "",
+        password2: "",
+        errors: {}
       });
     }
   }
 
-  //Kanske kommer användas senare
-  // handleSubmit() {
-  //   this.setState({
-  //     email: "",
-  //     username: "",
-  //     password: "",
-  //     password2: "",
-  //     success: {
-  //       title: "Användare skapad!",
-  //       msg: "Användaren kan nu logga in."
-  //     }
-  //   });
-  // }
-
   onChange(event) {
     this.setState({
-      [event.target.name]: event.target.value,
-      success: {}
+      [event.target.name]: event.target.value
+      // success: {}
     });
   }
   onSubmit(event) {
@@ -84,7 +80,7 @@ class Register extends Component {
     const { errors } = this.state;
 
     //Om indikation ska synas
-    // const { success } = this.state;
+    const { success } = this.state;
 
     const { username, email, password, password2 } = this.state;
 
@@ -135,7 +131,7 @@ class Register extends Component {
             />
             <Message error content={errors.password2} />
           </Form.Field>
-          {/* <Message success header={success.title} content={success.msg} /> */}
+          <Message success header={success.title} content={success.msg} />
           <Button type="submit" onClick={this.onSubmit}>
             Skapa användare
           </Button>
@@ -148,8 +144,8 @@ class Register extends Component {
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-  // success: PropTypes.object
+  errors: PropTypes.object.isRequired,
+  success: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

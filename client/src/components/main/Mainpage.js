@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { getCurrentProfile } from "../../actions/profileActions";
 
 class Mainpage extends Component {
@@ -9,14 +9,15 @@ class Mainpage extends Component {
   }
   render() {
     const { user } = this.props.auth;
+    // console.log(user);
     const { profile, loading } = this.props.profile;
 
     let mainpageContent;
 
     if (profile === null || loading) {
-      mainpageContent = <h4>Laddar innehåll...</h4>;
+      mainpageContent = <h2>Laddar innehåll...</h2>;
     } else {
-      mainpageContent = <h1>Välkommen {user.username}</h1>;
+      mainpageContent = <h2>Välkommen {user.username}</h2>;
     }
 
     return (
