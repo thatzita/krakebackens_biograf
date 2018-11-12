@@ -93,6 +93,7 @@ export const showSpecificMovie = movieData => {
 
 //LÄGG TILL I DB
 export const addToMovieDb = addToDb => dispatch => {
+  console.log(addToDb);
   axios.post("/api/movies/addmovie", addToDb).then(res => {
     let success = {
       title: "Film tillagd!",

@@ -57,7 +57,7 @@ class DbPopup extends Component {
     } else if (title !== "" && description === "") {
       movieDb = {
         title: title,
-        description: movieInfo.description,
+        description: movieInfo.overview,
         background: urlForImg + movieInfo.backdrop_path,
         poster: urlForImg + movieInfo.poster_path,
         runtime: movieInfo.runtime,
@@ -88,7 +88,6 @@ class DbPopup extends Component {
         release: movieInfo.release_date
       };
     }
-
     this.props.addToMovieDb(movieDb);
   }
 
