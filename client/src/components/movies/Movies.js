@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Popup from "./Popup";
 import { Link } from "react-router-dom";
 
-import { Button, Input, Icon, Item } from "semantic-ui-react";
+import { Button, Input, Icon, Item, Divider, Grid } from "semantic-ui-react";
 
 import {
   getAllMovies,
@@ -20,7 +20,8 @@ class Movies extends Component {
       errors: {},
       movies: [],
       movieInfo: {},
-      search: ""
+      search: "",
+      showMore: 5
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -28,6 +29,12 @@ class Movies extends Component {
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value
+    });
+  }
+
+  showMoreContent() {
+    this.setState({
+      showMore: this.state.showMore + 5
     });
   }
 
@@ -50,10 +57,21 @@ class Movies extends Component {
   }
   render() {
     const { movies } = this.state.movies;
-
+    const { showMore } = this.state;
+    let showMoreContentButton;
     let movieContent;
 
     if (movies !== undefined) {
+      if (this.props.movies.movies.length > showMore) {
+        showMoreContentButton = (
+          <Button basic color="purple" onClick={e => this.showMoreContent()}>
+            Ladda mer filmer
+          </Button>
+        );
+      } else {
+        showMoreContentButton = "";
+      }
+
       let filteredMovies = this.props.movies.movies.filter(movie => {
         return (
           movie.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !==
@@ -119,7 +137,7 @@ class Movies extends Component {
         <div>
           <br />
           <h2>Filmdatabas</h2>
-          <Item.Group divided>{movieCards}</Item.Group>
+          <Item.Group divided>{movieCards.slice(0, showMore)}</Item.Group>
         </div>
       );
     } else {
@@ -139,15 +157,20 @@ class Movies extends Component {
           />
 
           <Link to="/addmovie">
-            <Button color="purple">
+            <Button basic color="violet">
               <Icon name="plus" />
-              Lägg till film i databasen
+              Lägg till i databasen
             </Button>
           </Link>
           <Popup />
 
           {movieContent}
         </div>
+        <Divider />
+        <br />
+        <Grid verticalAlign="middle" columns={4} centered>
+          {showMoreContentButton}
+        </Grid>
       </div>
     );
   }

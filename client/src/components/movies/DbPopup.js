@@ -89,6 +89,10 @@ class DbPopup extends Component {
       };
     }
     this.props.addToMovieDb(movieDb);
+    this.setState({
+      title: "",
+      description: ""
+    });
   }
 
   editValues(nameOfClass, data) {

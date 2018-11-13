@@ -92,7 +92,7 @@ class AddMovie extends Component {
           Sök
         </Button>
         <Link to="/movies">
-          <Button color="purple">
+          <Button basic color="violet">
             <Icon name="left chevron" />
             Tillbaka till databasen
           </Button>
