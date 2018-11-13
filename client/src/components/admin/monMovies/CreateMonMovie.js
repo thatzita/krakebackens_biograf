@@ -1,14 +1,21 @@
 import React, { Component } from "react";
-import { Segment, Input, Table, Header, Image, Icon } from 'semantic-ui-react';
+// import { Segment, Input, Table, Header, Image, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getAllMovies } from '../../../actions/movieActions';
 import DateTimePicker from './DateTimePicker';
+import MoviePicker from './MoviePicker';
+import PreviewSubmitMonMovie from './PreviewSubmitMonMovie';
 
 class CreateMonMovie extends Component {
     constructor(){
         super();
         this.state = {
-            search: ''
+            search: '',
+            date: '',
+            time: '',
+            movieId: '',
+            eventObject: {},
+            previewPage: false 
         }
     }
 
@@ -20,53 +27,71 @@ class CreateMonMovie extends Component {
         this.setState({ search: value})
     } 
     
+    handleTimeChange = (e, { name, value }) => this.setState({ [name]: value });
+
+    selectMovie = (id, movies) => {
+        let movId;
+        if(id){
+            if (this.state.movieId === id) {
+                movId = '';
+                this.setState({movieId: movId, eventObject: {}});
+            }else{
+                movId = id;
+                let objArray = movies.filter(obj => obj._id === movId)
+                this.setState({movieId: movId, eventObject: objArray[0] || {}});
+            } 
+        }  
+    }
+
+    goToOrLeavePreviewPage = (bol) => {this.setState({previewPage: bol})}
+
     render(){
-      
-        let movies = this.props.movies || [];
+        console.log(this.state);
         
-        let movieList = movies.filter(
+        let movies = this.props.movies || [];
+
+        let movieList = (this.state.search.length <= 0) ? [] : movies.filter(
             (movie) => {
                 return movie.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
             }
         ); 
+
+        const createPage = (
+        <React.Fragment>
+            <MoviePicker 
+                movieId={this.state.movieId} 
+                onSearch={this.onSearch} 
+                selectMovie={this.selectMovie} 
+                movieList={movieList} 
+                movies={movies}
+                eventObject={this.state.eventObject} 
+            />
+            <DateTimePicker 
+                eventObject={this.state.eventObject} 
+                handleTimeChange={this.handleTimeChange} 
+                movieId={this.state.movieId} 
+                date={this.state.date} 
+                time={this.state.time}
+                goToOrLeavePreviewPage={this.goToOrLeavePreviewPage} 
+            />
+        </React.Fragment>
+        );
+
+        const previewSubmitPage = (
+        <React.Fragment>
+            <PreviewSubmitMonMovie 
+                eventObject={this.state.eventObject} 
+                movies={movies} 
+                date={this.state.date} 
+                time={this.state.time} 
+                goToOrLeavePreviewPage={this.goToOrLeavePreviewPage}
+            />
+        </React.Fragment>
+        )
        
-        return (<React.Fragment>
-        <Segment>
-            <Header as='h2' dividing>
-                <Icon name='film' />
-                <Header.Content>
-                Välj en film
-                </Header.Content>
-            </Header>
-            
-            <Input fluid size='big' icon='search' placeholder='Sök och välj film...' onChange={(e)=> this.onSearch(e.target.value)}/>
-            <Segment style={{overflow: 'auto', height:'70vh', maxHeight:'70vh', border: '0', boxShadow:'none', padding:'0'}}>
-            <Table selectable basic>
-                <Table.Body>
-                    {movieList.map(item => (
-                    <Table.Row key={item._id}>
-                    <Table.Cell>
-                        <Image size='tiny' src={item.poster} />
-                    </Table.Cell>
-                    <Table.Cell>
-                        <Header>
-                            <Header.Content>
-                                {item.title} ( {(item.release).substring(0,4)} ) {item.id}
-                                <p style={{fontSize:'0.9rem'}}>
-                                    <Icon name='clock outline' color='grey'/> 
-                                    <em>{Math.floor(item.runtime / 60)}h {item.runtime % 60}min</em>
-                                </p>
-                                <Header.Subheader style={{maxWidth:'50%', minWidth: '280px'}}>{item.description}</Header.Subheader>
-                            </Header.Content>
-                        </Header>
-                    </Table.Cell>
-                    </Table.Row>)
-                    )}
-                </Table.Body>
-            </Table>
-            </Segment>
-        </Segment>
-        <DateTimePicker/>
+        return (
+        <React.Fragment>
+            {this.state.previewPage ? previewSubmitPage : createPage }       
         </React.Fragment>
         );
     }

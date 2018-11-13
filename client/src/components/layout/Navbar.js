@@ -39,7 +39,7 @@ class Navbar extends Component {
           <Menu inverted secondary>
 
             <Menu.Item style={{padding:'0'}} as={Link} to={isAuthenticated ? '/mainpage' : '/'}>
-              <Image style={{width:'40px'}} src='krackebacken_temp_logo.png'/>
+              <Image style={{width:'40px'}} src='krakebackens_logo.png'/>
               <h2 style={{fontWeight:'lighter', padding:'0', margin:'0 1rem'}}>Kråkebackens biograf</h2>
             </Menu.Item>
 
