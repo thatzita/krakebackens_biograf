@@ -93,7 +93,6 @@ export const showSpecificMovie = movieData => {
 
 //LÄGG TILL I DB
 export const addToMovieDb = addToDb => dispatch => {
-  console.log(addToDb);
   axios.post("/api/movies/addmovie", addToDb).then(res => {
     let success = {
       title: "Film tillagd!",
@@ -119,7 +118,6 @@ export const movieAddedSuccess = success => {
 //DELETE FRÅN DB
 export const deleteMovie = movie => dispatch => {
   let objId = movie._id;
-  console.log(objId);
   axios.delete("/api/movies", { data: { objId } }).then(res => {
     if (res) {
       dispatch(movieDeleteSuccess(movie));
@@ -137,7 +135,6 @@ export const movieDeleteSuccess = deletedMovie => {
 };
 
 //UPPDATERA DB
-
 export const updateDb = updatedMovie => dispatch => {
   axios.post("/api/movies/update", { data: { updatedMovie } }).then(res => {
     if (res) {

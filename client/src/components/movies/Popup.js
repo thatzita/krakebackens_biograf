@@ -67,6 +67,10 @@ class Popup extends Component {
       };
     }
     this.props.updateDb(movieDb);
+    this.setState({
+      title: "",
+      description: ""
+    });
     this.closePopup();
   }
 
@@ -89,11 +93,6 @@ class Popup extends Component {
         break;
       default:
     }
-  }
-
-  //TODO: Ta bort från DB
-  deleteFromDb(movieId) {
-    console.log(movieId);
   }
 
   componentWillReceiveProps(nextProps) {
