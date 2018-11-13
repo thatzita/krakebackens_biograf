@@ -19,6 +19,7 @@ import Forgot from "./components/auth/Forgot";
 import Reset from "./components/auth/Reset";
 import Mainpage from "./components/main/Mainpage";
 import Profile from "./components/profile/Profile";
+import ChangePassword from "./components/profile/ChangePassword";
 import Movies from "./components/movies/Movies";
 import AddMovie from "./components/movies/AddMovie";
 
@@ -61,6 +62,7 @@ class App extends Component {
               <Route exact path="/reset/:token" component={Reset} />
               {/* Ska vara privat route */}
               <Route exact path="/register" component={Register} />
+              <Route exact path="/changepassword" component={ChangePassword} />
               <Route exact path="/movies" component={Movies} />
               <Route exact path="/addmovie" component={AddMovie} />
               <Switch>

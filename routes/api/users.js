@@ -375,4 +375,61 @@ router.post("/reset/:token", function(req, res) {
   );
 });
 
+//http://localhost:5000/api/users/changepassword/
+router.post("/changepassword", function(req, res) {
+  console.log(req.body);
+
+  const { errors, isValid } = validateResetInput(req.body);
+
+  //Validering av password i (reset.js)
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  async.waterfall(
+    [
+      function(done) {
+        User.findOne(
+          {
+            _id: req.body.id
+          },
+          function(err, user) {
+            if (!user) {
+              res.send("Något gick fel.");
+            } else if (req.body.password === req.body.password2) {
+              User.findOne({ _id: req.body.id }, function(err, user) {
+                let success = {};
+                user.password = req.body.password;
+
+                bcrypt.genSalt(10, (err, salt) => {
+                  bcrypt.hash(user.password, salt, (err, hash) => {
+                    if (err) throw err;
+                    user.password = hash;
+                    user.save(function(err) {
+                      if (err) {
+                        console.error("ERROR!");
+                      } else {
+                        success.msg = "Lösenordet är ändrat";
+                        res.json(success);
+                        done();
+                      }
+                    });
+                  });
+                });
+              });
+            } else {
+              res.send("Lösenorden matchar inte");
+            }
+          }
+        );
+      }
+    ],
+    function(err) {
+      if (err) {
+        return res.status(404).json(errors);
+      }
+    }
+  );
+});
+
 module.exports = router;

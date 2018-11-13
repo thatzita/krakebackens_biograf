@@ -133,3 +133,24 @@ export const resetPassword = (userData, history) => dispatch => {
       })
     );
 };
+
+export const changePassword = userData => dispatch => {
+  console.log(userData);
+  axios
+    .post("/api/users/changepassword", userData)
+    .then(res => {
+      if (res) {
+        let success = {
+          title: "Lösenord bytt!",
+          msg: "Du kan nu logga in med ditt nya lösenord."
+        };
+        dispatch(resetSuccess(success));
+      }
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
