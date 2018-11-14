@@ -35,6 +35,7 @@ export const deleteUser = user => dispatch => {
 };
 
 export const userPopup = userData => {
+  console.log(userData);
   return {
     type: USER_POPUP,
     payload: userData

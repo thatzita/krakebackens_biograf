@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
-  moviePopupClose,
-  updateDb,
-  deleteMovie
-} from "../../actions/movieActions";
+  userPopupClose,
+  //   updateDb,
+  deleteUser
+} from "../../actions/usersActions";
 import {
   Button,
   Header,
@@ -20,58 +20,58 @@ class UserPopup extends Component {
     super();
     this.state = {
       showOrHide: false,
-      movieInfo: {},
-      title: "",
-      description: ""
+      userInfo: {}
+      //   title: "",
+      //   description: ""
     };
     this.editValues = this.editValues.bind(this);
   }
 
   closePopup() {
-    this.props.moviePopupClose();
+    this.props.userPopupClose();
   }
 
-  deleteMovie(movie) {
-    this.props.deleteMovie(movie);
-    this.props.moviePopupClose();
+  deleteUser(user) {
+    this.props.deleteUser(user);
+    this.props.userPopupClose();
   }
 
-  updateMovieDb() {
-    let { movieInfo } = this.state;
-    let { title, description } = this.state;
-    let movieDb;
+  updateUserDb() {
+    let { userInfo } = this.state;
+    // let { title, description } = this.state;
+    let userDb;
 
-    if (title === "" && description !== "") {
-      movieDb = {
-        title: movieInfo.title,
-        description: description,
-        id: movieInfo._id
-      };
-    } else if (title !== "" && description === "") {
-      movieDb = {
-        title: title,
-        description: movieInfo.description,
-        id: movieInfo._id
-      };
-    } else if (title !== "" && description !== "") {
-      movieDb = {
-        title: title,
-        description: description,
-        id: movieInfo._id
-      };
-    } else {
-      movieDb = {
-        title: movieInfo.title,
-        description: movieInfo.description,
-        id: movieInfo._id
-      };
-    }
-    this.props.updateDb(movieDb);
-    this.setState({
-      title: "",
-      description: ""
-    });
-    this.closePopup();
+    //     if (title === "" && description !== "") {
+    //       movieDb = {
+    //         title: userInfo.title,
+    //         description: description,
+    //         id: userInfo._id
+    //       };
+    //     } else if (title !== "" && description === "") {
+    //       movieDb = {
+    //         title: title,
+    //         description: userInfo.description,
+    //         id: userInfo._id
+    //       };
+    //     } else if (title !== "" && description !== "") {
+    //       movieDb = {
+    //         title: title,
+    //         description: description,
+    //         id: userInfo._id
+    //       };
+    //     } else {
+    //       movieDb = {
+    //         title: userInfo.title,
+    //         description: userInfo.description,
+    //         id: userInfo._id
+    //       };
+    //     }
+    //     this.props.updateDb(movieDb);
+    //     this.setState({
+    //       title: "",
+    //       description: ""
+    //     });
+    //     this.closePopup();
   }
 
   changeInput(event) {
@@ -96,72 +96,75 @@ class UserPopup extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     this.setState({
-      movieInfo: nextProps.movies.movieInfo,
-      showOrHide: nextProps.movies.showOrHide
+      userInfo: nextProps.users.userInfo,
+      showOrHide: nextProps.users.showOrHide
     });
   }
 
   render() {
     let { showOrHide } = this.state;
-    let { movieInfo } = this.state;
-    let moviePopup;
+    let { userInfo } = this.state;
+    let userPopup;
 
     if (showOrHide) {
-      moviePopup = (
+      console.log(userInfo);
+      userPopup = (
         <div className="popup">
-          <Image
-            floated="right"
-            className="imageBorder"
-            size="large"
-            src={movieInfo.background}
-          />
-          <Image
-            size="small"
-            className="imageBorder"
-            floated="right"
-            src={movieInfo.poster}
-          />
-
           <Header
             as="h1"
             inverted
             color="grey"
             className="title"
-            contentEditable={true}
-            suppressContentEditableWarning="true"
-            onInput={event => this.changeInput(event)}
+            // contentEditable={true}
+            // suppressContentEditableWarning="true"
+            // onInput={event => this.changeInput(event)}
           >
-            {movieInfo.title}
+            {userInfo.username}
           </Header>
           <Container className="containerInPopup">
-            <span className="date boldSpan">{movieInfo.release}</span>
+            <span className="date boldSpan">{userInfo.email}</span>
             <br />
             <br />
-            <div className="descriptionContainer">
+            {/* <div className="descriptionContainer">
               <p
                 className="description"
                 contentEditable={true}
                 suppressContentEditableWarning="true"
                 onInput={event => this.changeInput(event)}
               >
-                {movieInfo.description}
+                {userInfo.description}
               </p>
             </div>
-            <br />
+            <br /> */}
 
             <p>
-              <strong>Genres:</strong> <br />
-              {movieInfo.genres.map((genre, i) => {
-                return (
-                  <span key={i} className="date">
-                    {genre}{" "}
-                  </span>
-                );
-              })}
+              <strong>VIP status:</strong> <br />
+              <span className="date boldSpan">
+                {userInfo.vip.status ? "VIP-medlem" : "Vanlig medlem"}
+              </span>
+              <br />
+              {userInfo.vip.status ? (
+                <span className="date boldSpan">
+                  {" "}
+                  Plats: {userInfo.vip.seat}
+                </span>
+              ) : (
+                ""
+              )}
             </p>
-            <Icon name="time" />
-            <span className="date boldSpan">{movieInfo.runtime} min</span>
+            <p>
+              <strong>Statistik:</strong> <br />
+              <span className="date boldSpan">
+                Besök i år: {userInfo.stats.season}
+              </span>
+              <br />
+              <span className="date boldSpan">
+                Totalt: {userInfo.stats.total}
+              </span>
+              <br />
+            </p>
           </Container>
           <br />
           <br />
@@ -170,14 +173,14 @@ class UserPopup extends Component {
             <Button
               inverted
               color="green"
-              onClick={e => this.updateMovieDb(movieInfo)}
+              onClick={e => this.updateUserDb(userInfo)}
             >
               Uppdatera databasen
             </Button>
             <Button
               inverted
               color="red"
-              onClick={e => this.deleteMovie(movieInfo)}
+              onClick={e => this.deleteUser(userInfo)}
             >
               Ta bort från databasen
             </Button>
@@ -188,31 +191,32 @@ class UserPopup extends Component {
         </div>
       );
     } else {
-      moviePopup = "";
+      userPopup = "";
     }
-    return <div>{moviePopup}</div>;
+    return <div>{userPopup}</div>;
   }
 }
 
 UserPopup.propTypes = {
-  moviePopupClose: PropTypes.func.isRequired,
-  updateDb: PropTypes.func.isRequired,
-  deleteMovie: PropTypes.func.isRequired,
-  // movieInfo: PropTypes.object.isRequired,
-  movies: PropTypes.object.isRequired
+  userPopupClose: PropTypes.func.isRequired,
+  //   updateDb: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired,
+  //   userInfo: PropTypes.object.isRequired
+  //   movies: PropTypes.object.isRequired
+  users: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  movieInfo: state.movieInfo,
-  movies: state.movies
+  userInfo: state.userInfo,
+  users: state.users
 });
 
 export default connect(
   mapStateToProps,
   {
     //func goes here
-    moviePopupClose,
-    deleteMovie,
-    updateDb
+    userPopupClose,
+    deleteUser
+    // updateDb
   }
 )(UserPopup);

@@ -20,6 +20,18 @@ export default function(state = initialState, action) {
         ...state,
         users: newUserState
       };
+    case USER_POPUP:
+      return {
+        ...state,
+        ...(state.showOrHide = true),
+        userInfo: action.payload
+      };
+    case USER_POPUP_CLOSE:
+      return {
+        ...state,
+        ...(state.showOrHide = false),
+        userInfo: action.payload
+      };
     default:
       return state;
   }
