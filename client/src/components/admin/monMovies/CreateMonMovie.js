@@ -2,6 +2,8 @@ import React, { Component } from "react";
 // import { Segment, Input, Table, Header, Image, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getAllMovies } from '../../../actions/movieActions';
+import { postMonmovie } from '../../../actions/monMovieActions';
+
 import DateTimePicker from './DateTimePicker';
 import MoviePicker from './MoviePicker';
 import PreviewSubmitMonMovie from './PreviewSubmitMonMovie';
@@ -23,6 +25,21 @@ class CreateMonMovie extends Component {
         this.props.getAllMovies();
     }
     
+    onSubmitEvent = () => {
+        
+        let createDate = new Date(this.state.date + 'T' + this.state.time);
+        let utc_time = createDate.toUTCString();
+
+        let monMovieDb = {
+            mov: this.state.eventObject,
+            date: this.state.date,
+            time: this.state.time,
+            utc_time: utc_time
+        }
+        console.log('Value : ', monMovieDb);
+        this.props.postMonmovie(monMovieDb);
+    }
+
     onSearch = (value) => {
         this.setState({ search: value})
     } 
@@ -85,6 +102,7 @@ class CreateMonMovie extends Component {
                 date={this.state.date} 
                 time={this.state.time} 
                 goToOrLeavePreviewPage={this.goToOrLeavePreviewPage}
+                onSubmitEvent={this.onSubmitEvent}
             />
         </React.Fragment>
         )
@@ -100,6 +118,8 @@ class CreateMonMovie extends Component {
 
 const mapStateToProps = state => ({
     movies: state.movies.movies
+    
 });
 
-export default connect(mapStateToProps, {getAllMovies})(CreateMonMovie);
+export default connect(mapStateToProps, {getAllMovies, postMonmovie})(CreateMonMovie);
+// postMonmovie

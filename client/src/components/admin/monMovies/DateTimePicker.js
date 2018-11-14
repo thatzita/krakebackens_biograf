@@ -40,6 +40,7 @@ export default function DateTimePicker(props) {
                     value={props.time}
                 />
                 <Form.Button
+                    type='button'
                     onClick={() => props.goToOrLeavePreviewPage(true)}
                     disabled={props.time <= 0 || props.date <= 0 || props.movieId <=0 || (Object.keys(props.eventObject).length === 0  && props.eventObject.constructor === Object)} 
                     primary 

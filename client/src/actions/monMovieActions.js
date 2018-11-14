@@ -1,18 +1,21 @@
 import {
-    GET_ALLMOVIESTOMONMOVIES, 
+    // GET_ALLMOVIESTOMONMOVIES, 
     GET_MONMOVIES, 
     POST_MONMOVIE, 
     DELETE_MONMOVIE, 
     UPDATE_MONMOVIE} from './types';
 import axios from "axios";
 
-export const getAllMoviesToMonMovies = () => dispatch => {
-    console.log('fetching allMovise');
-        axios.get('/api/movies/allmovies')
+export const postMonmovie = (data) => dispatch => {
+    console.log('posting movie');
+    console.log(data);
+    
+        axios.post('api/monthlyMovies/uploadMoviePremiere', data)
         .then(res => {
-            dispatch({
-                type: GET_ALLMOVIESTOMONMOVIES,
-                payload: res.data.movies
-            });
+            console.log(res);
+            // dispatch({
+            //     type: POST_MONMOVIE,
+            //     payload: res.data
+            // });
         }).catch(err => console.log(err));  
 }

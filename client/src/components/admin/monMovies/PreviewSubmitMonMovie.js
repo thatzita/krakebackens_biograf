@@ -4,7 +4,7 @@ import { Segment, Icon, Item, Button} from 'semantic-ui-react';
 export default function PreviewSubmitMonMovie(props) {
   return (
     <Segment>
-        <Button onClick={()=> props.goToOrLeavePreviewPage(false)}>Go back</Button>
+        <Button basic onClick={()=> props.goToOrLeavePreviewPage(false)}> <Icon name='left angle'/> Gå tillbaka</Button>
         <Item.Group>      
             <Item>
                 <Item.Image src={props.eventObject.poster ? props.eventObject.poster :'https://react.semantic-ui.com/images/wireframe/image.png'} />
@@ -25,7 +25,8 @@ export default function PreviewSubmitMonMovie(props) {
             </Item>
             <Item>
                 <Item.Content>
-                    <Button           
+                    <Button
+                        onClick={ () => props.onSubmitEvent() }           
                         primary
                         icon 
                         labelPosition='right' 

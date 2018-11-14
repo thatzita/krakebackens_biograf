@@ -15,7 +15,7 @@ export default function MoviePicker(props) {
             
             {props.eventObject.poster ?(
             <Label image size='medium' style={{margin:'0.5rem 0.5rem 0.5rem 0'}}>
-                <img src={props.eventObject.poster} />
+                <img alt='Bild av filmval' src={props.eventObject.poster} />
                 {props.eventObject.title ? props.eventObject.title:null}
                 <Icon name='delete' onClick={() => props.selectMovie(props.movieId, props.movies)}/>
             </Label>):null}

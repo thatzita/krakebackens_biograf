@@ -1,29 +1,48 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+// const Movie = require('./Movie')
+
+// type: Schema.ObjectId,
+// ref: 'Movie',
+// required: true
 
 const MonthlyMovieSchema = new Schema({
-    title:{
-        type: String,
+    
+    title: {
+      type: String,
         required: true
     },
-    genres: Array,
-    imdb_id: String,
-    overview: String,
-    backdrop_path: String,
-    poster_path: String,
-    runtime: String,
-    screeningStatus: {
-        type:String,
-        default: 'active_default'
+    background: {
+      type: String
+    },
+    poster: {
+      type: String
+    },
+    runtime: {
+            type: Number
+    },
+    description: {
+      type: String
+    },
+    genres: [],
+      imdb_id: {
+      type: String
+    },
+    release: {
+      type: String
     },
     screeningDate: {
-       type: Date,
-       default: Date.now
+       type: String,
+       required: true
     },
     screeningTime: {
-        type: Date,
-        default: Date.now
+        type: String,
+        required: true
      },
+    utc_time: {
+      type: String,
+      required: true
+    },
     seating: {
         type:Array,
         required: true
