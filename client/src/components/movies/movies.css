@@ -1,3 +1,22 @@
+div.containerMovies {
+  /* position: relative; */
+  margin-left: 285px;
+  max-width: 65rem;
+}
+div.containerAddmovie {
+  /* position: relative; */
+  margin-left: 285px;
+  max-width: 65rem;
+}
+
+.ui.basic.purple.button,
+.ui.basic.purple.buttons .button {
+  position: relative;
+  left: 0;
+}
+.ui.items > .item {
+  width: 100%;
+}
 .ui.attached.button {
   margin-top: 55px;
   margin-left: 10px;

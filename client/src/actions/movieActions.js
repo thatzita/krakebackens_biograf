@@ -53,8 +53,18 @@ export const searchMovie = movieData => dispatch => {
   let url = "https://api.themoviedb.org/3/search/movie?query=";
 
   let key = "&api_key=1ca6bbafafae8cf950e1fbb80a4824c7";
+
+  // let instance = axios.create();
+  // delete instance.defaults.headers.common["Authorization"];
+
+  delete axios.defaults.headers.common["Authorization"];
+
   axios.get(url + movieData + key).then(res => {
     let movieList = res.data.results;
+    // instance.defaults.headers.common["Authorization"] = localStorage.jwtToken;
+
+    axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
+
     dispatch(showMoviesFound(movieList));
   });
 };
@@ -67,12 +77,23 @@ export const showMoviesFound = movieData => {
 };
 
 //IMDB POPUP
-
 export const imdbPopup = movieId => dispatch => {
   let url = "https://api.themoviedb.org/3/movie/";
   let key = "?api_key=1ca6bbafafae8cf950e1fbb80a4824c7&language=sv";
+
+  // let instance = axios.create();
+  // delete instance.defaults.headers.common["Authorization"];
+
+  // let instance = axios.create();
+  delete axios.defaults.headers.common["Authorization"];
+
+  // instance.get(url + movieId + key).then(res => {
   axios.get(url + movieId + key).then(res => {
     let movie = res.data;
+    // instance.defaults.headers.common["Authorization"] = localStorage.jwtToken;
+
+    axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
+
     dispatch(showSpecificMovie(movie));
   });
 };

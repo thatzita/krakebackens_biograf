@@ -33,6 +33,7 @@ class Navbar extends Component {
     // const { isAuthenticated, user } = this.props.auth;
 
     const { isAuthenticated } = this.props.auth;
+    const { admin } = this.props.auth.user;
 
     return (
       <React.Fragment>
@@ -111,10 +112,10 @@ class Navbar extends Component {
                 />
               ) : null}
 
-              {isAuthenticated ? (
+              {admin ? (
                 <Menu.Item
                   as={Link}
-                  to="/mainpage"
+                  to="/admin"
                   name="Admin"
                   active={activeItem === "Admin"}
                   onClick={this.handleItemClick}

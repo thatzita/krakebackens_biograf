@@ -26,7 +26,6 @@ class Reset extends Component {
       });
     }
     if (nextProps.auth.success) {
-      console.log(nextProps.auth.success);
       this.setState({
         success: nextProps.auth.success,
         password: "",

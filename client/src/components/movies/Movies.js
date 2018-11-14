@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Popup from "./Popup";
 import { Link } from "react-router-dom";
+import Admin from "../admin/Admin";
 
 import { Button, Input, Icon, Item, Divider, Grid } from "semantic-ui-react";
 
@@ -52,7 +53,8 @@ class Movies extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       movies: nextProps.movies,
-      movieInfo: nextProps.movieInfo
+      movieInfo: nextProps.movieInfo,
+      profile: nextProps.profile.profile
     });
   }
   render() {
@@ -146,9 +148,10 @@ class Movies extends Component {
 
     return (
       <div className="movies">
-        <div className="container">
-          <h1>Filmer</h1>
+        <div className="containerMovies">
+          <h1>Filmdatabas</h1>
           <hr />
+          <Admin />
           <Input
             placeholder="Sök i databasen..."
             onChange={this.onChange}
@@ -166,7 +169,7 @@ class Movies extends Component {
 
           {movieContent}
         </div>
-        <Divider />
+
         <br />
         <Grid verticalAlign="middle" columns={4} centered>
           {showMoreContentButton}
@@ -181,14 +184,14 @@ Movies.propTypes = {
   deleteMovie: PropTypes.func.isRequired,
   // movieInfo: PropTypes.func.isRequired,
   // popupMovie: PropTypes.object.isRequired,
-  //   auth: PropTypes.object.isRequired,
-  // profile: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
   movies: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  //   profile: state.profile,
-  // auth: state.auth,
+  profile: state.profile,
+  auth: state.auth,
   movies: state.movies
 });
 

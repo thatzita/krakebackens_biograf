@@ -85,7 +85,7 @@ export const resetSuccess = success => {
 };
 
 //Logga ut
-export const logoutUser = () => dispatch => {
+export const logoutUser = history => dispatch => {
   //Ta bort token från localStorage
   localStorage.removeItem("jwtToken");
   //Ta bort auth header så att användaren måste logga in igen
@@ -135,7 +135,6 @@ export const resetPassword = (userData, history) => dispatch => {
 };
 
 export const changePassword = userData => dispatch => {
-  console.log(userData);
   axios
     .post("/api/users/changepassword", userData)
     .then(res => {

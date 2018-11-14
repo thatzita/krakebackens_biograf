@@ -5,6 +5,8 @@ import { Input, Divider, Button, Card, Image, Icon } from "semantic-ui-react";
 import { searchMovie, imdbPopup } from "../../actions/movieActions";
 import DbPopup from "./DbPopup";
 import { Link } from "react-router-dom";
+import Admin from "../admin/Admin";
+import { getCurrentProfile } from "../../actions/profileActions";
 
 class AddMovie extends Component {
   constructor() {
@@ -18,13 +20,15 @@ class AddMovie extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentDidUpdate() {}
+  componentDidMount() {
+    this.props.getCurrentProfile();
+  }
 
   componentWillReceiveProps(nextProps) {
-    // console.log(nextProps);
     this.setState({
       moviesFound: nextProps.movies.moviesFound,
-      popupMovie: nextProps.movies.popupMovie
+      popupMovie: nextProps.movies.popupMovie,
+      profile: nextProps.profile.profile
     });
   }
 
@@ -49,7 +53,7 @@ class AddMovie extends Component {
     let movieList;
     let posterUrl = "http://image.tmdb.org/t/p/w300";
 
-    if (moviesFound.length !== 0) {
+    if (moviesFound !== undefined) {
       let movieCards = moviesFound.map(movie => {
         return (
           <Card
@@ -79,9 +83,10 @@ class AddMovie extends Component {
     }
 
     return (
-      <div>
+      <div className="containerAddmovie">
         <h1>Lägg till film</h1>
         <hr />
+        <Admin />
         <Input
           name="searchedMovie"
           value={this.state.searchedMovie}
@@ -107,14 +112,17 @@ class AddMovie extends Component {
 
 AddMovie.propTypes = {
   searchMovie: PropTypes.func.isRequired,
-
-  imdbPopup: PropTypes.func.isRequired
-  // auth: PropTypes.object.isRequired,
+  imdbPopup: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired
   // errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  movies: state.movies
+  movies: state.movies,
+  auth: state.auth,
+  profile: state.profile
 });
 
 export default connect(
@@ -122,6 +130,7 @@ export default connect(
   {
     //func goes here
     searchMovie,
-    imdbPopup
+    imdbPopup,
+    getCurrentProfile
   }
 )(AddMovie);
