@@ -201,8 +201,14 @@ router.delete(
   }
 );
 
-//POST api/users/forgot
+//DELETE api/users/deleteuser > ADMIN KAN GÖRA DETTA
+router.delete("/deleteuser", (req, res) => {
+  User.findOneAndDelete({ _id: req.body.objId }, function(err, user) {
+    res.json({ success: true });
+  });
+});
 
+//POST api/users/forgot
 router.post("/forgot", (req, res, next) => {
   //VALIDERING AV MAILINPUT MÅSTE SKAPAS
 

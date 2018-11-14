@@ -53,8 +53,8 @@ class Admin extends Component {
           <Menu.Item
             as={Link}
             to="/movies"
-            name="Filmdatabas"
-            active={activeItem === "Filmdatabas"}
+            name="Filmer"
+            active={activeItem === "Filmer"}
             onClick={this.handleItemClick}
           />
           {/* <Menu.Item

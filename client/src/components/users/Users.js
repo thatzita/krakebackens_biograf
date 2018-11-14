@@ -2,15 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-// import Popup from "./Popup";
-import Register from "../auth/Register";
-
+import UserPopup from "./UserPopup";
 import Admin from "../admin/Admin";
 
 import { Button, Input, Icon, Item, Divider, Grid } from "semantic-ui-react";
-
-import { getAllUsers } from "../../actions/usersActions";
-
+import { getAllUsers, userPopup, deleteUser } from "../../actions/usersActions";
 import "./users.css";
 
 class Users extends Component {
@@ -38,13 +34,13 @@ class Users extends Component {
     });
   }
 
-  //   showPopup(movie) {
-  //     this.props.moviePopup(movie);
-  //   }
+  showUserPopup(user) {
+    this.props.userPopup(user);
+  }
 
-  //   deleteMovie(movie) {
-  //     this.props.deleteMovie(movie);
-  //   }
+  deleteUser(user) {
+    this.props.deleteUser(user);
+  }
 
   componentDidMount() {
     this.props.getAllUsers();
@@ -53,6 +49,7 @@ class Users extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       profile: nextProps.profile.profile,
+      userInfo: nextProps.userInfo,
       users: nextProps.users
     });
   }
@@ -92,16 +89,16 @@ class Users extends Component {
                 <span className="boldSpan">
                   Status:{" "}
                   {user.vip.status
-                    ? `VIP med plats: ${user.vip.seat}`
+                    ? `VIP med plats ${user.vip.seat}`
                     : "Medlem"}
                 </span>
               </Item.Meta>
             </Item.Content>
-            {/* <Item.Group>
+            <Item.Group>
               <Button
                 basic
                 color="red"
-                onClick={e => this.deleteMovie(movie)}
+                onClick={e => this.deleteUser(user)}
                 icon
                 attached="bottom"
                 floated="right"
@@ -111,14 +108,14 @@ class Users extends Component {
               <Button
                 basic
                 color="green"
-                onClick={e => this.showPopup(movie)}
+                onClick={e => this.showUserPopup(user)}
                 icon
                 attached="bottom"
                 floated="right"
               >
                 <Icon color="green" name="edit" className="editIcon" />
               </Button>
-            </Item.Group> */}
+            </Item.Group>
           </Item>
         );
       });
@@ -126,7 +123,7 @@ class Users extends Component {
       userContent = (
         <div>
           <br />
-          <h2>Medlemmar</h2>
+
           <Item.Group divided>{userCards.slice(0, showMore)}</Item.Group>
         </div>
       );
@@ -152,7 +149,7 @@ class Users extends Component {
               Lägg till ny medlem
             </Button>
           </Link>
-          {/* <Popup /> */}
+          <UserPopup />
 
           {userContent}
         </div>
@@ -168,6 +165,7 @@ class Users extends Component {
 
 Users.propTypes = {
   getAllUsers: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   users: PropTypes.object.isRequired
@@ -182,6 +180,8 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    getAllUsers
+    getAllUsers,
+    userPopup,
+    deleteUser
   }
 )(Users);

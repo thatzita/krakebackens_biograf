@@ -18,3 +18,6 @@ export const MOVIE_ADDED_SUCCESS = "MOVIE_ADDED_SUCCESS";
 export const DELETE_MOVIE_DB = "DELETE_MOVIE_DB";
 export const UPDATE_MOVIE_DB = "UPDATE_MOVIE_DB";
 export const GET_ALL_USERS = "GET_ALL_USERS";
+export const USER_DELETE_DB = "USER_DELETE_DB";
+export const USER_POPUP = "USER_POPUP";
+export const USER_POPUP_CLOSE = "USER_POPUP_CLOSE";
