@@ -12,7 +12,8 @@ router.get('/test', (req,res) => res.json({msg:'monthly movies works!'}));
 //@desc     Post a movie premiere to monthlyMovies
 //@access   Public
 router.post("/uploadMoviePremiere", (req,res) => {
-    MonMovie.findOne({title: req.body.title}).then(movie =>{
+    MonMovie.findOne({ $or : [{title: req.body.mov.title}, {utc_time: req.body.utc_time}]}).then(movie =>{
+        
         if (movie) {
             return res.status(400).json({title: 'This movie allready is up'});
         } else {
@@ -37,7 +38,18 @@ router.post("/uploadMoviePremiere", (req,res) => {
                     {seat: 2, booked: false},
                     {seat: 3, booked: false},
                     {seat: 4, booked: false},
-                    {seat: 5, booked: false}
+                    {seat: 5, booked: false},
+                    {seat: 6, booked: false},
+                    {seat: 7, booked: false},
+                    {seat: 8, booked: false},
+                    {seat: 9, booked: false},
+                    {seat: 10, booked: false},
+                    {seat: 11, booked: false},
+                    {seat: 12, booked: false},
+                    {seat: 13, booked: false},
+                    {seat: 14, booked: false},
+                    {seat: 15, booked: false}
+
                 ],
                 fullyBooked: false,
             });

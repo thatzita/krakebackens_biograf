@@ -13,9 +13,9 @@ export const postMonmovie = (data) => dispatch => {
         axios.post('api/monthlyMovies/uploadMoviePremiere', data)
         .then(res => {
             console.log(res);
-            // dispatch({
-            //     type: POST_MONMOVIE,
-            //     payload: res.data
-            // });
+            dispatch({
+                type: POST_MONMOVIE,
+                payload: res.data
+            });
         }).catch(err => console.log(err));  
 }
