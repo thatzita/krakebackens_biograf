@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Menu, Segment, Image, Divider, Button } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 import "./admin.css";
 import { getCurrentProfile } from "../../actions/profileActions";
 
@@ -37,17 +37,19 @@ class Admin extends Component {
             onClick={this.handleItemClick}
           />
           <Menu.Item
+            as={Link}
+            to="/users"
             name="Medlemmar"
             active={activeItem === "Medlemmar"}
             onClick={this.handleItemClick}
           />
-          <Menu.Item
+          {/* <Menu.Item
             as={Link}
             to="/register"
             name="Lägg till medlem"
             active={activeItem === "Lägg till medlem"}
             onClick={this.handleItemClick}
-          />
+          /> */}
           <Menu.Item
             as={Link}
             to="/movies"
@@ -55,13 +57,13 @@ class Admin extends Component {
             active={activeItem === "Filmdatabas"}
             onClick={this.handleItemClick}
           />
-          <Menu.Item
+          {/* <Menu.Item
             as={Link}
             to="/addmovie"
             name="Lägg till film"
             active={activeItem === "Lägg till film"}
             onClick={this.handleItemClick}
-          />
+          /> */}
           <Menu.Item
             as={Link}
             to="/monthlymovies"

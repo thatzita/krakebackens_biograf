@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Button, Form, Header, Message } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Admin from "../admin/Admin";
@@ -131,6 +131,11 @@ class Register extends Component {
           <Button type="submit" onClick={this.onSubmit}>
             Skapa användare
           </Button>
+          <Link to="/users">
+            <Button basic color="violet">
+              Tillbaka
+            </Button>
+          </Link>
         </Form>
       </div>
     );

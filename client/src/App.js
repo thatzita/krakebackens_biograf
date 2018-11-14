@@ -23,6 +23,7 @@ import ChangePassword from "./components/profile/ChangePassword";
 import Movies from "./components/movies/Movies";
 import AddMovie from "./components/movies/AddMovie";
 import Admin from "./components/admin/Admin";
+import Users from "./components/users/Users";
 
 //FÖR ADMINS, SKA INTE VARA I LANDING
 import Register from "./components/auth/Register";
@@ -64,7 +65,7 @@ class App extends Component {
               <Route exact path="/reset/:token" component={Reset} />
               {/* Ska vara privat route */}
               {/* <Route exact path="/register" component={Register} /> */}
-              <Route exact path="/addmovie" component={AddMovie} />
+              {/* <Route exact path="/addmovie" component={AddMovie} /> */}
               <Switch>
                 <PrivateRoute exact path="/mainpage" component={Mainpage} />
                 <PrivateRoute exact path="/profile" component={Profile} />
@@ -73,8 +74,9 @@ class App extends Component {
                   path="/changepassword"
                   component={ChangePassword}
                 />
+                <PrivateRoute exact path="/users" component={Users} />
                 <PrivateRoute exact path="/movies" component={Movies} />
-                {/* <PrivateRoute exact path="/addmovie" component={AddMovie} /> */}
+                <PrivateRoute exact path="/addmovie" component={AddMovie} />
                 <PrivateRoute exact path="/admin" component={Admin} />
                 <PrivateRoute exact path="/register" component={Register} />
               </Switch>

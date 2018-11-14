@@ -182,8 +182,15 @@ router.get(
   }
 );
 
-//DELETE api/users/
+//GET api/users/allusers
+//Hämta alla medlemmar
+router.get("/allusers", (req, res) => {
+  User.find({}, function(err, users) {
+    res.json(users);
+  });
+});
 
+//DELETE api/users/
 router.delete(
   "/",
   passport.authenticate("jwt", { session: false }),
