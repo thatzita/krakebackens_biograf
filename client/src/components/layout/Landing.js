@@ -24,7 +24,7 @@ class Landing extends Component {
       <div>
         <div className="landing">
           <div className="dark-overlay landing-inner text-light">
-            <div className="container">
+            <div className="containerLanding">
               <div className="row">
                 <div className="col-md-12 text-center">
                   <h1 className="display-3 mb-4 whiteHeader">
@@ -41,9 +41,9 @@ class Landing extends Component {
                   <Link to="/forgot">
                     <Button secondary>Glömt lösenord?</Button>
                   </Link>
-                  <Link to="/register">
+                  {/* <Link to="/register">
                     <Button secondary>Registerar medlem (ADMIN)</Button>
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>

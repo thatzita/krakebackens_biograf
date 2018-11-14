@@ -85,7 +85,7 @@ export const resetSuccess = success => {
 };
 
 //Logga ut
-export const logoutUser = () => dispatch => {
+export const logoutUser = history => dispatch => {
   //Ta bort token från localStorage
   localStorage.removeItem("jwtToken");
   //Ta bort auth header så att användaren måste logga in igen
@@ -125,6 +125,26 @@ export const resetPassword = (userData, history) => dispatch => {
         msg: "Ett bekräftalesemail har skickats."
       };
       dispatch(resetSuccess(success));
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+export const changePassword = userData => dispatch => {
+  axios
+    .post("/api/users/changepassword", userData)
+    .then(res => {
+      if (res) {
+        let success = {
+          title: "Lösenord bytt!",
+          msg: "Du kan nu logga in med ditt nya lösenord."
+        };
+        dispatch(resetSuccess(success));
+      }
     })
     .catch(err =>
       dispatch({

@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Popup from "./Popup";
+import { Link } from "react-router-dom";
+import Admin from "../admin/Admin";
 
-import { Card, Image, Button, Input, Icon } from "semantic-ui-react";
+import { Button, Input, Icon, Item, Divider, Grid } from "semantic-ui-react";
 
 import {
   getAllMovies,
@@ -18,8 +20,23 @@ class Movies extends Component {
     this.state = {
       errors: {},
       movies: [],
-      movieInfo: {}
+      movieInfo: {},
+      search: "",
+      showMore: 5
     };
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  showMoreContent() {
+    this.setState({
+      showMore: this.state.showMore + 5
+    });
   }
 
   showPopup(movie) {
@@ -36,55 +53,85 @@ class Movies extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       movies: nextProps.movies,
-      movieInfo: nextProps.movieInfo
+      movieInfo: nextProps.movieInfo,
+      profile: nextProps.profile.profile
     });
   }
   render() {
     const { movies } = this.state.movies;
-
+    const { showMore } = this.state;
+    let showMoreContentButton;
     let movieContent;
 
     if (movies !== undefined) {
-      let movieCards = movies.map(movie => {
+      if (this.props.movies.movies.length > showMore) {
+        showMoreContentButton = (
+          <Button basic color="purple" onClick={e => this.showMoreContent()}>
+            Ladda mer filmer
+          </Button>
+        );
+      } else {
+        showMoreContentButton = "";
+      }
+
+      let filteredMovies = this.props.movies.movies.filter(movie => {
         return (
-          <Card key={movie.imdb_id}>
-            {/* <Card fluid key={movie.imdb_id}> */}
-            {/* <Image className="posterImg" src={movie.poster} /> */}
-            <Image src={movie.poster} />
-            {/* <Image size="small" src={movie.poster} /> */}
-            <Card.Content>
-              <Card.Header>{movie.title}</Card.Header>
-              <Card.Meta>
-                <span className="date">Släpptes: {movie.release}</span>
-              </Card.Meta>
-              <Card.Description>
+          movie.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !==
+          -1
+        );
+      });
+      let movieCards = filteredMovies.map(movie => {
+        return (
+          <Item key={movie.imdb_id}>
+            <Item.Image
+              className="posterImg"
+              size="tiny"
+              onClick={e => this.showPopup(movie)}
+              src={movie.poster}
+            />
+            <Item.Content>
+              <Item.Header>{movie.title}</Item.Header>
+              <Item.Meta>
+                <span className="boldSpan"> {movie.release}</span>
+              </Item.Meta>
+              <Item.Description>
                 {movie.genres.map((genre, i) => {
                   return (
                     <span key={i} className="date">
-                      {genre} |{" "}
+                      {genre}{" "}
                     </span>
                   );
                 })}
-              </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-              <p className="date">Speltid: {movie.runtime}</p>
-            </Card.Content>
-            <Icon.Group>
-              <Icon
-                onClick={e => this.deleteMovie(movie)}
-                className="deleteIcon"
+              </Item.Description>
+
+              <Item.Meta>
+                <Icon name="time" color="black" />
+                <span className="cinema boldSpan">{movie.runtime} min</span>
+              </Item.Meta>
+            </Item.Content>
+            <Item.Group>
+              <Button
+                basic
                 color="red"
-                name="delete"
-              />
-              <Icon
-                onClick={e => this.showPopup(movie)}
-                className="editIcon"
+                onClick={e => this.deleteMovie(movie)}
+                icon
+                attached="bottom"
+                floated="right"
+              >
+                <Icon color="red" name="delete" className="deleteIcon" />
+              </Button>
+              <Button
+                basic
                 color="green"
-                name="edit"
-              />
-            </Icon.Group>
-          </Card>
+                onClick={e => this.showPopup(movie)}
+                icon
+                attached="bottom"
+                floated="right"
+              >
+                <Icon color="green" name="edit" className="editIcon" />
+              </Button>
+            </Item.Group>
+          </Item>
         );
       });
 
@@ -92,7 +139,7 @@ class Movies extends Component {
         <div>
           <br />
           <h2>Filmdatabas</h2>
-          <Card.Group>{movieCards}</Card.Group>
+          <Item.Group divided>{movieCards.slice(0, showMore)}</Item.Group>
         </div>
       );
     } else {
@@ -101,23 +148,32 @@ class Movies extends Component {
 
     return (
       <div className="movies">
-        <div className="container">
-          <h1>Filmer</h1>
+        <div className="containerMovies">
+          <h1>Filmdatabas</h1>
           <hr />
+          <Admin />
           <Input
-            icon={{ name: "search", circular: true, link: true }}
-            placeholder="Search..."
+            placeholder="Sök i databasen..."
+            onChange={this.onChange}
+            value={this.state.search}
+            name="search"
           />
 
-          <Button color="purple">
-            <Icon name="plus" />
-            Lägg till film i databasen
-          </Button>
-
+          <Link to="/addmovie">
+            <Button basic color="violet">
+              <Icon name="plus" />
+              Lägg till i databasen
+            </Button>
+          </Link>
           <Popup />
 
           {movieContent}
         </div>
+
+        <br />
+        <Grid verticalAlign="middle" columns={4} centered>
+          {showMoreContentButton}
+        </Grid>
       </div>
     );
   }
@@ -128,14 +184,14 @@ Movies.propTypes = {
   deleteMovie: PropTypes.func.isRequired,
   // movieInfo: PropTypes.func.isRequired,
   // popupMovie: PropTypes.object.isRequired,
-  //   auth: PropTypes.object.isRequired,
-  // profile: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
   movies: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  //   profile: state.profile,
-  //   auth: state.auth
+  profile: state.profile,
+  auth: state.auth,
   movies: state.movies
 });
 

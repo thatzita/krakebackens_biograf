@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCurrentProfile } from "../../actions/profileActions";
+import { Segment } from "semantic-ui-react";
 
 class Mainpage extends Component {
   componentDidMount() {
@@ -21,12 +22,14 @@ class Mainpage extends Component {
     }
 
     return (
-      <div className="mainpage">
-        <div className="container">
-          <h1>Kråkebackens biograf</h1>
-          {mainpageContent}
+      <Segment>
+        <div className="mainpage">
+          <div className="containerMainpage">
+            <h1>Kråkebackens biograf</h1>
+            {mainpageContent}
+          </div>
         </div>
-      </div>
+      </Segment>
     );
   }
 }
