@@ -132,12 +132,18 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, user.password).then(match => {
       if (match) {
         //Användare hittades
-
+        let admin;
+        if (user.admin) {
+          admin = true;
+        } else {
+          admin = false;
+        }
         //Token skapas med payloaden
         const payload = {
           id: user.id,
           username: user.username,
-          email: user.email
+          email: user.email,
+          admin: admin
         };
 
         //Sign Token, dokumentationen beskriver allt
@@ -237,7 +243,6 @@ router.post("/forgot", (req, res, next) => {
       <p>Usch då det var ju dumt att du glömt ditt lösenord.</p>
       <p>Klicka på länken nedan för att skapa ett nytt lösenord:</p>
       <a href="${url}/${token}">Återställ mitt lösenord</a>
-      ${url}/${token}
       <p>Med vänlig hälsning,
       Kråkebackens biograf</p>
       `;
@@ -277,7 +282,6 @@ router.post("/forgot", (req, res, next) => {
 });
 
 //TODO: Fixa errorhantering
-//TODO: Fixa req.body.token istället för params
 // api/users/reset/
 //http://localhost:5000/api/users/reset/
 router.post("/reset/:token", function(req, res) {
@@ -362,6 +366,63 @@ router.post("/reset/:token", function(req, res) {
               });
             } else {
               res.send("ERROR:Passwords do not match.");
+            }
+          }
+        );
+      }
+    ],
+    function(err) {
+      if (err) {
+        return res.status(404).json(errors);
+      }
+    }
+  );
+});
+
+//http://localhost:5000/api/users/changepassword/
+router.post("/changepassword", function(req, res) {
+  console.log(req.body);
+
+  const { errors, isValid } = validateResetInput(req.body);
+
+  //Validering av password i (reset.js)
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  async.waterfall(
+    [
+      function(done) {
+        User.findOne(
+          {
+            _id: req.body.id
+          },
+          function(err, user) {
+            if (!user) {
+              res.send("Något gick fel.");
+            } else if (req.body.password === req.body.password2) {
+              User.findOne({ _id: req.body.id }, function(err, user) {
+                let success = {};
+                user.password = req.body.password;
+
+                bcrypt.genSalt(10, (err, salt) => {
+                  bcrypt.hash(user.password, salt, (err, hash) => {
+                    if (err) throw err;
+                    user.password = hash;
+                    user.save(function(err) {
+                      if (err) {
+                        console.error("ERROR!");
+                      } else {
+                        success.msg = "Lösenordet är ändrat";
+                        res.json(success);
+                        done();
+                      }
+                    });
+                  });
+                });
+              });
+            } else {
+              res.send("Lösenorden matchar inte");
             }
           }
         );

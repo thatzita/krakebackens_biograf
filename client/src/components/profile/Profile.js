@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Button } from "semantic-ui-react";
+import { Button, Divider } from "semantic-ui-react";
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
+import { Link } from "react-router-dom";
 
 class Profile extends Component {
   constructor() {
@@ -57,7 +58,7 @@ class Profile extends Component {
 
       loggedInProfile = (
         <div>
-          <h3>Användarenamn:</h3>
+          <h3>Användarnamn:</h3>
           <p>{profile.username}</p>
           <h3>Epost:</h3>
           <p>{profile.email}</p>
@@ -80,11 +81,17 @@ class Profile extends Component {
     return (
       <div>
         <h1>Profilsida</h1>
+        <Divider />
         {loggedInProfile}
         <Button basic onClick={this.onDeleteClick.bind(this)}>
           Ta bort konto
         </Button>
         <Button primary>Uppdatera konto</Button>
+        <Link to="/changepassword">
+          <Button basic color="violet">
+            Byt lösenord
+          </Button>
+        </Link>
       </div>
     );
   }

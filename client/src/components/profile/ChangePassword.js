@@ -1,21 +1,27 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Button, Form, Message } from "semantic-ui-react";
+import PropTypes from "prop-types";
+import { Button, Divider, Form, Message } from "semantic-ui-react";
 
-import { resetPassword } from "../../actions/authActions";
+import { getCurrentProfile } from "../../actions/profileActions";
+import { changePassword } from "../../actions/authActions";
 
-class Reset extends Component {
+class ChangePassword extends Component {
   constructor() {
     super();
     this.state = {
-      success: {},
       errors: {},
       password: "",
-      password2: ""
+      password2: "",
+      success: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getCurrentProfile();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,25 +49,26 @@ class Reset extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    let str = window.location.href;
-    let lastSlash = str.lastIndexOf("/");
-    let token = str.substring(lastSlash + 1);
 
     const user = {
       password: this.state.password,
       password2: this.state.password2,
-      token: token
+      id: this.props.auth.user.id
     };
-    this.props.resetPassword(user);
+
+    this.props.changePassword(user);
   }
 
   render() {
     const { errors } = this.state;
     const { password, password2 } = this.state;
     const { success } = this.state;
+
     return (
       <div>
-        <h1>Återställ lösenord</h1>
+        <h1>Byt lösenord</h1>
+        <Divider />
+
         <Form error success>
           <Form.Field>
             <label>Lösenord</label>
@@ -84,24 +91,32 @@ class Reset extends Component {
             />
             <Message error content={errors.password2} />
           </Form.Field>
-          <Button type="submit" onClick={this.onSubmit}>
+          <Button basic color="green" type="submit" onClick={this.onSubmit}>
             Återställ mitt lösenord!
           </Button>
-          <Message success header={success.title} content={success.msg} />
+          <Link to="/profile">
+            <Button basic color="violet">
+              Tillbaka
+            </Button>
+          </Link>
+          {/* <Message success header={success.title} content={success.msg} /> */}
         </Form>
       </div>
     );
   }
 }
 
-Reset.propTypes = {
+ChangePassword.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
-  resetPassword: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
   success: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  changePassword: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
+  profile: state.profile,
   errors: state.errors,
   success: state.success,
   auth: state.auth
@@ -110,7 +125,8 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    //prop func goes here
-    resetPassword
+    //func goes here
+    getCurrentProfile,
+    changePassword
   }
-)(Reset);
+)(ChangePassword);

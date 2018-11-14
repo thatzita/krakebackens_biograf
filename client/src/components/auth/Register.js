@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Button, Form, Header, Message } from "semantic-ui-react";
 import PropTypes from "prop-types";
+import Admin from "../admin/Admin";
+import "./auth.css";
 
 import { registerUser } from "../../actions/authActions";
 
@@ -21,20 +23,8 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentDidMount() {
-    // if (this.props.auth.isAuthenticated) {
-    //   this.props.history.push("/mainpage");
-    // }
-  }
-
   componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors,
-        success: {}
-      });
-    }
-    if (nextProps.auth.success.title !== undefined) {
+    if (nextProps.auth.success !== undefined) {
       this.setState({
         success: nextProps.auth.success,
         username: "",
@@ -42,6 +32,11 @@ class Register extends Component {
         password: "",
         password2: "",
         errors: {}
+      });
+    } else if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors,
+        success: {}
       });
     }
   }
@@ -85,8 +80,9 @@ class Register extends Component {
     const { username, email, password, password2 } = this.state;
 
     return (
-      <div>
+      <div className="containerRegister">
         <Header as="h1">Skapa ny användare</Header>
+        <Admin />
         <Form error success>
           <Form.Field>
             <label>Användarnamn</label>

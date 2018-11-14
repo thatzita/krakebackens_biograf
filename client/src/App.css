@@ -2,7 +2,8 @@
 /*  LILA = rgba(71, 8, 119, 1) */
 
 body {
-  background-color: ghostwhite;
+  /* background-color: ghostwhite; */
+  background-color: #f8f8ff;
 }
 img {
   width: 100%;
@@ -10,7 +11,7 @@ img {
 
 .landing {
   position: relative;
-  background: url("./img/theater_curtain.jpg") no-repeat;
+  /* background: url("./img/theater_curtain.jpg") no-repeat; */
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -23,7 +24,7 @@ img {
 }
 
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  /* background-color: rgba(0, 0, 0, 0.7); */
   position: absolute;
   top: 0;
   left: 0;
@@ -64,7 +65,7 @@ img {
   flex: 0 0 100%;
   max-width: 100%;
 }
-.container {
+.containerApp {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
@@ -175,7 +176,7 @@ img {
 }
 
 .bg-dark {
-  background-color: rgba(71, 8, 119, 0.7) !important;
+  background-color: #470877 !important;
 }
 
 a.bg-dark:hover,
@@ -318,7 +319,3 @@ button.bg-dark:focus {
   padding: 1.5rem !important;
 }
 /* End Bootstrap */
-
-.whiteHeader {
-  color: ghostwhite;
-}

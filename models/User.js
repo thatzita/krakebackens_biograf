@@ -30,7 +30,8 @@ const UserSchema = new Schema({
   },
   moviesViewed: [],
   resetPwToken: String,
-  resetPwExpires: Date
+  resetPwExpires: Date,
+  admin: Boolean
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

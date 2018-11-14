@@ -13,7 +13,6 @@ export const getCurrentProfile = () => dispatch => {
   axios
     .get("/api/users/current")
     .then(res => {
-      //   console.log(res.data);
       dispatch({
         type: GET_PROFILE,
         payload: res.data
