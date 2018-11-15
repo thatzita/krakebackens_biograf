@@ -64,7 +64,7 @@ class Admin extends Component {
           />
           <Menu.Item
             as={Link}
-            to="/monthlymovies"
+            to="/monMovieList"
             name="Månadens filmer"
             active={activeItem === "Månadens filmer"}
             onClick={this.handleItemClick}

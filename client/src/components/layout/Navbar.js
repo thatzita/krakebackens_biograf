@@ -17,6 +17,15 @@ const tempMenuStyle = {
   boxShadow: "0 10px 15px #00000"
 };
 
+
+// {isAuthenticated ? <Menu.Item
+//   as={Link}
+//   to="//monMovieList"
+//   name='Monthly movies form'
+//   active={activeItem === 'Monthly movies form'}
+//   onClick={this.handleItemClick}
+// /> : null}
+
 class Navbar extends Component {
   state = { activeItem: "home" };
 
@@ -46,7 +55,7 @@ class Navbar extends Component {
             >
               <Image
                 style={{ width: "40px" }}
-                src="krackebacken_temp_logo.png"
+                src="krakebackens_logo.png"
               />
               <h2
                 style={{

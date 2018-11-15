@@ -24,6 +24,9 @@ import Movies from "./components/movies/Movies";
 import AddMovie from "./components/movies/AddMovie";
 import Admin from "./components/admin/Admin";
 
+import CreateMonMovie from "./components/admin/monMovies/CreateMonMovie";
+import MonMovieList from './components/admin/monMovies/MonMovieList';
+
 //FÖR ADMINS, SKA INTE VARA I LANDING
 import Register from "./components/auth/Register";
 
@@ -58,6 +61,7 @@ class App extends Component {
 
             <Route exact path="/" component={Landing} />
             <div className="containerApp">
+
               <Route exact path="/login" component={Login} />
               <Route exact path="/apply" component={Apply} />
               <Route exact path="/forgot" component={Forgot} />
@@ -66,6 +70,8 @@ class App extends Component {
               {/* <Route exact path="/register" component={Register} /> */}
               <Route exact path="/addmovie" component={AddMovie} />
               <Switch>
+                 <PrivateRoute exact path="/monMovieList" component={MonMovieList} />
+                <PrivateRoute exact path="/createMonMovie" component={CreateMonMovie} />
                 <PrivateRoute exact path="/mainpage" component={Mainpage} />
                 <PrivateRoute exact path="/profile" component={Profile} />
                 <PrivateRoute

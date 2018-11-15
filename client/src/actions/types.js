@@ -8,6 +8,13 @@ export const USER_REQUEST = "USER_REQUEST";
 export const USER_CREATED = "USER_CREATED";
 export const FORGOT_USER = "FORGOT_USER";
 export const RESET_USER = "RESET_USER";
+
+// monMovies
+export const GET_MONMOVIES = "GET_MONMOVIES";
+export const POST_MONMOVIE = "POST_MONMOVIE";
+export const DELETE_MONMOVIE = "DELETE_MONMOVIE";
+export const UPDATE_MONMOVIE = "UPDATE_MONMOVIE"; 
+
 export const GET_MOVIES = "GET_MOVIES";
 export const MOVIE_POPUP = "MOVIE_POPUP";
 export const MOVIE_POPUP_CLOSE = "MOVIE_POPUP_CLOSE";
