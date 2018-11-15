@@ -26,7 +26,6 @@ class UserStatistic extends Component {
 
   seasonUsers() {
     const { users } = this.state.users;
-
     let seasonStats = users.reduce(function(acc, obj) {
       return acc + obj.stats.season;
     }, 0);
@@ -36,7 +35,6 @@ class UserStatistic extends Component {
 
   totalUsers() {
     const { users } = this.state.users;
-
     let totalStats = users.reduce(function(acc, obj) {
       return acc + obj.stats.total;
     }, 0);
@@ -74,7 +72,6 @@ class UserStatistic extends Component {
       let totalUserStats = this.totalUsers();
       let topUserSeason = this.topUsersThisSeason();
       let topUserTotal = this.topUsersInTotal();
-      console.log(this.state.users);
 
       userContent = (
         <div>
