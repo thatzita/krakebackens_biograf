@@ -7,6 +7,7 @@ import profileReducer from "./profileReducer";
 import applicationReducer from "./applicationReducer";
 import movieReducer from "./movieReducer";
 import usersReducer from "./usersReducer";
+import monMovieReducer from "./monMovieReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -14,6 +15,7 @@ export default combineReducers({
   profile: profileReducer,
   success: applicationReducer,
   movies: movieReducer,
-  users: usersReducer
+  users: usersReducer,
+  monMovies: monMovieReducer
 });
 //this.props.auth osv...
