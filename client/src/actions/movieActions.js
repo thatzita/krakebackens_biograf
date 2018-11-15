@@ -12,7 +12,7 @@ import {
   UPDATE_MOVIE_DB
 } from "./types";
 
-export const getAllMovies = movieData => dispatch => {
+export const getAllMovies = () => dispatch => {
   axios
     .get("/api/movies/allmovies")
     .then(res => {

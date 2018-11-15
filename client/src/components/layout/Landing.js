@@ -30,7 +30,7 @@ class Landing extends Component {
                   <h1 className="display-3 mb-4 whiteHeader">
                     Kråkebackens biograf
                   </h1>
-                  <p className="lead"> Wall of text</p>
+                  {/* <p className="lead"> Wall of text</p> */}
                   <hr />
                   <Link to="/login">
                     <Button primary>Logga in</Button>

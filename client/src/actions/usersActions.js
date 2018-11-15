@@ -54,10 +54,3 @@ export const deleteUserSuccess = deletedUser => {
     payload: deletedUser
   };
 };
-
-//Profilen laddas
-// export const setProfileLoading = () => {
-//   return {
-//     type: PROFILE_LOADING
-//   };
-// };

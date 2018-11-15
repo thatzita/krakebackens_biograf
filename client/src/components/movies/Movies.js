@@ -138,7 +138,7 @@ class Movies extends Component {
       movieContent = (
         <div>
           <br />
-          <h2>Filmdatabas</h2>
+          {/* <h2>Filmdatabas</h2> */}
           <Item.Group divided>{movieCards.slice(0, showMore)}</Item.Group>
         </div>
       );
