@@ -8,7 +8,6 @@ import {
 
 // const initialState = {
 //     monmovies: [],
-//     monmovie: {}
 // };
 
 const initialState = {};
@@ -18,8 +17,15 @@ export default function(state = initialState, action ) {
     switch (action.type) {
         case POST_MONMOVIE:
             return {
+                ...state, 
+                monMovies: [...state.monmovies, action.payload]
+                
+            };
+        case GET_MONMOVIES:
+            console.log('payload ',action.payload);
+            return {
                 ...state,
-                monmovies: action.payload
+                monMovies: action.payload 
             };
         default: 
             return state;

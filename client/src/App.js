@@ -25,7 +25,7 @@ import AddMovie from "./components/movies/AddMovie";
 import Admin from "./components/admin/Admin";
 
 import CreateMonMovie from "./components/admin/monMovies/CreateMonMovie";
-// import PreviewSubmitMonMovie from './components/admin/monMovies/PreviewSubmitMonMovie';
+import MonMovieList from './components/admin/monMovies/MonMovieList';
 
 //FÖR ADMINS, SKA INTE VARA I LANDING
 import Register from "./components/auth/Register";
@@ -70,6 +70,7 @@ class App extends Component {
               {/* <Route exact path="/register" component={Register} /> */}
               <Route exact path="/addmovie" component={AddMovie} />
               <Switch>
+                 <PrivateRoute exact path="/monMovieList" component={MonMovieList} />
                 <PrivateRoute exact path="/createMonMovie" component={CreateMonMovie} />
                 <PrivateRoute exact path="/mainpage" component={Mainpage} />
                 <PrivateRoute exact path="/profile" component={Profile} />

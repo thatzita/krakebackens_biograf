@@ -8,16 +8,15 @@ const MonMovie = require('../../models/MonthlyMovie');
 //@access   Public
 router.get('/test', (req,res) => res.json({msg:'monthly movies works!'}));
 
-//@route    Post api/monthlyMovies/test
+//@route    Post api/monthlyMovies/uploadMoviePremiere
 //@desc     Post a movie premiere to monthlyMovies
-//@access   Public
+//@access   private
 router.post("/uploadMoviePremiere", (req,res) => {
     MonMovie.findOne({ $or : [{title: req.body.mov.title}, {utc_time: req.body.utc_time}]}).then(movie =>{
         
         if (movie) {
             return res.status(400).json({title: 'This movie allready is up'});
         } else {
-            // console.log(req.body.utc_time);
             
             const newMonMovie = new MonMovie({
                 title: req.body.mov.title,
@@ -61,8 +60,14 @@ router.post("/uploadMoviePremiere", (req,res) => {
     })
 });
 
-router.get('/getMoviesforMonMovies', (req,res) =>{
-    res.json({msg: 'get all movies'});
-})
+//@route    Get api/monthlyMovies/getAllMonMovies
+//@desc     GET all movies from monthlyMoviesDB
+//@access   private
+router.get('/getAllMonMovies', (req,res) => {
+    MonMovie.find({})
+    .then(monMovies => {
+        res.json({monMovies});
+    });
+});
 
 module.exports = router;

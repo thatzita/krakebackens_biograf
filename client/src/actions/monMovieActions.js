@@ -19,3 +19,16 @@ export const postMonmovie = (data) => dispatch => {
             });
         }).catch(err => console.log(err));  
 }
+
+export const getAllMonMovies = () => dispatch => {
+    console.log('fetching all monMovies');
+
+    axios.get('api/monthlyMovies/getAllMonMovies')
+    .then(res => {
+        console.log(res.data.monMovies);
+        dispatch({
+            type: GET_MONMOVIES,
+            payload: res.data.monMovies
+        });
+    }).catch(err => console.log(err));  
+} 

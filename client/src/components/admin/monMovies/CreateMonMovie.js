@@ -121,4 +121,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {getAllMovies, postMonmovie})(CreateMonMovie);
-// postMonmovie

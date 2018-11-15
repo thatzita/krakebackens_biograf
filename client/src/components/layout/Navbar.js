@@ -17,6 +17,15 @@ const tempMenuStyle = {
   boxShadow: "0 10px 15px #00000"
 };
 
+
+// {isAuthenticated ? <Menu.Item
+//   as={Link}
+//   to="//monMovieList"
+//   name='Monthly movies form'
+//   active={activeItem === 'Monthly movies form'}
+//   onClick={this.handleItemClick}
+// /> : null}
+
 class Navbar extends Component {
   state = { activeItem: "home" };
 
@@ -131,14 +140,6 @@ class Navbar extends Component {
               )}
 
               <Menu.Item />
-
-              <Menu.Item
-                  as={Link}
-                  to="/createMonMovie"
-                  name='Monthly movies form'
-                  active={activeItem === 'Monthly movies form'}
-                  onClick={this.handleItemClick}
-                />
 
               {isAuthenticated ? (
                 <Menu.Item
