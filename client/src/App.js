@@ -24,6 +24,7 @@ import Movies from "./components/movies/Movies";
 import AddMovie from "./components/movies/AddMovie";
 import Admin from "./components/admin/Admin";
 import Users from "./components/users/Users";
+import Statistic from "./components/statistic/Statistic";
 
 //FÖR ADMINS, SKA INTE VARA I LANDING
 import Register from "./components/auth/Register";
@@ -79,6 +80,7 @@ class App extends Component {
                 <PrivateRoute exact path="/addmovie" component={AddMovie} />
                 <PrivateRoute exact path="/admin" component={Admin} />
                 <PrivateRoute exact path="/register" component={Register} />
+                <PrivateRoute exact path="/statistic" component={Statistic} />
               </Switch>
             </div>
 

@@ -43,13 +43,6 @@ class Admin extends Component {
             active={activeItem === "Medlemmar"}
             onClick={this.handleItemClick}
           />
-          {/* <Menu.Item
-            as={Link}
-            to="/register"
-            name="Lägg till medlem"
-            active={activeItem === "Lägg till medlem"}
-            onClick={this.handleItemClick}
-          /> */}
           <Menu.Item
             as={Link}
             to="/movies"
@@ -57,13 +50,6 @@ class Admin extends Component {
             active={activeItem === "Filmer"}
             onClick={this.handleItemClick}
           />
-          {/* <Menu.Item
-            as={Link}
-            to="/addmovie"
-            name="Lägg till film"
-            active={activeItem === "Lägg till film"}
-            onClick={this.handleItemClick}
-          /> */}
           <Menu.Item
             as={Link}
             to="/monthlymovies"

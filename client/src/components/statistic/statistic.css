@@ -1,0 +1,18 @@
+div.containerStatistic {
+  /* position: relative; */
+  margin-left: 285px;
+  max-width: 65rem;
+}
+div.tableContainer {
+  width: 700px;
+  overflow: hidden;
+}
+
+.firstList {
+  width: 300px;
+  float: left;
+}
+.secondList {
+  width: 300px;
+  float: right;
+}
