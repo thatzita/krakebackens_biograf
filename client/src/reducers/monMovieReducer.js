@@ -7,7 +7,7 @@ import {
 } from '../actions/types';
 
 // const initialState = {
-//     monmovies: [],
+//     monMovies: []
 // };
 
 const initialState = {};
@@ -18,16 +18,28 @@ export default function(state = initialState, action ) {
         case POST_MONMOVIE:
             return {
                 ...state, 
-                monMovies: [...state.monmovies, action.payload]
+                monMovies: [...state.monMovies, action.payload]
                 
             };
         case GET_MONMOVIES:
-            console.log('payload ',action.payload);
+            // console.log('payload ',action.payload);
             return {
                 ...state,
                 monMovies: action.payload 
             };
+        case DELETE_MONMOVIE:
+            let newMonMovieState = removeMonMovie(action.payload, state.monMovies);
+            return {
+                ...state,
+                monMovies: newMonMovieState
+            }
         default: 
             return state;
     }
+}
+
+
+const removeMonMovie = (deleteItem, stateArray) => {
+    let updatedList = stateArray.filter( item => item !== deleteItem);
+    return updatedList;
 }

@@ -1,5 +1,7 @@
 import React from 'react'
 import { Segment, Icon, Item, Button} from 'semantic-ui-react';
+import { Link } from "react-router-dom";
+
 
 export default function PreviewSubmitMonMovie(props) {
   return (
@@ -26,6 +28,8 @@ export default function PreviewSubmitMonMovie(props) {
             <Item>
                 <Item.Content>
                     <Button
+                        as={Link}
+                        to='/monMovieList'
                         onClick={ () => props.onSubmitEvent() }           
                         primary
                         icon 

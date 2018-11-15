@@ -12,7 +12,7 @@ router.get('/test', (req,res) => res.json({msg:'monthly movies works!'}));
 //@desc     Post a movie premiere to monthlyMovies
 //@access   private
 router.post("/uploadMoviePremiere", (req,res) => {
-    MonMovie.findOne({ $or : [{title: req.body.mov.title}, {utc_time: req.body.utc_time}]}).then(movie =>{
+    MonMovie.findOne({ $or : [{title: req.body.mov.title}, {utc_time: req.body.utc_time}]}).then( movie => {
         
         if (movie) {
             return res.status(400).json({title: 'This movie allready is up'});
@@ -60,14 +60,47 @@ router.post("/uploadMoviePremiere", (req,res) => {
     })
 });
 
-//@route    Get api/monthlyMovies/getAllMonMovies
+//@route    Get api/monthlyMovies/updateMonthlyMovie
+//@desc     edit and update the movies title, description, screening time and screning date
+//@access   private
+
+router.post('/updateMonthlyMovie', (req,res) => {
+
+    let updateField = {
+        title: req.body.title,
+        description: req.body.description,
+        screeningDate: req.body.date,
+        screeningTime: req.body.time
+    }
+
+    MonMovie.findOneAndUpdate({_id: req.body._id}, updateField)
+        .then(movie => {
+            if(movie){
+                res.json({movie});
+            }else{
+                res.status(400).json({title: 'Filmen finns inte i databasen och kan inte updateras'});
+            }
+        }).catch(err => console.log(err));
+});
+
+//@route    Get api/monthlyMovies/deleteMonthlyMovie
+//@desc     delete monthly movie
+//@access   private
+
+router.delete('/deleteMonthlyMovie', (req,res) => {
+    MonMovie.findOneAndDelete({_id: req.body.objId}).then(() => {
+        res.json({success: true});
+    })
+});
+
+//@route    Get api/monthlyMovies/getAllMonthlyMovies
 //@desc     GET all movies from monthlyMoviesDB
 //@access   private
-router.get('/getAllMonMovies', (req,res) => {
+router.get('/getAllMonthlyMovies', (req,res) => {
     MonMovie.find({})
     .then(monMovies => {
         res.json({monMovies});
-    });
+    }).catch(err => console.log(err));
 });
 
 module.exports = router;

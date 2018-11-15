@@ -1,15 +1,13 @@
 import React from 'react'
 import { Segment, Input, Table, Header, Image, Icon, Label } from 'semantic-ui-react';
 
-export default function MoviePicker(props) {
-    console.log(props);
-    
+export default function MoviePicker(props) {    
   return (
     <Segment>
             <Header as='h2' dividing>
                 <Icon name='film' />
                 <Header.Content>
-                Välj en film
+                    Välj en film
                 </Header.Content>
             </Header>
             
@@ -32,7 +30,7 @@ export default function MoviePicker(props) {
                     <Table.Cell>
                         <Header>
                             <Header.Content>
-                                {item.title} ( {(item.release).substring(0,4)} ) {item.id}
+                                {item.title} ( {(item.release).substring(0,4)} )
                                 <p style={{fontSize:'0.9rem'}}>
                                     <Icon name='clock outline' color='grey'/> 
                                     <em>{Math.floor(item.runtime / 60)}h {item.runtime % 60}min</em>
