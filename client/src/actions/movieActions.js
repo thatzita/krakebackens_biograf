@@ -56,7 +56,6 @@ export const searchMovie = movieData => dispatch => {
 
   delete axios.defaults.headers.common["Authorization"];
   axios.get(url + movieData + key).then(res => {
-    console.log(res.data.results);
     let movieList = res.data.results;
 
     axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
@@ -80,10 +79,7 @@ export const imdbPopup = movieId => dispatch => {
 
   axios.get(url + movieId + key).then(res => {
     let movie = res.data;
-    console.log(movie);
-
     axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
-
     dispatch(showSpecificMovie(movie));
   });
 };
