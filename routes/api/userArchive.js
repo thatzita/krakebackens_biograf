@@ -12,6 +12,7 @@ router.get("/userstats", (req, res) => {
   });
 });
 
+//Nollställ och spara årets användardata till arkivet
 //POST api/stats/userarchive
 router.post("/userarchive", (req, res) => {
   const newArchive = new UserStatistics({
