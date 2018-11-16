@@ -2,9 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import "./statistic.css";
-import { Statistic, List, Divider, Icon, Image } from "semantic-ui-react";
+import {
+  Statistic,
+  List,
+  Divider,
+  Icon,
+  Image,
+  Button
+} from "semantic-ui-react";
 
-import { getAllUsers } from "../../actions/usersActions";
+import { getAllUsers, resetStats } from "../../actions/usersActions";
 
 class UserStatistic extends Component {
   constructor() {
@@ -47,7 +54,7 @@ class UserStatistic extends Component {
     let newList = users.sort(function(a, b) {
       return parseFloat(b.stats.season) - parseFloat(a.stats.season);
     });
-    return newList.slice(0, 5);
+    return newList.slice(0, 3);
   }
 
   topUsersInTotal() {
@@ -55,7 +62,11 @@ class UserStatistic extends Component {
     let newList = users.sort(function(a, b) {
       return parseFloat(b.stats.total) - parseFloat(a.stats.total);
     });
-    return newList.slice(0, 5);
+    return newList.slice(0, 3);
+  }
+
+  resetSeasonStats() {
+    this.props.resetStats();
   }
 
   render() {
@@ -86,7 +97,7 @@ class UserStatistic extends Component {
             </Statistic>
             <Statistic>
               <Statistic.Value>{users.length}</Statistic.Value>
-              <Statistic.Label>medlemmar (inklusive gästkonto)</Statistic.Label>
+              <Statistic.Label>medlemmar (gästkonton?)</Statistic.Label>
             </Statistic>
           </Statistic.Group>
         </div>
@@ -154,6 +165,9 @@ class UserStatistic extends Component {
         {userContentTopList}
         <br />
         <Divider />
+        <Button basic color="purple" onClick={e => this.resetSeasonStats()}>
+          Nollställ årets statistik
+        </Button>
       </React.Fragment>
     );
   }
@@ -161,6 +175,7 @@ class UserStatistic extends Component {
 
 UserStatistic.propTypes = {
   getAllUsers: PropTypes.func.isRequired,
+  resetStats: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired
 };
 
@@ -172,6 +187,7 @@ export default connect(
   mapStateToProps,
   {
     //func goes here
-    getAllUsers
+    getAllUsers,
+    resetStats
   }
 )(UserStatistic);

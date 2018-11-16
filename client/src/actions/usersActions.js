@@ -4,7 +4,8 @@ import {
   GET_ALL_USERS,
   USER_DELETE_DB,
   USER_POPUP,
-  USER_POPUP_CLOSE
+  USER_POPUP_CLOSE,
+  RESET_USER_STATS
 } from "./types";
 
 export const getAllUsers = () => dispatch => {
@@ -35,7 +36,6 @@ export const deleteUser = user => dispatch => {
 };
 
 export const userPopup = userData => {
-  console.log(userData);
   return {
     type: USER_POPUP,
     payload: userData
@@ -53,4 +53,23 @@ export const deleteUserSuccess = deletedUser => {
     type: USER_DELETE_DB,
     payload: deletedUser
   };
+};
+
+export const resetStats = () => dispatch => {
+  if (window.confirm("Är du att du vill nollställa statistiken för året?")) {
+    axios.get("/api/users/resetstats").then(res => {
+      if (res) {
+        console.log(res);
+        let success = {
+          msg: "Nollställning lyckades"
+        };
+        dispatch({
+          type: RESET_USER_STATS,
+          payload: success
+        });
+      } else {
+        console.log("Något gick fel vid nollställning.");
+      }
+    });
+  }
 };
