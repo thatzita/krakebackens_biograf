@@ -9,12 +9,12 @@ import axios from "axios";
 
 // POST A MONMOVIE
 export const postMonmovie = (data) => dispatch => {
-    console.log('posting movie');
-    console.log(data);
+    // console.log('posting movie');
+    // console.log(data);
     
         axios.post('api/monthlyMovies/uploadMoviePremiere', data)
         .then(res => {
-            console.log(res);
+            // console.log(res);
             dispatch({
                 type: POST_MONMOVIE,
                 payload: res.data
@@ -24,11 +24,11 @@ export const postMonmovie = (data) => dispatch => {
 
 // GET ALL MONMOVIES
 export const getAllMonMovies = () => dispatch => {
-    console.log('fetching all monMovies');
+    // console.log('fetching all monMovies');
 
     axios.get('api/monthlyMovies/getAllMonthlyMovies')
     .then(res => {
-        console.log(res.data.monMovies);
+        // console.log(res.data.monMovies);
         dispatch({
             type: GET_MONMOVIES,
             payload: res.data.monMovies
@@ -38,7 +38,7 @@ export const getAllMonMovies = () => dispatch => {
 
 // DELETE A MONMOVIE
 export const deleteMonMovie = movie => dispatch => {
-    console.log('Delete action starting');
+    // console.log('Delete action starting');
     let objId = movie._id;
     axios.delete('api/monthlyMovies/deleteMonthlyMovie', {data:{objId}})
         .then( res => {
