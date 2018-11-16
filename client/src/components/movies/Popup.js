@@ -162,6 +162,9 @@ class Popup extends Component {
             </p>
             <Icon name="time" />
             <span className="date boldSpan">{movieInfo.runtime} min</span>
+            <br />
+            <br />
+            <span className="date boldSpan">Betyg: {movieInfo.rating} </span>
           </Container>
           <br />
           <br />
