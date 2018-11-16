@@ -5,8 +5,8 @@ import {
   USER_DELETE_DB,
   USER_POPUP,
   USER_POPUP_CLOSE,
-  RESET_USER_STATS,
-  USER_STATS_TO_ARCHIVE
+  RESET_USER_STATS
+  // USER_STATS_TO_ARCHIVE
 } from "./types";
 
 export const getAllUsers = () => dispatch => {
@@ -75,10 +75,9 @@ export const resetStats = () => dispatch => {
 };
 
 export const saveUserStatsToArchive = archiveData => dispatch => {
-  console.log(archiveData);
   axios.post("/api/stats/userarchive", archiveData).then(res => {
     if (res) {
-      console.log(res.data);
+      console.log("Sparat statistik i arkivet");
     } else {
       console.log("Något gick fel när datan skulle sparas till arkivet.");
     }
