@@ -10,6 +10,7 @@ const profile = require("./routes/api/profile");
 const apply = require("./routes/api/apply");
 const monthlyMovies = require("./routes/api/monthlyMovies");
 const movies = require("./routes/api/movies");
+const stats = require("./routes/api/userArchive");
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use("/api/profile", profile);
 app.use("/api/apply", apply);
 app.use("/api/monthlyMovies", monthlyMovies);
 app.use("/api/movies", movies);
+app.use("/api/stats", stats);
 
 const port = process.env.PORT || 5000;
 

@@ -96,7 +96,6 @@ class UserPopup extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.setState({
       userInfo: nextProps.users.userInfo,
       showOrHide: nextProps.users.showOrHide
@@ -109,7 +108,6 @@ class UserPopup extends Component {
     let userPopup;
 
     if (showOrHide) {
-      console.log(userInfo);
       userPopup = (
         <div className="popup">
           <Header

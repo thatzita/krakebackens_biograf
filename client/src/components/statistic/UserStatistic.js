@@ -11,13 +11,20 @@ import {
   Button
 } from "semantic-ui-react";
 
-import { getAllUsers, resetStats } from "../../actions/usersActions";
+import {
+  getAllUsers,
+  resetStats,
+  saveUserStatsToArchive
+} from "../../actions/usersActions";
 
 class UserStatistic extends Component {
   constructor() {
     super();
     this.state = {
-      users: []
+      users: [],
+      userStatistic: {
+        season: 0
+      }
     };
   }
 
@@ -54,6 +61,7 @@ class UserStatistic extends Component {
     let newList = users.sort(function(a, b) {
       return parseFloat(b.stats.season) - parseFloat(a.stats.season);
     });
+
     return newList.slice(0, 3);
   }
 
@@ -66,7 +74,28 @@ class UserStatistic extends Component {
   }
 
   resetSeasonStats() {
+    let topUsers = this.topUsersThisSeason();
+    let newTopUsers = topUsers.map(user => {
+      return `${user.username} - ${user.stats.season} besök`;
+    });
+    let seasonViewings = this.seasonUsers();
+
+    let dateObj = new Date();
+
+    let year = dateObj.getFullYear();
+    let month = dateObj.getMonth() + 1;
+    let day = dateObj.getUTCDate();
+
+    let newDate = `${year}-${month}-${day}`;
+
+    let objToArchive = {
+      seasonUserViewings: seasonViewings,
+      seasonTopUsers: newTopUsers,
+      archivedDate: newDate
+    };
+
     this.props.resetStats();
+    this.props.saveUserStatsToArchive(objToArchive);
   }
 
   render() {
@@ -174,6 +203,7 @@ class UserStatistic extends Component {
 }
 
 UserStatistic.propTypes = {
+  saveUserStatsToArchive: PropTypes.func.isRequired,
   getAllUsers: PropTypes.func.isRequired,
   resetStats: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired
@@ -187,6 +217,7 @@ export default connect(
   mapStateToProps,
   {
     //func goes here
+    saveUserStatsToArchive,
     getAllUsers,
     resetStats
   }

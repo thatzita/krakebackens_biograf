@@ -5,7 +5,8 @@ import {
   USER_DELETE_DB,
   USER_POPUP,
   USER_POPUP_CLOSE,
-  RESET_USER_STATS
+  RESET_USER_STATS,
+  USER_STATS_TO_ARCHIVE
 } from "./types";
 
 export const getAllUsers = () => dispatch => {
@@ -59,7 +60,6 @@ export const resetStats = () => dispatch => {
   if (window.confirm("Är du att du vill nollställa statistiken för året?")) {
     axios.get("/api/users/resetstats").then(res => {
       if (res) {
-        console.log(res);
         let success = {
           msg: "Nollställning lyckades"
         };
@@ -72,4 +72,15 @@ export const resetStats = () => dispatch => {
       }
     });
   }
+};
+
+export const saveUserStatsToArchive = archiveData => dispatch => {
+  console.log(archiveData);
+  axios.post("/api/stats/userarchive", archiveData).then(res => {
+    if (res) {
+      console.log(res.data);
+    } else {
+      console.log("Något gick fel när datan skulle sparas till arkivet.");
+    }
+  });
 };
