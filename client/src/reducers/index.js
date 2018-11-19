@@ -8,6 +8,7 @@ import applicationReducer from "./applicationReducer";
 import movieReducer from "./movieReducer";
 import usersReducer from "./usersReducer";
 import monMovieReducer from "./monMovieReducer";
+import webPageStateReducer from "./webPageStateReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -16,6 +17,7 @@ export default combineReducers({
   success: applicationReducer,
   movies: movieReducer,
   users: usersReducer,
-  monMovies: monMovieReducer
+  monMovies: monMovieReducer,
+  adminPage: webPageStateReducer
 });
 //this.props.auth osv...

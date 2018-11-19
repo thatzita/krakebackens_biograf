@@ -1,19 +1,23 @@
 export const GET_ERRORS = "GET_ERRORS";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
+
 export const GET_PROFILE = "GET_PROFILE";
 export const PROFILE_LOADING = "PROFILE_LOADING";
 export const PROFILE_NOT_FOUND = "PROFILE_NOT_FOUND";
 export const CLEAR_CURRENT_PROFILE = "CLEAR_CURRENT_PROFILE";
+
 export const USER_REQUEST = "USER_REQUEST";
 export const USER_CREATED = "USER_CREATED";
 export const FORGOT_USER = "FORGOT_USER";
 export const RESET_USER = "RESET_USER";
 
-// monMovies
 export const GET_MONMOVIES = "GET_MONMOVIES";
 export const POST_MONMOVIE = "POST_MONMOVIE";
 export const DELETE_MONMOVIE = "DELETE_MONMOVIE";
-export const UPDATE_MONMOVIE = "UPDATE_MONMOVIE"; 
+export const UPDATE_MONMOVIE = "UPDATE_MONMOVIE";
+
+export const ADMIN_PAGE_TRUE = "ADMIN_PAGE_TRUE";
+export const ADMIN_PAGE_FALSE = "ADMIN_PAGE_FALSE";
 
 export const GET_MOVIES = "GET_MOVIES";
 export const MOVIE_POPUP = "MOVIE_POPUP";
