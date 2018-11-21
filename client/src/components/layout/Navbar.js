@@ -13,9 +13,11 @@ const tempMenuStyle = {
   borderRadius: "0",
   position: "fixed",
   width: "100%",
-  zIndex: "1",
+  zIndex: "2",
   top: "0",
-  boxShadow: "0 10px 15px #00000"
+  WebkitBoxShadow: "0 0 20px rgba(0,0,0,0.8)",
+  MozBoxShadow: "0 0 20px rgba(0,0,0,0.8)",
+  boxShadow: "0 0 20px rgba(0,0,0,0.8)"
 };
 
 class Navbar extends Component {
@@ -164,7 +166,7 @@ class Navbar extends Component {
                 </Menu.Menu>
               </Menu>
             </Segment>
-            <Segment style={{ height: "50px" }} />
+            <Segment style={{ height: "40px" }} />
           </React.Fragment>
         ) : null}
       </React.Fragment>
