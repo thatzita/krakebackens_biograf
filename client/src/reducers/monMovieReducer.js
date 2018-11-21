@@ -31,7 +31,7 @@ export default function(state = initialState, action) {
     case GET_CLOSEUP_MONMOVIE:
       return {
         ...state,
-        movieCloseUp: "hello"
+        movieCloseUp: action.payload
       };
     default:
       return state;

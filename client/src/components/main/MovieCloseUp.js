@@ -26,14 +26,14 @@ class MovieCloseUp extends Component {
 
   componentDidMount() {
     let str = window.location.href;
-    console.log(str);
+    // console.log(str);
 
     let text = str.lastIndexOf("/");
     let id = str.substring(text + 1);
-    console.log(id);
+    // console.log(id);
     let obj = { movieId: id };
     // this.props.getAllMonMovies();
-    this.props.getSpecificMonMovie(obj);
+    this.props.getSpecificMonMovie(id);
   }
 
   render() {
@@ -109,7 +109,7 @@ class MovieCloseUp extends Component {
 }
 
 const mapStateToProps = state => ({
-  movieCloseUp: state
+  movieCloseUp: state.monMovies.movieCloseUp
   // monMovies: state.monMovies
 });
 

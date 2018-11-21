@@ -45,14 +45,18 @@ export const getSpecificMonMovie = data => dispatch => {
   console.log(data);
 
   axios
-    .get("api/monthlyMovies/singlemovie")
+    .get("/api/monthlyMovies/singlemovie/", {
+      params: {
+        id: data
+      }
+    })
     .then(res => {
-      console.log("get res ", res.data);
+      console.log("get res ", res.data.movie);
 
-      // dispatch({
-      //   type: GET_CLOSEUP_MONMOVIE
-      //   // payload: res
-      // });
+      dispatch({
+        type: GET_CLOSEUP_MONMOVIE,
+        payload: res.data.movie
+      });
     })
     .catch(err => console.log(err));
 };

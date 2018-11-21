@@ -110,11 +110,14 @@ router.get("/getAllMonthlyMovies", (req, res) => {
 //@desc     GET specific movie from monthlyMoviesDB
 //@access   private
 
-router.get("/singlemovie", (req, res) => {
-  let movie = req.body.movieId;
-  console.log("param", req.body.movieId);
+router.get("/singlemovie/", (req, res) => {
+  // let movie = req.body.movieId;
+  // console.log("param", req.body.movieId);
 
-  MonMovie.find({ _id: movie })
+  console.log(req.query.id);
+  let id = req.query.id;
+
+  MonMovie.findOne({ _id: id })
     .then(movie => {
       console.log("found movie item");
       console.log("movieItem ", movie);
