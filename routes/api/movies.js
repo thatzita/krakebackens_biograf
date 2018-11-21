@@ -32,7 +32,8 @@ router.post("/addmovie", (req, res) => {
         runtime: req.body.runtime,
         genres: req.body.genres,
         imdb_id: req.body.imdb_id,
-        release: req.body.release
+        release: req.body.release,
+        rating: req.body.rating
       });
       newMovie.save().then(movie => {
         res.json({ movie });

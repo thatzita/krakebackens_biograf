@@ -25,6 +25,7 @@ import AddMovie from "./components/movies/AddMovie";
 import Admin from "./components/admin/Admin";
 import Users from "./components/users/Users";
 import Statistic from "./components/statistic/Statistic";
+import Seating from "./components/seating/Seating";
 
 import CreateMonMovie from "./components/admin/monMovies/CreateMonMovie";
 import MonMovieList from "./components/admin/monMovies/MonMovieList";
@@ -71,6 +72,7 @@ class App extends Component {
               {/* <Route exact path="/register" component={Register} /> */}
               {/* <Route exact path="/addmovie" component={AddMovie} /> */}
               <Switch>
+                <Route exact path="/seating" component={Seating} />
                 <PrivateRoute
                   exact
                   path="/monMovieList"

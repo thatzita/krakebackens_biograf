@@ -52,7 +52,8 @@ class DbPopup extends Component {
         runtime: movieInfo.runtime,
         genres: genreArray,
         imdb_id: movieInfo.imdb_id,
-        release: movieInfo.release_date
+        release: movieInfo.release_date,
+        rating: movieInfo.vote_average
       };
     } else if (title !== "" && description === "") {
       movieDb = {
@@ -63,7 +64,8 @@ class DbPopup extends Component {
         runtime: movieInfo.runtime,
         genres: genreArray,
         imdb_id: movieInfo.imdb_id,
-        release: movieInfo.release_date
+        release: movieInfo.release_date,
+        rating: movieInfo.vote_average
       };
     } else if (title !== "" && description !== "") {
       movieDb = {
@@ -74,7 +76,8 @@ class DbPopup extends Component {
         runtime: movieInfo.runtime,
         genres: genreArray,
         imdb_id: movieInfo.imdb_id,
-        release: movieInfo.release_date
+        release: movieInfo.release_date,
+        rating: movieInfo.vote_average
       };
     } else {
       movieDb = {
@@ -85,7 +88,8 @@ class DbPopup extends Component {
         runtime: movieInfo.runtime,
         genres: genreArray,
         imdb_id: movieInfo.imdb_id,
-        release: movieInfo.release_date
+        release: movieInfo.release_date,
+        rating: movieInfo.vote_average
       };
     }
     this.props.addToMovieDb(movieDb);
@@ -185,6 +189,10 @@ class DbPopup extends Component {
             <span className="date boldSpan">{movieInfo.runtime} min</span>
             <br />
             <br />
+            <p className="date">
+              <strong>Betyg:</strong> {movieInfo.vote_average}
+            </p>
+
             <p className="date">
               <strong>Status:</strong> {movieInfo.status}
             </p>

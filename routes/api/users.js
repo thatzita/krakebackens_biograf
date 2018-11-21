@@ -190,6 +190,20 @@ router.get("/allusers", (req, res) => {
   });
 });
 
+// TODO: Se till att informationen sparas i userStatsArchive
+//GET api/users/resetstats
+//nollställ statistik för alla medlemmar
+router.get("/resetstats", (req, res) => {
+  User.updateMany(
+    {},
+    { $set: { "stats.season": 0 } },
+    { upsert: true },
+    function(err, users) {
+      res.json(users);
+    }
+  );
+});
+
 //DELETE api/users/
 router.delete(
   "/",

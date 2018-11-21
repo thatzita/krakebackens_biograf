@@ -2,15 +2,29 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import "./statistic.css";
-import { Statistic, List, Divider, Icon, Image } from "semantic-ui-react";
+import {
+  Statistic,
+  List,
+  Divider,
+  Icon,
+  Image,
+  Button
+} from "semantic-ui-react";
 
-import { getAllUsers } from "../../actions/usersActions";
+import {
+  getAllUsers,
+  resetStats,
+  saveUserStatsToArchive
+} from "../../actions/usersActions";
 
 class UserStatistic extends Component {
   constructor() {
     super();
     this.state = {
-      users: []
+      users: [],
+      userStatistic: {
+        season: 0
+      }
     };
   }
 
@@ -47,7 +61,8 @@ class UserStatistic extends Component {
     let newList = users.sort(function(a, b) {
       return parseFloat(b.stats.season) - parseFloat(a.stats.season);
     });
-    return newList.slice(0, 5);
+
+    return newList.slice(0, 3);
   }
 
   topUsersInTotal() {
@@ -55,7 +70,32 @@ class UserStatistic extends Component {
     let newList = users.sort(function(a, b) {
       return parseFloat(b.stats.total) - parseFloat(a.stats.total);
     });
-    return newList.slice(0, 5);
+    return newList.slice(0, 3);
+  }
+
+  resetSeasonStats() {
+    let topUsers = this.topUsersThisSeason();
+    let newTopUsers = topUsers.map(user => {
+      return `${user.username} - ${user.stats.season} besök`;
+    });
+    let seasonViewings = this.seasonUsers();
+
+    let dateObj = new Date();
+
+    let year = dateObj.getFullYear();
+    let month = dateObj.getMonth() + 1;
+    let day = dateObj.getUTCDate();
+
+    let newDate = `${year}-${month}-${day}`;
+
+    let objToArchive = {
+      seasonUserViewings: seasonViewings,
+      seasonTopUsers: newTopUsers,
+      archivedDate: newDate
+    };
+
+    this.props.resetStats();
+    this.props.saveUserStatsToArchive(objToArchive);
   }
 
   render() {
@@ -86,7 +126,7 @@ class UserStatistic extends Component {
             </Statistic>
             <Statistic>
               <Statistic.Value>{users.length}</Statistic.Value>
-              <Statistic.Label>medlemmar (inklusive gästkonto)</Statistic.Label>
+              <Statistic.Label>medlemmar (gästkonton?)</Statistic.Label>
             </Statistic>
           </Statistic.Group>
         </div>
@@ -154,13 +194,18 @@ class UserStatistic extends Component {
         {userContentTopList}
         <br />
         <Divider />
+        <Button basic color="purple" onClick={e => this.resetSeasonStats()}>
+          Nollställ årets statistik
+        </Button>
       </React.Fragment>
     );
   }
 }
 
 UserStatistic.propTypes = {
+  saveUserStatsToArchive: PropTypes.func.isRequired,
   getAllUsers: PropTypes.func.isRequired,
+  resetStats: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired
 };
 
@@ -172,6 +217,8 @@ export default connect(
   mapStateToProps,
   {
     //func goes here
-    getAllUsers
+    saveUserStatsToArchive,
+    getAllUsers,
+    resetStats
   }
 )(UserStatistic);

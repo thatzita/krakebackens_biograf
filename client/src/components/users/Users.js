@@ -35,7 +35,6 @@ class Users extends Component {
   }
 
   showUserPopup(user) {
-    console.log(user);
     this.props.userPopup(user);
   }
 
@@ -48,7 +47,6 @@ class Users extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.setState({
       profile: nextProps.profile.profile,
       userInfo: nextProps.userInfo,
