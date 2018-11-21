@@ -20,18 +20,18 @@ export const goToAdminPage = value => dispatch => {
   }
 };
 
-export const setCurrentCloseUpMovieId = (bol, id) => dispatch => {
-  if (bol) {
-    dispatch({
-      type: CURRENT_CLOSE_UP_MOVIE_ID,
-      payload: id
-    });
-    localStorage.setItem("activeMovieId", id);
-  } else {
-    dispatch({
-      type: REMOVE_CURRENT_CLOSE_UP_MOVIE_ID,
-      payload: ""
-    });
-    localStorage.removeItem("activeMovieId");
-  }
-};
+// export const setCurrentCloseUpMovieId = (bol, id) => dispatch => {
+//   if (bol) {
+//     dispatch({
+//       type: CURRENT_CLOSE_UP_MOVIE_ID,
+//       payload: id
+//     });
+//     localStorage.setItem("activeMovieId", id);
+//   } else {
+//     dispatch({
+//       type: REMOVE_CURRENT_CLOSE_UP_MOVIE_ID,
+//       payload: ""
+//     });
+//     localStorage.removeItem("activeMovieId");
+//   }
+// };

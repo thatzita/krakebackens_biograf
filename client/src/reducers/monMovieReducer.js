@@ -1,5 +1,6 @@
 import {
   GET_MONMOVIES,
+  GET_CLOSEUP_MONMOVIE,
   POST_MONMOVIE,
   DELETE_MONMOVIE,
   UPDATE_MONMOVIE
@@ -26,6 +27,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         monMovies: newMonMovieState
+      };
+    case GET_CLOSEUP_MONMOVIE:
+      return {
+        ...state,
+        movieCloseUp: "hello"
       };
     default:
       return state;

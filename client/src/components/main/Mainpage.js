@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCurrentProfile } from "../../actions/profileActions";
 import { getAllMonMovies } from "../../actions/monMovieActions";
-import { setCurrentCloseUpMovieId } from "../../actions/webPageStateActions";
+// import { setCurrentCloseUpMovieId } from "../../actions/webPageStateActions";
 import { Segment } from "semantic-ui-react";
 
 import MonMovieDisplay from "./MonMovieDisplay";
@@ -51,13 +51,13 @@ class Mainpage extends Component {
             </div>
           </div> */}
           <MonMovieDisplay
-            setCurrentCloseUpMovieId={this.props.setCurrentCloseUpMovieId}
+            // setCurrentCloseUpMovieId={this.props.setCurrentCloseUpMovieId}
             monMovies={movieList}
           />
-          <MovieCloseUp
+          {/* <MovieCloseUp
             currentCloseUpMovieId={this.props.currentCloseUpMovieId}
             monMovies={movieList}
-          />
+          /> */}
         </Segment>
       </React.Fragment>
     );
@@ -79,5 +79,9 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, getAllMonMovies, setCurrentCloseUpMovieId }
+  {
+    getCurrentProfile,
+    getAllMonMovies
+    // setCurrentCloseUpMovieId
+  }
 )(Mainpage);

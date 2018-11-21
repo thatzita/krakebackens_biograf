@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import "./movieCloseUp.css";
+import { connect } from "react-redux";
+
+import {
+  getSpecificMonMovie
+  // getAllMonMovies
+} from "../../actions/monMovieActions";
 
 import {
   Button,
@@ -12,21 +18,35 @@ import {
   Icon
 } from "semantic-ui-react";
 
-export default class MovieCloseUp extends Component {
+class MovieCloseUp extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
+  componentDidMount() {
+    let str = window.location.href;
+    console.log(str);
+
+    let text = str.lastIndexOf("/");
+    let id = str.substring(text + 1);
+    console.log(id);
+    let obj = { movieId: id };
+    // this.props.getAllMonMovies();
+    this.props.getSpecificMonMovie(obj);
+  }
+
   render() {
-    let movieList = this.props.monMovies || [];
+    // let movieList = this.props.monMovies.movieCloseUp || {};
     // console.log("list ", movieList);
 
-    let currentMovieId = this.props.currentCloseUpMovieId || "";
-    let movieItem = movieList.filter(item => item._id === currentMovieId);
+    // let currentMovieId = this.props.currentCloseUpMovieId || "";
+    // let movieItem = this.props.monMovies.movieCloseUp || {};
+    // movieList.filter(item => item._id === currentMovieId);
     // console.log("current ", movieItem);
+    console.log("props: ", this.props);
 
-    let movieObject = movieItem[0] || {};
+    let movieObject = this.props.movieCloseUp || {}; // movieItem[0] || {};
     let displayImage = movieObject.background || "default.jpg";
 
     return (
@@ -87,3 +107,16 @@ export default class MovieCloseUp extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  movieCloseUp: state
+  // monMovies: state.monMovies
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    getSpecificMonMovie
+    // getAllMonMovies
+  }
+)(MovieCloseUp);

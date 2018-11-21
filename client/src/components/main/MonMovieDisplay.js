@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 import {
   Button,
   Dimmer,
@@ -39,9 +41,13 @@ export default class MonMovieDisplay extends Component {
               textAlign: "center"
             }}
             key={item._id}
-            onClick={() => this.props.setCurrentCloseUpMovieId(true, item._id)}
+            // onClick={() => this.props.setCurrentCloseUpMovieId(true, item._id)}
           >
-            <Reveal animated="small fade">
+            <Reveal
+              as={Link}
+              to={"/mainpage/" + item._id}
+              animated="small fade"
+            >
               <Reveal.Content visible style={{ border: "1px solid gray" }}>
                 <Image size="small" src={item.poster} />
               </Reveal.Content>

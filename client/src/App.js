@@ -30,6 +30,8 @@ import Seating from "./components/seating/Seating";
 import CreateMonMovie from "./components/admin/monMovies/CreateMonMovie";
 import MonMovieList from "./components/admin/monMovies/MonMovieList";
 
+import MovieCloseUp from "./components/main/MovieCloseUp";
+
 //FÖR ADMINS, SKA INTE VARA I LANDING
 import Register from "./components/auth/Register";
 
@@ -72,6 +74,7 @@ class App extends Component {
               {/* <Route exact path="/register" component={Register} /> */}
               {/* <Route exact path="/addmovie" component={AddMovie} /> */}
               <Switch>
+                <Route exact path="/mainpage/:id" component={MovieCloseUp} />
                 <Route exact path="/seating" component={Seating} />
                 <PrivateRoute
                   exact
