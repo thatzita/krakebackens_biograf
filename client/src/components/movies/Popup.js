@@ -12,7 +12,8 @@ import {
   Container,
   Divider,
   Image,
-  Icon
+  Icon,
+  Segment
 } from "semantic-ui-react";
 
 class Popup extends Component {
@@ -22,7 +23,8 @@ class Popup extends Component {
       showOrHide: false,
       movieInfo: {},
       title: "",
-      description: ""
+      description: "",
+      crowRating: ""
     };
     this.editValues = this.editValues.bind(this);
   }
@@ -38,34 +40,92 @@ class Popup extends Component {
 
   updateMovieDb() {
     let { movieInfo } = this.state;
-    let { title, description } = this.state;
+    let { title, description, crowRating } = this.state;
     let movieDb;
 
-    if (title === "" && description !== "") {
-      movieDb = {
-        title: movieInfo.title,
-        description: description,
-        id: movieInfo._id
-      };
-    } else if (title !== "" && description === "") {
-      movieDb = {
-        title: title,
-        description: movieInfo.description,
-        id: movieInfo._id
-      };
-    } else if (title !== "" && description !== "") {
-      movieDb = {
-        title: title,
-        description: description,
-        id: movieInfo._id
-      };
-    } else {
+    if (title === "" && description === "" && crowRating === "") {
       movieDb = {
         title: movieInfo.title,
         description: movieInfo.description,
+        crowRating: movieInfo.crowRating,
+        id: movieInfo._id
+      };
+    } else if (title !== "" && description !== "" && crowRating !== "") {
+      movieDb = {
+        title: title,
+        description: description,
+        crowRating: crowRating,
+        id: movieInfo._id
+      };
+    } else if (title !== "" && description === "" && crowRating === "") {
+      movieDb = {
+        title: title,
+        description: movieInfo.description,
+        crowRating: movieInfo.crowRating,
+        id: movieInfo._id
+      };
+    } else if (title === "" && description !== "" && crowRating === "") {
+      movieDb = {
+        title: movieInfo.title,
+        description: description,
+        crowRating: movieInfo.crowRating,
+        id: movieInfo._id
+      };
+    } else if (title === "" && description === "" && crowRating !== "") {
+      movieDb = {
+        title: movieInfo.title,
+        description: movieInfo.description,
+        crowRating: crowRating,
+        id: movieInfo._id
+      };
+    } else if (title !== "" && description !== "" && crowRating === "") {
+      movieDb = {
+        title: title,
+        description: description,
+        crowRating: movieInfo.crowRating,
+        id: movieInfo._id
+      };
+    } else if (title === "" && description !== "" && crowRating !== "") {
+      movieDb = {
+        title: movieInfo.title,
+        description: description,
+        crowRating: crowRating,
+        id: movieInfo._id
+      };
+    } else if (title !== "" && description === "" && crowRating !== "") {
+      movieDb = {
+        title: title,
+        description: movieInfo.description,
+        crowRating: crowRating,
         id: movieInfo._id
       };
     }
+    console.log(movieDb);
+    // if (title === "" && description !== "") {
+    //   movieDb = {
+    //     title: movieInfo.title,
+    //     description: description,
+    //     id: movieInfo._id
+    //   };
+    // } else if (title !== "" && description === "") {
+    //   movieDb = {
+    //     title: title,
+    //     description: movieInfo.description,
+    //     id: movieInfo._id
+    //   };
+    // } else if (title !== "" && description !== "") {
+    //   movieDb = {
+    //     title: title,
+    //     description: description,
+    //     id: movieInfo._id
+    //   };
+    // } else {
+    //   movieDb = {
+    //     title: movieInfo.title,
+    //     description: movieInfo.description,
+    //     id: movieInfo._id
+    //   };
+    // }
     this.props.updateDb(movieDb);
     this.setState({
       title: "",
@@ -76,12 +136,13 @@ class Popup extends Component {
 
   changeInput(event) {
     let nameOfClass = event.target.className;
+
     this.editValues(nameOfClass, event.target.textContent);
   }
 
   editValues(nameOfClass, data) {
     switch (nameOfClass) {
-      case "ui grey inverted header title":
+      case "title":
         this.setState({
           title: data
         });
@@ -90,6 +151,11 @@ class Popup extends Component {
         this.setState({
           description: data
         });
+      case "crowRating":
+        this.setState({
+          crowRating: data
+        });
+
         break;
       default:
     }
@@ -109,36 +175,37 @@ class Popup extends Component {
 
     if (showOrHide) {
       moviePopup = (
-        <div className="popup">
-          <Image
-            floated="right"
-            className="imageBorder"
-            size="large"
-            src={movieInfo.background}
-          />
-          <Image
-            size="small"
-            className="imageBorder"
-            floated="right"
-            src={movieInfo.poster}
-          />
-
-          <Header
-            as="h1"
-            inverted
-            color="grey"
-            className="title"
-            contentEditable={true}
-            suppressContentEditableWarning="true"
-            onInput={event => this.changeInput(event)}
-          >
-            {movieInfo.title}
-          </Header>
-          <Container className="containerInPopup">
-            <span className="date boldSpan">{movieInfo.release}</span>
-            <br />
-            <br />
+        // <div className="popup">
+        <Segment inverted color="black">
+          <div className="imgPosition">
+            <Image
+              // floated="right"
+              // className="imageBorder"
+              size="large"
+              src={movieInfo.background}
+            />
+            <Image
+              size="small"
+              // className="imageBorder"
+              // floated="right"
+              src={movieInfo.poster}
+            />
+          </div>
+          <Container fluid className="containerInPopup">
             <div className="descriptionContainer">
+              <h1
+                className="title"
+                contentEditable={true}
+                suppressContentEditableWarning="true"
+                onInput={event => this.changeInput(event)}
+              >
+                {movieInfo.title}
+              </h1>
+
+              <span className="date boldSpan">{movieInfo.release}</span>
+              <br />
+              <br />
+
               <p
                 className="description"
                 contentEditable={true}
@@ -147,48 +214,68 @@ class Popup extends Component {
               >
                 {movieInfo.description}
               </p>
-            </div>
-            <br />
 
-            <p>
-              <strong>Genres:</strong> <br />
-              {movieInfo.genres.map((genre, i) => {
-                return (
-                  <span key={i} className="date">
-                    {genre}{" "}
-                  </span>
-                );
-              })}
-            </p>
-            <Icon name="time" />
-            <span className="date boldSpan">{movieInfo.runtime} min</span>
-            <br />
-            <br />
-            <span className="date boldSpan">Betyg: {movieInfo.rating} </span>
+              <br />
+
+              <p>
+                <strong>Genres:</strong> <br />
+                {movieInfo.genres.map((genre, i) => {
+                  return (
+                    <span key={i} className="date">
+                      {genre}{" "}
+                    </span>
+                  );
+                })}
+              </p>
+              <Icon name="time" />
+              <span className="date boldSpan">{movieInfo.runtime} min</span>
+              <br />
+              <br />
+              <span className="date boldSpan">Betyg: {movieInfo.rating} </span>
+              <br />
+              <br />
+              <span className="date boldSpan">
+                Kråkan tycker till:
+                <span
+                  className="crowRating"
+                  contentEditable={true}
+                  suppressContentEditableWarning="true"
+                  onInput={event => this.changeInput(event)}
+                >
+                  {movieInfo.crowRating}
+                </span>
+              </span>
+
+              <br />
+              <br />
+              <Divider />
+              <Button.Group>
+                <Button
+                  inverted
+                  color="green"
+                  onClick={e => this.updateMovieDb(movieInfo)}
+                >
+                  Uppdatera databasen
+                </Button>
+                <Button
+                  inverted
+                  color="red"
+                  onClick={e => this.deleteMovie(movieInfo)}
+                >
+                  Ta bort från databasen
+                </Button>
+                <Button
+                  inverted
+                  color="purple"
+                  onClick={e => this.closePopup()}
+                >
+                  Stäng
+                </Button>
+              </Button.Group>
+            </div>
           </Container>
-          <br />
-          <br />
-          <Divider />
-          <Button.Group>
-            <Button
-              inverted
-              color="green"
-              onClick={e => this.updateMovieDb(movieInfo)}
-            >
-              Uppdatera databasen
-            </Button>
-            <Button
-              inverted
-              color="red"
-              onClick={e => this.deleteMovie(movieInfo)}
-            >
-              Ta bort från databasen
-            </Button>
-            <Button inverted color="purple" onClick={e => this.closePopup()}>
-              Stäng
-            </Button>
-          </Button.Group>
-        </div>
+        </Segment>
+        // </div>
       );
     } else {
       moviePopup = "";

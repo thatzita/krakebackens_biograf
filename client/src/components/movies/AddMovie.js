@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Input, Divider, Button, Card, Image, Icon } from "semantic-ui-react";
-import { searchMovie, imdbPopup } from "../../actions/movieActions";
+import { Input, Divider, Button, Item, Image, Icon } from "semantic-ui-react";
+import {
+  searchMovie,
+  imdbPopup,
+  getMovieInfoAddtoDb
+} from "../../actions/movieActions";
 import DbPopup from "./DbPopup";
 import { Link } from "react-router-dom";
 import Admin from "../admin/Admin";
@@ -48,6 +52,10 @@ class AddMovie extends Component {
     this.props.imdbPopup(movieId);
   }
 
+  addToDb(movieId) {
+    this.props.getMovieInfoAddtoDb(movieId);
+  }
+
   render() {
     let { moviesFound } = this.state;
     let movieList;
@@ -56,14 +64,11 @@ class AddMovie extends Component {
     if (moviesFound !== undefined) {
       let movieCards = moviesFound.map(movie => {
         return (
-          <Card
-            onClick={e => this.showPopup(movie.id)}
-            value={movie.id}
-            key={movie.id}
-          >
-            <Image
+          <Item value={movie.id} key={movie.id}>
+            <Item.Image
+              onClick={e => this.showPopup(movie.id)}
               className="posterImg"
-              size="small"
+              size="tiny"
               src={posterUrl + movie.poster_path}
               alt="Ingen bild hittades"
               onError={e => {
@@ -71,13 +76,35 @@ class AddMovie extends Component {
                   "https://upload.wikimedia.org/wikipedia/commons/6/64/Poster_not_available.jpg";
               }}
             />
-            <Card.Content>
-              <Card.Header>{movie.title}</Card.Header>
-            </Card.Content>
-          </Card>
+            <Item.Content>
+              <Item.Header>{movie.title}</Item.Header>
+            </Item.Content>
+            <Item.Group>
+              <Button
+                basic
+                color="blue"
+                onClick={e => this.showPopup(movie.id)}
+                icon
+                attached="bottom"
+                floated="right"
+              >
+                <Icon color="blue" name="eye" className="editIcon" />
+              </Button>
+              <Button
+                basic
+                color="green"
+                onClick={e => this.addToDb(movie.id)}
+                icon
+                attached="bottom"
+                floated="right"
+              >
+                <Icon color="green" name="add circle" className="editIcon" />
+              </Button>
+            </Item.Group>
+          </Item>
         );
       });
-      movieList = <Card.Group>{movieCards}</Card.Group>;
+      movieList = <Item.Group divided> {movieCards}</Item.Group>;
     } else {
       movieList = "";
     }
@@ -115,7 +142,8 @@ AddMovie.propTypes = {
   imdbPopup: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  getMovieInfoAddtoDb: PropTypes.func.isRequired
   // errors: PropTypes.object.isRequired
 };
 
@@ -131,6 +159,7 @@ export default connect(
     //func goes here
     searchMovie,
     imdbPopup,
-    getCurrentProfile
+    getCurrentProfile,
+    getMovieInfoAddtoDb
   }
 )(AddMovie);

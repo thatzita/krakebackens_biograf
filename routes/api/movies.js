@@ -33,7 +33,8 @@ router.post("/addmovie", (req, res) => {
         genres: req.body.genres,
         imdb_id: req.body.imdb_id,
         release: req.body.release,
-        rating: req.body.rating
+        rating: req.body.rating,
+        crowRating: req.body.crowRating
       });
       newMovie.save().then(movie => {
         res.json({ movie });
@@ -63,7 +64,8 @@ router.post("/update", (req, res) => {
   let errors = {};
   let updateField = {
     title: movieData.title,
-    description: movieData.description
+    description: movieData.description,
+    crowRating: movieData.crowRating
   };
 
   Movie.findOneAndUpdate({ _id: movieData.id }, updateField).then(movie => {

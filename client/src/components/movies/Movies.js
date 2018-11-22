@@ -80,7 +80,7 @@ class Movies extends Component {
           -1
         );
       });
-      let movieCards = filteredMovies.map(movie => {
+      let movieItem = filteredMovies.map(movie => {
         return (
           <Item key={movie.imdb_id}>
             <Item.Image
@@ -90,11 +90,17 @@ class Movies extends Component {
               src={movie.poster}
             />
             <Item.Content>
-              <Item.Header>{movie.title}</Item.Header>
-              <Item.Meta>
+              <Item.Header>
+                {movie.title} ( {movie.release.substring(0, 4)} ){" "}
+                <em style={{ fontSize: "1rem", color: "gray" }}>
+                  {" "}
+                  - {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min
+                </em>{" "}
+              </Item.Header>
+              {/* <Item.Meta>
                 <span className="boldSpan"> {movie.release}</span>
-              </Item.Meta>
-              <Item.Description>
+              </Item.Meta> */}
+              <Item.Extra>
                 {movie.genres.map((genre, i) => {
                   return (
                     <span key={i} className="date">
@@ -102,12 +108,12 @@ class Movies extends Component {
                     </span>
                   );
                 })}
-              </Item.Description>
+              </Item.Extra>
 
-              <Item.Meta>
+              {/* <Item.Meta>
                 <Icon name="time" color="black" />
                 <span className="cinema boldSpan">{movie.runtime} min</span>
-              </Item.Meta>
+              </Item.Meta> */}
             </Item.Content>
             <Item.Group>
               <Button
@@ -139,7 +145,7 @@ class Movies extends Component {
         <div>
           <br />
           {/* <h2>Filmdatabas</h2> */}
-          <Item.Group divided>{movieCards.slice(0, showMore)}</Item.Group>
+          <Item.Group divided>{movieItem.slice(0, showMore)}</Item.Group>
         </div>
       );
     } else {

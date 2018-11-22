@@ -70,6 +70,48 @@ export const showMoviesFound = movieData => {
   };
 };
 
+//ADD IMDB DATA WITHOUT POPUP
+export const getMovieInfoAddtoDb = movieId => dispatch => {
+  let url = "https://api.themoviedb.org/3/movie/";
+  let key = "?api_key=1ca6bbafafae8cf950e1fbb80a4824c7&language=sv";
+
+  delete axios.defaults.headers.common["Authorization"];
+
+  axios
+    .get(url + movieId + key)
+    .then(res => {
+      let movie = res.data;
+      axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
+      return movie;
+    })
+    .then(movieToAdd => {
+      console.log(movieToAdd);
+      let urlForImg = "http://image.tmdb.org/t/p/original";
+      let genreArray = movieToAdd.genres.map(genre => {
+        return genre.name;
+      });
+
+      let addToDb = {
+        title: movieToAdd.title,
+        description: movieToAdd.overview,
+        background: urlForImg + movieToAdd.backdrop_path,
+        poster: urlForImg + movieToAdd.poster_path,
+        runtime: movieToAdd.runtime,
+        genres: genreArray,
+        imdb_id: movieToAdd.imdb_id,
+        release: movieToAdd.release_date,
+        rating: movieToAdd.vote_average
+      };
+      axios.post("/api/movies/addmovie", addToDb).then(res => {
+        let success = {
+          title: "Film tillagd!",
+          msg: "Filmen finns nu i databasen"
+        };
+        dispatch(movieAddedSuccess(success));
+      });
+    });
+};
+
 //IMDB POPUP
 export const imdbPopup = movieId => dispatch => {
   let url = "https://api.themoviedb.org/3/movie/";

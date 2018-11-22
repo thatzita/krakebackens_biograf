@@ -25,7 +25,8 @@ const MovieSchema = new Schema({
   release: {
     type: String
   },
-  rating: ""
+  rating: String,
+  crowRating: String
 });
 
 module.exports = Movie = mongoose.model("movies", MovieSchema);
