@@ -1,0 +1,19 @@
+.movieCloseUpContainer {
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+}
+
+.movieDisplayandInformation {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.movieDisplayandInformation > .coverImage {
+  width: 50%;
+  height: 400px;
+}
+
+.movieDescription {
+  width: 50%;
+}

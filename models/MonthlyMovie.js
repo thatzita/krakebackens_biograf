@@ -31,6 +31,7 @@ const MonthlyMovieSchema = new Schema({
     release: {
       type: String
     },
+    rating: String,
     screeningDate: {
        type: String,
        required: true
@@ -48,6 +49,7 @@ const MonthlyMovieSchema = new Schema({
         required: true
     },
     fullyBooked: Boolean,
+  
 }); 
 
 module.exports = MonthlyMovie = mongoose.model('monthlyMovies', MonthlyMovieSchema);

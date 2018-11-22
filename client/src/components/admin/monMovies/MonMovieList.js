@@ -19,11 +19,11 @@ class MonMovieList extends Component {
   }
   componentDidMount() {
     this.props.getAllMonMovies();
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     let monList = this.props.monMovies.monMovies || [];
 
     return (
@@ -87,7 +87,6 @@ class MonMovieList extends Component {
                     </Button>
                     <Button
                       onClick={() => this.props.deleteMonMovie(item)}
-                      color="red"
                       basic
                       floated="right"
                     >

@@ -37,7 +37,7 @@ class CreateMonMovie extends Component {
       time: this.state.time,
       utc_time: utc_time
     };
-    console.log("Value : ", monMovieDb);
+    // console.log("Value : ", monMovieDb);
     this.props.postMonmovie(monMovieDb);
   };
 
@@ -66,7 +66,7 @@ class CreateMonMovie extends Component {
   };
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
 
     let movies = this.props.movies || [];
 
