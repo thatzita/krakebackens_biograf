@@ -13,7 +13,7 @@ export const postMonmovie = data => dispatch => {
   // console.log(data);
 
   axios
-    .post("api/monthlyMovies/uploadMoviePremiere", data)
+    .post("/api/monthlyMovies/uploadMoviePremiere", data)
     .then(res => {
       // console.log(res);
       dispatch({
@@ -29,7 +29,7 @@ export const getAllMonMovies = () => dispatch => {
   // console.log('fetching all monMovies');
 
   axios
-    .get("api/monthlyMovies/getAllMonthlyMovies")
+    .get("/api/monthlyMovies/getAllMonthlyMovies")
     .then(res => {
       // console.log(res.data.monMovies);
       dispatch({
@@ -42,7 +42,7 @@ export const getAllMonMovies = () => dispatch => {
 
 // GET SPESIFIC MOVIE
 export const getSpecificMonMovie = data => dispatch => {
-  console.log(data);
+  // console.log(data);
 
   axios
     .get("/api/monthlyMovies/singlemovie/", {
@@ -51,7 +51,7 @@ export const getSpecificMonMovie = data => dispatch => {
       }
     })
     .then(res => {
-      console.log("get res ", res.data.movie);
+      // console.log("get res ", res.data.movie);
 
       dispatch({
         type: GET_CLOSEUP_MONMOVIE,
@@ -66,7 +66,7 @@ export const deleteMonMovie = movie => dispatch => {
   // console.log('Delete action starting');
   let objId = movie._id;
   axios
-    .delete("api/monthlyMovies/deleteMonthlyMovie", { data: { objId } })
+    .delete("/api/monthlyMovies/deleteMonthlyMovie", { data: { objId } })
     .then(res => {
       if (res) {
         dispatch({

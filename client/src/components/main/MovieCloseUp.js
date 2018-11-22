@@ -25,29 +25,22 @@ class MovieCloseUp extends Component {
   }
 
   componentDidMount() {
-    let str = window.location.href;
+    let str = this.props.location.pathname;
     // console.log(str);
 
-    let text = str.lastIndexOf("/");
-    let id = str.substring(text + 1);
-    // console.log(id);
-    let obj = { movieId: id };
-    // this.props.getAllMonMovies();
+    let lineIndex = str.lastIndexOf("/");
+    let id = str.substring(lineIndex + 1);
     this.props.getSpecificMonMovie(id);
   }
 
   render() {
-    // let movieList = this.props.monMovies.movieCloseUp || {};
-    // console.log("list ", movieList);
-
-    // let currentMovieId = this.props.currentCloseUpMovieId || "";
-    // let movieItem = this.props.monMovies.movieCloseUp || {};
-    // movieList.filter(item => item._id === currentMovieId);
-    // console.log("current ", movieItem);
-    console.log("props: ", this.props);
+    // console.log("props: ", this.props);
 
     let movieObject = this.props.movieCloseUp || {}; // movieItem[0] || {};
-    let displayImage = movieObject.background || "default.jpg";
+    let displayImage =
+      movieObject.background ||
+      "default.jpg" ||
+      "http://www.rangerwoodperiyar.com/images/joomlart/demo/default.jpg";
 
     return (
       <div className="movieCloseUpContainer">

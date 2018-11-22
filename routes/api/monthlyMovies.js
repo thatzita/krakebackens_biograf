@@ -111,9 +111,6 @@ router.get("/getAllMonthlyMovies", (req, res) => {
 //@access   private
 
 router.get("/singlemovie/", (req, res) => {
-  // let movie = req.body.movieId;
-  // console.log("param", req.body.movieId);
-
   console.log(req.query.id);
   let id = req.query.id;
 

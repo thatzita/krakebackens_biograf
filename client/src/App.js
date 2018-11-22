@@ -74,7 +74,6 @@ class App extends Component {
               {/* <Route exact path="/register" component={Register} /> */}
               {/* <Route exact path="/addmovie" component={AddMovie} /> */}
               <Switch>
-                <Route exact path="/mainpage/:id" component={MovieCloseUp} />
                 <Route exact path="/seating" component={Seating} />
                 <PrivateRoute
                   exact
@@ -85,6 +84,11 @@ class App extends Component {
                   exact
                   path="/createMonMovie"
                   component={CreateMonMovie}
+                />
+                <PrivateRoute
+                  exact
+                  path="/mainpage/:id"
+                  component={MovieCloseUp}
                 />
                 <PrivateRoute exact path="/mainpage" component={Mainpage} />
                 <PrivateRoute exact path="/profile" component={Profile} />
