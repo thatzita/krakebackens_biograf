@@ -45,7 +45,10 @@ export default class MonMovieDisplay extends Component {
           >
             <Reveal
               as={Link}
-              to={"/mainpage/" + item._id}
+              to={{
+                pathname: "/movieselection",
+                state: { movieId: item._id }
+              }}
               animated="small fade"
             >
               <Reveal.Content visible style={{ border: "1px solid gray" }}>

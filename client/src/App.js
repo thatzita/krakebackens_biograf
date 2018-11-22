@@ -85,11 +85,7 @@ class App extends Component {
                   path="/createMonMovie"
                   component={CreateMonMovie}
                 />
-                <PrivateRoute
-                  exact
-                  path="/mainpage/:id"
-                  component={MovieCloseUp}
-                />
+                <Route exact path="/movieselection" component={MovieCloseUp} />
                 <PrivateRoute exact path="/mainpage" component={Mainpage} />
                 <PrivateRoute exact path="/profile" component={Profile} />
                 <PrivateRoute
