@@ -3,3 +3,6 @@ div.containerMembers {
   margin-left: 285px;
   max-width: 65rem;
 }
+div.members {
+  background-color: #f8f8ff;
+}

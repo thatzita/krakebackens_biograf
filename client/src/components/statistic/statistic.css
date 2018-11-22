@@ -16,3 +16,9 @@ div.tableContainer {
   width: 300px;
   float: right;
 }
+
+div.statistics {
+  background-color: #f8f8ff;
+  padding-bottom: 3rem;
+  margin-bottom: -4.2rem;
+}

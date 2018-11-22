@@ -66,7 +66,12 @@ class Movies extends Component {
     if (movies !== undefined) {
       if (this.props.movies.movies.length > showMore) {
         showMoreContentButton = (
-          <Button basic color="purple" onClick={e => this.showMoreContent()}>
+          <Button
+            className="loadMoreBtn"
+            basic
+            color="purple"
+            onClick={e => this.showMoreContent()}
+          >
             Ladda mer filmer
           </Button>
         );
@@ -117,24 +122,22 @@ class Movies extends Component {
             </Item.Content>
             <Item.Group>
               <Button
-                basic
-                color="red"
-                onClick={e => this.deleteMovie(movie)}
-                icon
+                color="violet"
+                onClick={e => this.showPopup(movie)}
                 attached="bottom"
                 floated="right"
               >
-                <Icon color="red" name="delete" className="deleteIcon" />
+                <Icon name="edit" />
+                Ändra
               </Button>
               <Button
                 basic
-                color="green"
-                onClick={e => this.showPopup(movie)}
-                icon
+                onClick={e => this.deleteMovie(movie)}
                 attached="bottom"
                 floated="right"
               >
-                <Icon color="green" name="edit" className="editIcon" />
+                <Icon name="delete" />
+                Ta bort
               </Button>
             </Item.Group>
           </Item>
@@ -155,31 +158,32 @@ class Movies extends Component {
     return (
       <div className="movies">
         <div className="containerMovies">
-          <h1>Filmdatabas</h1>
+          <h1 className="title">Filmdatabas</h1>
           <hr />
           <Admin />
-          <Input
-            placeholder="Sök i databasen..."
-            onChange={this.onChange}
-            value={this.state.search}
-            name="search"
-          />
+          <div className="searchContainer">
+            <Input
+              className="movieSearch"
+              placeholder="Sök i databasen..."
+              onChange={this.onChange}
+              value={this.state.search}
+              name="search"
+            />
 
-          <Link to="/addmovie">
-            <Button basic color="violet">
-              <Icon name="plus" />
-              Lägg till i databasen
-            </Button>
-          </Link>
+            <Link to="/addmovie">
+              <Button color="green">
+                <Icon name="add" />
+                Lägg till i databasen
+              </Button>
+            </Link>
+          </div>
           <Popup />
-
+          <br />
           {movieContent}
         </div>
 
         <br />
-        <Grid verticalAlign="middle" columns={4} centered>
-          {showMoreContentButton}
-        </Grid>
+        <div className="loadMoreBtnContainer">{showMoreContentButton}</div>
       </div>
     );
   }

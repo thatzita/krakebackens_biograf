@@ -63,6 +63,7 @@ class AddMovie extends Component {
 
     if (moviesFound !== undefined) {
       let movieCards = moviesFound.map(movie => {
+        console.log(movie);
         return (
           <Item value={movie.id} key={movie.id}>
             <Item.Image
@@ -77,28 +78,27 @@ class AddMovie extends Component {
               }}
             />
             <Item.Content>
-              <Item.Header>{movie.title}</Item.Header>
+              <Item.Header>
+                {movie.title} ( {movie.release_date.substring(0, 4)} ){" "}
+              </Item.Header>
             </Item.Content>
             <Item.Group>
               <Button
-                basic
-                color="blue"
-                onClick={e => this.showPopup(movie.id)}
-                icon
-                attached="bottom"
-                floated="right"
-              >
-                <Icon color="blue" name="eye" className="editIcon" />
-              </Button>
-              <Button
-                basic
                 color="green"
                 onClick={e => this.addToDb(movie.id)}
-                icon
                 attached="bottom"
                 floated="right"
               >
-                <Icon color="green" name="add circle" className="editIcon" />
+                <Icon name="add circle" className="editIcon" />
+                Lägg till
+              </Button>
+              <Button
+                color="blue"
+                onClick={e => this.showPopup(movie.id)}
+                attached="bottom"
+                floated="right"
+              >
+                <Icon name="eye" className="editIcon" /> Mer info
               </Button>
             </Item.Group>
           </Item>
@@ -110,28 +110,36 @@ class AddMovie extends Component {
     }
 
     return (
-      <div className="containerAddmovie">
-        <h1>Lägg till film</h1>
-        <hr />
-        <Admin />
-        <Input
-          name="searchedMovie"
-          value={this.state.searchedMovie}
-          onChange={this.onChange}
-          placeholder="Skriv namn på film..."
-        />
-        <Button basic color="violet" type="submit" onClick={this.onSubmit}>
-          Sök
-        </Button>
-        <Link to="/movies">
-          <Button basic color="violet">
-            <Icon name="left chevron" />
-            Tillbaka till databasen
-          </Button>
-        </Link>
-        <Divider />
-        <DbPopup />
-        {movieList}
+      <div className="addMovie">
+        <div className="containerAddmovie">
+          <div className="addmovieDiv">
+            <h1 className="title">Lägg till film</h1>
+            <hr />
+            <Admin />
+            <div className="searchContainer">
+              <Input
+                className="movieSearch"
+                name="searchedMovie"
+                value={this.state.searchedMovie}
+                onChange={this.onChange}
+                placeholder="Skriv namn på film..."
+              />
+              <Button color="violet" type="submit" onClick={this.onSubmit}>
+                Sök
+              </Button>
+
+              <Link to="/movies">
+                <Button basic>
+                  <Icon name="left chevron" />
+                  Tillbaka till databasen
+                </Button>
+              </Link>
+            </div>
+
+            <DbPopup />
+            {movieList}
+          </div>
+        </div>
       </div>
     );
   }

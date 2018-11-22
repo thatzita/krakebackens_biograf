@@ -6,11 +6,13 @@ import UserStatistic from "./UserStatistic";
 class Statistic extends Component {
   render() {
     return (
-      <div className="containerStatistic">
-        <h1>Statistik</h1>
-        <hr />
-        <Admin />
-        <UserStatistic />
+      <div className="statistics">
+        <div className="containerStatistic">
+          <h1>Statistik</h1>
+          <hr />
+          <Admin />
+          <UserStatistic />
+        </div>
       </div>
     );
   }

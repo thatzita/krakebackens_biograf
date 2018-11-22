@@ -117,11 +117,13 @@ class CreateMonMovie extends Component {
     );
 
     return (
-      <React.Fragment>
-        <div className="containerMonMovies">
+      // <React.Fragment>
+      <div className="containerMonMoviesCreateBackground">
+        <div className="containerMonMoviesCreate">
           {this.state.previewPage ? previewSubmitPage : createPage}
         </div>
-      </React.Fragment>
+      </div>
+      // </React.Fragment>
     );
   }
 }
