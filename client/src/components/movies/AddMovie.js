@@ -113,7 +113,10 @@ class AddMovie extends Component {
       <div className="addMovie">
         <div className="containerAddmovie">
           <div className="addmovieDiv">
-            <h1 className="title">Lägg till film</h1>
+            <h1 className="title">
+              <Icon name="film" />
+              Lägg till film
+            </h1>
             <hr />
             <Admin />
             <div className="searchContainer">

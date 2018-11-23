@@ -85,7 +85,11 @@ class App extends Component {
                   path="/createMonMovie"
                   component={CreateMonMovie}
                 />
-                <Route exact path="/movieselection" component={MovieCloseUp} />
+                <PrivateRoute
+                  exact
+                  path="/movieselection"
+                  component={MovieCloseUp}
+                />
                 <PrivateRoute exact path="/mainpage" component={Mainpage} />
                 <PrivateRoute exact path="/profile" component={Profile} />
                 <PrivateRoute
@@ -102,7 +106,7 @@ class App extends Component {
               </Switch>
             </div>
 
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </Router>
       </Provider>

@@ -27,7 +27,7 @@ class MonMovieList extends Component {
     let monList = this.props.monMovies.monMovies || [];
 
     return (
-      <Segment>
+      <div className="monMovies">
         <div className="containerMonMovies">
           <Admin />
           <Header as="h2" dividing>
@@ -41,7 +41,7 @@ class MonMovieList extends Component {
             >
               <div>
                 {" "}
-                <Icon name="film" /> Månadens filmer
+                <Icon name="star" /> Månadens filmer
               </div>
               <Button
                 color="green"
@@ -55,51 +55,54 @@ class MonMovieList extends Component {
             </Header.Content>
           </Header>
 
-          <Item.Group divided>
-            {monList.map(item => (
-              <Item key={item._id}>
-                <Item.Image size="tiny" src={item.poster} />
-                <Item.Content verticalAlign="middle">
-                  <Item.Header>
-                    {item.title} ( {item.release.substring(0, 4)} ){" "}
-                    <em style={{ fontSize: "1rem", color: "gray" }}>
-                      {" "}
-                      - {Math.floor(item.runtime / 60)}h {item.runtime % 60}min
-                    </em>{" "}
-                  </Item.Header>
-                  <Item.Meta>
-                    <Icon name="clock outline" color="grey" />{" "}
-                    {item.screeningTime}
-                  </Item.Meta>
-                  <Item.Meta>
-                    <Icon name="calendar alternate outline" color="grey" />{" "}
-                    {item.screeningDate}
-                  </Item.Meta>
-                  <Item.Description
-                    style={{ maxWidth: "70%", minWidth: "280px" }}
-                  >
-                    {item.description}
-                  </Item.Description>
-                  <Item.Extra>{item.genres.map(gen => gen + " ")}</Item.Extra>
-                  <Item.Extra>
-                    <Button color="violet" floated="right">
-                      <Icon name="edit" /> Ändra
-                    </Button>
-                    <Button
-                      onClick={() => this.props.deleteMonMovie(item)}
-                      basic
-                      floated="right"
+          <Segment>
+            <Item.Group divided>
+              {monList.map(item => (
+                <Item key={item._id}>
+                  <Item.Image size="tiny" src={item.poster} />
+                  <Item.Content verticalAlign="middle">
+                    <Item.Header>
+                      {item.title} ( {item.release.substring(0, 4)} ){" "}
+                      <em style={{ fontSize: "1rem", color: "gray" }}>
+                        {" "}
+                        - {Math.floor(item.runtime / 60)}h {item.runtime % 60}
+                        min
+                      </em>{" "}
+                    </Item.Header>
+                    <Item.Meta>
+                      <Icon name="clock outline" color="grey" />{" "}
+                      {item.screeningTime}
+                    </Item.Meta>
+                    <Item.Meta>
+                      <Icon name="calendar alternate outline" color="grey" />{" "}
+                      {item.screeningDate}
+                    </Item.Meta>
+                    <Item.Description
+                      style={{ maxWidth: "70%", minWidth: "280px" }}
                     >
-                      <Icon name="delete" />
-                      Ta bort
-                    </Button>
-                  </Item.Extra>
-                </Item.Content>
-              </Item>
-            ))}
-          </Item.Group>
+                      {item.description}
+                    </Item.Description>
+                    <Item.Extra>{item.genres.map(gen => gen + " ")}</Item.Extra>
+                    <Item.Extra>
+                      <Button color="violet" floated="right">
+                        <Icon name="edit" /> Ändra
+                      </Button>
+                      <Button
+                        onClick={() => this.props.deleteMonMovie(item)}
+                        basic
+                        floated="right"
+                      >
+                        <Icon name="delete" />
+                        Ta bort
+                      </Button>
+                    </Item.Extra>
+                  </Item.Content>
+                </Item>
+              ))}
+            </Item.Group>
+          </Segment>
         </div>
-      </Segment>
+      </div>
     );
   }
 }

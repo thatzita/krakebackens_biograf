@@ -17,6 +17,11 @@ div.containerMonMovies {
 
   max-width: 100%;
 }
+h1.title {
+  padding-top: 2rem;
+  color: black;
+}
+
 .prevSubMonMovie {
   background-color: #f8f8ff;
   width: 70rem;
@@ -54,6 +59,12 @@ div.containerMonMovies {
   background-color: #f8f8ff;
   margin-top: -5rem;
   height: 55rem;
+  margin-bottom: -7rem;
+}
+
+.monMovies {
+  background-color: #f8f8ff;
+  padding-bottom: 8rem;
   margin-bottom: -7rem;
 }
 .ui.segment:last-child {

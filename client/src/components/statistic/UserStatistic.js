@@ -114,8 +114,8 @@ class UserStatistic extends Component {
       let topUserTotal = this.topUsersInTotal();
 
       userContent = (
-        <div>
-          <Statistic.Group>
+        <div className="statsFromUsers">
+          <Statistic.Group className="userGroup">
             <Statistic>
               <Statistic.Value>{seasonUserStats}</Statistic.Value>
               <Statistic.Label>Besök i år</Statistic.Label>

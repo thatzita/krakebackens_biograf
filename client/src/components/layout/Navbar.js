@@ -74,8 +74,8 @@ class Navbar extends Component {
                     <Menu.Item
                       as={Link}
                       to="/mainpage"
-                      name="Billjetter"
-                      active={activeItem === "Billjetter"}
+                      name="Biljetter"
+                      active={activeItem === "Biljetter"}
                       onClick={this.handleItemClick}
                     />
                   ) : null}
@@ -94,8 +94,8 @@ class Navbar extends Component {
                     <Menu.Item
                       as={Link}
                       to="/mainpage"
-                      name="Filmer & Trailers"
-                      active={activeItem === "Filmer & Trailers"}
+                      name="Filmer"
+                      active={activeItem === "Filmer"}
                       onClick={this.handleItemClick}
                     />
                   ) : null}

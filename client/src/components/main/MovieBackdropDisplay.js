@@ -23,11 +23,16 @@ export default class MovieBackdropDisplay extends Component {
           className="movieBackdrop"
           style={{
             backgroundImage: "url(" + displayImage + ")",
-            backgroundSize: "cover",
-            WebkitBackgroundSize: "cover",
-            MozBackgroundSize: "cover",
-            OBackgroundSize: "cover",
-            backgroundSize: "cover",
+            // backgroundSize: "cover",
+            // WebkitBackgroundSize: "cover",
+            // MozBackgroundSize: "cover",
+            // OBackgroundSize: "cover",
+            // backgroundSize: "cover",
+            backgroundSize: "contain",
+            WebkitBackgroundSize: "contain",
+            MozBackgroundSize: "contain",
+            OBackgroundSize: "contain",
+            backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center"
           }}

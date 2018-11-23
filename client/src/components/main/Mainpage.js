@@ -5,7 +5,7 @@ import { getCurrentProfile } from "../../actions/profileActions";
 import { getAllMonMovies } from "../../actions/monMovieActions";
 // import { setCurrentCloseUpMovieId } from "../../actions/webPageStateActions";
 import { Segment } from "semantic-ui-react";
-
+import Footer from "../layout/Footer";
 import MonMovieDisplay from "./MonMovieDisplay";
 import MovieBackdropDisplay from "./MovieBackdropDisplay";
 import MovieCloseUp from "./MovieCloseUp";
@@ -59,6 +59,7 @@ class Mainpage extends Component {
             monMovies={movieList}
           /> */}
         </Segment>
+        <Footer />
       </React.Fragment>
     );
   }

@@ -1,7 +1,7 @@
 div.containerStatistic {
   /* position: relative; */
-  margin-left: 285px;
-  max-width: 65rem;
+  margin-left: 30rem;
+  max-width: 60rem;
 }
 div.tableContainer {
   width: 700px;
@@ -19,6 +19,18 @@ div.tableContainer {
 
 div.statistics {
   background-color: #f8f8ff;
-  padding-bottom: 3rem;
-  margin-bottom: -4.2rem;
+  padding-bottom: 8rem;
+  margin-bottom: -7rem;
+}
+h1.title {
+  padding-top: 2rem;
+  color: black;
+}
+.statsFromUsers {
+  margin-bottom: -10rem;
+}
+
+.ui.statistics:first-child.userGroup {
+  /* margin: 0 auto; */
+  /* position: relative; */
 }

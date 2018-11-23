@@ -158,7 +158,10 @@ class Movies extends Component {
     return (
       <div className="movies">
         <div className="containerMovies">
-          <h1 className="title">Filmdatabas</h1>
+          <h1 className="title">
+            <Icon name="film" />
+            Filmer
+          </h1>
           <hr />
           <Admin />
           <div className="searchContainer">

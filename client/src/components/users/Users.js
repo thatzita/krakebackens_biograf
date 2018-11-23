@@ -80,40 +80,56 @@ class Users extends Component {
       let userCards = filteredUsers.map(user => {
         return (
           <Item key={user._id}>
+            <Icon
+              className="userIconPointer"
+              name="user circle outline"
+              size="big"
+              color="violet"
+              onClick={e => this.showUserPopup(user)}
+            />
             <Item.Content>
               <Item.Header>{user.username}</Item.Header>
-              <Item.Meta>
-                <span className="boldSpan"> {user.email}</span>
+              <Item.Meta className="ItemEmail">
+                <Icon name="mail" />
+
+                <em
+                  style={{
+                    fontSize: "1rem",
+                    color: "gray"
+                  }}
+                >
+                  {user.email}
+                </em>
               </Item.Meta>
               <Item.Meta>
                 <span className="boldSpan">
                   Status:{" "}
-                  {user.vip.status
-                    ? `VIP med plats ${user.vip.seat}`
-                    : "Medlem"}
+                  {user.vip.status ? (
+                    <Icon name="star" color="yellow" />
+                  ) : (
+                    <Icon name="star" />
+                  )}
                 </span>
               </Item.Meta>
             </Item.Content>
             <Item.Group>
               <Button
-                basic
-                color="red"
-                onClick={e => this.deleteUser(user)}
-                icon
+                color="blue"
+                onClick={e => this.showUserPopup(user)}
                 attached="bottom"
                 floated="right"
               >
-                <Icon color="red" name="delete" className="deleteIcon" />
+                <Icon name="eye" className="editIcon" /> Mer info
               </Button>
+
               <Button
                 basic
-                color="green"
-                onClick={e => this.showUserPopup(user)}
-                icon
+                onClick={e => this.deleteUser(user)}
                 attached="bottom"
                 floated="right"
               >
-                <Icon color="green" name="edit" className="editIcon" />
+                <Icon name="delete" />
+                Ta bort
               </Button>
             </Item.Group>
           </Item>
@@ -134,30 +150,37 @@ class Users extends Component {
     return (
       <div className="members">
         <div className="containerMembers">
-          <h1>Medlemmar</h1>
+          <h1 className="title">
+            <Icon name="users" />
+            Medlemmar
+          </h1>
           <hr />
           <Admin />
-          <Input
-            placeholder="Sök efter medlem..."
-            onChange={this.onChange}
-            value={this.state.search}
-            name="search"
-          />
-          <Link to="/register">
-            <Button basic color="violet">
-              <Icon name="plus" />
-              Lägg till ny medlem
-            </Button>
-          </Link>
+          <div className="searchContainer">
+            <Input
+              placeholder="Sök efter medlem..."
+              onChange={this.onChange}
+              value={this.state.search}
+              name="search"
+              className="userSearch"
+            />
+            <Link to="/register">
+              <Button basic color="violet">
+                <Icon name="plus" />
+                Lägg till ny medlem
+              </Button>
+            </Link>
+          </div>
           <UserPopup />
 
           {userContent}
         </div>
 
         <br />
-        <Grid verticalAlign="middle" columns={4} centered>
+        {/* <Grid verticalAlign="middle" columns={4} centered>
           {showMoreContentButton}
-        </Grid>
+        </Grid> */}
+        <div className="loadMoreBtnContainer">{showMoreContentButton}</div>
       </div>
     );
   }
