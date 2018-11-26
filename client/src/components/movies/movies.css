@@ -23,7 +23,7 @@ div.movies {
 }
 div.addMovie {
   background-color: #f8f8ff;
-  padding-bottom: 8rem;
+  padding-bottom: 12rem;
   margin-bottom: -7rem;
 }
 .ui.input.movieSearch {
@@ -63,7 +63,8 @@ div.searchContainer {
   font-weight: 700;
 }
 
-h1.titlePopup {
+h1.titlePopup,
+h1.titlePopupDb {
   color: white;
 }
 .ui.purple.basic.button.loadMoreBtn {
@@ -87,6 +88,11 @@ h1.titlePopup {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.9);
+}
+
+div.ui.buttons.addMovieBtnGroup {
+  position: relative;
+  bottom: -2rem;
 }
 
 .ui.inverted.black.segment {

@@ -82,25 +82,27 @@ class AddMovie extends Component {
                 {movie.title} ( {movie.release_date.substring(0, 4)} ){" "}
               </Item.Header>
             </Item.Content>
-            <Item.Group>
+            <Button.Group className="addMovieBtnGroup">
               <Button
+                style={{ height: "2.5rem", bottom: "0" }}
+                color="blue"
+                onClick={e => this.showPopup(movie.id)}
+                attached="bottom"
+                // floated="right"
+              >
+                <Icon name="eye" className="editIcon" /> Mer info
+              </Button>
+              <Button
+                style={{ height: "2.5rem", bottom: "0" }}
                 color="green"
                 onClick={e => this.addToDb(movie.id)}
                 attached="bottom"
-                floated="right"
+                // floated="right"
               >
                 <Icon name="add circle" className="editIcon" />
                 Lägg till
               </Button>
-              <Button
-                color="blue"
-                onClick={e => this.showPopup(movie.id)}
-                attached="bottom"
-                floated="right"
-              >
-                <Icon name="eye" className="editIcon" /> Mer info
-              </Button>
-            </Item.Group>
+            </Button.Group>
           </Item>
         );
       });

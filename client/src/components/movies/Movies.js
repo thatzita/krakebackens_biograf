@@ -120,18 +120,10 @@ class Movies extends Component {
                 <span className="cinema boldSpan">{movie.runtime} min</span>
               </Item.Meta> */}
             </Item.Content>
-            <Item.Group>
-              <Button
-                color="violet"
-                onClick={e => this.showPopup(movie)}
-                attached="bottom"
-                floated="right"
-              >
-                <Icon name="edit" />
-                Ändra
-              </Button>
+            <Button.Group className="addMovieBtnGroup">
               <Button
                 basic
+                style={{ height: "2.5rem", bottom: "0" }}
                 onClick={e => this.deleteMovie(movie)}
                 attached="bottom"
                 floated="right"
@@ -139,7 +131,17 @@ class Movies extends Component {
                 <Icon name="delete" />
                 Ta bort
               </Button>
-            </Item.Group>
+              <Button
+                color="violet"
+                style={{ height: "2.5rem", bottom: "0" }}
+                onClick={e => this.showPopup(movie)}
+                attached="bottom"
+                floated="right"
+              >
+                <Icon name="edit" />
+                Ändra
+              </Button>
+            </Button.Group>
           </Item>
         );
       });

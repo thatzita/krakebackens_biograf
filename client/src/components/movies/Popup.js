@@ -178,10 +178,9 @@ class Popup extends Component {
                 suppressContentEditableWarning="true"
                 onInput={event => this.changeInput(event)}
               >
-                {movieInfo.title}
+                {movieInfo.title} ({movieInfo.release.substring(0, 4)})
               </h1>
               <hr />
-              <p className="date boldSpan">{movieInfo.release}</p>
 
               <p>
                 <strong>Genres:</strong> <br />
