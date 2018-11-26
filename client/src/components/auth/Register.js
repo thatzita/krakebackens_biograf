@@ -94,7 +94,7 @@ class Register extends Component {
 
             <Form error success>
               <div className="formContainer">
-                <Form.Field className="registerField">
+                <Form.Field className=" ">
                   <label className="floatLeft">Användarnamn</label>
                   <input
                     type="text"

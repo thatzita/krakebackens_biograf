@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Footer from "../layout/Footer";
 import { Button, Divider, Form, Message, Icon } from "semantic-ui-react";
-
+import "./profile.css";
 import { getCurrentProfile } from "../../actions/profileActions";
 import { changePassword } from "../../actions/authActions";
 

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Button, Form, Message } from "semantic-ui-react";
 import Footer from "../layout/Footer";
 import { resetPassword } from "../../actions/authActions";
+import "./auth.css";
 
 class Reset extends Component {
   constructor() {
