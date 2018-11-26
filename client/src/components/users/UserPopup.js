@@ -12,8 +12,11 @@ import {
   Container,
   Divider,
   Image,
-  Icon
+  Icon,
+  Card,
+  Segment
 } from "semantic-ui-react";
+import "./users.css";
 
 class UserPopup extends Component {
   constructor() {
@@ -106,87 +109,89 @@ class UserPopup extends Component {
     let { showOrHide } = this.state;
     let { userInfo } = this.state;
     let userPopup;
+    let vipInfo;
+    console.log(userInfo);
 
     if (showOrHide) {
       userPopup = (
-        <div className="popup">
-          <Header
-            as="h1"
-            inverted
-            color="grey"
-            className="title"
-            // contentEditable={true}
-            // suppressContentEditableWarning="true"
-            // onInput={event => this.changeInput(event)}
-          >
-            {userInfo.username}
-          </Header>
-          <Container className="containerInPopup">
-            <span className="date boldSpan">{userInfo.email}</span>
-            <br />
-            <br />
-            {/* <div className="descriptionContainer">
-              <p
-                className="description"
-                contentEditable={true}
-                suppressContentEditableWarning="true"
-                onInput={event => this.changeInput(event)}
-              >
-                {userInfo.description}
-              </p>
-            </div>
-            <br /> */}
+        <Segment inverted>
+          <Card fluid className="cardContainer">
+            <Image
+              className="crowPicture"
+              src="krakebackens_logo.png"
+              size="medium"
+              circular
+              centered
+            />
+            {/* <Card.Header>{profile.username}</Card.Header> */}
+            <h1>{userInfo.username}</h1>
+            <h3
+              className="whiteText"
+              style={{ textAlign: "center", marginTop: "-1rem" }}
+            >
+              <Icon name="mail" />
+              {userInfo.email}
+            </h3>
 
-            <p>
-              <strong>VIP status:</strong> <br />
-              <span className="date boldSpan">
-                {userInfo.vip.status ? "VIP-medlem" : "Vanlig medlem"}
-              </span>
-              <br />
-              {userInfo.vip.status ? (
-                <span className="date boldSpan">
-                  {" "}
-                  Plats: {userInfo.vip.seat}
-                </span>
-              ) : (
-                ""
-              )}
-            </p>
-            <p>
-              <strong>Statistik:</strong> <br />
-              <span className="date boldSpan">
-                Besök i år: {userInfo.stats.season}
-              </span>
-              <br />
-              <span className="date boldSpan">
-                Totalt: {userInfo.stats.total}
-              </span>
-              <br />
-            </p>
-          </Container>
-          <br />
-          <br />
-          <Divider />
+            <Card.Content className="userStats">
+              <h2
+                className="whiteText"
+                // style={{ textDecoration: "underline" }}
+              >
+                <Icon name="chart bar" />
+                Statistik:
+              </h2>
+              <h4 className="whiteText">Antal besök i år:</h4>
+              <span className="whiteText">{userInfo.stats.season}</span>
+              <h4 className="whiteText">Antal besök totalt:</h4>
+              <span className="whiteText">{userInfo.stats.total}</span>
+            </Card.Content>
+
+            <Card.Content className="userVip">
+              <h2
+                // style={{ textDecoration: "underline" }}
+                className="whiteText"
+              >
+                <Icon name="star" />
+                VIP status:
+              </h2>
+              <p>{userInfo.vip.status ? "VIP-medlem" : "Medlem"}</p>
+              <p>
+                {userInfo.vip.status ? `VIP-plats: ${userInfo.vip.seat}` : ""}
+              </p>
+            </Card.Content>
+
+            {/* <h3>Filmer du sett:</h3>
+              <ul>{watchedMovies}</ul> */}
+          </Card>
+
           <Button.Group>
             <Button
-              inverted
-              color="green"
-              onClick={e => this.updateUserDb(userInfo)}
-            >
-              Uppdatera databasen
-            </Button>
-            <Button
-              inverted
-              color="red"
+              attached="bottom"
+              className="deleteButton"
               onClick={e => this.deleteUser(userInfo)}
             >
               Ta bort från databasen
             </Button>
-            <Button inverted color="purple" onClick={e => this.closePopup()}>
+            <Button
+              className="updateButton"
+              color="green"
+              attached="bottom"
+              onClick={e => this.updateUserDb(userInfo)}
+            >
+              Uppdatera databasen
+            </Button>
+
+            <Button
+              attached="bottom"
+              className="closeButton"
+              onClick={e => this.closePopup()}
+            >
+              <Icon name="left chevron" />
               Stäng
             </Button>
           </Button.Group>
-        </div>
+        </Segment>
       );
     } else {
       userPopup = "";

@@ -1,5 +1,72 @@
 div.containerRegister {
   /* position: relative; */
-  margin-left: 285px;
-  max-width: 65rem;
+  margin-left: 30rem;
+  max-width: 60rem;
+  /* border: 2 px solid white; */
+  /* position: relative; */
+  /* padding-left: 30rem; */
+  margin-left: 30rem;
+  /* padding-right: 8rem; */
+  padding-bottom: 8rem;
+  /* margin-left: 19rem; */
+  max-width: 60rem;
+  min-height: 50rem;
+  margin-bottom: -10rem;
+}
+
+div.loginContainer {
+  max-width: 30rem;
+  margin: 0 auto;
+  text-align: center;
+}
+div.forgotContainer {
+  max-width: 30rem;
+  margin: 0 auto;
+  text-align: center;
+}
+div.applyContainer {
+  max-width: 30rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+div.formContainer {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+.floatLeft {
+  float: left;
+}
+
+div.register {
+  background-color: #f8f8ff;
+  padding-bottom: 11.5rem;
+  margin-bottom: -7rem;
+}
+
+div.field.registerField {
+  width: 100%;
+  display: inline-block;
+}
+
+h1.loginTitle,
+.forgotTitle {
+  padding-top: 2rem;
+  color: white;
+}
+
+.ui.form .field > label.loginFieldLabel {
+  float: left;
+  color: white;
+}
+
+.ui.form .field > label.applyFieldLabel,
+.ui.form .field > label.forgotLabel {
+  float: left;
+  color: white;
+}
+
+.ui.checkbox input.hidden + label {
+  color: white;
 }

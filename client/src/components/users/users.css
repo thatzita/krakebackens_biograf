@@ -11,9 +11,7 @@ div.members {
 .userIconPointer {
   cursor: pointer;
 }
-.ui.items > .item .meta.ItemEmail {
-  /* margin-top: 2rem; */
-}
+
 .loadMoreBtnContainer {
   /* border: 2px solid purple; */
   text-align: center;
@@ -25,4 +23,31 @@ h1.title {
 }
 .ui.input.userSearch {
   width: 40rem;
+}
+
+.userPopup {
+  padding: 2rem 2rem;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10;
+  /* position: absolute; */
+  width: 100%;
+  height: 90%;
+  top: 10%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  border: 1px solid whitesmoke;
+  overflow-y: scroll;
+}
+.ui.bottom.attached.button.deleteButton {
+  margin-left: 5rem;
+  width: 15rem;
+}
+.ui.green.bottom.attached.button.updateButton {
+  width: 15rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.ui.bottom.attached.button.closeButton {
+  width: 15rem;
 }

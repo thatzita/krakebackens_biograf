@@ -57,6 +57,7 @@ class Movies extends Component {
       profile: nextProps.profile.profile
     });
   }
+
   render() {
     const { movies } = this.state.movies;
     const { showMore } = this.state;
@@ -68,8 +69,7 @@ class Movies extends Component {
         showMoreContentButton = (
           <Button
             className="loadMoreBtn"
-            basic
-            color="purple"
+            color="violet"
             onClick={e => this.showMoreContent()}
           >
             Ladda mer filmer

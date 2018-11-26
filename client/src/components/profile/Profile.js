@@ -111,29 +111,17 @@ class Profile extends Component {
             </Card>
             <Button.Group>
               <Button
-                basic
-                color="red"
                 attached="bottom"
                 className="deleteButton"
                 onClick={this.onDeleteClick.bind(this)}
               >
                 Ta bort konto
               </Button>
-              <Button
-                className="UpdateButton"
-                basic
-                color="teal"
-                attached="bottom"
-              >
+              <Button className="UpdateButton" color="green" attached="bottom">
                 Uppdatera konto
               </Button>
               <Link to="/changepassword">
-                <Button
-                  className="linkedButton"
-                  basic
-                  attached="bottom"
-                  color="violet"
-                >
+                <Button className="linkedButton" attached="bottom" color="blue">
                   Byt lösenord
                 </Button>
               </Link>

@@ -131,13 +131,14 @@ class Navbar extends Component {
                       onClick={() => this.props.goToAdminPage(true)}
                     />
                   ) : (
-                    <Menu.Item
-                      as={Link}
-                      to="/register"
-                      name="register"
-                      active={activeItem === "register"}
-                      onClick={this.handleItemClick}
-                    />
+                    // <Menu.Item
+                    //   as={Link}
+                    //   to="/register"
+                    //   name="Registrera dig"
+                    //   active={activeItem === "register"}
+                    //   onClick={this.handleItemClick}
+                    // />
+                    ""
                   )}
 
                   <Menu.Item />

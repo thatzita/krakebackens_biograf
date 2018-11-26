@@ -35,6 +35,7 @@ class Users extends Component {
   }
 
   showUserPopup(user) {
+    window.scrollTo(0, 50);
     this.props.userPopup(user);
   }
 
@@ -165,21 +166,18 @@ class Users extends Component {
               className="userSearch"
             />
             <Link to="/register">
-              <Button basic color="violet">
-                <Icon name="plus" />
+              <Button color="green">
+                <Icon name="add" />
                 Lägg till ny medlem
               </Button>
             </Link>
           </div>
           <UserPopup />
-
           {userContent}
         </div>
 
         <br />
-        {/* <Grid verticalAlign="middle" columns={4} centered>
-          {showMoreContentButton}
-        </Grid> */}
+
         <div className="loadMoreBtnContainer">{showMoreContentButton}</div>
       </div>
     );

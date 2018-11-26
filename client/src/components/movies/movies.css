@@ -1,15 +1,10 @@
 div.containerMovies {
-  /* position: relative; */
   margin-left: 30rem;
   max-width: 60rem;
 }
 div.containerAddmovie {
-  /* position: relative; */
-  /* padding-left: 30rem; */
   margin-left: 30rem;
-  /* padding-right: 8rem; */
   padding-bottom: 8rem;
-  /* margin-left: 19rem; */
   max-width: 60rem;
   min-height: 50rem;
   margin-bottom: -10rem;
@@ -38,7 +33,6 @@ div.searchContainer {
   text-align: center;
 }
 .crowRating {
-  /* border: 1px solid white; */
   font-weight: 400;
   margin-left: 10px;
   min-width: 3rem;
@@ -69,43 +63,30 @@ div.searchContainer {
   font-weight: 700;
 }
 
-h1.title {
-  padding-top: 2rem;
-  color: black;
+h1.titlePopup {
+  color: white;
 }
 .ui.purple.basic.button.loadMoreBtn {
   margin-top: 5rem;
   width: 20rem;
 }
 .loadMoreBtnContainer {
-  /* border: 2px solid purple; */
   text-align: center;
   margin-left: 10rem;
 }
+
 .popup {
-  padding: 50px 20px;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: 10;
-  position: fixed;
-  width: 100%;
-  height: 90%;
-  top: 10%;
-  left: 50%;
-  -webkit-transform: translate(-50%, 0);
-  transform: translate(-50%, 0);
-  border: 1px solid whitesmoke;
   overflow-y: scroll;
-  /* padding: 20px;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: 10;
   position: fixed;
-  /* width: 80%;
-  height: 70%;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  border: 1px solid whitesmoke;
-  overflow-y: scroll; */
+  padding-top: 1rem;
+
+  z-index: 10;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .ui.inverted.black.segment {
@@ -113,30 +94,31 @@ h1.title {
   z-index: 2;
 }
 
-/* .ui.small.image {
-  width: 150px;
-  height: auto;
-  position: relative;
-  left: 33rem;
-  top: -17rem;
-} */
 .imgPosition {
-  margin-left: 10rem;
-}
-.containerInPopup {
-  color: ghostwhite;
-  padding-right: 200px;
+  /* left: -7rem; */
+  margin-right: 10rem;
+  position: relative;
 }
 
-.descriptionContainer {
-  /* margin-right: 50px; */
-  width: 60rem;
-  position: relative;
-  left: 0;
-  /* float: left;   */
+.ui.card,
+.ui.cards > .card.containerInPopup {
+  color: ghostwhite;
+  width: 70rem;
+  padding: 1rem;
+  background-color: rgb(25, 25, 25);
+  margin: 0 auto;
 }
-p.description {
-  width: 50rem;
+
+.ui.large.image.imageBorder {
+  margin-left: 2rem;
+}
+
+.ui.buttons.btnGroupPopup {
+  margin-top: -4rem;
+  position: relative;
+}
+
+div.ui.bottom.attached.button.deleteButtonPopup {
 }
 
 [contenteditable="true"]:active,

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Button, Divider, Form, Message } from "semantic-ui-react";
+import Footer from "../layout/Footer";
+import { Button, Divider, Form, Message, Icon } from "semantic-ui-react";
 
 import { getCurrentProfile } from "../../actions/profileActions";
 import { changePassword } from "../../actions/authActions";
@@ -65,42 +66,47 @@ class ChangePassword extends Component {
     const { success } = this.state;
 
     return (
-      <div>
-        <h1>Byt lösenord</h1>
-        <Divider />
-
-        <Form error success>
-          <Form.Field>
-            <label>Lösenord</label>
-            <input
-              type="password"
-              placeholder="Skriv ett lösenord"
-              name="password"
-              value={password}
-              onChange={this.onChange}
-            />
-            <Message error content={errors.password} />
-          </Form.Field>
-          <Form.Field>
-            <input
-              type="password"
-              placeholder="Bekräfta lösenord "
-              name="password2"
-              value={password2}
-              onChange={this.onChange}
-            />
-            <Message error content={errors.password2} />
-          </Form.Field>
-          <Button basic color="green" type="submit" onClick={this.onSubmit}>
-            Återställ mitt lösenord!
-          </Button>
-          <Link to="/profile">
-            <Button basic color="violet">
-              Tillbaka
+      <div className="changePassword">
+        <div className="changePasswordContainer">
+          <h1 className="titleChangePassword">Byt lösenord</h1>
+          <hr />
+          <Form error success>
+            <Form.Field className="changePasswordField">
+              <label>Lösenord</label>
+              <input
+                type="password"
+                placeholder="Skriv ett lösenord"
+                name="password"
+                value={password}
+                onChange={this.onChange}
+              />
+              <Message error content={errors.password} />
+            </Form.Field>
+            <br />
+            <Form.Field className="changePasswordField">
+              <input
+                type="password"
+                placeholder="Bekräfta lösenord "
+                name="password2"
+                value={password2}
+                onChange={this.onChange}
+              />
+              <Message error content={errors.password2} />
+            </Form.Field>
+            <br />
+            <Button color="green" type="submit" onClick={this.onSubmit}>
+              Återställ mitt lösenord!
             </Button>
-          </Link>
-          {/* <Message success header={success.title} content={success.msg} /> */}
-        </Form>
+            <Link to="/profile">
+              <Button>
+                <Icon name="left chevron" />
+                Tillbaka
+              </Button>
+            </Link>
+            {/* <Message success header={success.title} content={success.msg} /> */}
+          </Form>
+        </div>
+        <Footer />
       </div>
     );
   }

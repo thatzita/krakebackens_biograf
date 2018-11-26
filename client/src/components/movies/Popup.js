@@ -7,6 +7,7 @@ import {
   deleteMovie
 } from "../../actions/movieActions";
 import {
+  Card,
   Button,
   Header,
   Container,
@@ -15,6 +16,7 @@ import {
   Icon,
   Segment
 } from "semantic-ui-react";
+import "./movies.css";
 
 class Popup extends Component {
   constructor() {
@@ -42,6 +44,7 @@ class Popup extends Component {
     let { movieInfo } = this.state;
     let { title, description, crowRating } = this.state;
     let movieDb;
+    console.log(this.state);
 
     if (title === "" && description === "" && crowRating === "") {
       movieDb = {
@@ -101,31 +104,7 @@ class Popup extends Component {
       };
     }
     console.log(movieDb);
-    // if (title === "" && description !== "") {
-    //   movieDb = {
-    //     title: movieInfo.title,
-    //     description: description,
-    //     id: movieInfo._id
-    //   };
-    // } else if (title !== "" && description === "") {
-    //   movieDb = {
-    //     title: title,
-    //     description: movieInfo.description,
-    //     id: movieInfo._id
-    //   };
-    // } else if (title !== "" && description !== "") {
-    //   movieDb = {
-    //     title: title,
-    //     description: description,
-    //     id: movieInfo._id
-    //   };
-    // } else {
-    //   movieDb = {
-    //     title: movieInfo.title,
-    //     description: movieInfo.description,
-    //     id: movieInfo._id
-    //   };
-    // }
+
     this.props.updateDb(movieDb);
     this.setState({
       title: "",
@@ -136,13 +115,13 @@ class Popup extends Component {
 
   changeInput(event) {
     let nameOfClass = event.target.className;
-
+    console.log(nameOfClass);
     this.editValues(nameOfClass, event.target.textContent);
   }
 
   editValues(nameOfClass, data) {
     switch (nameOfClass) {
-      case "title":
+      case "titlePopup":
         this.setState({
           title: data
         });
@@ -175,47 +154,34 @@ class Popup extends Component {
 
     if (showOrHide) {
       moviePopup = (
-        // <div className="popup">
-        <Segment inverted color="black">
-          <div className="imgPosition">
-            <Image
-              // floated="right"
-              // className="imageBorder"
-              size="large"
-              src={movieInfo.background}
-            />
-            <Image
-              size="small"
-              // className="imageBorder"
-              // floated="right"
-              src={movieInfo.poster}
-            />
-          </div>
-          <Container fluid className="containerInPopup">
+        <div className="popup">
+          <Card className="containerInPopup">
+            <div className="imgPosition">
+              <Image
+                // floated="right"
+                className="imageBorder"
+                size="large"
+                src={movieInfo.background}
+              />
+              <Image
+                size="small"
+                className="imageBorder"
+                // floated="left"
+                src={movieInfo.poster}
+              />
+            </div>
+            <br />
             <div className="descriptionContainer">
               <h1
-                className="title"
+                className="titlePopup"
                 contentEditable={true}
                 suppressContentEditableWarning="true"
                 onInput={event => this.changeInput(event)}
               >
                 {movieInfo.title}
               </h1>
-
-              <span className="date boldSpan">{movieInfo.release}</span>
-              <br />
-              <br />
-
-              <p
-                className="description"
-                contentEditable={true}
-                suppressContentEditableWarning="true"
-                onInput={event => this.changeInput(event)}
-              >
-                {movieInfo.description}
-              </p>
-
-              <br />
+              <hr />
+              <p className="date boldSpan">{movieInfo.release}</p>
 
               <p>
                 <strong>Genres:</strong> <br />
@@ -245,37 +211,47 @@ class Popup extends Component {
                   {movieInfo.crowRating}
                 </span>
               </span>
+              <br />
+              <br />
+              <p
+                className="description"
+                contentEditable={true}
+                suppressContentEditableWarning="true"
+                onInput={event => this.changeInput(event)}
+              >
+                {movieInfo.description}
+              </p>
 
-              <br />
-              <br />
               <Divider />
-              <Button.Group>
+              <Button.Group fluid className="btnGroupPopup">
                 <Button
-                  inverted
-                  color="green"
-                  onClick={e => this.updateMovieDb(movieInfo)}
-                >
-                  Uppdatera databasen
-                </Button>
-                <Button
-                  inverted
-                  color="red"
+                  attached="bottom"
+                  className="deleteButtonPopup"
                   onClick={e => this.deleteMovie(movieInfo)}
                 >
                   Ta bort från databasen
                 </Button>
                 <Button
-                  inverted
-                  color="purple"
+                  className="UpdateButton"
+                  color="green"
+                  attached="bottom"
+                  onClick={e => this.updateMovieDb(movieInfo)}
+                >
+                  Uppdatera databasen
+                </Button>
+
+                <Button
+                  attached="bottom"
+                  className="closeButton"
                   onClick={e => this.closePopup()}
                 >
+                  <Icon name="left chevron" />
                   Stäng
                 </Button>
               </Button.Group>
             </div>
-          </Container>
-        </Segment>
-        // </div>
+          </Card>
+        </div>
       );
     } else {
       moviePopup = "";

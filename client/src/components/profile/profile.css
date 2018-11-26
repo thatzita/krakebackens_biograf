@@ -3,7 +3,15 @@
   position: relative;
   margin: 0 auto;
 }
-.ui.violet.basic.bottom.attached.button.linkedButton {
+
+.changePassword {
+  /* border: 2px solid hotpink; */
+  /* background-color: #f8f8ff; */
+  padding-bottom: 11.5rem;
+  margin-bottom: -7rem;
+}
+
+.ui.blue.bottom.attached.button.linkedButton {
   width: 15rem;
 }
 .whiteText {
@@ -13,14 +21,14 @@
 .ui.card > .content.userVip {
   border: 1px solid white;
   margin: 1rem 1rem;
-  background-color: rgba(71, 8, 119, 0.3);
+  background-color: rgba(71, 8, 119, 0.8);
 }
-.ui.teal.basic.bottom.attached.button.UpdateButton {
+.ui.green.bottom.attached.button.UpdateButton {
   width: 15rem;
   margin-left: 1rem;
   margin-right: 1rem;
 }
-.ui.red.basic.bottom.attached.button.deleteButton {
+.ui.bottom.attached.button.deleteButton {
   width: 15rem;
 }
 .ui.fluid.card.cardContainer {
@@ -29,4 +37,22 @@
 .ui.card > .image,
 .ui.cards > .card > .image.crowPicture {
   margin-top: 2rem;
+}
+
+h1.titleChangePassword {
+  padding-top: 2rem;
+  color: white;
+}
+
+.changePasswordContainer {
+  /* min-height: 30rem; */
+  /* margin-bottom: -10rem; */
+  /* width: 100%; */
+  max-width: 60rem;
+  margin: 0 auto;
+  text-align: center;
+}
+div.field.loginField {
+  width: 50%;
+  display: inline-block;
 }

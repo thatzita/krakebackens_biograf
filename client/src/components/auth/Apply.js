@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Button, Form, Checkbox, Message } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Button, Form, Checkbox, Message, Icon } from "semantic-ui-react";
 import Footer from "../layout/Footer";
 import { userRequest } from "../../actions/applyActions";
 
@@ -57,39 +58,50 @@ class Apply extends Component {
 
     return (
       <div>
-        <h1>Ansök om medlemskap</h1>
-        <Form error success>
-          <Form.Field>
-            <label>Användarnamn</label>
-            <input
-              type="text"
-              placeholder="Användarnamn"
-              name="username"
-              value={username}
-              onChange={this.onChange}
+        <div className="applyContainer">
+          <h1 className="loginTitle">Ansök om medlemskap</h1>
+          <hr />
+          <Form error success>
+            <Form.Field>
+              <label className="applyFieldLabel">Användarnamn</label>
+              <input
+                type="text"
+                placeholder="Användarnamn"
+                name="username"
+                value={username}
+                onChange={this.onChange}
+              />
+              <Message error content={errors.username} />
+            </Form.Field>
+            <Form.Field>
+              <label className="applyFieldLabel">Epost</label>
+              <input
+                type="email"
+                placeholder="Epost"
+                name="email"
+                value={email}
+                onChange={this.onChange}
+              />
+              <Message error content={errors.email} />
+            </Form.Field>
+            <Form.Field
+              control={Checkbox}
+              label={{ children: "I agree to the Terms and Conditions" }}
+              className="applyFieldLabel"
             />
-            <Message error content={errors.username} />
-          </Form.Field>
-          <Form.Field>
-            <label>Epost</label>
-            <input
-              type="email"
-              placeholder="Epost"
-              name="email"
-              value={email}
-              onChange={this.onChange}
-            />
-            <Message error content={errors.email} />
-          </Form.Field>
-          <Form.Field
-            control={Checkbox}
-            label={{ children: "I agree to the Terms and Conditions" }}
-          />
-          <Button type="submit" onClick={this.onSubmit}>
-            Skicka förfrågan
-          </Button>
-          <Message success header={success.title} content={success.msg} />
-        </Form>
+            <Button color="violet" type="submit" onClick={this.onSubmit}>
+              <Icon name="send" />
+              Skicka förfrågan
+            </Button>
+            <Link to="/">
+              <Button>
+                <Icon name="left chevron" />
+                Tillbaka
+              </Button>
+            </Link>
+            <Message success header={success.title} content={success.msg} />
+          </Form>
+        </div>
         <Footer />
       </div>
     );
