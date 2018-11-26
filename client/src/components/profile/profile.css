@@ -3,7 +3,10 @@
   position: relative;
   margin: 0 auto;
 }
-
+.ui.buttons.profileButtons {
+  position: relative;
+  left: -4.5rem;
+}
 .changePassword {
   /* border: 2px solid hotpink; */
   /* background-color: #f8f8ff; */

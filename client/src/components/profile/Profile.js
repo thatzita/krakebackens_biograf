@@ -109,7 +109,7 @@ class Profile extends Component {
               {/* <h3>Filmer du sett:</h3>
               <ul>{watchedMovies}</ul> */}
             </Card>
-            <Button.Group>
+            <Button.Group className="profileButtons">
               <Button
                 attached="bottom"
                 className="deleteButton"

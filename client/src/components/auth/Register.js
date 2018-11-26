@@ -80,80 +80,82 @@ class Register extends Component {
     const { username, email, password, password2 } = this.state;
 
     return (
-      <div className="register">
-        <div className="containerRegister">
-          <h1 className="title">
-            <Icon name="user" />
-            Skapa ny användare
-          </h1>
-          <hr />
-          <br />
-          <br />
-          <Admin />
+      <div>
+        <div className="register">
+          <div className="containerRegister">
+            <h1 className="title">
+              <Icon name="user" />
+              Skapa ny användare
+            </h1>
+            <hr />
+            <br />
+            <br />
+            <Admin />
 
-          <Form error success>
-            <div className="formContainer">
-              <Form.Field className="registerField">
-                <label className="floatLeft">Användarnamn</label>
-                <input
-                  type="text"
-                  placeholder="Användarnamn"
-                  name="username"
-                  value={username}
-                  onChange={this.onChange}
-                />
-                <Message error content={errors.username} />
-              </Form.Field>
-              <br />
-              <Form.Field className="registerField">
-                <label className="floatLeft">Epost</label>
-                <input
-                  type="email"
-                  placeholder="Epost"
-                  name="email"
-                  value={email}
-                  onChange={this.onChange}
-                />
-                <Message error content={errors.email} />
-              </Form.Field>
-              <br />
-              <Form.Field className="registerField">
-                <label className="floatLeft">Lösenord</label>
-                <input
-                  type="password"
-                  placeholder="Skriv ett lösenord"
-                  name="password"
-                  value={password}
-                  onChange={this.onChange}
-                />
-                <Message error content={errors.password} />
-              </Form.Field>
-              <br />
-              <Form.Field className="registerField">
-                <input
-                  type="password"
-                  placeholder="Bekräfta lösenord "
-                  name="password2"
-                  value={password2}
-                  onChange={this.onChange}
-                />
-                <Message error content={errors.password2} />
-              </Form.Field>
-              <br />
-              <Message success header={success.title} content={success.msg} />
+            <Form error success>
+              <div className="formContainer">
+                <Form.Field className="registerField">
+                  <label className="floatLeft">Användarnamn</label>
+                  <input
+                    type="text"
+                    placeholder="Användarnamn"
+                    name="username"
+                    value={username}
+                    onChange={this.onChange}
+                  />
+                  <Message error content={errors.username} />
+                </Form.Field>
+                <br />
+                <Form.Field className="registerField">
+                  <label className="floatLeft">Epost</label>
+                  <input
+                    type="email"
+                    placeholder="Epost"
+                    name="email"
+                    value={email}
+                    onChange={this.onChange}
+                  />
+                  <Message error content={errors.email} />
+                </Form.Field>
+                <br />
+                <Form.Field className="registerField">
+                  <label className="floatLeft">Lösenord</label>
+                  <input
+                    type="password"
+                    placeholder="Skriv ett lösenord"
+                    name="password"
+                    value={password}
+                    onChange={this.onChange}
+                  />
+                  <Message error content={errors.password} />
+                </Form.Field>
+                <br />
+                <Form.Field className="registerField">
+                  <input
+                    type="password"
+                    placeholder="Bekräfta lösenord "
+                    name="password2"
+                    value={password2}
+                    onChange={this.onChange}
+                  />
+                  <Message error content={errors.password2} />
+                </Form.Field>
+                <br />
+                <Message success header={success.title} content={success.msg} />
 
-              <Button color="green" type="submit" onClick={this.onSubmit}>
-                <Icon name="add" />
-                Skapa användare
-              </Button>
-              <Link to="/users">
-                <Button basic>
-                  <Icon name="left chevron" />
-                  Tillbaka till medlemmar
+                <Button color="green" type="submit" onClick={this.onSubmit}>
+                  <Icon name="add" />
+                  Skapa användare
                 </Button>
-              </Link>
-            </div>
-          </Form>
+                <Link to="/users">
+                  <Button basic>
+                    <Icon name="left chevron" />
+                    Tillbaka till medlemmar
+                  </Button>
+                </Link>
+              </div>
+            </Form>
+          </div>
         </div>
       </div>
     );

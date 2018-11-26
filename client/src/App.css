@@ -189,7 +189,9 @@ img {
 
 .linkContainer {
   color: whitesmoke;
-  padding-left: 20rem;
+  /* padding-left: 20rem; */
+  position: relative;
+  margin-left: 25rem;
   padding-top: 2rem;
 }
 
@@ -215,7 +217,7 @@ img {
 }
 .listContainer {
   border: 2px solid black;
-  width: 60%;
+  /* width: 80%; */
 }
 .h3ContactFooter {
   text-decoration: underline;

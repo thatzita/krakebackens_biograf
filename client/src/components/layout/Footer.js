@@ -8,13 +8,13 @@ class Footer extends Component {
       <footer className="crowFooter">
         <Divider />
         <div className="linkContainer">
-          <Image
-            floated="left"
-            style={{ top: "30px" }}
-            size="mini"
-            src="krakebackens_logo.png"
-          />
           <div className="listContainer">
+            <Image
+              floated="left"
+              style={{ top: "30px" }}
+              size="mini"
+              src="krakebackens_logo.png"
+            />
             <div className="contactUs">
               <h3 className="h3ContactFooter">Kontakta oss</h3>
               <ul className="contactUsUl">
