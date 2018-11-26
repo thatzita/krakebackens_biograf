@@ -85,7 +85,12 @@ class App extends Component {
                   path="/createMonMovie"
                   component={CreateMonMovie}
                 />
-                <Route exact path="/movieselection" component={MovieCloseUp} />
+                <Route
+                  // onUpdate={() => window.scrollTo(0, 0)}
+                  exact
+                  path="/movieselection"
+                  component={MovieCloseUp}
+                />
                 <PrivateRoute exact path="/mainpage" component={Mainpage} />
                 <PrivateRoute exact path="/profile" component={Profile} />
                 <PrivateRoute

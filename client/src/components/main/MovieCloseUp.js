@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./movieCloseUp.css";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import {
   getSpecificMonMovie
@@ -22,30 +23,37 @@ import {
 class MovieCloseUp extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { activeItem: "" };
   }
 
   componentDidMount() {
-    let str = window.location.href;
+    // let str = window.location.href;
     // let str = this.props.location.pathname;
     // console.log("location ", this.props.match.params);
 
     // let lineIndex = str.lastIndexOf("/");
     // let id = str.substring(lineIndex + 1);
+    window.scrollTo(0, 0);
     let { movieId } = this.props.location.state;
     console.log(movieId);
 
     this.props.getSpecificMonMovie(movieId);
   }
 
+  // handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick = () => {
+    console.log("trailer");
+  };
+
   render() {
-    console.log("props: ", this.props);
+    const { activeItem } = this.state;
+
+    console.log("props: ", this.props.movieCloseUp);
 
     let movieObject = this.props.movieCloseUp || {}; // movieItem[0] || {};
-    let displayImage =
-      movieObject.background ||
-      "default.jpg" ||
-      "http://www.rangerwoodperiyar.com/images/joomlart/demo/default.jpg";
+    let displayImage = movieObject.background || "default.jpg";
+    let countSeats = movieObject.seating || [];
+    console.log(movieObject.seating || []);
 
     return (
       <React.Fragment>
@@ -65,7 +73,14 @@ class MovieCloseUp extends Component {
               }}
             />
             <div className="movieDescription">
-              <Segment inverted>
+              <Segment
+                inverted
+                style={{
+                  background: "none",
+                  border: "none",
+                  boxShadow: "none"
+                }}
+              >
                 <h1>
                   {movieObject.title ? movieObject.title : "Titel"} (
                   {movieObject.release
@@ -94,42 +109,68 @@ class MovieCloseUp extends Component {
                     : "beskrivning"}
                 </p>
 
-                <Menu>
-                  <Menu.Item>
+                <Menu inverted secondary style={{ background: "none" }}>
+                  <Menu.Item
+                    name="trailer"
+                    active={activeItem === "trailer"}
+                    onClick={this.handleItemClick}
+                  >
                     <Icon name="play" /> Spela trailer
                   </Menu.Item>
                 </Menu>
               </Segment>
             </div>
           </div>
-          <div>
-            <Table celled inverted selectable>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Name</Table.HeaderCell>
-                  <Table.HeaderCell>Status</Table.HeaderCell>
-                  <Table.HeaderCell>Notes</Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
+          <div className="movieDateTimeAndBooking">
+            <Segment
+              padded="very"
+              style={{
+                background: "none",
+                border: "none",
+                boxShadow: "none",
+                paddingBottom: "15rem"
+              }}
+            >
+              <Header inverted as="h2">
+                Boka Biljetter
+              </Header>
+              <Table basic inverted selectable>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Datum</Table.HeaderCell>
+                    <Table.HeaderCell>Tid</Table.HeaderCell>
+                    <Table.HeaderCell>Platser</Table.HeaderCell>
+                    <Table.HeaderCell />
+                  </Table.Row>
+                </Table.Header>
 
-              <Table.Body>
-                <Table.Row>
-                  <Table.Cell>John</Table.Cell>
-                  <Table.Cell>Approved</Table.Cell>
-                  <Table.Cell textAlign="right">None</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>Jamie</Table.Cell>
-                  <Table.Cell>Approved</Table.Cell>
-                  <Table.Cell textAlign="right">Requires call</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>Jill</Table.Cell>
-                  <Table.Cell>Denied</Table.Cell>
-                  <Table.Cell textAlign="right">None</Table.Cell>
-                </Table.Row>
-              </Table.Body>
-            </Table>
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Cell>
+                      {movieObject.screeningDate || "datum"}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {movieObject.screeningTime || "tid"}
+                    </Table.Cell>
+                    <Table.Cell>{countSeats.length}</Table.Cell>
+
+                    <Table.Cell textAlign="right">
+                      <Button
+                        // disabled={Object.keys(movieObject).length === 0}
+                        as={Link}
+                        to={{
+                          pathname: "/seating",
+                          state: { bookingObj: movieObject }
+                        }}
+                        color="violet"
+                      >
+                        Boka
+                      </Button>
+                    </Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
+            </Segment>
           </div>
         </div>
       </React.Fragment>
