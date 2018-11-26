@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import { Button, Form, Header, Message } from "semantic-ui-react";
+import Footer from "../layout/Footer";
 
 class Login extends Component {
   constructor() {
@@ -82,6 +83,7 @@ class Login extends Component {
             Logga in
           </Button>
         </Form>
+        <Footer />
       </div>
     );
   }

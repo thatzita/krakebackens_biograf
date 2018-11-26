@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button, Form, Message } from "semantic-ui-react";
-
+import Footer from "../layout/Footer";
 import { resetPassword } from "../../actions/authActions";
 
 class Reset extends Component {
@@ -89,6 +89,7 @@ class Reset extends Component {
           </Button>
           <Message success header={success.title} content={success.msg} />
         </Form>
+        <Footer />
       </div>
     );
   }

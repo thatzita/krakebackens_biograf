@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Button, Form, Message } from "semantic-ui-react";
 
 import { forgotPassword } from "../../actions/authActions";
+import Footer from "../layout/Footer";
 
 class Forgot extends Component {
   constructor() {
@@ -72,6 +73,7 @@ class Forgot extends Component {
           </Button>
           <Message success header={success.title} content={success.msg} />
         </Form>
+        <Footer />
       </div>
     );
   }

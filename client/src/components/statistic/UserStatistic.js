@@ -189,11 +189,12 @@ class UserStatistic extends Component {
         <h2>Statistik från medlemmar</h2>
         {userContent}
         <br />
-        <Divider />
+        {/* <Divider /> */}
+        <br />
         <br />
         {userContentTopList}
         <br />
-        <Divider />
+        {/* <Divider /> */}
         <Button basic color="purple" onClick={e => this.resetSeasonStats()}>
           Nollställ årets statistik
         </Button>

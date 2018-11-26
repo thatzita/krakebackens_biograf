@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button, Form, Checkbox, Message } from "semantic-ui-react";
-
+import Footer from "../layout/Footer";
 import { userRequest } from "../../actions/applyActions";
 
 class Apply extends Component {
@@ -90,6 +90,7 @@ class Apply extends Component {
           </Button>
           <Message success header={success.title} content={success.msg} />
         </Form>
+        <Footer />
       </div>
     );
   }

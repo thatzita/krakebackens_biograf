@@ -3,6 +3,7 @@ import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
+import Footer from "../layout/Footer";
 
 class Landing extends Component {
   componentDidMount() {
@@ -49,6 +50,7 @@ class Landing extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }
