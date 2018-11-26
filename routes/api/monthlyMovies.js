@@ -18,6 +18,41 @@ router.post("/uploadMoviePremiere", (req, res) => {
     if (movie) {
       return res.status(400).json({ title: "This movie allready is up" });
     } else {
+      const salong_1 = [
+        { seat: "r1s0", booked: false, customer: "", vip: false },
+        { seat: "r1s1", booked: false, customer: "", vip: false },
+        { seat: "r1s2", booked: false, customer: "", vip: false },
+        { seat: "r1s3", booked: false, customer: "", vip: false },
+        { seat: "r1s4", booked: false, customer: "", vip: false },
+        { seat: "r1s5", booked: false, customer: "", vip: false },
+        { seat: "r1s6", booked: false, customer: "", vip: false },
+        { seat: "r2s1", booked: false, customer: "", vip: false },
+        { seat: "r2s2", booked: false, customer: "", vip: false },
+        { seat: "r2s3", booked: false, customer: "", vip: false },
+        { seat: "r2s4", booked: false, customer: "", vip: false },
+        { seat: "r2s5", booked: false, customer: "", vip: false },
+        { seat: "r2s6", booked: false, customer: "", vip: false },
+        { seat: "r3s1", booked: false, customer: "", vip: false },
+        { seat: "r3s2", booked: false, customer: "", vip: false },
+        { seat: "r3s3", booked: false, customer: "", vip: false },
+        { seat: "r3s4", booked: false, customer: "", vip: false },
+        { seat: "r3s5", booked: false, customer: "", vip: false },
+        { seat: "r3s6", booked: false, customer: "", vip: false }
+      ];
+
+      const salong_2 = [
+        { seat: "r1s1", booked: false, customer: "", vip: false },
+        { seat: "r1s2", booked: false, customer: "", vip: false },
+        { seat: "r1s3", booked: false, customer: "", vip: false },
+        { seat: "r1s4", booked: false, customer: "", vip: false }
+      ];
+      let salon;
+      if (req.body.salon === "1") {
+        salon = salong_1;
+      } else {
+        salon = salong_2;
+      }
+
       const newMonMovie = new MonMovie({
         title: req.body.mov.title,
         description: req.body.mov.description,
@@ -32,23 +67,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
         screeningTime: req.body.time,
         utc_time: req.body.utc_time,
         screeningStatus: "active",
-        seating: [
-          { seat: 1, booked: false },
-          { seat: 2, booked: false },
-          { seat: 3, booked: false },
-          { seat: 4, booked: false },
-          { seat: 5, booked: false },
-          { seat: 6, booked: false },
-          { seat: 7, booked: false },
-          { seat: 8, booked: false },
-          { seat: 9, booked: false },
-          { seat: 10, booked: false },
-          { seat: 11, booked: false },
-          { seat: 12, booked: false },
-          { seat: 13, booked: false },
-          { seat: 14, booked: false },
-          { seat: 15, booked: false }
-        ],
+        seating: salon,
         fullyBooked: false
       });
 

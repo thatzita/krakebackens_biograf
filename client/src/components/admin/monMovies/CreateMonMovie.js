@@ -6,6 +6,7 @@ import { postMonmovie } from "../../../actions/monMovieActions";
 
 import DateTimePicker from "./DateTimePicker";
 import MoviePicker from "./MoviePicker";
+import ChooseSalon from "./ChooseSalon";
 import PreviewSubmitMonMovie from "./PreviewSubmitMonMovie";
 import Admin from "../../admin/Admin";
 import "./monMovies.css";
@@ -18,6 +19,7 @@ class CreateMonMovie extends Component {
       date: "",
       time: "",
       movieId: "",
+      salon: "1",
       eventObject: {},
       previewPage: false
     };
@@ -35,7 +37,8 @@ class CreateMonMovie extends Component {
       mov: this.state.eventObject,
       date: this.state.date,
       time: this.state.time,
-      utc_time: utc_time
+      utc_time: utc_time,
+      salon: this.state.salon
     };
     // console.log("Value : ", monMovieDb);
     this.props.postMonmovie(monMovieDb);
@@ -46,6 +49,9 @@ class CreateMonMovie extends Component {
   };
 
   handleTimeChange = (e, { name, value }) => this.setState({ [name]: value });
+  handleChange = value => {
+    console.log("value ", value);
+  };
 
   selectMovie = (id, movies) => {
     let movId;
@@ -92,6 +98,10 @@ class CreateMonMovie extends Component {
           movies={movies}
           eventObject={this.state.eventObject}
         />
+        <ChooseSalon
+          handleChange={this.handleChange}
+          salon={this.state.salon}
+        />
         <DateTimePicker
           eventObject={this.state.eventObject}
           handleTimeChange={this.handleTimeChange}
@@ -115,6 +125,7 @@ class CreateMonMovie extends Component {
         />
       </React.Fragment>
     );
+    console.log(this.state.salon);
 
     return (
       // <React.Fragment>

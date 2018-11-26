@@ -85,6 +85,7 @@ class App extends Component {
                   path="/createMonMovie"
                   component={CreateMonMovie}
                 />
+
                 <PrivateRoute
                   exact
                   path="/movieselection"
