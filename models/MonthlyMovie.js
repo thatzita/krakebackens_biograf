@@ -47,6 +47,10 @@ const MonthlyMovieSchema = new Schema({
     type: Array,
     required: true
   },
+  saloon: {
+    type: String,
+    required: true
+  },
   fullyBooked: Boolean
 });
 

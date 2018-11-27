@@ -65,31 +65,28 @@ class Admin extends Component {
         </Header>
 
         <Menu
-          text
-          inverted
-          vertical
-          style={{
-            position: "relative",
-            margin: "auto",
-            textAlign: "center",
-            marginBottom: "2rem"
-          }}
-        >
-          <Menu.Item
-            name="Logga ut"
-            active={activeItem === "Logga ut"}
-            onClick={this.handleItemClick}
-          >
-            Logga ut
-          </Menu.Item>
-        </Menu>
-
-        <Menu
           inverted
           vertical
           style={{ position: "relative", margin: "auto" }}
         >
+          <Menu.Menu
+            style={{
+              margin: "auto",
+              textAlign: "center",
+              marginBottom: "2rem"
+            }}
+          >
+            <Menu.Item
+              name="Logga ut"
+              active={activeItem === "Logga ut"}
+              onClick={this.handleItemClick}
+            >
+              Logga ut
+            </Menu.Item>
+          </Menu.Menu>
+
           <Menu.Item
+            style={{ height: "auto" }}
             name="Hem"
             active={activeItem === "Hem"}
             onClick={this.handleItemClick}
@@ -142,6 +139,7 @@ class Admin extends Component {
             <Icon name="chart bar" />
           </Menu.Item>
         </Menu>
+
         <Button
           style={{ marginTop: "4rem" }}
           inverted

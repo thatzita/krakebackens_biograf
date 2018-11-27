@@ -39,15 +39,16 @@ h1 {
   color: transparent;
 }
 
-.reserved::after {
-  /* color: #707070; */
+/* Extra eller inte */
+/* .reserved::after {
+  color: #707070;
   color: transparent;
-}
+} */
 
-.available::after {
-  /* color: #fff; */
+/* .available::after {
+  color: #fff;
   color: transparent;
-}
+} */
 
 .available {
   /* color: #fff; */

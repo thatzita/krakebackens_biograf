@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./seating.css";
+import { Header, Image } from "semantic-ui-react";
+
+import "./seatingTwo.css";
 import DrawGrid from "./SeatingGrid";
+
+const rowList = [[1, 2, 3, 4], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6]];
 
 class Seating extends Component {
   constructor() {
     super();
     this.state = {
+      bookingObj: {},
+      rowList: [],
+      reservedList: [],
       seat: [
         "r1s0",
         "r1s1",
@@ -58,8 +65,25 @@ class Seating extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     let { bookingObj } = this.props.location.state;
+    if (bookingObj) {
+      this.setState({ bookingObj, rowList: bookingObj.seating });
+    }
+
+    // this.filterSeating(bookingObj);
+
     console.log("the bookin obj:", bookingObj);
   }
+
+  reserveSeat = obj => {
+    if (this.state.reservedList.includes(obj)) {
+      let newList = this.state.reservedList.filter(x => x !== obj);
+      this.setState({ reservedList: newList });
+    } else {
+      this.setState({ reservedList: [...this.state.reservedList, obj] });
+    }
+  };
+
+  unReserveSeat = obj => {};
 
   onClickData(seat) {
     //TODO: fixa så du inte kan booka flera
@@ -82,10 +106,38 @@ class Seating extends Component {
   }
 
   render() {
+    console.log("reserve: ", this.state.reservedList);
+
+    let movie = this.state.bookingObj;
+    let movieImage = movie.poster || "default.jpg";
     return (
       <div className="cinemaBackground">
-        <h1>Salong 1</h1>
+        <Header
+          inverted
+          as="h2"
+          style={{
+            // width: "50%",
+            minWidth: "500px",
+            padding: "1rem 0",
+            margin: "0 4rem 2rem 4rem",
+            borderBottom: "1px solid gray"
+          }}
+        >
+          <Image src={movieImage} size="big" />
+          <Header.Content>
+            {movie.title}
+            <Header.Subheader>
+              Datum: {movie.screeningDate || "ååååmmdd"}
+            </Header.Subheader>
+            <Header.Subheader>
+              Tid: {movie.screeningTime || "00:00"}
+            </Header.Subheader>
+          </Header.Content>
+        </Header>
         <DrawGrid
+          unReserveSeat={this.unReserveSeat}
+          reserveSeat={this.reserveSeat}
+          rowList={this.state.rowList}
           seat={this.state.seat}
           available={this.state.seatAvailable}
           reserved={this.state.seatReserved}

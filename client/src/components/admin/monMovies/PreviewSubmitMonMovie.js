@@ -38,6 +38,11 @@ export default function PreviewSubmitMonMovie(props) {
                 <Icon name="time" /> {props.time ? props.time : "00:00"}
               </span>
             </Item.Meta>
+            <Item.Meta>
+              <span className="cinema">
+                <Icon name="users" /> Salong {props.saloon ? props.saloon : "1"}
+              </span>
+            </Item.Meta>
             <Item.Description style={{ maxWidth: "70%", minWidth: "280px" }}>
               {props.eventObject.description
                 ? props.eventObject.description
