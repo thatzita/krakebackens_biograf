@@ -13,6 +13,7 @@ import PrivateRoute from "./components/common/PrivateRoute";
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Footer from "./components/layout/Footer";
+import AdminHome from "./components/admin/AdminHome";
 import Login from "./components/auth/Login";
 import Apply from "./components/auth/Apply";
 import Forgot from "./components/auth/Forgot";
@@ -75,6 +76,7 @@ class App extends Component {
               {/* <Route exact path="/addmovie" component={AddMovie} /> */}
               <Switch>
                 <Route exact path="/seating" component={Seating} />
+                <PrivateRoute exact path="/adminhome" component={AdminHome} />
                 <PrivateRoute
                   exact
                   path="/monMovieList"

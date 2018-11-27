@@ -9,3 +9,85 @@
   height: 100vh;
   width: 16rem;
 }
+
+.adminhome {
+  background-color: #f8f8ff;
+  padding-bottom: 8rem;
+  margin-bottom: -7rem;
+  height: 100vh;
+}
+.containerAdminHome {
+  margin-left: 30rem;
+  max-width: 60rem;
+}
+.adminMovieBackdropContainer {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  margin-top: 0.5rem;
+  /* background-color: black; */
+}
+.adminMovieBackdrop {
+  height: 100%;
+  width: 100%;
+}
+
+div.slider-control-centerleft button,
+div.slider-control-centerright button {
+  /* display: none; */
+}
+
+div.slider.carousel {
+  /* position: absolute; */
+  /* right: -38rem; */
+  top: -2.5rem;
+  /* width: 100%; */
+  /* height: auto; */
+  /* box-sizing: border-box; */
+  /* visibility: inherit; */
+}
+div.slider-frame ul.slider-list li.slider-slide .slide-visible {
+  left: 3660px;
+}
+
+div.slider-control-bottomcenter > ul > li {
+  top: 4rem;
+  position: relative;
+}
+
+.purpleBox {
+  background-color: #621e96;
+  width: 10rem;
+  height: 10rem;
+  position: relative;
+  color: white;
+  display: inline-block;
+  margin: 0 5rem;
+  margin-top: 2rem;
+  border-radius: 1rem 1rem;
+  cursor: pointer;
+}
+
+.purpleBox > p {
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.film.huge.icon.iconPos,
+.users.huge.icon.iconPos,
+.chart.bar.huge.icon.iconPos {
+  text-align: center;
+  margin-left: 25%;
+  margin-top: 10%;
+}
+
+.slideButtons {
+  background: rgba(98, 30, 150, 1);
+  color: white;
+  cursor: pointer;
+  width: 4rem;
+  height: 2rem;
+}

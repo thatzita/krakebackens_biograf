@@ -90,6 +90,8 @@ class Admin extends Component {
           style={{ position: "relative", margin: "auto" }}
         >
           <Menu.Item
+            as={Link}
+            to="/adminhome"
             name="Hem"
             active={activeItem === "Hem"}
             onClick={this.handleItemClick}

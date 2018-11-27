@@ -48,9 +48,6 @@ h1.titleChangePassword {
 }
 
 .changePasswordContainer {
-  /* min-height: 30rem; */
-  /* margin-bottom: -10rem; */
-  /* width: 100%; */
   max-width: 30rem;
   margin: 0 auto;
   text-align: center;

@@ -125,7 +125,7 @@ class Navbar extends Component {
                   {admin ? (
                     <Menu.Item
                       as={Link}
-                      to="/admin"
+                      to="/adminhome"
                       name="Admin"
                       active={activeItem === "Admin"}
                       onClick={() => this.props.goToAdminPage(true)}
