@@ -20,6 +20,7 @@ div.containerMonMovies {
 h1.title {
   padding-top: 2rem;
   color: black;
+  text-align: center;
 }
 
 .prevSubMonMovie {
@@ -58,8 +59,8 @@ h1.title {
   position: relative; */
   background-color: #f8f8ff;
   margin-top: -5rem;
-  height: 55rem;
-  margin-bottom: -7rem;
+  height: 70rem;
+  margin-bottom: -25rem;
 }
 
 .monMovies {
@@ -70,4 +71,14 @@ h1.title {
 .ui.segment:last-child {
   margin-bottom: -6rem;
   padding-bottom: 5rem;
+}
+
+.containerMonMoviesList .ui.segment:last-child {
+  margin-bottom: -4rem;
+}
+
+.containerMonMoviesCreate .ui.segment.timeAndDate {
+  /* border: 2px solid pink; */
+  /* padding-bottom: 10rem; */
+  /* margin-bottom: 0rem; */
 }

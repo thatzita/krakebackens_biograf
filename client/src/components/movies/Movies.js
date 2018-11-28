@@ -5,7 +5,7 @@ import Popup from "./Popup";
 import { Link } from "react-router-dom";
 import Admin from "../admin/Admin";
 
-import { Button, Input, Icon, Item, Divider, Grid } from "semantic-ui-react";
+import { Button, Input, Icon, Item, Segment, Grid } from "semantic-ui-react";
 
 import {
   getAllMovies,
@@ -149,8 +149,11 @@ class Movies extends Component {
       movieContent = (
         <div>
           <br />
+          <br />
           {/* <h2>Filmdatabas</h2> */}
-          <Item.Group divided>{movieItem.slice(0, showMore)}</Item.Group>
+          <Segment style={{ boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)" }}>
+            <Item.Group divided>{movieItem.slice(0, showMore)}</Item.Group>
+          </Segment>
         </div>
       );
     } else {
@@ -165,6 +168,7 @@ class Movies extends Component {
             Filmer
           </h1>
           <hr />
+          <br />
           <Admin />
           <div className="searchContainer">
             <Input

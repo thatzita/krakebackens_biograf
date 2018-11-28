@@ -6,7 +6,7 @@ import Admin from "../../admin/Admin";
 export default function PreviewSubmitMonMovie(props) {
   return (
     <div className="prevSubMonMovie">
-      <Segment>
+      <Segment style={{ boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)" }}>
         <Admin />
         <Button basic onClick={() => props.goToOrLeavePreviewPage(false)}>
           {" "}

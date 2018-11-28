@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Admin from "./Admin";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Icon } from "semantic-ui-react";
+import { Icon, Segment } from "semantic-ui-react";
 import AdminMonMovie from "./AdminMonMovie";
 import { Link } from "react-router-dom";
 
@@ -40,30 +40,38 @@ class AdminHome extends Component {
             {adminName ? `Välkommen ${adminName}` : ""}
           </h1>
           <hr />
-          <br />
-          <br />
 
-          <AdminMonMovie />
-          <Link to="/movies">
-            {" "}
-            <div className="purpleBox">
-              <Icon className="iconPos" size="huge" name="film" />
-              <p>Filmer</p>
-            </div>
-          </Link>
-          <Link to="/users">
-            <div className="purpleBox">
-              <Icon className="iconPos" size="huge" name="users" />
-              <p>Medlemmar</p>
-            </div>
-          </Link>
-          <Link to="/statistic">
-            <div className="purpleBox">
+          <Segment
+            style={{
+              paddingTop: "3rem",
+              // marginTop: "-2rem",
+              boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)"
+            }}
+          >
+            <AdminMonMovie />
+          </Segment>
+          <Segment style={{ boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)" }}>
+            <Link to="/movies">
               {" "}
-              <Icon className="iconPos" size="huge" name="chart bar" />
-              <p>Statistik</p>
-            </div>
-          </Link>
+              <div className="purpleBox">
+                <Icon className="iconPos" size="huge" name="film" />
+                <p>Filmer</p>
+              </div>
+            </Link>
+            <Link to="/users">
+              <div className="purpleBox">
+                <Icon className="iconPos" size="huge" name="users" />
+                <p>Medlemmar</p>
+              </div>
+            </Link>
+            <Link to="/statistic">
+              <div className="purpleBox">
+                {" "}
+                <Icon className="iconPos" size="huge" name="chart bar" />
+                <p>Statistik</p>
+              </div>
+            </Link>
+          </Segment>
           <Admin />
         </div>
       </div>

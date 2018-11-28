@@ -41,40 +41,7 @@ class UserPopup extends Component {
 
   updateUserDb() {
     let { userInfo } = this.state;
-    // let { title, description } = this.state;
     let userDb;
-
-    //     if (title === "" && description !== "") {
-    //       movieDb = {
-    //         title: userInfo.title,
-    //         description: description,
-    //         id: userInfo._id
-    //       };
-    //     } else if (title !== "" && description === "") {
-    //       movieDb = {
-    //         title: title,
-    //         description: userInfo.description,
-    //         id: userInfo._id
-    //       };
-    //     } else if (title !== "" && description !== "") {
-    //       movieDb = {
-    //         title: title,
-    //         description: description,
-    //         id: userInfo._id
-    //       };
-    //     } else {
-    //       movieDb = {
-    //         title: userInfo.title,
-    //         description: userInfo.description,
-    //         id: userInfo._id
-    //       };
-    //     }
-    //     this.props.updateDb(movieDb);
-    //     this.setState({
-    //       title: "",
-    //       description: ""
-    //     });
-    //     this.closePopup();
   }
 
   changeInput(event) {
@@ -114,84 +81,86 @@ class UserPopup extends Component {
 
     if (showOrHide) {
       userPopup = (
-        <Segment inverted>
-          <Card fluid className="cardContainer">
-            <Image
-              className="crowPicture"
-              src="krakebackens_logo.png"
-              size="medium"
-              circular
-              centered
-            />
-            {/* <Card.Header>{profile.username}</Card.Header> */}
-            <h1>{userInfo.username}</h1>
-            <h3
-              className="whiteText"
-              style={{ textAlign: "center", marginTop: "-1rem" }}
-            >
-              <Icon name="mail" />
-              {userInfo.email}
-            </h3>
-
-            <Card.Content className="userStats">
-              <h2
+        <div className="popupUser">
+          <Segment inverted>
+            {/* <Card fluid className="cardContainer"> */}
+            <Card className="containerInPopup">
+              <Image
+                className="crowPicture"
+                src="krakebackens_logo.png"
+                size="small"
+                circular
+                centered
+              />
+              {/* <Card.Header>{profile.username}</Card.Header> */}
+              <h1 style={{ textAlign: "center" }}>{userInfo.username}</h1>
+              <h3
                 className="whiteText"
-                // style={{ textDecoration: "underline" }}
+                style={{ textAlign: "center", marginTop: "-1rem" }}
               >
-                <Icon name="chart bar" />
-                Statistik:
-              </h2>
-              <h4 className="whiteText">Antal besök i år:</h4>
-              <span className="whiteText">{userInfo.stats.season}</span>
-              <h4 className="whiteText">Antal besök totalt:</h4>
-              <span className="whiteText">{userInfo.stats.total}</span>
-            </Card.Content>
+                <Icon name="mail" />
+                {userInfo.email}
+              </h3>
 
-            <Card.Content className="userVip">
-              <h2
-                // style={{ textDecoration: "underline" }}
-                className="whiteText"
-              >
-                <Icon name="star" />
-                VIP status:
-              </h2>
-              <p>{userInfo.vip.status ? "VIP-medlem" : "Medlem"}</p>
-              <p>
-                {userInfo.vip.status ? `VIP-plats: ${userInfo.vip.seat}` : ""}
-              </p>
-            </Card.Content>
+              <Card.Content className="userStats">
+                <h2
+                  className="whiteText"
+                  // style={{ textDecoration: "underline" }}
+                >
+                  <Icon name="chart bar" />
+                  Statistik:
+                </h2>
+                <h4 className="whiteText">Antal besök i år:</h4>
+                <span className="whiteText">{userInfo.stats.season}</span>
+                <h4 className="whiteText">Antal besök totalt:</h4>
+                <span className="whiteText">{userInfo.stats.total}</span>
+              </Card.Content>
 
-            {/* <h3>Filmer du sett:</h3>
+              <Card.Content className="userVip">
+                <h2
+                  // style={{ textDecoration: "underline" }}
+                  className="whiteText"
+                >
+                  <Icon name="star" />
+                  VIP status:
+                </h2>
+                <p>{userInfo.vip.status ? "VIP-medlem" : "Medlem"}</p>
+                <p>
+                  {userInfo.vip.status ? `VIP-plats: ${userInfo.vip.seat}` : ""}
+                </p>
+              </Card.Content>
+
+              {/* <h3>Filmer du sett:</h3>
               <ul>{watchedMovies}</ul> */}
-          </Card>
+              <Button.Group>
+                <Button
+                  attached="bottom"
+                  className="deleteButton"
+                  onClick={e => this.deleteUser(userInfo)}
+                >
+                  Ta bort från databasen
+                </Button>
+                <Button
+                  className="updateButton"
+                  color="green"
+                  attached="bottom"
+                  onClick={e => this.updateUserDb(userInfo)}
+                >
+                  Uppdatera databasen
+                </Button>
 
-          <Button.Group>
-            <Button
-              attached="bottom"
-              className="deleteButton"
-              onClick={e => this.deleteUser(userInfo)}
-            >
-              Ta bort från databasen
-            </Button>
-            <Button
-              className="updateButton"
-              color="green"
-              attached="bottom"
-              onClick={e => this.updateUserDb(userInfo)}
-            >
-              Uppdatera databasen
-            </Button>
-
-            <Button
-              attached="bottom"
-              className="closeButton"
-              onClick={e => this.closePopup()}
-            >
-              <Icon name="left chevron" />
-              Stäng
-            </Button>
-          </Button.Group>
-        </Segment>
+                <Button
+                  attached="bottom"
+                  className="closeButton"
+                  onClick={e => this.closePopup()}
+                >
+                  <Icon name="left chevron" />
+                  Stäng
+                </Button>
+              </Button.Group>
+            </Card>
+          </Segment>
+        </div>
       );
     } else {
       userPopup = "";

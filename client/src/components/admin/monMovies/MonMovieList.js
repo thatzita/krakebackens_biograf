@@ -55,7 +55,7 @@ class MonMovieList extends Component {
             </Header.Content>
           </Header>
 
-          <Segment>
+          <Segment style={{ boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)" }}>
             <Item.Group divided>
               {monList.map(item => (
                 <Item key={item._id}>

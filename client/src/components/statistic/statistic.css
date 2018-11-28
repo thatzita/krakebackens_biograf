@@ -6,6 +6,7 @@ div.containerStatistic {
 div.tableContainer {
   width: 700px;
   overflow: hidden;
+  margin-left: 4rem;
 }
 
 .firstList {
@@ -19,7 +20,7 @@ div.tableContainer {
 
 div.statistics {
   background-color: #f8f8ff;
-  padding-bottom: 8rem;
+  padding-bottom: 11rem;
   margin-bottom: -7rem;
 }
 h1.title {
@@ -33,4 +34,6 @@ h1.title {
 .ui.statistics:first-child.userGroup {
   /* margin: 0 auto; */
   /* position: relative; */
+  background: transparent;
+  margin-left: 13rem;
 }

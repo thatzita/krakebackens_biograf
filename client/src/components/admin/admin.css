@@ -14,7 +14,7 @@
   background-color: #f8f8ff;
   padding-bottom: 8rem;
   margin-bottom: -7rem;
-  height: 100vh;
+  height: 100%;
 }
 .containerAdminHome {
   margin-left: 30rem;
@@ -26,34 +26,10 @@
   position: relative;
 
   margin-top: 0.5rem;
-  /* background-color: black; */
 }
 .adminMovieBackdrop {
   height: 100%;
   width: 100%;
-}
-
-div.slider-control-centerleft button {
-  margin-left: -1.5rem;
-}
-div.slider-control-centerright button {
-  /* display: none; */
-}
-
-div.slider.carousel {
-  /* position: absolute; */
-  /* right: -38rem; */
-  top: -2.5rem;
-  left: 1rem;
-  /* width: 100%; */
-  /* height: auto; */
-  /* box-sizing: border-box; */
-  /* visibility: inherit; */
-}
-
-div.slider-control-bottomcenter > ul > li {
-  top: 4rem;
-  position: relative;
 }
 
 .purpleBox {
@@ -63,9 +39,9 @@ div.slider-control-bottomcenter > ul > li {
   position: relative;
   color: white;
   display: inline-block;
-  margin: 0 5rem;
-  margin-top: 2rem;
-  border-radius: 1rem 1rem;
+  margin: 0 4rem;
+  margin-top: 0rem;
+  border-radius: 0.5rem;
   cursor: pointer;
 }
 
@@ -84,10 +60,28 @@ div.slider-control-bottomcenter > ul > li {
   margin-top: 10%;
 }
 
-.slideButtons {
+.makeItFloat .bigPicture {
+  float: left;
+}
+
+.makeItFloat .smallPicture {
+  margin-top: -2rem;
+}
+.makeItFloat > .ui.horizontal.list .item {
+  float: left;
+}
+
+.makeItFloat > .ui.horizontal.list .item .smallPicture {
+  float: left;
+  margin-top: 1rem;
   background: rgba(98, 30, 150, 1);
-  color: white;
-  cursor: pointer;
-  width: 4rem;
-  height: 2rem;
+  /* border-radius: 0.5rem; */
+}
+
+.makeItFloat .ui.list {
+  margin-left: -2rem;
+}
+
+.smallPicture > .ui.tiny.image {
+  /* border-radius: 0.5rem; */
 }

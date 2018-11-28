@@ -61,8 +61,16 @@ class Profile extends Component {
 
       loggedInProfile = (
         <div className="profileInfoContainer">
-          <Segment inverted>
-            <Card fluid className="cardContainer">
+          <hr />
+          <Segment
+            inverted
+            style={{
+              marginBottom: "0rem",
+              paddingBottom: "2rem"
+            }}
+          >
+            {/* <Card fluid className="cardContainer"> */}
+            <Card className="containerInPopup">
               <Image
                 className="crowPicture"
                 src="krakebackens_logo.png"
@@ -71,7 +79,7 @@ class Profile extends Component {
                 centered
               />
               {/* <Card.Header>{profile.username}</Card.Header> */}
-              <h1>{profile.username}</h1>
+              <h1 style={{ textAlign: "center" }}>{profile.username}</h1>
               <h3
                 className="whiteText"
                 style={{ textAlign: "center", marginTop: "-1rem" }}
@@ -135,8 +143,10 @@ class Profile extends Component {
 
     return (
       <div>
-        <h1 style={{ marginTop: "3rem" }}>Profilsida</h1>
-        <Divider />
+        <h1 style={{ marginTop: "3rem", color: "white", textAlign: "center" }}>
+          Profilsida
+        </h1>
+
         {loggedInProfile}
 
         <Footer />

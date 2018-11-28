@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Footer from "../layout/Footer";
-import { Button, Divider, Form, Message, Icon } from "semantic-ui-react";
+import { Button, Segment, Form, Message, Icon, Card } from "semantic-ui-react";
 import "./profile.css";
 import { getCurrentProfile } from "../../actions/profileActions";
 import { changePassword } from "../../actions/authActions";
@@ -68,44 +68,53 @@ class ChangePassword extends Component {
     return (
       <div className="changePassword">
         <div className="changePasswordContainer">
+          <br />
+
           <h1 className="titleChangePassword">Byt lösenord</h1>
           <hr />
-          <Form error success>
-            <Form.Field className="changePasswordField">
-              <label>Lösenord</label>
-              <input
-                type="password"
-                placeholder="Skriv ett lösenord"
-                name="password"
-                value={password}
-                onChange={this.onChange}
-              />
-              <Message error content={errors.password} />
-            </Form.Field>
-            <br />
-            <Form.Field className="changePasswordField">
-              <input
-                type="password"
-                placeholder="Bekräfta lösenord "
-                name="password2"
-                value={password2}
-                onChange={this.onChange}
-              />
-              <Message error content={errors.password2} />
-            </Form.Field>
-            <br />
-            <Button color="green" type="submit" onClick={this.onSubmit}>
-              Återställ mitt lösenord!
-            </Button>
-            <Link to="/profile">
-              <Button>
-                <Icon name="left chevron" />
-                Tillbaka
-              </Button>
-            </Link>
-            {/* <Message success header={success.title} content={success.msg} /> */}
-          </Form>
+          <Segment style={{ paddingBottom: "2rem" }} inverted>
+            <Card className="containerInPopup">
+              <Form error success>
+                <Form.Field className="changePasswordField">
+                  <label style={{ color: "white" }}>Lösenord</label>
+                  <input
+                    type="password"
+                    placeholder="Skriv ett lösenord"
+                    name="password"
+                    value={password}
+                    onChange={this.onChange}
+                  />
+                  <Message error content={errors.password} />
+                </Form.Field>
+                <br />
+                <Form.Field className="changePasswordField">
+                  <label style={{ color: "white" }}>Bekräfta lösenord</label>
+                  <input
+                    type="password"
+                    placeholder="Bekräfta lösenord "
+                    name="password2"
+                    value={password2}
+                    onChange={this.onChange}
+                  />
+                  <Message error content={errors.password2} />
+                </Form.Field>
+                <br />
+                <Button color="green" type="submit" onClick={this.onSubmit}>
+                  Återställ mitt lösenord!
+                </Button>
+                <Link to="/profile">
+                  <Button>
+                    <Icon name="left chevron" />
+                    Tillbaka
+                  </Button>
+                </Link>
+                {/* <Message success header={success.title} content={success.msg} /> */}
+              </Form>
+              <br />
+            </Card>
+          </Segment>
         </div>
+
         <Footer />
       </div>
     );

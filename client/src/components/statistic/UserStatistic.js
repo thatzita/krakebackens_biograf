@@ -126,7 +126,7 @@ class UserStatistic extends Component {
             </Statistic>
             <Statistic>
               <Statistic.Value>{users.length}</Statistic.Value>
-              <Statistic.Label>medlemmar (gästkonton?)</Statistic.Label>
+              <Statistic.Label>medlemmar </Statistic.Label>
             </Statistic>
           </Statistic.Group>
         </div>
@@ -186,7 +186,8 @@ class UserStatistic extends Component {
 
     return (
       <React.Fragment>
-        <h2>Statistik från medlemmar</h2>
+        {/* <h2>Statistik från medlemmar</h2> */}
+        <br />
         {userContent}
         <br />
         {/* <Divider /> */}
@@ -194,10 +195,18 @@ class UserStatistic extends Component {
         <br />
         {userContentTopList}
         <br />
-        {/* <Divider /> */}
-        <Button basic color="purple" onClick={e => this.resetSeasonStats()}>
-          Nollställ årets statistik
-        </Button>
+        <div
+          style={{ position: "absolute", left: "50%", marginLeft: "-100px" }}
+        >
+          <Button
+            style={{ margin: "0 auto" }}
+            basic
+            color="purple"
+            onClick={e => this.resetSeasonStats()}
+          >
+            Nollställ årets statistik
+          </Button>
+        </div>
       </React.Fragment>
     );
   }

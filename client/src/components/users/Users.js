@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import UserPopup from "./UserPopup";
 import Admin from "../admin/Admin";
 
-import { Button, Input, Icon, Item, Divider, Grid } from "semantic-ui-react";
+import { Button, Input, Icon, Item, Segment, Grid } from "semantic-ui-react";
 import { getAllUsers, userPopup, deleteUser } from "../../actions/usersActions";
 import "./users.css";
 
@@ -139,8 +139,6 @@ class Users extends Component {
 
       userContent = (
         <div>
-          <br />
-
           <Item.Group divided>{userCards.slice(0, showMore)}</Item.Group>
         </div>
       );
@@ -156,6 +154,7 @@ class Users extends Component {
             Medlemmar
           </h1>
           <hr />
+          <br />
           <Admin />
           <div className="searchContainer">
             <Input
@@ -173,10 +172,12 @@ class Users extends Component {
             </Link>
           </div>
           <UserPopup />
-          {userContent}
+          <br />
+          <br />
+          <Segment style={{ boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)" }}>
+            {userContent}
+          </Segment>
         </div>
-
-        <br />
 
         <div className="loadMoreBtnContainer">{showMoreContentButton}</div>
       </div>

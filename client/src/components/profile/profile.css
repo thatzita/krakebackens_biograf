@@ -5,7 +5,7 @@
 }
 .ui.buttons.profileButtons {
   position: relative;
-  left: -4.5rem;
+  /* left: -4.5rem; */
 }
 .changePassword {
   /* border: 2px solid hotpink; */
@@ -55,4 +55,8 @@ h1.titleChangePassword {
 div.field.loginField {
   width: 50%;
   display: inline-block;
+}
+
+.changePasswordField > label {
+  float: left;
 }

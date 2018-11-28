@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Input, Divider, Button, Item, Image, Icon } from "semantic-ui-react";
+import { Input, Segment, Button, Item, Image, Icon } from "semantic-ui-react";
 import {
   searchMovie,
   imdbPopup,
@@ -63,7 +63,6 @@ class AddMovie extends Component {
 
     if (moviesFound !== undefined) {
       let movieCards = moviesFound.map(movie => {
-        console.log(movie);
         return (
           <Item value={movie.id} key={movie.id}>
             <Item.Image
@@ -108,7 +107,7 @@ class AddMovie extends Component {
       });
       movieList = <Item.Group divided> {movieCards}</Item.Group>;
     } else {
-      movieList = "";
+      movieList = <h1 style={{ textAlign: "center" }}>Sök efter film</h1>;
     }
 
     return (
@@ -120,6 +119,7 @@ class AddMovie extends Component {
               Lägg till film
             </h1>
             <hr />
+            <br />
             <Admin />
             <div className="searchContainer">
               <Input
@@ -140,9 +140,12 @@ class AddMovie extends Component {
                 </Button>
               </Link>
             </div>
-
+            <br />
+            <br />
             <DbPopup />
-            {movieList}
+            <Segment style={{ boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)" }}>
+              {movieList}
+            </Segment>
           </div>
         </div>
       </div>

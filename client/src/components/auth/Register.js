@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { Button, Form, Header, Message, Icon } from "semantic-ui-react";
+import { Button, Form, Segment, Message, Icon } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Admin from "../admin/Admin";
 import "./auth.css";
@@ -89,72 +89,82 @@ class Register extends Component {
             </h1>
             <hr />
             <br />
-            <br />
+
             <Admin />
+            <Segment
+              style={{
+                paddingBottom: "2rem",
+                boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)"
+              }}
+            >
+              <Form error success>
+                <div className="formContainer">
+                  <Form.Field className=" ">
+                    <label className="floatLeft">Användarnamn</label>
+                    <input
+                      type="text"
+                      placeholder="Användarnamn"
+                      name="username"
+                      value={username}
+                      onChange={this.onChange}
+                    />
+                    <Message error content={errors.username} />
+                  </Form.Field>
+                  <br />
+                  <Form.Field className="registerField">
+                    <label className="floatLeft">Epost</label>
+                    <input
+                      type="email"
+                      placeholder="Epost"
+                      name="email"
+                      value={email}
+                      onChange={this.onChange}
+                    />
+                    <Message error content={errors.email} />
+                  </Form.Field>
+                  <br />
+                  <Form.Field className="registerField">
+                    <label className="floatLeft">Lösenord</label>
+                    <input
+                      type="password"
+                      placeholder="Skriv ett lösenord"
+                      name="password"
+                      value={password}
+                      onChange={this.onChange}
+                    />
+                    <Message error content={errors.password} />
+                  </Form.Field>
+                  <br />
+                  <Form.Field className="registerField">
+                    <input
+                      type="password"
+                      placeholder="Bekräfta lösenord "
+                      name="password2"
+                      value={password2}
+                      onChange={this.onChange}
+                    />
+                    <Message error content={errors.password2} />
+                  </Form.Field>
+                  <br />
+                  <Message
+                    success
+                    header={success.title}
+                    content={success.msg}
+                  />
 
-            <Form error success>
-              <div className="formContainer">
-                <Form.Field className=" ">
-                  <label className="floatLeft">Användarnamn</label>
-                  <input
-                    type="text"
-                    placeholder="Användarnamn"
-                    name="username"
-                    value={username}
-                    onChange={this.onChange}
-                  />
-                  <Message error content={errors.username} />
-                </Form.Field>
-                <br />
-                <Form.Field className="registerField">
-                  <label className="floatLeft">Epost</label>
-                  <input
-                    type="email"
-                    placeholder="Epost"
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                  />
-                  <Message error content={errors.email} />
-                </Form.Field>
-                <br />
-                <Form.Field className="registerField">
-                  <label className="floatLeft">Lösenord</label>
-                  <input
-                    type="password"
-                    placeholder="Skriv ett lösenord"
-                    name="password"
-                    value={password}
-                    onChange={this.onChange}
-                  />
-                  <Message error content={errors.password} />
-                </Form.Field>
-                <br />
-                <Form.Field className="registerField">
-                  <input
-                    type="password"
-                    placeholder="Bekräfta lösenord "
-                    name="password2"
-                    value={password2}
-                    onChange={this.onChange}
-                  />
-                  <Message error content={errors.password2} />
-                </Form.Field>
-                <br />
-                <Message success header={success.title} content={success.msg} />
-
-                <Button color="green" type="submit" onClick={this.onSubmit}>
-                  <Icon name="add" />
-                  Skapa användare
-                </Button>
-                <Link to="/users">
-                  <Button basic>
-                    <Icon name="left chevron" />
-                    Tillbaka till medlemmar
+                  <Button color="green" type="submit" onClick={this.onSubmit}>
+                    <Icon name="add" />
+                    Skapa användare
                   </Button>
-                </Link>
-              </div>
-            </Form>
+                  <Link to="/users">
+                    <Button basic>
+                      <Icon name="left chevron" />
+                      Tillbaka till medlemmar
+                    </Button>
+                  </Link>
+                </div>
+              </Form>
+            </Segment>
           </div>
         </div>
       </div>

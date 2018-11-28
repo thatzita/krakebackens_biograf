@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./statistic.css";
 import Admin from "../admin/Admin";
 import UserStatistic from "./UserStatistic";
-import { Icon } from "semantic-ui-react";
+import { Icon, Segment } from "semantic-ui-react";
 
 class Statistic extends Component {
   render() {
@@ -15,7 +15,9 @@ class Statistic extends Component {
           </h1>
           <hr />
           <Admin />
-          <UserStatistic />
+          <Segment style={{ boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)" }}>
+            <UserStatistic />
+          </Segment>
         </div>
       </div>
     );

@@ -28,7 +28,10 @@ class Landing extends Component {
             <div className="containerLanding">
               <div className="row">
                 <div className="col-md-12 text-center">
-                  <h1 className="display-3 mb-4 whiteHeader">
+                  <h1
+                    style={{ color: "white" }}
+                    className="display-3 mb-4 whiteHeader"
+                  >
                     Kråkebackens biograf
                   </h1>
                   {/* <p className="lead"> Wall of text</p> */}
