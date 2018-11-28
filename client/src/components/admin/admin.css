@@ -65,16 +65,25 @@
 }
 
 .makeItFloat .smallPicture {
-  margin-top: -2rem;
+  /* margin-top: -2rem; */
 }
-.makeItFloat > .ui.horizontal.list .item {
-  float: left;
+.ui.horizontal.list div.item .smallOne {
+  position: relative;
+  border: 2px solid black;
+
+  padding-left: 20rem;
+}
+
+.makeItFloat > .ui.horizontal.list .item .bigPicture {
+  padding-left: 7rem;
+  width: 50rem;
 }
 
 .makeItFloat > .ui.horizontal.list .item .smallPicture {
   float: left;
   margin-top: 1rem;
   background: rgba(98, 30, 150, 1);
+
   /* border-radius: 0.5rem; */
 }
 

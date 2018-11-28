@@ -45,6 +45,7 @@ class AdminHome extends Component {
             style={{
               paddingTop: "3rem",
               // marginTop: "-2rem",
+              height: "45rem",
               boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)"
             }}
           >
