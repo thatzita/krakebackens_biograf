@@ -77,12 +77,17 @@ class MonMovieList extends Component {
                       <Icon name="calendar alternate outline" color="grey" />{" "}
                       {item.screeningDate}
                     </Item.Meta>
+                    <Item.Meta>
+                      <Icon name="users" color="grey" />{" "}
+                      {"Salong " + item.saloon}
+                    </Item.Meta>
                     <Item.Description
                       style={{ maxWidth: "70%", minWidth: "280px" }}
                     >
                       {item.description}
                     </Item.Description>
                     <Item.Extra>{item.genres.map(gen => gen + " ")}</Item.Extra>
+
                     <Item.Extra>
                       <Button color="violet" floated="right">
                         <Icon name="edit" /> Ändra
