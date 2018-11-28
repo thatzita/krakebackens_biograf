@@ -190,9 +190,8 @@ class Movies extends Component {
           <br />
           {movieContent}
         </div>
-
-        <br />
         <div className="loadMoreBtnContainer">{showMoreContentButton}</div>
+        <br />
       </div>
     );
   }

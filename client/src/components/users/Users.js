@@ -63,7 +63,7 @@ class Users extends Component {
     if (users !== undefined) {
       if (this.props.users.users.length > showMore) {
         showMoreContentButton = (
-          <Button basic color="purple" onClick={e => this.showMoreContent()}>
+          <Button color="violet" onClick={e => this.showMoreContent()}>
             Ladda fler medlemmar
           </Button>
         );
