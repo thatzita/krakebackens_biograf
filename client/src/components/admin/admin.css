@@ -47,9 +47,9 @@ div.slider.carousel {
   /* box-sizing: border-box; */
   /* visibility: inherit; */
 }
-div.slider-frame ul.slider-list li.slider-slide .slide-visible {
+/* div.slider-frame ul.slider-list li.slider-slide .slide-visible {
   left: 3660px;
-}
+} */
 
 div.slider-control-bottomcenter > ul > li {
   top: 4rem;
