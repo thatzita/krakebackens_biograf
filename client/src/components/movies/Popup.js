@@ -14,7 +14,8 @@ import {
   Divider,
   Image,
   Icon,
-  Segment
+  Segment,
+  Confirm
 } from "semantic-ui-react";
 import "./movies.css";
 
@@ -26,7 +27,9 @@ class Popup extends Component {
       movieInfo: {},
       title: "",
       description: "",
-      crowRating: ""
+      crowRating: "",
+      show: false,
+      movie: {}
     };
     this.editValues = this.editValues.bind(this);
   }
@@ -153,9 +156,20 @@ class Popup extends Component {
     });
   }
 
+  show = movie => {
+    this.setState({ open: true, movie: movie });
+  };
+  handleConfirm = () => {
+    this.deleteMovie(this.state.movie);
+
+    this.setState({ open: false });
+    this.props.moviePopupClose();
+  };
+
+  handleCancel = () => this.setState({ open: false });
+
   render() {
-    let { showOrHide } = this.state;
-    let { movieInfo } = this.state;
+    let { showOrHide, movieInfo, open } = this.state;
     let moviePopup;
 
     if (showOrHide) {
@@ -245,10 +259,21 @@ class Popup extends Component {
                 <Button
                   attached="bottom"
                   className="deleteButtonPopup"
-                  onClick={e => this.deleteMovie(movieInfo)}
+                  // onClick={e => this.deleteMovie(movieInfo)}
+                  onClick={e => this.show(movieInfo)}
                 >
                   Ta bort från databasen
                 </Button>
+                <Confirm
+                  open={open}
+                  className="confirmDeleteMovie"
+                  header="Du är på väg att ta bort en film"
+                  content="Är du säker att du vill ta bort filmen?"
+                  cancelButton="Gå tillbaka"
+                  confirmButton="Ta bort"
+                  onCancel={this.handleCancel}
+                  onConfirm={this.handleConfirm}
+                />
                 <Button
                   className="UpdateButton"
                   color="green"

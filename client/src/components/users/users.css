@@ -68,6 +68,5 @@ h1.title {
 
 .ui.small.modal.transition.visible.active.confirmDeleteUser
   button.ui.primary.button {
-  float: left;
   background: red;
 }

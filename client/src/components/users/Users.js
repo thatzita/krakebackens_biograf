@@ -69,7 +69,7 @@ class Users extends Component {
   }
   render() {
     const { users } = this.state.users;
-    const { showMore, open, result } = this.state;
+    const { showMore, open } = this.state;
     let showMoreContentButton;
     let userContent;
 

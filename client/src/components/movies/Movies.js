@@ -5,7 +5,7 @@ import Popup from "./Popup";
 import { Link } from "react-router-dom";
 import Admin from "../admin/Admin";
 
-import { Button, Input, Icon, Item, Segment, Grid } from "semantic-ui-react";
+import { Button, Input, Icon, Item, Segment, Confirm } from "semantic-ui-react";
 
 import {
   getAllMovies,
@@ -22,7 +22,9 @@ class Movies extends Component {
       movies: [],
       movieInfo: {},
       search: "",
-      showMore: 5
+      showMore: 5,
+      show: false,
+      movie: {}
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -57,10 +59,20 @@ class Movies extends Component {
       profile: nextProps.profile.profile
     });
   }
+  show = movie => {
+    this.setState({ open: true, movie: movie });
+  };
+  handleConfirm = () => {
+    this.deleteMovie(this.state.movie);
+    // console.log(this.state.movie);
+    this.setState({ open: false });
+  };
+
+  handleCancel = () => this.setState({ open: false });
 
   render() {
     const { movies } = this.state.movies;
-    const { showMore } = this.state;
+    const { showMore, open } = this.state;
     let showMoreContentButton;
     let movieContent;
 
@@ -127,13 +139,24 @@ class Movies extends Component {
                 <Button
                   basic
                   style={{ height: "2.5rem", bottom: "0" }}
-                  onClick={e => this.deleteMovie(movie)}
+                  // onClick={e => this.deleteMovie(movie)}
+                  onClick={e => this.show(movie)}
                   attached="bottom"
                   floated="right"
                 >
                   <Icon name="delete" />
                   Ta bort
                 </Button>
+                <Confirm
+                  open={open}
+                  className="confirmDeleteMovie"
+                  header="Du är på väg att ta bort en film"
+                  content="Är du säker att du vill ta bort filmen?"
+                  cancelButton="Gå tillbaka"
+                  confirmButton="Ta bort"
+                  onCancel={this.handleCancel}
+                  onConfirm={this.handleConfirm}
+                />
                 <Button
                   color="violet"
                   style={{ height: "2.5rem", bottom: "0" }}

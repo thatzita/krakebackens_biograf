@@ -107,7 +107,6 @@ class AddMovie extends Component {
     } else {
       movieList = <h1 style={{ textAlign: "center" }}>Sök efter film</h1>;
     }
-    console.log(moviesFound);
     return (
       <div className="addMovie">
         <div className="containerAddmovie">

@@ -149,3 +149,7 @@ div.ui.bottom.attached.button.deleteButtonPopup {
   border: 1px solid whitesmoke;
   float: right;
 }
+.ui.small.modal.transition.visible.active.confirmDeleteMovie
+  button.ui.primary.button {
+  background: red;
+}
