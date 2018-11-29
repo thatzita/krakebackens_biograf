@@ -38,7 +38,7 @@ class ModalExampleSize extends Component {
 
         <Modal size="large" open={open} onClose={() => this.close()}>
           {/* <Modal.Header>Sök efter medlem</Modal.Header> */}
-          <Modal.Content style={{ backgroundColor: "gold" }}>
+          <Modal.Content style={{ backgroundColor: "gold", height: "30rem" }}>
             <Header as="h3">
               <Icon name="star" />
               Sök och lägg till medlem

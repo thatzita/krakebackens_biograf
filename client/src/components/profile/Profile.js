@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Button, Divider, Segment, Card, Image, Icon } from "semantic-ui-react";
+import {
+  Button,
+  Divider,
+  Segment,
+  Card,
+  Image,
+  Icon,
+  Confirm
+} from "semantic-ui-react";
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
 import { Link } from "react-router-dom";
 import Footer from "../layout/Footer";
@@ -11,7 +19,8 @@ class Profile extends Component {
   constructor() {
     super();
     this.state = {
-      errors: {}
+      errors: {},
+      show: false
     };
   }
 
@@ -28,10 +37,20 @@ class Profile extends Component {
       profile: nextProps.profile.profile
     });
   }
+  show = () => {
+    this.setState({ open: true });
+  };
+  handleConfirm = () => {
+    this.onDeleteClick();
+    this.setState({ open: false });
+  };
+
+  handleCancel = () => this.setState({ open: false });
 
   render() {
     let loggedInProfile;
     const profile = this.state.profile;
+    const { open } = this.state;
 
     if (profile) {
       //   let vipPlats;
@@ -121,10 +140,21 @@ class Profile extends Component {
               <Button
                 attached="bottom"
                 className="deleteButton"
-                onClick={this.onDeleteClick.bind(this)}
+                // onClick={this.onDeleteClick.bind(this)}
+                onClick={e => this.show()}
               >
                 Ta bort konto
               </Button>
+              <Confirm
+                open={open}
+                className="confirmDeleteUser"
+                header="Du är på väg att ta ditt konto"
+                content="Är du säker att du vill ta bort ditt konto? Det går inte att få tillbaka kontot!"
+                cancelButton="Gå tillbaka"
+                confirmButton="Ta bort"
+                onCancel={this.handleCancel}
+                onConfirm={this.handleConfirm}
+              />
               <Button className="UpdateButton" color="green" attached="bottom">
                 Uppdatera konto
               </Button>
