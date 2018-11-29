@@ -10,20 +10,38 @@ import {
 import Admin from "../../admin/Admin";
 import "./monMovies.css";
 
-import { Button, Item, Segment, Header, Icon } from "semantic-ui-react";
+import {
+  Button,
+  Item,
+  Segment,
+  Header,
+  Icon,
+  Confirm
+} from "semantic-ui-react";
 
 class MonMovieList extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      movie: {},
+      show: false
+    };
   }
   componentDidMount() {
     this.props.getAllMonMovies();
-    // console.log(this.props);
   }
+  show = movie => {
+    this.setState({ open: true, movie: movie });
+  };
+  handleConfirm = () => {
+    this.props.deleteMonMovie(this.state.movie);
+    // console.log(this.state.movie);
+    this.setState({ open: false });
+  };
 
+  handleCancel = () => this.setState({ open: false });
   render() {
-    // console.log(this.props);
+    const { movie, open } = this.state;
     let monList = this.props.monMovies.monMovies || [];
 
     return (
@@ -93,13 +111,24 @@ class MonMovieList extends Component {
                         <Icon name="edit" /> Ändra
                       </Button>
                       <Button
-                        onClick={() => this.props.deleteMonMovie(item)}
+                        // onClick={() => this.props.deleteMonMovie(item)}
+                        onClick={e => this.show(item)}
                         basic
                         floated="right"
                       >
                         <Icon name="delete" />
                         Ta bort
                       </Button>
+                      <Confirm
+                        open={open}
+                        className="confirmDeleteMovie"
+                        header="Du är på väg att ta bort en visning"
+                        content="Är du säker att du vill ta bort visningen?"
+                        cancelButton="Gå tillbaka"
+                        confirmButton="Ta bort"
+                        onCancel={this.handleCancel}
+                        onConfirm={this.handleConfirm}
+                      />
                     </Item.Extra>
                   </Item.Content>
                 </Item>
