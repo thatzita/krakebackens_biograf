@@ -30,18 +30,18 @@ router.post("/uploadMoviePremiere", (req, res) => {
           { seat: "r2s1", row: 2, booked: false, customer: "", vip: false },
           { seat: "r2s2", row: 2, booked: true, customer: "", vip: false },
           { seat: "r2s3", row: 2, booked: true, customer: "", vip: false },
-          { seat: "r2s4", row: 2, booked: false, customer: "", vip: false },
-          { seat: "r2s5", row: 2, booked: false, customer: "", vip: false },
-          { seat: "r2s6", row: 2, booked: false, customer: "", vip: false }
+          { seat: "r2s4", row: 2, booked: true, customer: "", vip: false },
+          { seat: "r2s5", row: 2, booked: true, customer: "", vip: false },
+          { seat: "r2s6", row: 2, booked: true, customer: "", vip: false }
         ],
         [
           { seat: "r3s1", row: 3, booked: false, customer: "", vip: false },
-          { seat: "r3s2", row: 3, booked: false, customer: "", vip: false },
-          { seat: "r3s3", row: 3, booked: false, customer: "", vip: false },
-          { seat: "r3s4", row: 3, booked: false, customer: "", vip: false },
-          { seat: "r3s5", row: 3, booked: false, customer: "", vip: false },
-          { seat: "r3s6", row: 3, booked: false, customer: "", vip: false },
-          { seat: "r3s7", row: 3, booked: false, customer: "", vip: false }
+          { seat: "r3s2", row: 3, booked: true, customer: "", vip: false },
+          { seat: "r3s3", row: 3, booked: true, customer: "", vip: false },
+          { seat: "r3s4", row: 3, booked: true, customer: "", vip: false },
+          { seat: "r3s5", row: 3, booked: true, customer: "", vip: false },
+          { seat: "r3s6", row: 3, booked: true, customer: "", vip: false },
+          { seat: "r3s7", row: 3, booked: true, customer: "", vip: false }
         ]
       ];
 

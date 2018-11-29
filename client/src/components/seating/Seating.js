@@ -4,110 +4,104 @@ import { Header, Image } from "semantic-ui-react";
 
 import "./seatingTwo.css";
 import DrawGrid from "./SeatingGrid";
-
-const rowList = [[1, 2, 3, 4], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6]];
+import TicketDisplay from "./TicketDisplay";
+import SelectMemberModel from "./SelectMemberModel";
+import { getCurrentProfile } from "../../actions/profileActions";
+import { getAllUsers } from "../../actions/usersActions";
 
 class Seating extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       bookingObj: {},
       rowList: [],
       reservedList: [],
-      seat: [
-        "r1s0",
-        "r1s1",
-        "r1s2",
-        "r1s3",
-        "r1s4",
-        "r1s5",
-        "r1s6",
-        "r2s1",
-        "r2s2",
-        "r2s3",
-        "r2s4",
-        "r2s5",
-        "r2s6",
-        "r3s1",
-        "r3s2",
-        "r3s3",
-        "r3s4",
-        "r3s5",
-        "r3s6"
-      ],
-      seatAvailable: [
-        "r1s0",
-        "r1s1",
-        "r1s2",
-        // "r1s3",
-        "r1s4",
-        "r1s5",
-        "r1s6",
-        // "r1s7",
-        "r2s1",
-        "r2s2",
-        "r2s3",
-        "r2s4",
-        "r2s5",
-        "r2s6",
-        // "r3s0",
-        // "r3s1",
-        "r3s2",
-        "r3s4"
-        // "r3s5",
-        // "r3s6"
-      ],
-      seatReserved: ["r3s1", "r3s3"],
-      seatTaken: ["r1s3", "r3s5", "r3s6"]
+      memberList: [],
+      profile: {}
     };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
+    this.props.getCurrentProfile();
+    this.props.getAllUsers();
+
     let { bookingObj } = this.props.location.state;
     if (bookingObj) {
-      this.setState({ bookingObj, rowList: bookingObj.seating });
+      this.setState({
+        bookingObj,
+        rowList: bookingObj.seating
+      });
     }
-
-    // this.filterSeating(bookingObj);
-
-    console.log("the bookin obj:", bookingObj);
   }
 
-  reserveSeat = obj => {
-    if (this.state.reservedList.includes(obj)) {
-      let newList = this.state.reservedList.filter(x => x !== obj);
-      this.setState({ reservedList: newList });
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.users.users);
+
+    if (nextProps.profile.profile) {
+      let firstMemberObj = {
+        username: nextProps.profile.profile.username || "",
+        id: nextProps.profile.profile.id || "",
+        email: nextProps.profile.profile.email || ""
+      };
+      if (this.state.memberList.some(x => x.id === firstMemberObj.id)) {
+      }
+
+      let value = this.state.memberList.some(x => x.id === firstMemberObj.id)
+        ? this.state.memberList
+        : [...this.state.memberList, firstMemberObj];
+
+      this.setState({
+        profile: nextProps.profile.profile,
+        memberList: value
+      });
+    }
+  }
+
+  addMemberToBooking = (username, id, email) => {
+    if (this.state.memberList.some(x => x.id === id)) {
+      console.log("du har redan lagt till den här medlemmen");
     } else {
-      this.setState({ reservedList: [...this.state.reservedList, obj] });
+      let memberObj = {
+        username: username,
+        id: id,
+        email: email
+      };
+
+      this.setState({ memberList: [...this.state.memberList, memberObj] });
     }
   };
 
-  unReserveSeat = obj => {};
-
-  onClickData(seat) {
-    //TODO: fixa så du inte kan booka flera
-    if (this.state.seatReserved.length >= 4) {
-      console.log("no more bookings for you");
-    }
-    if (this.state.seatReserved.indexOf(seat) > -1) {
-      this.setState({
-        seatAvailable: this.state.seatAvailable.concat(seat),
-        seatReserved: this.state.seatReserved.filter(res => res != seat),
-        seatTaken: this.state.seatTaken
+  reserveSeat = obj => {
+    if (this.state.reservedList.some(x => x.seat === obj.seat)) {
+      let newList = this.state.reservedList.filter(x => x.seat !== obj.seat);
+      newList.map((x, index) => {
+        x.customer = this.state.memberList[index] || { username: "Gäst" };
       });
+      this.setState({ reservedList: newList });
     } else {
-      this.setState({
-        seatReserved: this.state.seatReserved.concat(seat),
-        seatAvailable: this.state.seatAvailable.filter(res => res != seat),
-        seatTaken: this.state.seatTaken
-      });
+      if (this.state.reservedList.length < 4) {
+        let newObj = this.shallowObjectCopy(obj);
+        newObj.customer = this.state.memberList[
+          this.state.reservedList.length
+        ] || { username: "Gäst" };
+        this.setState({ reservedList: [...this.state.reservedList, newObj] });
+        console.log(this.state.rowList);
+      } else {
+        //TODO: skapa en notifikation till användaren att den har bokat max antalet av platser
+        console.log("Du kan inte välja fler platser");
+      }
     }
-  }
+  };
+
+  shallowObjectCopy = src => {
+    return Object.assign({}, src);
+  };
 
   render() {
-    console.log("reserve: ", this.state.reservedList);
-
+    console.log("reserve: ", this.state);
+    console.log(this.state.profile);
+    // let profile = this.props.profile.profile;
     let movie = this.state.bookingObj;
     let movieImage = movie.poster || "default.jpg";
     return (
@@ -119,7 +113,7 @@ class Seating extends Component {
             // width: "50%",
             minWidth: "500px",
             padding: "1rem 0",
-            margin: "0 4rem 2rem 4rem",
+            marginBottom: "2rem",
             borderBottom: "1px solid gray"
           }}
         >
@@ -134,74 +128,40 @@ class Seating extends Component {
             </Header.Subheader>
           </Header.Content>
         </Header>
-        <DrawGrid
-          unReserveSeat={this.unReserveSeat}
-          reserveSeat={this.reserveSeat}
-          rowList={this.state.rowList}
-          seat={this.state.seat}
-          available={this.state.seatAvailable}
-          reserved={this.state.seatReserved}
-          taken={this.state.seatTaken}
-          onClickData={this.onClickData.bind(this)}
+        <div className="bookingContainer">
+          <DrawGrid
+            profile={this.state.profile}
+            memberList={this.state.memberList}
+            reserveSeat={this.reserveSeat}
+            rowList={this.state.rowList}
+            reservedList={this.state.reservedList}
+          />
+          <TicketDisplay
+            reservedList={this.state.reservedList}
+            profile={this.state.profile}
+            date={this.state.bookingObj.screeningDate}
+            time={this.state.bookingObj.screeningTime}
+          />
+        </div>
+        <SelectMemberModel
+          addMemberToBooking={this.addMemberToBooking}
+          selectableMemberList={this.props.users.users || []}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  profile: state.profile,
+  users: state.users
+});
 
 export default connect(
-  null,
+  mapStateToProps,
   {
+    getCurrentProfile,
+    getAllUsers
     //func goes here
   }
 )(Seating);
-
-// class AvailableList extends React.Component {
-//   render() {
-//     const seatCount = this.props.available.length;
-//     return (
-//       <div className="text">
-//         <h4>
-//           Available Seats: ({seatCount == 0 ? "No seats available" : seatCount})
-//         </h4>
-//         <ul>
-//           {this.props.available.map(res => (
-//             <li key={res}>{res}</li>
-//           ))}
-//         </ul>
-//       </div>
-//     );
-//   }
-// }
-
-// class ReservedList extends React.Component {
-//   render() {
-//     return (
-//       <div className="text">
-//         <h4>Reserved Seats: ({this.props.reserved.length})</h4>
-//         <ul>
-//           {this.props.reserved.map(res => (
-//             <li key={res}>{res}</li>
-//           ))}
-//         </ul>
-//       </div>
-//     );
-//   }
-// }
-
-// class TakenList extends React.Component {
-//   render() {
-//     return (
-//       <div className="text">
-//         <h4>Taken Seats: ({this.props.taken.length})</h4>
-//         <ul>
-//           {this.props.taken.map(res => (
-//             <li key={res}>{res}</li>
-//           ))}
-//         </ul>
-//       </div>
-//     );
-//   }
-// }
