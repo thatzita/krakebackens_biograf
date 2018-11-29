@@ -72,36 +72,34 @@ class AddMovie extends Component {
               src={posterUrl + movie.poster_path}
               alt="Ingen bild hittades"
               onError={e => {
-                e.target.src =
-                  "https://upload.wikimedia.org/wikipedia/commons/6/64/Poster_not_available.jpg";
+                e.target.src = "poster_not_available.jpg";
               }}
             />
             <Item.Content>
               <Item.Header>
                 {movie.title} ( {movie.release_date.substring(0, 4)} ){" "}
               </Item.Header>
+              <Item.Extra>&nbsp;</Item.Extra>
+              <Button.Group className="addMovieBtnGroup">
+                <Button
+                  color="blue"
+                  onClick={e => this.showPopup(movie.id)}
+                  attached="bottom"
+                  // floated="right"
+                >
+                  <Icon name="eye" className="editIcon" /> Mer info
+                </Button>
+                <Button
+                  color="green"
+                  onClick={e => this.addToDb(movie.id)}
+                  attached="bottom"
+                  // floated="right"
+                >
+                  <Icon name="add circle" className="editIcon" />
+                  Lägg till
+                </Button>
+              </Button.Group>
             </Item.Content>
-            <Button.Group className="addMovieBtnGroup">
-              <Button
-                style={{ height: "2.5rem", bottom: "0" }}
-                color="blue"
-                onClick={e => this.showPopup(movie.id)}
-                attached="bottom"
-                // floated="right"
-              >
-                <Icon name="eye" className="editIcon" /> Mer info
-              </Button>
-              <Button
-                style={{ height: "2.5rem", bottom: "0" }}
-                color="green"
-                onClick={e => this.addToDb(movie.id)}
-                attached="bottom"
-                // floated="right"
-              >
-                <Icon name="add circle" className="editIcon" />
-                Lägg till
-              </Button>
-            </Button.Group>
           </Item>
         );
       });
@@ -109,7 +107,7 @@ class AddMovie extends Component {
     } else {
       movieList = <h1 style={{ textAlign: "center" }}>Sök efter film</h1>;
     }
-
+    console.log(moviesFound);
     return (
       <div className="addMovie">
         <div className="containerAddmovie">
@@ -143,10 +141,10 @@ class AddMovie extends Component {
             <br />
             <br />
             <DbPopup />
-            <Segment style={{ boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)" }}>
-              {movieList}
-            </Segment>
           </div>
+          <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
+            {movieList}
+          </Segment>
         </div>
       </div>
     );

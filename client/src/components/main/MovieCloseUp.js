@@ -55,6 +55,10 @@ class MovieCloseUp extends Component {
     let countSeats = movieObject.seating || [];
     console.log(movieObject.seating || []);
 
+    if (displayImage === "http://image.tmdb.org/t/p/originalnull") {
+      displayImage = "curtain.jpg";
+    }
+
     return (
       <React.Fragment>
         <div className="movieCloseUpContainer">

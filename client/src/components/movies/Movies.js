@@ -93,6 +93,9 @@ class Movies extends Component {
               size="tiny"
               onClick={e => this.showPopup(movie)}
               src={movie.poster}
+              onError={e => {
+                e.target.src = "poster_not_available.jpg";
+              }}
             />
             <Item.Content>
               <Item.Header>
@@ -119,29 +122,30 @@ class Movies extends Component {
                 <Icon name="time" color="black" />
                 <span className="cinema boldSpan">{movie.runtime} min</span>
               </Item.Meta> */}
+
+              <Button.Group className="addMovieBtnGroup">
+                <Button
+                  basic
+                  style={{ height: "2.5rem", bottom: "0" }}
+                  onClick={e => this.deleteMovie(movie)}
+                  attached="bottom"
+                  floated="right"
+                >
+                  <Icon name="delete" />
+                  Ta bort
+                </Button>
+                <Button
+                  color="violet"
+                  style={{ height: "2.5rem", bottom: "0" }}
+                  onClick={e => this.showPopup(movie)}
+                  attached="bottom"
+                  floated="right"
+                >
+                  <Icon name="edit" />
+                  Ändra
+                </Button>
+              </Button.Group>
             </Item.Content>
-            <Button.Group className="addMovieBtnGroup">
-              <Button
-                basic
-                style={{ height: "2.5rem", bottom: "0" }}
-                onClick={e => this.deleteMovie(movie)}
-                attached="bottom"
-                floated="right"
-              >
-                <Icon name="delete" />
-                Ta bort
-              </Button>
-              <Button
-                color="violet"
-                style={{ height: "2.5rem", bottom: "0" }}
-                onClick={e => this.showPopup(movie)}
-                attached="bottom"
-                floated="right"
-              >
-                <Icon name="edit" />
-                Ändra
-              </Button>
-            </Button.Group>
           </Item>
         );
       });
@@ -151,7 +155,7 @@ class Movies extends Component {
           <br />
           <br />
           {/* <h2>Filmdatabas</h2> */}
-          <Segment style={{ boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)" }}>
+          <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
             <Item.Group divided>{movieItem.slice(0, showMore)}</Item.Group>
           </Segment>
         </div>

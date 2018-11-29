@@ -46,12 +46,12 @@ class AdminHome extends Component {
               paddingTop: "3rem",
               // marginTop: "-2rem",
               height: "45rem",
-              boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)"
+              boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)"
             }}
           >
             <AdminMonMovie />
           </Segment>
-          <Segment style={{ boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)" }}>
+          <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
             <Link to="/movies">
               {" "}
               <div className="purpleBox">

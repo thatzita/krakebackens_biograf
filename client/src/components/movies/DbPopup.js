@@ -32,16 +32,31 @@ class DbPopup extends Component {
   }
 
   saveToDb() {
-    let { movieInfo } = this.state;
+    let { movieInfo, title, description } = this.state;
 
     let genreArray = movieInfo.genres.map(genre => {
       return genre.name;
     });
 
     let urlForImg = "http://image.tmdb.org/t/p/original";
-    let { title, description } = this.state;
 
     let movieDb;
+
+    console.log(movieInfo);
+
+    if (movieInfo.backdrop_path === null) {
+      console.log("no backdrop");
+      urlForImg = "";
+      movieInfo.backdrop_path = "curtain.jpg";
+    }
+
+    if (movieInfo.poster_path === null) {
+      console.log("no poster");
+      urlForImg = "";
+      movieInfo.poster_path = "poster_not_available.jpg";
+      console.log(movieInfo.poster_path);
+      console.log(urlForImg);
+    }
 
     if (title === "" && description !== "") {
       movieDb = {
@@ -71,6 +86,18 @@ class DbPopup extends Component {
       movieDb = {
         title: title,
         description: description,
+        background: urlForImg + movieInfo.backdrop_path,
+        poster: urlForImg + movieInfo.poster_path,
+        runtime: movieInfo.runtime,
+        genres: genreArray,
+        imdb_id: movieInfo.imdb_id,
+        release: movieInfo.release_date,
+        rating: movieInfo.vote_average
+      };
+    } else if (movieInfo.overview === "") {
+      movieDb = {
+        title: movieInfo.title,
+        description: "Beskrivning saknas, hojta på kråkan så fixar han det!",
         background: urlForImg + movieInfo.backdrop_path,
         poster: urlForImg + movieInfo.poster_path,
         runtime: movieInfo.runtime,
@@ -144,12 +171,20 @@ class DbPopup extends Component {
                 className="imageBorder"
                 size="large"
                 src={posterUrl + movieInfo.backdrop_path}
+                alt="Bild saknas"
+                onError={e => {
+                  e.target.src = "curtain.jpg";
+                }}
               />
               <Image
                 size="small"
                 className="imageBorder"
                 floated="right"
                 src={posterUrl + movieInfo.poster_path}
+                alt="Bild saknas"
+                onError={e => {
+                  e.target.src = "poster_not_available.jpg";
+                }}
               />
             </div>
             <br />
@@ -186,6 +221,7 @@ class DbPopup extends Component {
               <p className="date">
                 <strong>Status:</strong> {movieInfo.status}
               </p>
+              <span className="date boldSpan">Beskrivning:</span>
               {movieInfo.overview ? (
                 <p
                   className="description"
@@ -202,7 +238,7 @@ class DbPopup extends Component {
                   suppressContentEditableWarning="true"
                   onInput={event => this.changeInput(event)}
                 >
-                  Beskrivning saknas
+                  Beskrivning saknas, hojta på kråkan så fixar han det!
                 </p>
               )}
 

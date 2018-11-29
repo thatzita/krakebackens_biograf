@@ -44,7 +44,13 @@ class Popup extends Component {
     let { movieInfo } = this.state;
     let { title, description, crowRating } = this.state;
     let movieDb;
-    console.log(this.state);
+    // console.log(this.state);
+
+    if (movieInfo.crowRating === null) {
+      // console.log(crowRating);
+      // console.log(movieInfo.crowRating);
+      crowRating = "Kråkan har inte tyckt till, än...";
+    }
 
     if (title === "" && description === "" && crowRating === "") {
       movieDb = {
@@ -103,19 +109,19 @@ class Popup extends Component {
         id: movieInfo._id
       };
     }
-    console.log(movieDb);
+    // console.log(movieDb);
 
     this.props.updateDb(movieDb);
     this.setState({
       title: "",
-      description: ""
+      description: "",
+      crowRating: ""
     });
     this.closePopup();
   }
 
   changeInput(event) {
     let nameOfClass = event.target.className;
-    console.log(nameOfClass);
     this.editValues(nameOfClass, event.target.textContent);
   }
 
@@ -162,12 +168,20 @@ class Popup extends Component {
                 className="imageBorder"
                 size="large"
                 src={movieInfo.background}
+                alt="Bild saknas"
+                onError={e => {
+                  e.target.src = "curtain.jpg";
+                }}
               />
               <Image
                 size="small"
                 className="imageBorder"
                 // floated="left"
                 src={movieInfo.poster}
+                alt="Bild saknas"
+                onError={e => {
+                  e.target.src = "poster_not_available.jpg";
+                }}
               />
             </div>
             <br />
@@ -178,7 +192,7 @@ class Popup extends Component {
                 suppressContentEditableWarning="true"
                 onInput={event => this.changeInput(event)}
               >
-                {movieInfo.title} ({movieInfo.release.substring(0, 4)})
+                {movieInfo.title}
               </h1>
               <hr />
 
@@ -201,17 +215,19 @@ class Popup extends Component {
               <br />
               <span className="date boldSpan">
                 Kråkan tycker till:
-                <span
+                <p
                   className="crowRating"
                   contentEditable={true}
                   suppressContentEditableWarning="true"
                   onInput={event => this.changeInput(event)}
                 >
-                  {movieInfo.crowRating}
-                </span>
+                  {movieInfo.crowRating
+                    ? movieInfo.crowRating
+                    : "Kråkan har inte tyckt till, än..."}
+                </p>
               </span>
               <br />
-              <br />
+              <span className="date boldSpan">Beskrivning:</span>
               <p
                 className="description"
                 contentEditable={true}
@@ -220,9 +236,12 @@ class Popup extends Component {
               >
                 {movieInfo.description}
               </p>
-
               <Divider />
-              <Button.Group fluid className="btnGroupPopup">
+              <Button.Group
+                fluid
+                style={{ marginTop: "-2rem" }}
+                className="btnGroupPopup"
+              >
                 <Button
                   attached="bottom"
                   className="deleteButtonPopup"

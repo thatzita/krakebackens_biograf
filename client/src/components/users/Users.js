@@ -174,7 +174,7 @@ class Users extends Component {
           <UserPopup />
           <br />
           <br />
-          <Segment style={{ boxShadow: " 5px 5px 5px 0px rgba(0,0,0,0.75)" }}>
+          <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
             {userContent}
           </Segment>
         </div>
