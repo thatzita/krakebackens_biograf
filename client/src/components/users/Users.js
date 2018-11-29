@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import UserPopup from "./UserPopup";
 import Admin from "../admin/Admin";
 
-import { Button, Input, Icon, Item, Segment, Grid } from "semantic-ui-react";
+import { Button, Input, Icon, Item, Segment, Confirm } from "semantic-ui-react";
 import { getAllUsers, userPopup, deleteUser } from "../../actions/usersActions";
 import "./users.css";
 
@@ -15,12 +15,25 @@ class Users extends Component {
     this.state = {
       errors: {},
       users: [],
+      user: {},
       userInfo: {},
       search: "",
-      showMore: 5
+      showMore: 5,
+      open: false
     };
     this.onChange = this.onChange.bind(this);
   }
+
+  show = user => {
+    this.setState({ open: true, user: user });
+  };
+
+  handleConfirm = () => {
+    this.deleteUser(this.state.user);
+    this.setState({ open: false });
+  };
+
+  handleCancel = () => this.setState({ open: false });
 
   onChange(event) {
     this.setState({
@@ -56,7 +69,7 @@ class Users extends Component {
   }
   render() {
     const { users } = this.state.users;
-    const { showMore } = this.state;
+    const { showMore, open, result } = this.state;
     let showMoreContentButton;
     let userContent;
 
@@ -78,6 +91,7 @@ class Users extends Component {
             .indexOf(this.state.search.toLowerCase()) !== -1
         );
       });
+
       let userCards = filteredUsers.map(user => {
         return (
           <Item key={user._id}>
@@ -125,13 +139,24 @@ class Users extends Component {
 
               <Button
                 basic
-                onClick={e => this.deleteUser(user)}
+                // onClick={e => this.deleteUser(user)}
+                onClick={e => this.show(user)}
                 attached="bottom"
                 floated="right"
               >
                 <Icon name="delete" />
                 Ta bort
               </Button>
+              <Confirm
+                open={open}
+                className="confirmDeleteUser"
+                cancelButton="Gå tillbaka"
+                confirmButton="Ta bort"
+                header="Du är på väg att ta bort en medlem"
+                content="Är du säker? Det går inte att återställa en borttagen medlem."
+                onCancel={this.handleCancel}
+                onConfirm={this.handleConfirm}
+              />
             </Item.Group>
           </Item>
         );

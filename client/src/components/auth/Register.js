@@ -24,7 +24,7 @@ class Register extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.success !== undefined) {
+    if (nextProps.auth.success) {
       this.setState({
         success: nextProps.auth.success,
         username: "",
@@ -44,7 +44,6 @@ class Register extends Component {
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value
-      // success: {}
     });
   }
   onSubmit(event) {
@@ -66,12 +65,13 @@ class Register extends Component {
       moviesViewed: []
     };
 
-    // this.handleSubmit();
+    this.setState({
+      success: {}
+    });
     this.props.registerUser(newUser, this.props.history);
   }
 
   render() {
-    //samma som = errors = this.state.errors, deconstructing
     const { errors } = this.state;
 
     //Om indikation ska synas

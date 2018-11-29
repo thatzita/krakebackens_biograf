@@ -77,7 +77,6 @@ class UserPopup extends Component {
     let { userInfo } = this.state;
     let userPopup;
     let vipInfo;
-    console.log(userInfo);
 
     if (showOrHide) {
       userPopup = (

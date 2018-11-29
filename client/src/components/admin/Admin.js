@@ -4,8 +4,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Menu, Segment, Icon, Button, Header, Image } from "semantic-ui-react";
 import "./admin.css";
-import { getCurrentProfile } from "../../actions/profileActions";
+import {
+  getCurrentProfile,
+  clearCurrentProfile
+} from "../../actions/profileActions";
 import { goToAdminPage } from "../../actions/webPageStateActions";
+import { logoutUser } from "../../actions/authActions";
 
 const adminNavbarStyle = {
   borderRadius: "0",
@@ -37,6 +41,12 @@ class Admin extends Component {
     this.setState({
       profile: nextProps.profile.profile
     });
+  }
+
+  logoutUserAndClearProfile() {
+    this.props.clearCurrentProfile();
+    this.props.logoutUser();
+    localStorage.removeItem("adminPage");
   }
 
   render() {
@@ -79,7 +89,7 @@ class Admin extends Component {
             <Menu.Item
               name="Logga ut"
               active={activeItem === "Logga ut"}
-              onClick={this.handleItemClick}
+              onClick={() => this.logoutUserAndClearProfile()}
             >
               Logga ut
             </Menu.Item>
@@ -162,7 +172,9 @@ class Admin extends Component {
 Admin.propTypes = {
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  clearCurrentProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -174,6 +186,8 @@ export default connect(
   mapStateToProps,
   {
     //func goes here
+    clearCurrentProfile,
+    logoutUser,
     getCurrentProfile,
     goToAdminPage
   }

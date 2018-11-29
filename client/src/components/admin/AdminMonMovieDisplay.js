@@ -21,13 +21,11 @@ export default class AdminMonMovieDisplay extends Component {
 
   render() {
     let movieProps = this.props.monMovies || [];
-    // let movieProps = [];
     let adminContent;
 
     let sortedMovieProps = movieProps.sort(function(a, b) {
       return new Date(a.utc_time) - new Date(b.utc_time);
     });
-    console.log(movieProps);
     sortedMovieProps = sortedMovieProps.filter((item, i) => i <= 4);
     if (sortedMovieProps.length === 0) {
       adminContent = (

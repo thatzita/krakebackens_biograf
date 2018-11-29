@@ -25,15 +25,13 @@ export const getAllUsers = () => dispatch => {
 
 export const deleteUser = user => dispatch => {
   let objId = user._id;
-  if (window.confirm("Är du att du vill ta bort kontot?")) {
-    axios.delete("/api/users/deleteuser", { data: { objId } }).then(res => {
-      if (res) {
-        dispatch(deleteUserSuccess(user));
-      } else {
-        console.log("Något gick fel.");
-      }
-    });
-  }
+  axios.delete("/api/users/deleteuser", { data: { objId } }).then(res => {
+    if (res) {
+      dispatch(deleteUserSuccess(user));
+    } else {
+      console.log("Något gick fel.");
+    }
+  });
 };
 
 export const userPopup = userData => {

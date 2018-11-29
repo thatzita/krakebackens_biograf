@@ -65,3 +65,9 @@ h1.title {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.9);
 }
+
+.ui.small.modal.transition.visible.active.confirmDeleteUser
+  button.ui.primary.button {
+  float: left;
+  background: red;
+}
