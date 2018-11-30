@@ -1,124 +1,139 @@
 import React from "react";
-import { Segment, Header, Icon, Image, Button, Menu } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
-const reservedList = [1, 2, 3];
+import {
+  Segment,
+  Header,
+  Icon,
+  Image,
+  Button,
+  Menu,
+  Label,
+  Divider
+} from "semantic-ui-react";
+import SelectMemberModel from "./SelectMemberModel";
+
+// const reservedList = [1, 2, 3];
 
 export default function TicketDisplay(props) {
+  let selectedMembersList =
+    props.memberList.filter(x => x.id !== props.profile.id) || [];
   return (
-    <Segment style={{ backgroundColor: "rgb(73, 73, 73)", width: "40%" }}>
-      <div className="ticketContainer">
-        {props.reservedList.map((item, index) =>
-          item.customer.id ? (
-            <React.Fragment key={item.seat}>
-              <div
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  justifyContent: "space-between"
-                }}
-                className="ticketWrapper"
-              >
+    <React.Fragment>
+      <div style={{ width: "40%", minWidth: "450px", height: "100%" }}>
+        <SelectMemberModel
+          addMemberToBooking={props.addMemberToBooking}
+          selectableMemberList={props.selectableMemberList}
+        />
+        <Segment
+          className="ticketContainer"
+          style={{
+            backgroundColor: "rgb(73, 73, 73)",
+            width: "100%",
+            height: "auto",
+            minHeight: "500px"
+          }}
+        >
+          {selectedMembersList.map((x, index) => (
+            <Label
+              key={index}
+              image
+              size="medium"
+              style={{ margin: "0.5rem 0.5rem 0.5rem 0" }}
+            >
+              <img alt="user image" src="userDefault.png" />
+              {x.username}
+              <Icon
+                name="delete"
+                onClick={() => props.removeMemberFromBooking(x.id)}
+              />
+            </Label>
+          ))}
+          <Divider />
+          {props.reservedList.map((item, index) =>
+            item.customer.id ? (
+              <React.Fragment key={item.seat}>
                 <div
                   style={{
-                    width: "70%",
-                    padding: "11px",
-                    background: "beige",
-                    marginBottom: " 2rem"
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "space-between"
                   }}
+                  className="ticketWrapper"
                 >
-                  <Header style={{ padding: "0", margin: "0" }} as="h5">
-                    <Image
-                      style={{ margin: "0 1rem 0 0" }}
-                      src="userDefault.png"
-                      circular
-                      // size="small"
-                    />
-                    <Header.Content>
-                      {item.customer.username} - <em>Medlem</em>
-                      <Header.Subheader>Datum: {props.date}</Header.Subheader>
-                      <Header.Subheader>Tid: {props.time}</Header.Subheader>
-                    </Header.Content>
-                  </Header>
+                  <div
+                    style={{
+                      width: "70%",
+                      padding: "11px",
+                      background: "beige",
+                      marginBottom: " 2rem"
+                    }}
+                  >
+                    <Header style={{ padding: "0", margin: "0" }} as="h5">
+                      <Image
+                        style={{ margin: "0 1rem 0 0" }}
+                        src="userDefault.png"
+                        circular
+                        // size="small"
+                      />
+                      <Header.Content>
+                        {item.customer.username} - <em>Medlem</em>
+                        <Header.Subheader>Datum: {props.date}</Header.Subheader>
+                        <Header.Subheader>Tid: {props.time}</Header.Subheader>
+                      </Header.Content>
+                    </Header>
+                  </div>
                 </div>
-                <Menu
-                  inverted
-                  vertical
-                  style={{
-                    width: "30%",
-                    background: "none",
-                    border: "none",
-                    boxShadow: "none",
-                    margin: "0"
-                  }}
-                >
-                  <Menu.Item style={{ color: "gold" }}>
-                    <Icon name="edit" />
-                    Ändra
-                  </Menu.Item>
-                  <Menu.Item style={{ color: "gold" }}>
-                    <Icon name="delete" />
-                    Ta bort
-                  </Menu.Item>
-                </Menu>
-              </div>
-            </React.Fragment>
-          ) : (
-            <React.Fragment key={item.seat}>
-              <div
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  justifyContent: "space-between"
-                }}
-                className="ticketWrapper"
-              >
+              </React.Fragment>
+            ) : (
+              <React.Fragment key={item.seat}>
                 <div
                   style={{
-                    width: "70%",
-                    padding: "11px",
-                    background: "powderblue",
-                    marginBottom: " 2rem"
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "space-between"
                   }}
+                  className="ticketWrapper"
                 >
-                  <Header style={{ padding: "0", margin: "0" }} as="h5">
-                    <Image
-                      style={{ margin: "0 1rem 0 0" }}
-                      src="userDefault.png"
-                      circular
-                      // size="small"
-                    />
-                    <Header.Content>
-                      Gäst
-                      <Header.Subheader>Datum: {props.date}</Header.Subheader>
-                      <Header.Subheader>Tid: {props.time}</Header.Subheader>
-                    </Header.Content>
-                  </Header>
+                  <div
+                    style={{
+                      width: "70%",
+                      padding: "11px",
+                      background: "powderblue",
+                      marginBottom: " 2rem"
+                    }}
+                  >
+                    <Header style={{ padding: "0", margin: "0" }} as="h5">
+                      <Image
+                        style={{ margin: "0 1rem 0 0" }}
+                        src="userDefault.png"
+                        circular
+                        // size="small"
+                      />
+                      <Header.Content>
+                        Gäst
+                        <Header.Subheader>Datum: {props.date}</Header.Subheader>
+                        <Header.Subheader>Tid: {props.time}</Header.Subheader>
+                      </Header.Content>
+                    </Header>
+                  </div>
                 </div>
-                <Menu
-                  inverted
-                  vertical
-                  style={{
-                    width: "30%",
-                    background: "none",
-                    border: "none",
-                    boxShadow: "none",
-                    margin: "0"
-                  }}
-                >
-                  <Menu.Item>
-                    <Icon name="edit" />
-                    Ändra
-                  </Menu.Item>
-                  <Menu.Item>
-                    <Icon name="delete" />
-                    Ta bort
-                  </Menu.Item>
-                </Menu>
-              </div>
-            </React.Fragment>
-          )
-        )}
+              </React.Fragment>
+            )
+          )}
+        </Segment>
+        <Button inverted basic>
+          Gå tillbaka{" "}
+        </Button>
+        <Button
+          as={Link}
+          to="/mainpage"
+          color="violet"
+          onClick={() => props.completeBooking()}
+        >
+          Slutför bokning
+        </Button>
       </div>
-    </Segment>
+    </React.Fragment>
   );
 }

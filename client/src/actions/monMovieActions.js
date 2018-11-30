@@ -3,11 +3,12 @@ import {
   GET_CLOSEUP_MONMOVIE,
   POST_MONMOVIE,
   DELETE_MONMOVIE,
-  UPDATE_MONMOVIE
+  UPDATE_MONMOVIE,
+  COMPLETE_BOOKING
 } from "./types";
 import axios from "axios";
 
-// POST A MONMOVIE
+// Post a monmovie
 export const postMonmovie = data => dispatch => {
   // console.log('posting movie');
   // console.log(data);
@@ -76,6 +77,16 @@ export const deleteMonMovie = movie => dispatch => {
       } else {
         console.log("något gick fel vid delete action monmovie");
       }
+    })
+    .catch(err => console.log(err));
+};
+
+// complete user booking
+export const completeAndSaveBooking = bookingObj => dispatch => {
+  axios
+    .post("/api/monthlyMovies/completeAndSaveBooking", bookingObj)
+    .then(res => {
+      console.log("resonse form booking", res);
     })
     .catch(err => console.log(err));
 };

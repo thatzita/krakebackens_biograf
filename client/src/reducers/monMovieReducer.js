@@ -3,7 +3,8 @@ import {
   GET_CLOSEUP_MONMOVIE,
   POST_MONMOVIE,
   DELETE_MONMOVIE,
-  UPDATE_MONMOVIE
+  UPDATE_MONMOVIE,
+  COMPLETE_BOOKING
 } from "../actions/types";
 
 const initialState = {};
@@ -33,6 +34,9 @@ export default function(state = initialState, action) {
         ...state,
         movieCloseUp: action.payload
       };
+    case COMPLETE_BOOKING:
+      console.log("payload ", action.payload);
+
     default:
       return state;
   }

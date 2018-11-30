@@ -28,13 +28,24 @@ class ModalExampleSize extends Component {
     });
   };
 
+  saveAndClose = (username, id, email) => {
+    this.props.addMemberToBooking(username, id, email);
+    this.close();
+  };
+
   render() {
     const { open } = this.state;
-    console.log(this.state);
+    // console.log(this.state);
 
     return (
       <div>
-        <Button onClick={() => this.open()}>Large</Button>
+        <Button
+          color="yellow"
+          style={{ color: "black" }}
+          onClick={() => this.open()}
+        >
+          Lägg till extra medlem
+        </Button>
 
         <Modal size="large" open={open} onClose={() => this.close()}>
           {/* <Modal.Header>Sök efter medlem</Modal.Header> */}
@@ -96,7 +107,7 @@ class ModalExampleSize extends Component {
               color="violet"
               disabled={Object.keys(this.state.selectedMemberObj).length === 0}
               onClick={() =>
-                this.props.addMemberToBooking(
+                this.saveAndClose(
                   this.state.selectedMemberObj.username,
                   this.state.selectedMemberObj.id,
                   this.state.selectedMemberObj.email

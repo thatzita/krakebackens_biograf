@@ -13,11 +13,15 @@ export const USER_CREATED = "USER_CREATED";
 export const FORGOT_USER = "FORGOT_USER";
 export const RESET_USER = "RESET_USER";
 
+// MonMovies
 export const GET_MONMOVIES = "GET_MONMOVIES";
 export const GET_CLOSEUP_MONMOVIE = "GET_CLOSEUP_MONMOVIE";
 export const POST_MONMOVIE = "POST_MONMOVIE";
 export const DELETE_MONMOVIE = "DELETE_MONMOVIE";
 export const UPDATE_MONMOVIE = "UPDATE_MONMOVIE";
+
+// Booking
+export const COMPLETE_BOOKING = "COMPLETE_BOOKING";
 
 export const ADMIN_PAGE_TRUE = "ADMIN_PAGE_TRUE";
 export const ADMIN_PAGE_FALSE = "ADMIN_PAGE_FALSE";

@@ -157,4 +157,59 @@ router.get("/singlemovie/", (req, res) => {
     });
 });
 
+// complete and save booking
+router.post("/completeAndSaveBooking", (req, res) => {
+  console.log("the movieID: ", req.body.movieId);
+
+  // let updatingField = {
+  //   seating:
+  // }
+
+  MonMovie.findOne({ _id: req.body.movieId }).then(movie => {
+    if (movie) {
+      // console.log("yes found movie: ", movie);
+      // res.json({ msg: "success" });
+      let seatResarvation = req.body.seatResarvation;
+      // console.log(seatResarvation);
+
+      let newSeating = movie.seating.map(array => {
+        // let i = 0;
+        let newRow = array.map(x => {
+          // console.log(seatResarvation.includes(x.seat));
+          let found = false;
+          let reservation = {};
+          for (let index = 0; index < seatResarvation.length; index++) {
+            if (seatResarvation[index].seat === x.seat) {
+              found = true;
+              reservation = seatResarvation[index];
+              break;
+            }
+          }
+          // console.log(found);
+          if (found) {
+            return reservation;
+          } else {
+            return x;
+          }
+        });
+
+        return newRow;
+      });
+
+      // console.log("newSeating ", newSeating);
+      movie.seating = newSeating;
+      let newMovie = movie;
+      newMovie
+        .save()
+        .then(updatedMonMovie => res.json({ updatedMonMovie }))
+        .catch(err => console.log(err));
+      // console.log(movie);
+    } else {
+      return res
+        .status(404)
+        .json({ title: "The movie you are trying to book do not exist" });
+    }
+  });
+});
+
 module.exports = router;

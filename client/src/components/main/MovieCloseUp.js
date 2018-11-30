@@ -48,12 +48,23 @@ class MovieCloseUp extends Component {
   render() {
     const { activeItem } = this.state;
 
-    console.log("props: ", this.props.movieCloseUp);
+    // console.log("props: ", this.props.movieCloseUp);
 
     let movieObject = this.props.movieCloseUp || {}; // movieItem[0] || {};
     let displayImage = movieObject.background || "default.jpg";
     let countSeats = movieObject.seating || [];
-    console.log(movieObject.seating || []);
+    // console.log("seats ", movieObject.seating || []);
+    let seatsThatAreLeft = [];
+    countSeats.map(array => {
+      let newArray = array.filter(
+        x => x.booked === false
+        // &&
+        // (x.seat !== "r1s1" && x.seat !== "r2s1" && x.seat !== "r3s1")
+      );
+      newArray.map(y => {
+        seatsThatAreLeft.push(y);
+      });
+    });
 
     return (
       <React.Fragment>
@@ -152,7 +163,7 @@ class MovieCloseUp extends Component {
                     <Table.Cell>
                       {movieObject.screeningTime || "tid"}
                     </Table.Cell>
-                    <Table.Cell>{countSeats.length}</Table.Cell>
+                    <Table.Cell>{seatsThatAreLeft.length}</Table.Cell>
 
                     <Table.Cell textAlign="right">
                       <Button
