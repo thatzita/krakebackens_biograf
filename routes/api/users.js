@@ -177,7 +177,8 @@ router.get(
       email: req.user.email,
       vip: req.user.vip,
       stats: req.user.stats,
-      moviesViewed: req.user.moviesViewed
+      moviesViewed: req.user.moviesViewed,
+      admin: req.user.admin
     });
   }
 );

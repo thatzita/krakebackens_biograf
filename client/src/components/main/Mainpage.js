@@ -17,6 +17,7 @@ class Mainpage extends Component {
   }
   render() {
     const { user } = this.props.auth;
+    console.log(this.props);
     // console.log(user);
     const { profile, loading } = this.props.profile;
 

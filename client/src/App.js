@@ -9,6 +9,7 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { clearCurrentProfile } from "./actions/profileActions";
 
 import PrivateRoute from "./components/common/PrivateRoute";
+import AdminRoute from "./components/common/AdminRoute";
 
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
@@ -72,19 +73,21 @@ class App extends Component {
               <Route exact path="/apply" component={Apply} />
               <Route exact path="/forgot" component={Forgot} />
               <Route exact path="/reset/:token" component={Reset} />
-              <Route exact path="/moviearchive" component={Archive} />
               {/* Ska vara privat route */}
               {/* <Route exact path="/register" component={Register} /> */}
               {/* <Route exact path="/addmovie" component={AddMovie} /> */}
               <Switch>
                 <Route exact path="/seating" component={Seating} />
-                <PrivateRoute exact path="/adminhome" component={AdminHome} />
-                <PrivateRoute
+                <AdminRoute exact path="/moviearchive" component={Archive} />
+
+                <AdminRoute exact path="/adminhome" component={AdminHome} />
+
+                <AdminRoute
                   exact
                   path="/monMovieList"
                   component={MonMovieList}
                 />
-                <PrivateRoute
+                <AdminRoute
                   exact
                   path="/createMonMovie"
                   component={CreateMonMovie}
@@ -102,12 +105,12 @@ class App extends Component {
                   path="/changepassword"
                   component={ChangePassword}
                 />
-                <PrivateRoute exact path="/users" component={Users} />
-                <PrivateRoute exact path="/movies" component={Movies} />
-                <PrivateRoute exact path="/addmovie" component={AddMovie} />
-                <PrivateRoute exact path="/admin" component={Admin} />
-                <PrivateRoute exact path="/register" component={Register} />
-                <PrivateRoute exact path="/statistic" component={Statistic} />
+                <AdminRoute exact path="/users" component={Users} />
+                <AdminRoute exact path="/movies" component={Movies} />
+                <AdminRoute exact path="/addmovie" component={AddMovie} />
+                <AdminRoute exact path="/admin" component={Admin} />
+                <AdminRoute exact path="/register" component={Register} />
+                <AdminRoute exact path="/statistic" component={Statistic} />
               </Switch>
             </div>
 
