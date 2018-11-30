@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Input, Divider, Button, Card, Image, Icon } from "semantic-ui-react";
-import { searchMovie, imdbPopup } from "../../actions/movieActions";
+import { Input, Segment, Button, Item, Image, Icon } from "semantic-ui-react";
+import {
+  searchMovie,
+  imdbPopup,
+  getMovieInfoAddtoDb
+} from "../../actions/movieActions";
 import DbPopup from "./DbPopup";
 import { Link } from "react-router-dom";
 import Admin from "../admin/Admin";
@@ -48,6 +52,10 @@ class AddMovie extends Component {
     this.props.imdbPopup(movieId);
   }
 
+  addToDb(movieId) {
+    this.props.getMovieInfoAddtoDb(movieId);
+  }
+
   render() {
     let { moviesFound } = this.state;
     let movieList;
@@ -56,55 +64,87 @@ class AddMovie extends Component {
     if (moviesFound !== undefined) {
       let movieCards = moviesFound.map(movie => {
         return (
-          <Card
-            onClick={e => this.showPopup(movie.id)}
-            value={movie.id}
-            key={movie.id}
-          >
-            <Image
+          <Item value={movie.id} key={movie.id}>
+            <Item.Image
+              onClick={e => this.showPopup(movie.id)}
               className="posterImg"
-              size="small"
+              size="tiny"
               src={posterUrl + movie.poster_path}
               alt="Ingen bild hittades"
               onError={e => {
-                e.target.src =
-                  "https://upload.wikimedia.org/wikipedia/commons/6/64/Poster_not_available.jpg";
+                e.target.src = "poster_not_available.jpg";
               }}
             />
-            <Card.Content>
-              <Card.Header>{movie.title}</Card.Header>
-            </Card.Content>
-          </Card>
+            <Item.Content>
+              <Item.Header>
+                {movie.title} ( {movie.release_date.substring(0, 4)} ){" "}
+              </Item.Header>
+              <Item.Extra>&nbsp;</Item.Extra>
+              <Button.Group className="addMovieBtnGroup">
+                <Button
+                  color="blue"
+                  onClick={e => this.showPopup(movie.id)}
+                  attached="bottom"
+                  // floated="right"
+                >
+                  <Icon name="eye" className="editIcon" /> Mer info
+                </Button>
+                <Button
+                  color="green"
+                  onClick={e => this.addToDb(movie.id)}
+                  attached="bottom"
+                  // floated="right"
+                >
+                  <Icon name="add circle" className="editIcon" />
+                  Lägg till
+                </Button>
+              </Button.Group>
+            </Item.Content>
+          </Item>
         );
       });
-      movieList = <Card.Group>{movieCards}</Card.Group>;
+      movieList = <Item.Group divided> {movieCards}</Item.Group>;
     } else {
-      movieList = "";
+      movieList = <h1 style={{ textAlign: "center" }}>Sök efter film</h1>;
     }
-
     return (
-      <div className="containerAddmovie">
-        <h1>Lägg till film</h1>
-        <hr />
-        <Admin />
-        <Input
-          name="searchedMovie"
-          value={this.state.searchedMovie}
-          onChange={this.onChange}
-          placeholder="Skriv namn på film..."
-        />
-        <Button basic color="violet" type="submit" onClick={this.onSubmit}>
-          Sök
-        </Button>
-        <Link to="/movies">
-          <Button basic color="violet">
-            <Icon name="left chevron" />
-            Tillbaka till databasen
-          </Button>
-        </Link>
-        <Divider />
-        <DbPopup />
-        {movieList}
+      <div className="addMovie">
+        <div className="containerAddmovie">
+          <div className="addmovieDiv">
+            <h1 className="title">
+              <Icon name="film" />
+              Lägg till film
+            </h1>
+            <hr />
+            <br />
+            <Admin />
+            <div className="searchContainer">
+              <Input
+                className="movieSearch"
+                name="searchedMovie"
+                value={this.state.searchedMovie}
+                onChange={this.onChange}
+                placeholder="Skriv namn på film..."
+              />
+              <Button color="violet" type="submit" onClick={this.onSubmit}>
+                Sök
+              </Button>
+
+              <Link to="/movies">
+                <Button basic>
+                  <Icon name="left chevron" />
+                  Tillbaka till databasen
+                </Button>
+              </Link>
+            </div>
+            <br />
+            <br />
+            <DbPopup />
+          </div>
+          <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
+            {movieList}
+          </Segment>
+        </div>
       </div>
     );
   }
@@ -115,7 +155,8 @@ AddMovie.propTypes = {
   imdbPopup: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  getMovieInfoAddtoDb: PropTypes.func.isRequired
   // errors: PropTypes.object.isRequired
 };
 
@@ -131,6 +172,7 @@ export default connect(
     //func goes here
     searchMovie,
     imdbPopup,
-    getCurrentProfile
+    getCurrentProfile,
+    getMovieInfoAddtoDb
   }
 )(AddMovie);

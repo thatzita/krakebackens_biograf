@@ -3,7 +3,8 @@
 
 body {
   /* background-color: ghostwhite; */
-  background-color: #f8f8ff;
+  /* background-color: #f8f8ff; */
+  background-color: black;
 }
 img {
   width: 100%;
@@ -66,13 +67,23 @@ img {
   max-width: 100%;
 }
 .containerApp {
+  /* width: 100%;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  background-color: #f8f8ff;
+  margin-right: auto;
+  margin-left: auto; */
   width: 100%;
-  padding: 0;
+  /* padding-top: 3rem; */
+  padding-bottom: 6rem;
+  /* background-color: #f8f8ff; */
+  background-color: black;
   /* padding-right: 15px; */
-  /* padding-left: 15px; */
+  margin-bottom: -45px;
   margin-right: auto;
   margin-left: auto;
 }
+
 .text-center {
   text-align: center !important;
 }
@@ -176,16 +187,79 @@ img {
   color: #fff;
 }
 
-.bg-dark {
-  background-color: #470877 !important;
+.linkContainer {
+  color: whitesmoke;
+  /* padding-left: 20rem; */
+  position: relative;
+  margin-left: 25rem;
+  padding-top: 2rem;
 }
 
-a.bg-dark:hover,
-a.bg-dark:focus,
-button.bg-dark:hover,
-button.bg-dark:focus {
-  background-color: #1d2124 !important;
+.crowFooter {
+  /* background-color: white; */
+  /* margin-top: 20rem; */
+  /* left: 10rem; */
+  margin-top: 3rem;
+  position: relative;
+  bottom: -7rem;
+  height: 18rem;
+  margin-bottom: 5rem;
 }
+.contactUs {
+  /* border: 2px solid yellow; */
+  right: 33.5rem;
+  top: 0rem;
+  width: 40%;
+  float: right;
+  /* display: inline-block; */
+  /* position: absolute; */
+  padding-top: 2.3rem;
+}
+.listContainer {
+  border: 2px solid black;
+  /* width: 80%; */
+}
+.h3ContactFooter {
+  text-decoration: underline;
+}
+.contactUsUl > li {
+  color: white;
+  margin-left: -3rem;
+  top: -1rem;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  font-size: 14px;
+  font-weight: 100;
+  position: relative;
+}
+.copyright {
+  /* border: 2px solid white; */
+  color: white;
+  padding-top: 5rem;
+  /* padding-bottom: 1rem; */
+  font-size: 10px;
+  font-weight: 100;
+  text-decoration: underline;
+  /* bottom: -10rem; */
+  position: absolute;
+  /* left: 40%; */
+}
+.footerLinks > a > li {
+  color: white;
+  margin-left: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 14px;
+  font-weight: 100;
+  cursor: pointer;
+}
+.h3headerFooter {
+  padding-top: 0.5rem;
+  text-decoration: underline white;
+  /* margin-top: 1rem; */
+
+  /* position: relative; */
+}
+
 .navbar-brand {
   display: inline-block;
   padding-top: 0.3125rem;

@@ -17,6 +17,10 @@ export default class MovieBackdropDisplay extends Component {
     let movieItem = this.props.monMovie || {};
     let displayImage = movieItem.background || "default.jpg";
 
+    if (displayImage === "http://image.tmdb.org/t/p/originalnull") {
+      displayImage = "curtain.jpg";
+    }
+
     return (
       <div className="movieBackdropContainer">
         <div
@@ -29,7 +33,7 @@ export default class MovieBackdropDisplay extends Component {
             OBackgroundSize: "cover",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "center"
+            backgroundPosition: "center 0"
           }}
         />
         <div className="backdropContent">

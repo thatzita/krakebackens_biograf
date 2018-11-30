@@ -9,10 +9,12 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { clearCurrentProfile } from "./actions/profileActions";
 
 import PrivateRoute from "./components/common/PrivateRoute";
+import AdminRoute from "./components/common/AdminRoute";
 
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Footer from "./components/layout/Footer";
+import AdminHome from "./components/admin/AdminHome";
 import Login from "./components/auth/Login";
 import Apply from "./components/auth/Apply";
 import Forgot from "./components/auth/Forgot";
@@ -26,6 +28,7 @@ import Admin from "./components/admin/Admin";
 import Users from "./components/users/Users";
 import Statistic from "./components/statistic/Statistic";
 import Seating from "./components/seating/Seating";
+import Archive from "./components/archive/Archive";
 
 import CreateMonMovie from "./components/admin/monMovies/CreateMonMovie";
 import MonMovieList from "./components/admin/monMovies/MonMovieList";
@@ -75,18 +78,22 @@ class App extends Component {
               {/* <Route exact path="/addmovie" component={AddMovie} /> */}
               <Switch>
                 <Route exact path="/seating" component={Seating} />
-                <PrivateRoute
+                <AdminRoute exact path="/moviearchive" component={Archive} />
+
+                <AdminRoute exact path="/adminhome" component={AdminHome} />
+
+                <AdminRoute
                   exact
                   path="/monMovieList"
                   component={MonMovieList}
                 />
-                <PrivateRoute
+                <AdminRoute
                   exact
                   path="/createMonMovie"
                   component={CreateMonMovie}
                 />
-                <Route
-                  // onUpdate={() => window.scrollTo(0, 0)}
+
+                <PrivateRoute
                   exact
                   path="/movieselection"
                   component={MovieCloseUp}
@@ -98,16 +105,16 @@ class App extends Component {
                   path="/changepassword"
                   component={ChangePassword}
                 />
-                <PrivateRoute exact path="/users" component={Users} />
-                <PrivateRoute exact path="/movies" component={Movies} />
-                <PrivateRoute exact path="/addmovie" component={AddMovie} />
-                <PrivateRoute exact path="/admin" component={Admin} />
-                <PrivateRoute exact path="/register" component={Register} />
-                <PrivateRoute exact path="/statistic" component={Statistic} />
+                <AdminRoute exact path="/users" component={Users} />
+                <AdminRoute exact path="/movies" component={Movies} />
+                <AdminRoute exact path="/addmovie" component={AddMovie} />
+                <AdminRoute exact path="/admin" component={Admin} />
+                <AdminRoute exact path="/register" component={Register} />
+                <AdminRoute exact path="/statistic" component={Statistic} />
               </Switch>
             </div>
 
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </Router>
       </Provider>

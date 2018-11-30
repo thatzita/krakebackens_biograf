@@ -10,24 +10,42 @@ import {
 import Admin from "../../admin/Admin";
 import "./monMovies.css";
 
-import { Button, Item, Segment, Header, Icon } from "semantic-ui-react";
+import {
+  Button,
+  Item,
+  Segment,
+  Header,
+  Icon,
+  Confirm
+} from "semantic-ui-react";
 
 class MonMovieList extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      movie: {},
+      show: false
+    };
   }
   componentDidMount() {
     this.props.getAllMonMovies();
-    // console.log(this.props);
   }
+  show = movie => {
+    this.setState({ open: true, movie: movie });
+  };
+  handleConfirm = () => {
+    this.props.deleteMonMovie(this.state.movie);
+    // console.log(this.state.movie);
+    this.setState({ open: false });
+  };
 
+  handleCancel = () => this.setState({ open: false });
   render() {
-    // console.log(this.props);
+    const { movie, open } = this.state;
     let monList = this.props.monMovies.monMovies || [];
 
     return (
-      <Segment>
+      <div className="monMovies">
         <div className="containerMonMovies">
           <Admin />
           <Header as="h2" dividing>
@@ -41,7 +59,7 @@ class MonMovieList extends Component {
             >
               <div>
                 {" "}
-                <Icon name="film" /> Månadens filmer
+                <Icon name="star" /> Månadens filmer
               </div>
               <Button
                 color="green"
@@ -55,51 +73,70 @@ class MonMovieList extends Component {
             </Header.Content>
           </Header>
 
-          <Item.Group divided>
-            {monList.map(item => (
-              <Item key={item._id}>
-                <Item.Image size="tiny" src={item.poster} />
-                <Item.Content verticalAlign="middle">
-                  <Item.Header>
-                    {item.title} ( {item.release.substring(0, 4)} ){" "}
-                    <em style={{ fontSize: "1rem", color: "gray" }}>
-                      {" "}
-                      - {Math.floor(item.runtime / 60)}h {item.runtime % 60}min
-                    </em>{" "}
-                  </Item.Header>
-                  <Item.Meta>
-                    <Icon name="clock outline" color="grey" />{" "}
-                    {item.screeningTime}
-                  </Item.Meta>
-                  <Item.Meta>
-                    <Icon name="calendar alternate outline" color="grey" />{" "}
-                    {item.screeningDate}
-                  </Item.Meta>
-                  <Item.Description
-                    style={{ maxWidth: "70%", minWidth: "280px" }}
-                  >
-                    {item.description}
-                  </Item.Description>
-                  <Item.Extra>{item.genres.map(gen => gen + " ")}</Item.Extra>
-                  <Item.Extra>
-                    <Button color="violet" floated="right">
-                      <Icon name="edit" /> Ändra
-                    </Button>
-                    <Button
-                      onClick={() => this.props.deleteMonMovie(item)}
-                      basic
-                      floated="right"
+          <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
+            <Item.Group divided>
+              {monList.map(item => (
+                <Item key={item._id}>
+                  <Item.Image size="tiny" src={item.poster} />
+                  <Item.Content verticalAlign="middle">
+                    <Item.Header>
+                      {item.title} ( {item.release.substring(0, 4)} ){" "}
+                      <em style={{ fontSize: "1rem", color: "gray" }}>
+                        {" "}
+                        - {Math.floor(item.runtime / 60)}h {item.runtime % 60}
+                        min
+                      </em>{" "}
+                    </Item.Header>
+                    <Item.Meta>
+                      <Icon name="clock outline" color="grey" />{" "}
+                      {item.screeningTime}
+                    </Item.Meta>
+                    <Item.Meta>
+                      <Icon name="calendar alternate outline" color="grey" />{" "}
+                      {item.screeningDate}
+                    </Item.Meta>
+                    <Item.Meta>
+                      <Icon name="users" color="grey" />{" "}
+                      {"Salong " + item.saloon}
+                    </Item.Meta>
+                    <Item.Description
+                      style={{ maxWidth: "70%", minWidth: "280px" }}
                     >
-                      <Icon name="delete" />
-                      Ta bort
-                    </Button>
-                  </Item.Extra>
-                </Item.Content>
-              </Item>
-            ))}
-          </Item.Group>
+                      {item.description}
+                    </Item.Description>
+                    <Item.Extra>{item.genres.map(gen => gen + " ")}</Item.Extra>
+
+                    <Item.Extra>
+                      <Button color="violet" floated="right">
+                        <Icon name="edit" /> Ändra
+                      </Button>
+                      <Button
+                        // onClick={() => this.props.deleteMonMovie(item)}
+                        onClick={e => this.show(item)}
+                        basic
+                        floated="right"
+                      >
+                        <Icon name="delete" />
+                        Ta bort
+                      </Button>
+                      <Confirm
+                        open={open}
+                        className="confirmDeleteMovie"
+                        header="Du är på väg att ta bort en visning"
+                        content="Är du säker att du vill ta bort visningen?"
+                        cancelButton="Gå tillbaka"
+                        confirmButton="Ta bort"
+                        onCancel={this.handleCancel}
+                        onConfirm={this.handleConfirm}
+                      />
+                    </Item.Extra>
+                  </Item.Content>
+                </Item>
+              ))}
+            </Item.Group>
+          </Segment>
         </div>
-      </Segment>
+      </div>
     );
   }
 }

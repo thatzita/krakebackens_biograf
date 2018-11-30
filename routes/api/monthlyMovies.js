@@ -1,12 +1,22 @@
 const express = require("express");
 const router = express.Router();
 
-const MonMovie = require("../../models/MonthlyMovie");
+const { MonMovie, MonMovieArchive } = require("../../models/MonthlyMovie");
 
 //@route    Get api/monthlyMovies/test
 //@desc     Test monthlyMovies route
 //@access   Public
 router.get("/test", (req, res) => res.json({ msg: "monthly movies works!" }));
+
+router.get("/moviearchive", (req, res) => {
+  MonMovieArchive.find({})
+    .then(archive => {
+      res.json({ archive });
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 
 //@route    Post api/monthlyMovies/uploadMoviePremiere
 //@desc     Post a movie premiere to monthlyMovies
@@ -19,38 +29,45 @@ router.post("/uploadMoviePremiere", (req, res) => {
       return res.status(400).json({ title: "This movie allready is up" });
     } else {
       const salong_1 = [
-        { seat: "r1s0", booked: false, customer: "", vip: false },
-        { seat: "r1s1", booked: false, customer: "", vip: false },
-        { seat: "r1s2", booked: false, customer: "", vip: false },
-        { seat: "r1s3", booked: false, customer: "", vip: false },
-        { seat: "r1s4", booked: false, customer: "", vip: false },
-        { seat: "r1s5", booked: false, customer: "", vip: false },
-        { seat: "r1s6", booked: false, customer: "", vip: false },
-        { seat: "r2s1", booked: false, customer: "", vip: false },
-        { seat: "r2s2", booked: false, customer: "", vip: false },
-        { seat: "r2s3", booked: false, customer: "", vip: false },
-        { seat: "r2s4", booked: false, customer: "", vip: false },
-        { seat: "r2s5", booked: false, customer: "", vip: false },
-        { seat: "r2s6", booked: false, customer: "", vip: false },
-        { seat: "r3s1", booked: false, customer: "", vip: false },
-        { seat: "r3s2", booked: false, customer: "", vip: false },
-        { seat: "r3s3", booked: false, customer: "", vip: false },
-        { seat: "r3s4", booked: false, customer: "", vip: false },
-        { seat: "r3s5", booked: false, customer: "", vip: false },
-        { seat: "r3s6", booked: false, customer: "", vip: false }
+        [
+          { seat: "r1s1", row: 1, booked: false, customer: "", vip: false },
+          { seat: "r1s2", row: 1, booked: false, customer: "", vip: false },
+          { seat: "r1s3", row: 1, booked: false, customer: "", vip: false },
+          { seat: "r1s4", row: 1, booked: false, customer: "", vip: false },
+          { seat: "r1s5", row: 1, booked: false, customer: "", vip: false }
+        ],
+        [
+          { seat: "r2s1", row: 2, booked: false, customer: "", vip: false },
+          { seat: "r2s2", row: 2, booked: true, customer: "", vip: false },
+          { seat: "r2s3", row: 2, booked: true, customer: "", vip: false },
+          { seat: "r2s4", row: 2, booked: true, customer: "", vip: false },
+          { seat: "r2s5", row: 2, booked: true, customer: "", vip: false },
+          { seat: "r2s6", row: 2, booked: true, customer: "", vip: false }
+        ],
+        [
+          { seat: "r3s1", row: 3, booked: false, customer: "", vip: false },
+          { seat: "r3s2", row: 3, booked: true, customer: "", vip: false },
+          { seat: "r3s3", row: 3, booked: true, customer: "", vip: false },
+          { seat: "r3s4", row: 3, booked: true, customer: "", vip: false },
+          { seat: "r3s5", row: 3, booked: true, customer: "", vip: false },
+          { seat: "r3s6", row: 3, booked: true, customer: "", vip: false },
+          { seat: "r3s7", row: 3, booked: true, customer: "", vip: false }
+        ]
       ];
 
       const salong_2 = [
-        { seat: "r1s1", booked: false, customer: "", vip: false },
-        { seat: "r1s2", booked: false, customer: "", vip: false },
-        { seat: "r1s3", booked: false, customer: "", vip: false },
-        { seat: "r1s4", booked: false, customer: "", vip: false }
+        [
+          { seat: "r1s1", row: 1, booked: false, customer: "", vip: false },
+          { seat: "r1s2", row: 1, booked: false, customer: "", vip: false },
+          { seat: "r1s3", row: 1, booked: false, customer: "", vip: false },
+          { seat: "r1s4", row: 1, booked: false, customer: "", vip: false }
+        ]
       ];
-      let salon;
-      if (req.body.salon === "1") {
-        salon = salong_1;
+      let saloon;
+      if (req.body.saloon === "1") {
+        saloon = salong_1;
       } else {
-        salon = salong_2;
+        saloon = salong_2;
       }
 
       const newMonMovie = new MonMovie({
@@ -67,7 +84,8 @@ router.post("/uploadMoviePremiere", (req, res) => {
         screeningTime: req.body.time,
         utc_time: req.body.utc_time,
         screeningStatus: "active",
-        seating: salon,
+        seating: saloon,
+        saloon: req.body.saloon,
         fullyBooked: false
       });
 

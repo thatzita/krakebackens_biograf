@@ -3,29 +3,23 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCurrentProfile } from "../../actions/profileActions";
 import { getAllMonMovies } from "../../actions/monMovieActions";
-// import { setCurrentCloseUpMovieId } from "../../actions/webPageStateActions";
 import { Segment } from "semantic-ui-react";
-import Footer from "../layout/Footer";
-import MonMovieDisplay from "./MonMovieDisplay";
-import MovieBackdropDisplay from "./MovieBackdropDisplay";
-import MovieCloseUp from "./MovieCloseUp";
 
-class Mainpage extends Component {
+import AdminMonMovieDisplay from "./AdminMonMovieDisplay";
+import AdminBackdropDisplay from "./AdminBackdropDisplay";
+
+class AdminMonMovie extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
     this.props.getAllMonMovies();
   }
   render() {
     const { user } = this.props.auth;
-    console.log(this.props);
-    // console.log(user);
     const { profile, loading } = this.props.profile;
 
     const movieList = this.props.monMovies.monMovies || [];
     let randomMovieObj =
       movieList[Math.floor(Math.random() * movieList.length)] || {};
-
-    // console.log(movieList);
 
     let mainpageContent;
 
@@ -37,36 +31,35 @@ class Mainpage extends Component {
 
     return (
       <React.Fragment>
-        <Segment
-          style={{
-            backgroundColor: "rgb(0,0,0)",
-            borderRadius: "0",
-            padding: "1px 0 0 0"
-          }}
-        >
-          <MovieBackdropDisplay monMovie={randomMovieObj} />
-          {/* <div className="mainpage">
-            <div className="containerMainpage">
-              <h1>Kråkebackens biograf</h1>
-              {mainpageContent}
-            </div>
-          </div> */}
-          <MonMovieDisplay
-            // setCurrentCloseUpMovieId={this.props.setCurrentCloseUpMovieId}
-            monMovies={movieList}
-          />
-          {/* <MovieCloseUp
-            currentCloseUpMovieId={this.props.currentCloseUpMovieId}
-            monMovies={movieList}
-          /> */}
-        </Segment>
-        <Footer />
+        <div className="adminMonMovieContainer">
+          {/* <Segment
+            style={{
+              borderRadius: "0",
+              padding: "1px 0 0 0",
+              width: "500px",
+              height: "300px",
+              backgroundSize: "contain"
+            }}
+          > */}
+          {/* <AdminBackdropDisplay
+              style={{
+                borderRadius: "0",
+                padding: "1px 0 0 0",
+                backgroundSize: "contain"
+              }}
+              monMovie={randomMovieObj}
+            /> */}
+          {/* <div className="adminMonMovieDisplayContainer"> */}
+          <AdminMonMovieDisplay monMovies={movieList} />
+          {/* </div> */}
+          {/* </Segment> */}
+        </div>
       </React.Fragment>
     );
   }
 }
 
-Mainpage.propTypes = {
+AdminMonMovie.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
@@ -84,6 +77,5 @@ export default connect(
   {
     getCurrentProfile,
     getAllMonMovies
-    // setCurrentCloseUpMovieId
   }
-)(Mainpage);
+)(AdminMonMovie);

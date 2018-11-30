@@ -3,6 +3,7 @@ import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
+import Footer from "../layout/Footer";
 
 class Landing extends Component {
   componentDidMount() {
@@ -27,7 +28,10 @@ class Landing extends Component {
             <div className="containerLanding">
               <div className="row">
                 <div className="col-md-12 text-center">
-                  <h1 className="display-3 mb-4 whiteHeader">
+                  <h1
+                    style={{ color: "white" }}
+                    className="display-3 mb-4 whiteHeader"
+                  >
                     Kråkebackens biograf
                   </h1>
                   {/* <p className="lead"> Wall of text</p> */}
@@ -49,6 +53,7 @@ class Landing extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

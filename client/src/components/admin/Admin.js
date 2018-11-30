@@ -4,8 +4,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Menu, Segment, Icon, Button, Header, Image } from "semantic-ui-react";
 import "./admin.css";
-import { getCurrentProfile } from "../../actions/profileActions";
+import {
+  getCurrentProfile,
+  clearCurrentProfile
+} from "../../actions/profileActions";
 import { goToAdminPage } from "../../actions/webPageStateActions";
+import { logoutUser } from "../../actions/authActions";
 
 const adminNavbarStyle = {
   borderRadius: "0",
@@ -39,6 +43,12 @@ class Admin extends Component {
     });
   }
 
+  logoutUserAndClearProfile() {
+    this.props.clearCurrentProfile();
+    this.props.logoutUser();
+    localStorage.removeItem("adminPage");
+  }
+
   render() {
     const { username } = this.props.auth.user;
 
@@ -65,31 +75,29 @@ class Admin extends Component {
         </Header>
 
         <Menu
-          text
-          inverted
-          vertical
-          style={{
-            position: "relative",
-            margin: "auto",
-            textAlign: "center",
-            marginBottom: "2rem"
-          }}
-        >
-          <Menu.Item
-            name="Logga ut"
-            active={activeItem === "Logga ut"}
-            onClick={this.handleItemClick}
-          >
-            Logga ut
-          </Menu.Item>
-        </Menu>
-
-        <Menu
           inverted
           vertical
           style={{ position: "relative", margin: "auto" }}
         >
+          <Menu.Menu
+            style={{
+              margin: "auto",
+              textAlign: "center",
+              marginBottom: "2rem"
+            }}
+          >
+            <Menu.Item
+              name="Logga ut"
+              active={activeItem === "Logga ut"}
+              onClick={() => this.logoutUserAndClearProfile()}
+            >
+              Logga ut
+            </Menu.Item>
+          </Menu.Menu>
+
           <Menu.Item
+            as={Link}
+            to="/adminhome"
             name="Hem"
             active={activeItem === "Hem"}
             onClick={this.handleItemClick}
@@ -141,7 +149,19 @@ class Admin extends Component {
             Statistik
             <Icon name="chart bar" />
           </Menu.Item>
+
+          <Menu.Item
+            as={Link}
+            to="/moviearchive"
+            name="Arkivet"
+            active={activeItem === "Arkivet"}
+            onClick={this.handleItemClick}
+          >
+            Arkivet
+            <Icon name="archive" />
+          </Menu.Item>
         </Menu>
+
         <Button
           style={{ marginTop: "4rem" }}
           inverted
@@ -163,7 +183,9 @@ class Admin extends Component {
 Admin.propTypes = {
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  clearCurrentProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -175,6 +197,8 @@ export default connect(
   mapStateToProps,
   {
     //func goes here
+    clearCurrentProfile,
+    logoutUser,
     getCurrentProfile,
     goToAdminPage
   }

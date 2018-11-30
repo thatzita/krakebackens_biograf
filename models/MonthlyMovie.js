@@ -47,10 +47,21 @@ const MonthlyMovieSchema = new Schema({
     type: Array,
     required: true
   },
+  saloon: {
+    type: String,
+    required: true
+  },
   fullyBooked: Boolean
 });
 
-module.exports = MonthlyMovie = mongoose.model(
-  "monthlyMovies",
+let MonMovie = mongoose.model("monthlyMovies", MonthlyMovieSchema);
+
+let MonMovieArchive = mongoose.model(
+  "monthlyMoviesArchives",
   MonthlyMovieSchema
 );
+
+module.exports = {
+  MonMovie: MonMovie,
+  MonMovieArchive: MonMovieArchive
+};

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import UserPopup from "./UserPopup";
 import Admin from "../admin/Admin";
 
-import { Button, Input, Icon, Item, Divider, Grid } from "semantic-ui-react";
+import { Button, Input, Icon, Item, Segment, Confirm } from "semantic-ui-react";
 import { getAllUsers, userPopup, deleteUser } from "../../actions/usersActions";
 import "./users.css";
 
@@ -15,12 +15,25 @@ class Users extends Component {
     this.state = {
       errors: {},
       users: [],
+      user: {},
       userInfo: {},
       search: "",
-      showMore: 5
+      showMore: 5,
+      open: false
     };
     this.onChange = this.onChange.bind(this);
   }
+
+  show = user => {
+    this.setState({ open: true, user: user });
+  };
+
+  handleConfirm = () => {
+    this.deleteUser(this.state.user);
+    this.setState({ open: false });
+  };
+
+  handleCancel = () => this.setState({ open: false });
 
   onChange(event) {
     this.setState({
@@ -35,6 +48,7 @@ class Users extends Component {
   }
 
   showUserPopup(user) {
+    window.scrollTo(0, 50);
     this.props.userPopup(user);
   }
 
@@ -55,14 +69,14 @@ class Users extends Component {
   }
   render() {
     const { users } = this.state.users;
-    const { showMore } = this.state;
+    const { showMore, open } = this.state;
     let showMoreContentButton;
     let userContent;
 
     if (users !== undefined) {
       if (this.props.users.users.length > showMore) {
         showMoreContentButton = (
-          <Button basic color="purple" onClick={e => this.showMoreContent()}>
+          <Button color="violet" onClick={e => this.showMoreContent()}>
             Ladda fler medlemmar
           </Button>
         );
@@ -77,44 +91,72 @@ class Users extends Component {
             .indexOf(this.state.search.toLowerCase()) !== -1
         );
       });
+
       let userCards = filteredUsers.map(user => {
         return (
           <Item key={user._id}>
+            <Icon
+              className="userIconPointer"
+              name="user circle outline"
+              size="big"
+              color="violet"
+              onClick={e => this.showUserPopup(user)}
+            />
             <Item.Content>
               <Item.Header>{user.username}</Item.Header>
-              <Item.Meta>
-                <span className="boldSpan"> {user.email}</span>
+              <Item.Meta className="ItemEmail">
+                <Icon name="mail" />
+
+                <em
+                  style={{
+                    fontSize: "1rem",
+                    color: "gray"
+                  }}
+                >
+                  {user.email}
+                </em>
               </Item.Meta>
               <Item.Meta>
                 <span className="boldSpan">
                   Status:{" "}
-                  {user.vip.status
-                    ? `VIP med plats ${user.vip.seat}`
-                    : "Medlem"}
+                  {user.vip.status ? (
+                    <Icon name="star" color="yellow" />
+                  ) : (
+                    <Icon name="star" />
+                  )}
                 </span>
               </Item.Meta>
             </Item.Content>
             <Item.Group>
               <Button
-                basic
-                color="red"
-                onClick={e => this.deleteUser(user)}
-                icon
+                color="blue"
+                onClick={e => this.showUserPopup(user)}
                 attached="bottom"
                 floated="right"
               >
-                <Icon color="red" name="delete" className="deleteIcon" />
+                <Icon name="eye" className="editIcon" /> Mer info
               </Button>
+
               <Button
                 basic
-                color="green"
-                onClick={e => this.showUserPopup(user)}
-                icon
+                // onClick={e => this.deleteUser(user)}
+                onClick={e => this.show(user)}
                 attached="bottom"
                 floated="right"
               >
-                <Icon color="green" name="edit" className="editIcon" />
+                <Icon name="delete" />
+                Ta bort
               </Button>
+              <Confirm
+                open={open}
+                className="confirmDeleteUser"
+                cancelButton="Gå tillbaka"
+                confirmButton="Ta bort"
+                header="Du är på väg att ta bort en medlem"
+                content="Är du säker? Det går inte att återställa en borttagen medlem."
+                onCancel={this.handleCancel}
+                onConfirm={this.handleConfirm}
+              />
             </Item.Group>
           </Item>
         );
@@ -122,8 +164,6 @@ class Users extends Component {
 
       userContent = (
         <div>
-          <br />
-
           <Item.Group divided>{userCards.slice(0, showMore)}</Item.Group>
         </div>
       );
@@ -134,30 +174,37 @@ class Users extends Component {
     return (
       <div className="members">
         <div className="containerMembers">
-          <h1>Medlemmar</h1>
+          <h1 className="title">
+            <Icon name="users" />
+            Medlemmar
+          </h1>
           <hr />
+          <br />
           <Admin />
-          <Input
-            placeholder="Sök efter medlem..."
-            onChange={this.onChange}
-            value={this.state.search}
-            name="search"
-          />
-          <Link to="/register">
-            <Button basic color="violet">
-              <Icon name="plus" />
-              Lägg till ny medlem
-            </Button>
-          </Link>
+          <div className="searchContainer">
+            <Input
+              placeholder="Sök efter medlem..."
+              onChange={this.onChange}
+              value={this.state.search}
+              name="search"
+              className="userSearch"
+            />
+            <Link to="/register">
+              <Button color="green">
+                <Icon name="add" />
+                Lägg till ny medlem
+              </Button>
+            </Link>
+          </div>
           <UserPopup />
-
-          {userContent}
+          <br />
+          <br />
+          <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
+            {userContent}
+          </Segment>
         </div>
 
-        <br />
-        <Grid verticalAlign="middle" columns={4} centered>
-          {showMoreContentButton}
-        </Grid>
+        <div className="loadMoreBtnContainer">{showMoreContentButton}</div>
       </div>
     );
   }

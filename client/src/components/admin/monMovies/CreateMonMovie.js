@@ -6,7 +6,7 @@ import { postMonmovie } from "../../../actions/monMovieActions";
 
 import DateTimePicker from "./DateTimePicker";
 import MoviePicker from "./MoviePicker";
-import ChooseSalon from "./ChooseSalon";
+import ChooseSaloon from "./ChooseSaloon";
 import PreviewSubmitMonMovie from "./PreviewSubmitMonMovie";
 import Admin from "../../admin/Admin";
 import "./monMovies.css";
@@ -19,7 +19,7 @@ class CreateMonMovie extends Component {
       date: "",
       time: "",
       movieId: "",
-      salon: "1",
+      saloon: "1",
       eventObject: {},
       previewPage: false
     };
@@ -38,7 +38,7 @@ class CreateMonMovie extends Component {
       date: this.state.date,
       time: this.state.time,
       utc_time: utc_time,
-      salon: this.state.salon
+      saloon: this.state.saloon
     };
     // console.log("Value : ", monMovieDb);
     this.props.postMonmovie(monMovieDb);
@@ -49,8 +49,9 @@ class CreateMonMovie extends Component {
   };
 
   handleTimeChange = (e, { name, value }) => this.setState({ [name]: value });
+
   handleChange = value => {
-    console.log("value ", value);
+    this.setState({ saloon: value });
   };
 
   selectMovie = (id, movies) => {
@@ -72,7 +73,7 @@ class CreateMonMovie extends Component {
   };
 
   render() {
-    // console.log(this.state);
+    console.log(this.state);
 
     let movies = this.props.movies || [];
 
@@ -98,9 +99,9 @@ class CreateMonMovie extends Component {
           movies={movies}
           eventObject={this.state.eventObject}
         />
-        <ChooseSalon
+        <ChooseSaloon
           handleChange={this.handleChange}
-          salon={this.state.salon}
+          saloon={this.state.saloon}
         />
         <DateTimePicker
           eventObject={this.state.eventObject}
@@ -118,6 +119,7 @@ class CreateMonMovie extends Component {
         <PreviewSubmitMonMovie
           eventObject={this.state.eventObject}
           movies={movies}
+          saloon={this.state.saloon}
           date={this.state.date}
           time={this.state.time}
           goToOrLeavePreviewPage={this.goToOrLeavePreviewPage}
@@ -125,14 +127,16 @@ class CreateMonMovie extends Component {
         />
       </React.Fragment>
     );
-    console.log(this.state.salon);
+    console.log(this.state.saloon);
 
     return (
-      <React.Fragment>
-        <div className="containerMonMovies">
+      // <React.Fragment>
+      <div className="containerMonMoviesCreateBackground">
+        <div className="containerMonMoviesCreate">
           {this.state.previewPage ? previewSubmitPage : createPage}
         </div>
-      </React.Fragment>
+      </div>
+      // </React.Fragment>
     );
   }
 }
