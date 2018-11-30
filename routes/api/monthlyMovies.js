@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const MonMovie = require("../../models/MonthlyMovie");
+const { MonMovie } = require("../../models/MonthlyMovie");
 
 //@route    Get api/monthlyMovies/test
 //@desc     Test monthlyMovies route
