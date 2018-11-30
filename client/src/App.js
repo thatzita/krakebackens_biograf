@@ -27,6 +27,7 @@ import Admin from "./components/admin/Admin";
 import Users from "./components/users/Users";
 import Statistic from "./components/statistic/Statistic";
 import Seating from "./components/seating/Seating";
+import Archive from "./components/archive/Archive";
 
 import CreateMonMovie from "./components/admin/monMovies/CreateMonMovie";
 import MonMovieList from "./components/admin/monMovies/MonMovieList";
@@ -71,6 +72,7 @@ class App extends Component {
               <Route exact path="/apply" component={Apply} />
               <Route exact path="/forgot" component={Forgot} />
               <Route exact path="/reset/:token" component={Reset} />
+              <Route exact path="/moviearchive" component={Archive} />
               {/* Ska vara privat route */}
               {/* <Route exact path="/register" component={Register} /> */}
               {/* <Route exact path="/addmovie" component={AddMovie} /> */}

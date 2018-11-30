@@ -149,6 +149,17 @@ class Admin extends Component {
             Statistik
             <Icon name="chart bar" />
           </Menu.Item>
+
+          <Menu.Item
+            as={Link}
+            to="/moviearchive"
+            name="Arkivet"
+            active={activeItem === "Arkivet"}
+            onClick={this.handleItemClick}
+          >
+            Arkivet
+            <Icon name="archive" />
+          </Menu.Item>
         </Menu>
 
         <Button

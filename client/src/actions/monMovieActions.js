@@ -3,9 +3,27 @@ import {
   GET_CLOSEUP_MONMOVIE,
   POST_MONMOVIE,
   DELETE_MONMOVIE,
-  UPDATE_MONMOVIE
+  UPDATE_MONMOVIE,
+  GET_ARCHIVED_MOVIES
 } from "./types";
 import axios from "axios";
+
+//GET ALL ARCHIVED MOVIES
+export const getAllMoviesArchive = () => dispatch => {
+  // console.log('fetching all monMovies');
+
+  axios
+    .get("/api/monthlyMovies/moviearchive")
+    .then(res => {
+      dispatch({
+        type: GET_ARCHIVED_MOVIES,
+        payload: res.data.archive
+      });
+    })
+    .catch(err => {
+      throw err;
+    });
+};
 
 // POST A MONMOVIE
 export const postMonmovie = data => dispatch => {
