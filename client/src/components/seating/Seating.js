@@ -172,10 +172,12 @@ class Seating extends Component {
               reserveSeat={this.reserveSeat}
               rowList={this.state.rowList}
               reservedList={this.state.reservedList}
+              saloon={this.state.bookingObj.saloon || "2"}
             />
           </div>
           <TicketDisplay
             completeBooking={this.completeBooking}
+            movieId={this.state.bookingObj._id}
             removeMemberFromBooking={this.removeMemberFromBooking}
             reservedList={this.state.reservedList}
             profile={this.state.profile}

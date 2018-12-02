@@ -122,7 +122,15 @@ export default function TicketDisplay(props) {
             )
           )}
         </Segment>
-        <Button inverted basic>
+        <Button
+          as={Link}
+          to={{
+            pathname: "/movieselection",
+            state: { movieId: props.movieId }
+          }}
+          inverted
+          basic
+        >
           Gå tillbaka{" "}
         </Button>
         <Button
