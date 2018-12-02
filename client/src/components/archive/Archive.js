@@ -1,25 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Popup from "./Popup";
+// import Popup from "./Popup";
 import { Link } from "react-router-dom";
 import Admin from "../admin/Admin";
 
-import { Button, Input, Icon, Item, Segment, Confirm } from "semantic-ui-react";
-
 import {
-  getAllMovies,
-  moviePopup,
-  deleteMovie
-} from "../../actions/movieActions";
-import "./movies.css";
+  Button,
+  Input,
+  Icon,
+  Item,
+  Segment,
+  Confirm,
+  Label
+} from "semantic-ui-react";
 
-class Movies extends Component {
+import { moviePopup } from "../../actions/movieActions";
+import { getAllMoviesArchive } from "../../actions/monMovieActions";
+import "../movies/movies.css";
+
+class Archive extends Component {
   constructor() {
     super();
     this.state = {
       errors: {},
-      movies: [],
+      monMovies: [],
       movieInfo: {},
       search: "",
       showMore: 5,
@@ -44,40 +49,59 @@ class Movies extends Component {
   showPopup(movie) {
     this.props.moviePopup(movie);
   }
-  deleteMovie(movie) {
-    this.props.deleteMovie(movie);
-  }
 
   componentDidMount() {
-    this.props.getAllMovies();
+    this.props.getAllMoviesArchive();
+  }
+
+  bookedSeats(seats) {
+    console.log(seats.length);
+    let count = 0;
+    if (seats.length === 1) {
+      seats.forEach(seat => {
+        if (seats.booked === true) {
+          count++;
+        }
+      });
+      return count;
+    } else {
+      seats[0].forEach(seat => {
+        if (seat.booked === true) {
+          count++;
+        }
+      });
+
+      seats[1].forEach(seat => {
+        if (seat.booked === true) {
+          count++;
+        }
+      });
+
+      seats[2].forEach(seat => {
+        if (seat.booked === true) {
+          count++;
+        }
+      });
+      return count;
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      movies: nextProps.movies,
+      monMovies: nextProps.monMovies,
       movieInfo: nextProps.movieInfo,
       profile: nextProps.profile.profile
     });
   }
-  show = movie => {
-    this.setState({ open: true, movie: movie });
-  };
-  handleConfirm = () => {
-    this.deleteMovie(this.state.movie);
-    // console.log(this.state.movie);
-    this.setState({ open: false });
-  };
-
-  handleCancel = () => this.setState({ open: false });
 
   render() {
-    const { movies } = this.state.movies;
+    const { movies } = this.state.monMovies;
     const { showMore, open } = this.state;
     let showMoreContentButton;
     let movieContent;
 
     if (movies !== undefined) {
-      if (this.props.movies.movies.length > showMore) {
+      if (this.props.monMovies.movies.length > showMore) {
         showMoreContentButton = (
           <Button
             className="loadMoreBtn"
@@ -91,15 +115,16 @@ class Movies extends Component {
         showMoreContentButton = "";
       }
 
-      let filteredMovies = this.props.movies.movies.filter(movie => {
+      let filteredMovies = this.props.monMovies.movies.filter(movie => {
         return (
           movie.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !==
           -1
         );
       });
-      let movieItem = filteredMovies.map(movie => {
+      let movieItem = filteredMovies.map((movie, index) => {
+        let count = 0;
         return (
-          <Item key={movie.imdb_id}>
+          <Item key={index}>
             <Item.Image
               className="posterImg"
               size="tiny"
@@ -109,6 +134,7 @@ class Movies extends Component {
                 e.target.src = "poster_not_available.jpg";
               }}
             />
+
             <Item.Content>
               <Item.Header>
                 {movie.title} ( {movie.release.substring(0, 4)} ){" "}
@@ -117,57 +143,34 @@ class Movies extends Component {
                   - {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min
                 </em>{" "}
               </Item.Header>
-              {/* <Item.Meta>
-                <span className="boldSpan"> {movie.release}</span>
-              </Item.Meta> */}
+
               <Item.Extra>
-                {movie.genres.map((genre, i) => {
-                  return (
-                    <span key={i} className="date">
-                      {genre}{" "}
-                    </span>
-                  );
-                })}
+                <p>
+                  <Icon name="calendar" />
+                  {movie.screeningDate}
+                </p>
+                <p>
+                  <Icon name="clock" />
+                  {movie.screeningTime}
+                </p>
+              </Item.Extra>
+              <Item.Extra>
+                <Label>Salong {movie.saloon}</Label>
+                <Label>{this.bookedSeats(movie.seating)} bokade</Label>
               </Item.Extra>
 
-              {/* <Item.Meta>
-                <Icon name="time" color="black" />
-                <span className="cinema boldSpan">{movie.runtime} min</span>
-              </Item.Meta> */}
-
-              <Button.Group className="addMovieBtnGroup">
+              {/* <Button.Group className="addMovieBtnGroup">
                 <Button
-                  basic
-                  style={{ height: "2.5rem", bottom: "0" }}
-                  // onClick={e => this.deleteMovie(movie)}
-                  onClick={e => this.show(movie)}
-                  attached="bottom"
-                  floated="right"
-                >
-                  <Icon name="delete" />
-                  Ta bort
-                </Button>
-                <Confirm
-                  open={open}
-                  className="confirmDeleteMovie"
-                  header="Du är på väg att ta bort en film"
-                  content="Är du säker att du vill ta bort filmen?"
-                  cancelButton="Gå tillbaka"
-                  confirmButton="Ta bort"
-                  onCancel={this.handleCancel}
-                  onConfirm={this.handleConfirm}
-                />
-                <Button
-                  color="violet"
+                  color="blue"
                   style={{ height: "2.5rem", bottom: "0" }}
                   onClick={e => this.showPopup(movie)}
                   attached="bottom"
                   floated="right"
                 >
-                  <Icon name="edit" />
-                  Ändra
+                  <Icon name="eye" />
+                  Mer information
                 </Button>
-              </Button.Group>
+              </Button.Group> */}
             </Item.Content>
           </Item>
         );
@@ -177,7 +180,6 @@ class Movies extends Component {
         <div>
           <br />
           <br />
-          {/* <h2>Filmdatabas</h2> */}
           <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
             <Item.Group divided>{movieItem.slice(0, showMore)}</Item.Group>
           </Segment>
@@ -192,28 +194,21 @@ class Movies extends Component {
         <div className="containerMovies">
           <h1 className="title">
             <Icon name="film" />
-            Filmer
+            Arkivet
           </h1>
           <hr />
           <br />
-          <Admin />
           <div className="searchContainer">
             <Input
               className="movieSearch"
-              placeholder="Sök i databasen..."
+              placeholder="Sök i arkivet..."
               onChange={this.onChange}
               value={this.state.search}
               name="search"
             />
-
-            <Link to="/addmovie">
-              <Button color="green">
-                <Icon name="add" />
-                Lägg till i databasen
-              </Button>
-            </Link>
           </div>
-          <Popup />
+          {/* <Popup /> */}
+          <Admin />
           <br />
           {movieContent}
         </div>
@@ -224,27 +219,23 @@ class Movies extends Component {
   }
 }
 
-Movies.propTypes = {
-  getAllMovies: PropTypes.func.isRequired,
-  deleteMovie: PropTypes.func.isRequired,
-  // movieInfo: PropTypes.func.isRequired,
-  // popupMovie: PropTypes.object.isRequired,
+Archive.propTypes = {
+  getAllMoviesArchive: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  movies: PropTypes.object.isRequired
+  monMovies: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth,
-  movies: state.movies
+  monMovies: state.monMovies
 });
 
 export default connect(
   mapStateToProps,
   {
-    getAllMovies,
-    moviePopup,
-    deleteMovie
+    getAllMoviesArchive,
+    moviePopup
   }
-)(Movies);
+)(Archive);

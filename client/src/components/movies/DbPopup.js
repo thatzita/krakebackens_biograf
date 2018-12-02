@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { imdbPopupClose, addToMovieDb } from "../../actions/movieActions";
 import {
   Button,
-  Header,
+  Card,
   Container,
   Divider,
   Image,
@@ -32,16 +32,31 @@ class DbPopup extends Component {
   }
 
   saveToDb() {
-    let { movieInfo } = this.state;
+    let { movieInfo, title, description } = this.state;
 
     let genreArray = movieInfo.genres.map(genre => {
       return genre.name;
     });
 
     let urlForImg = "http://image.tmdb.org/t/p/original";
-    let { title, description } = this.state;
 
     let movieDb;
+
+    console.log(movieInfo);
+
+    if (movieInfo.backdrop_path === null) {
+      console.log("no backdrop");
+      urlForImg = "";
+      movieInfo.backdrop_path = "curtain.jpg";
+    }
+
+    if (movieInfo.poster_path === null) {
+      console.log("no poster");
+      urlForImg = "";
+      movieInfo.poster_path = "poster_not_available.jpg";
+      console.log(movieInfo.poster_path);
+      console.log(urlForImg);
+    }
 
     if (title === "" && description !== "") {
       movieDb = {
@@ -79,6 +94,18 @@ class DbPopup extends Component {
         release: movieInfo.release_date,
         rating: movieInfo.vote_average
       };
+    } else if (movieInfo.overview === "") {
+      movieDb = {
+        title: movieInfo.title,
+        description: "Beskrivning saknas, hojta på kråkan så fixar han det!",
+        background: urlForImg + movieInfo.backdrop_path,
+        poster: urlForImg + movieInfo.poster_path,
+        runtime: movieInfo.runtime,
+        genres: genreArray,
+        imdb_id: movieInfo.imdb_id,
+        release: movieInfo.release_date,
+        rating: movieInfo.vote_average
+      };
     } else {
       movieDb = {
         title: movieInfo.title,
@@ -101,7 +128,7 @@ class DbPopup extends Component {
 
   editValues(nameOfClass, data) {
     switch (nameOfClass) {
-      case "ui grey inverted header title":
+      case "titlePopupDb":
         this.setState({
           title: data
         });
@@ -137,75 +164,113 @@ class DbPopup extends Component {
 
       moviePopup = (
         <div className="popup">
-          <Image
-            floated="right"
-            className="imageBorder"
-            size="large"
-            src={posterUrl + movieInfo.backdrop_path}
-          />
-          <Image
-            size="small"
-            className="imageBorder"
-            floated="right"
-            src={posterUrl + movieInfo.poster_path}
-          />
+          <Card className="containerInPopup">
+            <div className="imgPosition">
+              <Image
+                floated="right"
+                className="imageBorder"
+                size="large"
+                src={posterUrl + movieInfo.backdrop_path}
+                alt="Bild saknas"
+                onError={e => {
+                  e.target.src = "curtain.jpg";
+                }}
+              />
+              <Image
+                size="small"
+                className="imageBorder"
+                floated="right"
+                src={posterUrl + movieInfo.poster_path}
+                alt="Bild saknas"
+                onError={e => {
+                  e.target.src = "poster_not_available.jpg";
+                }}
+              />
+            </div>
+            <br />
+            <div className="descriptionContainer">
+              <h1
+                className="titlePopupDb"
+                contentEditable={true}
+                suppressContentEditableWarning="true"
+                onInput={event => this.changeInput(event)}
+              >
+                {movieInfo.title} ({movieInfo.release_date.substring(0, 4)})
+              </h1>
+              <hr />
 
-          <Header
-            className="title"
-            contentEditable={true}
-            suppressContentEditableWarning="true"
-            onInput={event => this.changeInput(event)}
-            as="h1"
-            inverted
-            color="grey"
-          >
-            {movieInfo.title}
-          </Header>
-          <Divider />
-          <Container className="containerInPopup">
-            <span className="date boldSpan">{movieInfo.release_date}</span>
-            <br />
-            <br />
-            <p
-              className="description"
-              contentEditable={true}
-              suppressContentEditableWarning="true"
-              onInput={event => this.changeInput(event)}
-            >
-              {movieInfo.overview}
-            </p>
-            <p>
-              <strong>Genres:</strong> <br />
-              {movieInfo.genres.map((genre, i) => {
-                return (
-                  <span key={i} className="date">
-                    {genre.name}{" "}
-                  </span>
-                );
-              })}
-            </p>
+              <p>
+                <strong>Genres:</strong> <br />
+                {movieInfo.genres.map((genre, i) => {
+                  return (
+                    <span key={i} className="date">
+                      {genre.name}{" "}
+                    </span>
+                  );
+                })}
+              </p>
 
-            <Icon name="time" />
-            <span className="date boldSpan">{movieInfo.runtime} min</span>
-            <br />
-            <br />
-            <p className="date">
-              <strong>Betyg:</strong> {movieInfo.vote_average}
-            </p>
+              <Icon name="time" />
+              <span className="date boldSpan">{movieInfo.runtime} min</span>
+              <br />
+              <br />
+              <p className="date">
+                <strong>Betyg:</strong> {movieInfo.vote_average}
+              </p>
 
-            <p className="date">
-              <strong>Status:</strong> {movieInfo.status}
-            </p>
-          </Container>
-          <Divider />
-          <Button.Group>
-            <Button inverted color="purple" onClick={e => this.closePopup()}>
-              Stäng
-            </Button>
-            <Button inverted color="red" onClick={e => this.saveToDb()}>
-              Spara till databasen
-            </Button>
-          </Button.Group>
+              <p className="date">
+                <strong>Status:</strong> {movieInfo.status}
+              </p>
+              <span className="date boldSpan">Beskrivning:</span>
+              {movieInfo.overview ? (
+                <p
+                  className="description"
+                  contentEditable={true}
+                  suppressContentEditableWarning="true"
+                  onInput={event => this.changeInput(event)}
+                >
+                  {movieInfo.overview}
+                </p>
+              ) : (
+                <p
+                  className="description"
+                  contentEditable={true}
+                  suppressContentEditableWarning="true"
+                  onInput={event => this.changeInput(event)}
+                >
+                  Beskrivning saknas, hojta på kråkan så fixar han det!
+                </p>
+              )}
+
+              <Divider />
+              <Button.Group fluid className="btnGroupPopup">
+                <Button
+                  style={{
+                    width: "13rem",
+                    marginLeft: "3rem",
+                    marginRight: "3rem"
+                  }}
+                  color="green"
+                  onClick={e => this.saveToDb()}
+                >
+                  <Icon name="add circle" className="editIcon" />
+                  Spara till databasen
+                </Button>
+                <Button
+                  style={{
+                    width: "13rem",
+                    marginLeft: "3rem",
+                    marginRight: "3rem"
+                  }}
+                  onClick={e => this.closePopup()}
+                >
+                  {" "}
+                  <Icon name="left chevron" />
+                  Stäng
+                </Button>
+              </Button.Group>
+            </div>
+          </Card>
         </div>
       );
     } else {

@@ -74,8 +74,8 @@ class Navbar extends Component {
                     <Menu.Item
                       as={Link}
                       to="/mainpage"
-                      name="Billjetter"
-                      active={activeItem === "Billjetter"}
+                      name="Biljetter"
+                      active={activeItem === "Biljetter"}
                       onClick={this.handleItemClick}
                     />
                   ) : null}
@@ -94,8 +94,8 @@ class Navbar extends Component {
                     <Menu.Item
                       as={Link}
                       to="/mainpage"
-                      name="Filmer & Trailers"
-                      active={activeItem === "Filmer & Trailers"}
+                      name="Filmer"
+                      active={activeItem === "Filmer"}
                       onClick={this.handleItemClick}
                     />
                   ) : null}
@@ -125,19 +125,20 @@ class Navbar extends Component {
                   {admin ? (
                     <Menu.Item
                       as={Link}
-                      to="/admin"
+                      to="/adminhome"
                       name="Admin"
                       active={activeItem === "Admin"}
                       onClick={() => this.props.goToAdminPage(true)}
                     />
                   ) : (
-                    <Menu.Item
-                      as={Link}
-                      to="/register"
-                      name="register"
-                      active={activeItem === "register"}
-                      onClick={this.handleItemClick}
-                    />
+                    // <Menu.Item
+                    //   as={Link}
+                    //   to="/register"
+                    //   name="Registrera dig"
+                    //   active={activeItem === "register"}
+                    //   onClick={this.handleItemClick}
+                    // />
+                    ""
                   )}
 
                   <Menu.Item />

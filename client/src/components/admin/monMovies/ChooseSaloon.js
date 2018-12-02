@@ -3,7 +3,12 @@ import { Segment, Header, Icon, Form } from "semantic-ui-react";
 
 export default function ChooseSaloon(props) {
   return (
-    <Segment>
+    <Segment
+      style={{
+        boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)",
+        marginTop: "5rem"
+      }}
+    >
       <Header>
         <Icon name="users" />
         Välj salong

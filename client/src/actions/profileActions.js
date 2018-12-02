@@ -35,23 +35,21 @@ export const setProfileLoading = () => {
 
 //Ta bort kontot
 export const deleteAccount = () => dispatch => {
-  if (window.confirm("Är du säker? Du kan inte få tillbaka kontot!")) {
-    axios
-      .delete("/api/users")
-      .then(res => {
-        dispatch({
-          type: SET_CURRENT_USER,
-          payload: {}
-        });
-        localStorage.removeItem("jwtToken");
+  axios
+    .delete("/api/users")
+    .then(res => {
+      dispatch({
+        type: SET_CURRENT_USER,
+        payload: {}
+      });
+      localStorage.removeItem("jwtToken");
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
       })
-      .catch(err =>
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.response.data
-        })
-      );
-  }
+    );
 };
 
 //Rensa profilen som är inloggad

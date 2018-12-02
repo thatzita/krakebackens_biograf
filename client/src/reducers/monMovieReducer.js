@@ -4,7 +4,8 @@ import {
   POST_MONMOVIE,
   DELETE_MONMOVIE,
   UPDATE_MONMOVIE,
-  COMPLETE_BOOKING
+  COMPLETE_BOOKING,
+  GET_ARCHIVED_MOVIES
 } from "../actions/types";
 
 const initialState = {};
@@ -12,6 +13,12 @@ const initialState = {};
 export default function(state = initialState, action) {
   // console.log('reducer starts')
   switch (action.type) {
+    case GET_ARCHIVED_MOVIES:
+      console.log(action.payload);
+      return {
+        ...state,
+        movies: action.payload
+      };
     case POST_MONMOVIE:
       return {
         ...state,

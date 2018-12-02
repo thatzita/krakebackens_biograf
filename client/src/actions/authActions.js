@@ -17,11 +17,15 @@ export const registerUser = (userData, history) => dispatch => {
     .post("/api/users/register", userData)
     // .then(res => history.push("/login"))
     .then(res => {
-      let success = {
-        title: "Användare skapad!",
-        msg: "Ett mail har skickats till " + userData.email + "."
-      };
-      dispatch(creationSuccess(success));
+      let success = {};
+      if (res.status === 200) {
+        console.log(res);
+        success = {
+          title: "Användare skapad!",
+          msg: "Ett mail har skickats till " + userData.email + "."
+        };
+        dispatch(creationSuccess(success));
+      }
     })
     .catch(err =>
       dispatch({

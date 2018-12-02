@@ -4,6 +4,10 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
+const { MonMovie, MonthlyMovieArchive } = require("./models/MonthlyMovie");
+
+// const { MonthlyMovie, MonthlyMovieArchive } = require("./models/MonthlyMovie");
+
 //API paths
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
@@ -51,6 +55,36 @@ app.use("/api/apply", apply);
 app.use("/api/monthlyMovies", monthlyMovies);
 app.use("/api/movies", movies);
 app.use("/api/stats", stats);
+
+//Schedule
+// 0 9,12,15,18,21,0 * * *
+// At minute 0 past hour 9, 12, 15, 18, 21, and 0.
+const CronJob = require("cron").CronJob;
+
+new CronJob(
+  "0 9,12,15,18,21,0 * * *",
+  // "* * * * *",
+  function() {
+    let todaysDate = new Date();
+    MonMovie.find({}).then(monMovie => {
+      monMovie.forEach(movie => {
+        if (todaysDate > new Date(movie.utc_time)) {
+          let swap = new (mongoose.model("monthlyMoviesArchives"))(movie);
+          swap._id = mongoose.Types.ObjectId();
+          swap.isNew = true;
+
+          movie.remove();
+          swap.save();
+        } else {
+          console.log("Visningen har INTE varit");
+        }
+      });
+    });
+  },
+  null,
+  true,
+  "Europe/Stockholm"
+);
 
 const port = process.env.PORT || 5000;
 

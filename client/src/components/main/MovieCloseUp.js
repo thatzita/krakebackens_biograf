@@ -66,6 +66,10 @@ class MovieCloseUp extends Component {
       });
     });
 
+    if (displayImage === "http://image.tmdb.org/t/p/originalnull") {
+      displayImage = "curtain.jpg";
+    }
+
     return (
       <React.Fragment>
         <div className="movieCloseUpContainer">

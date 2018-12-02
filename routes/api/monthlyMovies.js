@@ -1,12 +1,22 @@
 const express = require("express");
 const router = express.Router();
 
-const MonMovie = require("../../models/MonthlyMovie");
+const { MonMovie, MonMovieArchive } = require("../../models/MonthlyMovie");
 
 //@route    Get api/monthlyMovies/test
 //@desc     Test monthlyMovies route
 //@access   Public
 router.get("/test", (req, res) => res.json({ msg: "monthly movies works!" }));
+
+router.get("/moviearchive", (req, res) => {
+  MonMovieArchive.find({})
+    .then(archive => {
+      res.json({ archive });
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 
 //@route    Post api/monthlyMovies/uploadMoviePremiere
 //@desc     Post a movie premiere to monthlyMovies

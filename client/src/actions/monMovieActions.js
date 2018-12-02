@@ -4,11 +4,30 @@ import {
   POST_MONMOVIE,
   DELETE_MONMOVIE,
   UPDATE_MONMOVIE,
-  COMPLETE_BOOKING
+  COMPLETE_BOOKING,
+  GET_ARCHIVED_MOVIES
 } from "./types";
+
 import axios from "axios";
 
-// Post a monmovie
+//GET ALL ARCHIVED MOVIES
+export const getAllMoviesArchive = () => dispatch => {
+  // console.log('fetching all monMovies');
+
+  axios
+    .get("/api/monthlyMovies/moviearchive")
+    .then(res => {
+      dispatch({
+        type: GET_ARCHIVED_MOVIES,
+        payload: res.data.archive
+      });
+    })
+    .catch(err => {
+      throw err;
+    });
+};
+
+// POST A MONMOVIE
 export const postMonmovie = data => dispatch => {
   // console.log('posting movie');
   // console.log(data);

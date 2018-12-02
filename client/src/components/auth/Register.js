@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { Button, Form, Header, Message } from "semantic-ui-react";
+import { Button, Form, Segment, Message, Icon } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Admin from "../admin/Admin";
 import "./auth.css";
-
+import Footer from "../layout/Footer";
 import { registerUser } from "../../actions/authActions";
 
 class Register extends Component {
@@ -24,7 +24,7 @@ class Register extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.success !== undefined) {
+    if (nextProps.auth.success) {
       this.setState({
         success: nextProps.auth.success,
         username: "",
@@ -44,7 +44,6 @@ class Register extends Component {
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value
-      // success: {}
     });
   }
   onSubmit(event) {
@@ -66,12 +65,13 @@ class Register extends Component {
       moviesViewed: []
     };
 
-    // this.handleSubmit();
+    this.setState({
+      success: {}
+    });
     this.props.registerUser(newUser, this.props.history);
   }
 
   render() {
-    //samma som = errors = this.state.errors, deconstructing
     const { errors } = this.state;
 
     //Om indikation ska synas
@@ -80,63 +80,93 @@ class Register extends Component {
     const { username, email, password, password2 } = this.state;
 
     return (
-      <div className="containerRegister">
-        <Header as="h1">Skapa ny användare</Header>
-        <Admin />
-        <Form error success>
-          <Form.Field>
-            <label>Användarnamn</label>
-            <input
-              type="text"
-              placeholder="Användarnamn"
-              name="username"
-              value={username}
-              onChange={this.onChange}
-            />
-            <Message error content={errors.username} />
-          </Form.Field>
-          <Form.Field>
-            <label>Epost</label>
-            <input
-              type="email"
-              placeholder="Epost"
-              name="email"
-              value={email}
-              onChange={this.onChange}
-            />
-            <Message error content={errors.email} />
-          </Form.Field>
-          <Form.Field>
-            <label>Lösenord</label>
-            <input
-              type="password"
-              placeholder="Skriv ett lösenord"
-              name="password"
-              value={password}
-              onChange={this.onChange}
-            />
-            <Message error content={errors.password} />
-          </Form.Field>
-          <Form.Field>
-            <input
-              type="password"
-              placeholder="Bekräfta lösenord "
-              name="password2"
-              value={password2}
-              onChange={this.onChange}
-            />
-            <Message error content={errors.password2} />
-          </Form.Field>
-          <Message success header={success.title} content={success.msg} />
-          <Button type="submit" onClick={this.onSubmit}>
-            Skapa användare
-          </Button>
-          <Link to="/users">
-            <Button basic color="violet">
-              Tillbaka
-            </Button>
-          </Link>
-        </Form>
+      <div>
+        <div className="register">
+          <div className="containerRegister">
+            <h1 className="title">
+              <Icon name="user" />
+              Skapa ny användare
+            </h1>
+            <hr />
+            <br />
+
+            <Admin />
+            <Segment
+              style={{
+                paddingBottom: "2rem",
+                boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)"
+              }}
+            >
+              <Form error success>
+                <div className="formContainer">
+                  <Form.Field className=" ">
+                    <label className="floatLeft">Användarnamn</label>
+                    <input
+                      type="text"
+                      placeholder="Användarnamn"
+                      name="username"
+                      value={username}
+                      onChange={this.onChange}
+                    />
+                    <Message error content={errors.username} />
+                  </Form.Field>
+                  <br />
+                  <Form.Field className="registerField">
+                    <label className="floatLeft">Epost</label>
+                    <input
+                      type="email"
+                      placeholder="Epost"
+                      name="email"
+                      value={email}
+                      onChange={this.onChange}
+                    />
+                    <Message error content={errors.email} />
+                  </Form.Field>
+                  <br />
+                  <Form.Field className="registerField">
+                    <label className="floatLeft">Lösenord</label>
+                    <input
+                      type="password"
+                      placeholder="Skriv ett lösenord"
+                      name="password"
+                      value={password}
+                      onChange={this.onChange}
+                    />
+                    <Message error content={errors.password} />
+                  </Form.Field>
+                  <br />
+                  <Form.Field className="registerField">
+                    <input
+                      type="password"
+                      placeholder="Bekräfta lösenord "
+                      name="password2"
+                      value={password2}
+                      onChange={this.onChange}
+                    />
+                    <Message error content={errors.password2} />
+                  </Form.Field>
+                  <br />
+                  <Message
+                    success
+                    header={success.title}
+                    content={success.msg}
+                  />
+
+                  <Button color="green" type="submit" onClick={this.onSubmit}>
+                    <Icon name="add" />
+                    Skapa användare
+                  </Button>
+                  <Link to="/users">
+                    <Button basic>
+                      <Icon name="left chevron" />
+                      Tillbaka till medlemmar
+                    </Button>
+                  </Link>
+                </div>
+              </Form>
+            </Segment>
+          </div>
+        </div>
       </div>
     );
   }
