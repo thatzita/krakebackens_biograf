@@ -97,7 +97,7 @@ class UserArchive extends Component {
                 <p>Antal besökare: {archive.seasonUserViewings}</p>
               </Item.Extra>
               <Item.Extra>
-                Topp 3 besökare: &nbsp;&nbsp;
+                Topp 3: &nbsp;&nbsp;
                 {archive.seasonTopUsers.map(top => {
                   return <Label>{top}</Label>;
                 })}

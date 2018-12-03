@@ -47,8 +47,9 @@ class Popup extends Component {
     let { movieInfo } = this.state;
     let { title, description, crowRating } = this.state;
     let movieDb;
-    // console.log(this.state);
-
+    console.log(crowRating);
+    console.log(description);
+    console.log(this.state);
     if (movieInfo.crowRating === null) {
       // console.log(crowRating);
       // console.log(movieInfo.crowRating);
@@ -98,6 +99,10 @@ class Popup extends Component {
         id: movieInfo._id
       };
     } else if (title === "" && description !== "" && crowRating !== "") {
+      console.log("hitting it");
+      console.log(title);
+      console.log(description);
+      console.log(crowRating);
       movieDb = {
         title: movieInfo.title,
         description: description,
@@ -112,7 +117,7 @@ class Popup extends Component {
         id: movieInfo._id
       };
     }
-    // console.log(movieDb);
+    console.log(movieDb);
 
     this.props.updateDb(movieDb);
     this.setState({
@@ -129,6 +134,8 @@ class Popup extends Component {
   }
 
   editValues(nameOfClass, data) {
+    console.log("nameOfClass " + nameOfClass);
+    console.log("data " + data);
     switch (nameOfClass) {
       case "titlePopup":
         this.setState({
@@ -139,6 +146,7 @@ class Popup extends Component {
         this.setState({
           description: data
         });
+        break;
       case "crowRating":
         this.setState({
           crowRating: data
@@ -259,7 +267,6 @@ class Popup extends Component {
                 <Button
                   attached="bottom"
                   className="deleteButtonPopup"
-                  // onClick={e => this.deleteMovie(movieInfo)}
                   onClick={e => this.show(movieInfo)}
                 >
                   Ta bort från databasen
