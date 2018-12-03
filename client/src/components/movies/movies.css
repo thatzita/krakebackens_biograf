@@ -20,6 +20,9 @@ div.movies {
   background-color: #f8f8ff;
   padding-bottom: 8rem;
   margin-bottom: -7rem;
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
 }
 div.addMovie {
   background-color: #f8f8ff;

@@ -28,7 +28,7 @@ import Admin from "./components/admin/Admin";
 import Users from "./components/users/Users";
 import Statistic from "./components/statistic/Statistic";
 import Seating from "./components/seating/Seating";
-import Archive from "./components/archive/Archive";
+import ArchiveMain from "./components/archive/ArchiveMain";
 
 import CreateMonMovie from "./components/admin/monMovies/CreateMonMovie";
 import MonMovieList from "./components/admin/monMovies/MonMovieList";
@@ -78,7 +78,11 @@ class App extends Component {
               {/* <Route exact path="/addmovie" component={AddMovie} /> */}
               <Switch>
                 <Route exact path="/seating" component={Seating} />
-                <AdminRoute exact path="/moviearchive" component={Archive} />
+                <AdminRoute
+                  exact
+                  path="/moviearchive"
+                  component={ArchiveMain}
+                />
 
                 <AdminRoute exact path="/adminhome" component={AdminHome} />
 

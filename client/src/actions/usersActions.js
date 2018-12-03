@@ -5,8 +5,9 @@ import {
   USER_DELETE_DB,
   USER_POPUP,
   USER_POPUP_CLOSE,
-  RESET_USER_STATS
+  RESET_USER_STATS,
   // USER_STATS_TO_ARCHIVE
+  USER_ARCHIVE
 } from "./types";
 
 export const getAllUsers = () => dispatch => {
@@ -15,6 +16,20 @@ export const getAllUsers = () => dispatch => {
     .then(res => {
       dispatch({
         type: GET_ALL_USERS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+export const getUserArchive = () => dispatch => {
+  axios
+    .get("/api/stats/getuserarchive")
+    .then(res => {
+      dispatch({
+        type: USER_ARCHIVE,
         payload: res.data
       });
     })

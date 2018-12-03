@@ -3,13 +3,19 @@ import {
   USER_POPUP,
   USER_POPUP_CLOSE,
   USER_DELETE_DB,
-  RESET_USER_STATS
+  RESET_USER_STATS,
+  USER_ARCHIVE
 } from "../actions/types";
 
 const initialState = {};
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case USER_ARCHIVE:
+      return {
+        ...state,
+        userArchive: action.payload
+      };
     case GET_ALL_USERS:
       return {
         ...state,

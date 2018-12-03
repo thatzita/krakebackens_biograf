@@ -132,7 +132,7 @@ class Archive extends Component {
             <Item.Image
               className="posterImg"
               size="tiny"
-              onClick={e => this.showPopup(movie)}
+              // onClick={e => this.showPopup(movie)}
               src={movie.poster}
               onError={e => {
                 e.target.src = "poster_not_available.jpg";
@@ -194,31 +194,35 @@ class Archive extends Component {
     }
 
     return (
-      <div className="movies">
-        <div className="containerMovies">
-          <h1 className="title">
+      <React.Fragment>
+        {/* <div className="movies"> */}
+        {/* <div className="containerMovies"> */}
+        {/* <h1 className="title">
             <Icon name="film" />
             Arkivet
-          </h1>
-          <hr />
-          <br />
-          <div className="searchContainer">
-            <Input
-              className="movieSearch"
-              placeholder="Sök i arkivet..."
-              onChange={this.onChange}
-              value={this.state.search}
-              name="search"
-            />
-          </div>
-          {/* <Popup /> */}
-          <Admin />
-          <br />
-          {movieContent}
+          </h1> */}
+        {/* <hr /> */}
+        {/* <br /> */}
+        <div style={{ marginTop: "3rem" }} className="searchContainer">
+          <Input
+            className="movieSearch"
+            placeholder="Sök i arkivet..."
+            onChange={this.onChange}
+            value={this.state.search}
+            name="search"
+          />
         </div>
-        <div className="loadMoreBtnContainer">{showMoreContentButton}</div>
+        {/* <Popup /> */}
+        {/* <Admin /> */}
         <br />
-      </div>
+        {movieContent}
+        {/* </div> */}
+        <div style={{ marginLeft: "-2rem" }} className="loadMoreBtnContainer">
+          {showMoreContentButton}
+        </div>
+        <br />
+        {/* </div> */}
+      </React.Fragment>
     );
   }
 }

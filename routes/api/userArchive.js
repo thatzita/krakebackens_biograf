@@ -26,4 +26,12 @@ router.post("/userarchive", (req, res) => {
   });
 });
 
+//Hämta användardata från arkivet
+//GET api/stats/getuserarchive
+
+router.get("/getuserarchive", (req, res) => {
+  UserStatistics.find({}, (err, stats) => {
+    res.json(stats);
+  });
+});
 module.exports = router;
