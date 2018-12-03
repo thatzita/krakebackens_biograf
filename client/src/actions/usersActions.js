@@ -70,21 +70,19 @@ export const deleteUserSuccess = deletedUser => {
 };
 
 export const resetStats = () => dispatch => {
-  if (window.confirm("Är du att du vill nollställa statistiken för året?")) {
-    axios.get("/api/users/resetstats").then(res => {
-      if (res) {
-        let success = {
-          msg: "Nollställning lyckades"
-        };
-        dispatch({
-          type: RESET_USER_STATS,
-          payload: success
-        });
-      } else {
-        console.log("Något gick fel vid nollställning.");
-      }
-    });
-  }
+  axios.get("/api/users/resetstats").then(res => {
+    if (res) {
+      let success = {
+        msg: "Nollställning lyckades"
+      };
+      dispatch({
+        type: RESET_USER_STATS,
+        payload: success
+      });
+    } else {
+      console.log("Något gick fel vid nollställning.");
+    }
+  });
 };
 
 export const saveUserStatsToArchive = archiveData => dispatch => {
