@@ -22,6 +22,7 @@ router.get("/moviearchive", (req, res) => {
 //@desc     Post a movie premiere to monthlyMovies
 //@access   private
 router.post("/uploadMoviePremiere", (req, res) => {
+  // console.log(req.body);
   MonMovie.findOne({
     $or: [{ title: req.body.mov.title }, { utc_time: req.body.utc_time }]
   }).then(movie => {
@@ -79,6 +80,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
         genres: req.body.mov.genres,
         imdb_id: req.body.mov.imdb_id,
         release: req.body.mov.release,
+        crowRating: req.body.mov.crowRating,
 
         screeningDate: req.body.date,
         screeningTime: req.body.time,
@@ -88,7 +90,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
         saloon: req.body.saloon,
         fullyBooked: false
       });
-
+      // console.log(newMonMovie);
       newMonMovie
         .save()
         .then(monMovie => res.json(monMovie))
@@ -138,6 +140,7 @@ router.delete("/deleteMonthlyMovie", (req, res) => {
 router.get("/getAllMonthlyMovies", (req, res) => {
   MonMovie.find({})
     .then(monMovies => {
+      // console.log(monMovies);
       res.json({ monMovies });
     })
     .catch(err => console.log(err));
@@ -148,13 +151,13 @@ router.get("/getAllMonthlyMovies", (req, res) => {
 //@access   private
 
 router.get("/singlemovie/", (req, res) => {
-  console.log(req.query.id);
+  // console.log(req.query.id);
   let id = req.query.id;
 
   MonMovie.findOne({ _id: id })
     .then(movie => {
-      console.log("found movie item");
-      console.log("movieItem ", movie);
+      // console.log("found movie item");
+      // console.log("movieItem ", movie);
       if (movie) {
         res.json({ movie });
       } else {

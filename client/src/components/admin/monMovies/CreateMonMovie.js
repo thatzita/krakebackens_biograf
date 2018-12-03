@@ -32,7 +32,7 @@ class CreateMonMovie extends Component {
   onSubmitEvent = () => {
     let createDate = new Date(this.state.date + "T" + this.state.time);
     let utc_time = createDate.toUTCString();
-
+    console.log(this.state.eventObject);
     let monMovieDb = {
       mov: this.state.eventObject,
       date: this.state.date,
@@ -40,6 +40,7 @@ class CreateMonMovie extends Component {
       utc_time: utc_time,
       saloon: this.state.saloon
     };
+    console.log(this.state);
     // console.log("Value : ", monMovieDb);
     this.props.postMonmovie(monMovieDb);
   };

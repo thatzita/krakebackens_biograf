@@ -43,6 +43,7 @@ class MonMovieList extends Component {
   render() {
     const { movie, open } = this.state;
     let monList = this.props.monMovies.monMovies || [];
+    console.log(monList);
 
     return (
       <div className="monMovies">
@@ -98,6 +99,9 @@ class MonMovieList extends Component {
                     <Item.Meta>
                       <Icon name="users" color="grey" />{" "}
                       {"Salong " + item.saloon}
+                    </Item.Meta>
+                    <Item.Meta style={{ maxWidth: "50%", minWidth: "280px" }}>
+                      <strong>Kråkan tycker:</strong> {item.crowRating}
                     </Item.Meta>
                     <Item.Description
                       style={{ maxWidth: "70%", minWidth: "280px" }}

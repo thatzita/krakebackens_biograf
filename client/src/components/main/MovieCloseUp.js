@@ -104,7 +104,7 @@ class MovieCloseUp extends Component {
                   )
                 </h1>
                 <p>
-                  Premiär:{" "}
+                  Kråkans premiär:{" "}
                   {movieObject.screeningDate
                     ? movieObject.screeningDate
                     : "åååå-mm-dd"}
@@ -117,6 +117,12 @@ class MovieCloseUp extends Component {
                   {movieObject.genres
                     ? movieObject.genres.map(item => item + " ")
                     : "kärlek"}{" "}
+                </p>
+                <p>
+                  <strong>Kråkan Tycker: </strong>
+                  {movieObject.crowRating
+                    ? movieObject.crowRating
+                    : "Kråkan har inte tyckt till än..."}
                 </p>
                 <p>
                   {movieObject.description

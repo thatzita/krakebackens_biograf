@@ -51,7 +51,8 @@ const MonthlyMovieSchema = new Schema({
     type: String,
     required: true
   },
-  fullyBooked: Boolean
+  fullyBooked: Boolean,
+  crowRating: String
 });
 
 let MonMovie = mongoose.model("monthlyMovies", MonthlyMovieSchema);

@@ -31,9 +31,10 @@ export const getAllMoviesArchive = () => dispatch => {
 export const postMonmovie = data => dispatch => {
   // console.log('posting movie');
   // console.log(data);
-
+  console.log(data);
   axios
     .post("/api/monthlyMovies/uploadMoviePremiere", data)
+
     .then(res => {
       // console.log(res);
       dispatch({
