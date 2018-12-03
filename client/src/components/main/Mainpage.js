@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCurrentProfile } from "../../actions/profileActions";
 import { getAllMonMovies } from "../../actions/monMovieActions";
-// import { setCurrentCloseUpMovieId } from "../../actions/webPageStateActions";
+import { setCurrentCloseUpMovieId } from "../../actions/webPageStateActions";
 import { Segment } from "semantic-ui-react";
 import Footer from "../layout/Footer";
 import MonMovieDisplay from "./MonMovieDisplay";

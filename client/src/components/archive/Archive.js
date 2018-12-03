@@ -57,14 +57,18 @@ class Archive extends Component {
   bookedSeats(seats) {
     console.log(seats.length);
     let count = 0;
+
     if (seats.length === 1) {
-      seats.forEach(seat => {
-        if (seats.booked === true) {
+      console.log(seats);
+      seats[0].forEach(seat => {
+        if (seat.booked === true) {
           count++;
         }
       });
       return count;
-    } else {
+    }
+
+    if (seats.length > 1) {
       seats[0].forEach(seat => {
         if (seat.booked === true) {
           count++;
