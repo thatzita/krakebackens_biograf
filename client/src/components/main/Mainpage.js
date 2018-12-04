@@ -14,7 +14,12 @@ class Mainpage extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
     this.props.getAllMonMovies();
+
+    if (localStorage.adminPage) {
+      this.props.history.push("/adminhome");
+    }
   }
+
   render() {
     const { user } = this.props.auth;
     console.log(this.props);
