@@ -86,7 +86,7 @@ class UserArchive extends Component {
       let archiveItem = filteredArchive.map((archive, index) => {
         let count = 0;
         return (
-          <Item key={index}>
+          <Item key={archive._id}>
             <Item.Content>
               <Item.Header>
                 <Icon name="calendar" /> Arkiveringsdatum: &nbsp;
@@ -98,8 +98,8 @@ class UserArchive extends Component {
               </Item.Extra>
               <Item.Extra>
                 Topp 3: &nbsp;&nbsp;
-                {archive.seasonTopUsers.map(top => {
-                  return <Label>{top}</Label>;
+                {archive.seasonTopUsers.map((top, index) => {
+                  return <Label key={index}>{top}</Label>;
                 })}
               </Item.Extra>
             </Item.Content>

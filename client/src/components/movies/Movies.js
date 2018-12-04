@@ -202,7 +202,21 @@ class Movies extends Component {
           <hr />
           <br />
           <Admin />
-          <div className="searchContainer">
+          <Link to="/addmovie">
+            <Button
+              // style={{ marginTop: "-1rem" }}
+              color="green"
+              floated="right"
+            >
+              <Icon name="add" />
+              Lägg till nya filmer
+            </Button>
+          </Link>
+
+          <div
+            className="searchContainer"
+            style={{ marginTop: "5rem", marginBottom: "-4rem" }}
+          >
             <Input
               className="movieSearch"
               placeholder="Sök i databasen..."
@@ -210,13 +224,6 @@ class Movies extends Component {
               value={this.state.search}
               name="search"
             />
-
-            <Link to="/addmovie">
-              <Button color="green">
-                <Icon name="add" />
-                Lägg till i databasen
-              </Button>
-            </Link>
           </div>
           <Popup />
           <br />
