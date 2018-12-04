@@ -7,7 +7,8 @@ import {
   USER_POPUP_CLOSE,
   RESET_USER_STATS,
   // USER_STATS_TO_ARCHIVE
-  USER_ARCHIVE
+  USER_ARCHIVE,
+  UPDATE_USER
 } from "./types";
 
 export const getAllUsers = () => dispatch => {
@@ -92,5 +93,15 @@ export const saveUserStatsToArchive = archiveData => dispatch => {
     } else {
       console.log("Något gick fel när datan skulle sparas till arkivet.");
     }
+  });
+};
+
+export const updateUser = data => dispatch => {
+  axios.post("/api/users/updateuser", data).then(res => {
+    console.log(res.data);
+    dispatch({
+      type: UPDATE_USER,
+      payload: res.data
+    });
   });
 };

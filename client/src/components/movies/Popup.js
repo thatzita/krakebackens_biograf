@@ -130,7 +130,6 @@ class Popup extends Component {
         dvdOrBluRay: dvdOrBluRay
       };
     }
-    console.log(movieDb);
 
     this.props.updateDb(movieDb);
     this.setState({
@@ -170,10 +169,6 @@ class Popup extends Component {
     }
   }
 
-  // componentDidUpdate() {
-  //   console.log(this.state.dvdOrBluRay);
-  // }
-
   componentWillReceiveProps(nextProps) {
     this.setState({
       movieInfo: nextProps.movies.movieInfo,
@@ -201,9 +196,6 @@ class Popup extends Component {
   render() {
     let { showOrHide, movieInfo, open } = this.state;
     let moviePopup;
-    console.log(this.state);
-
-    // let radioBtnValue = this.state.movieInfo.dvdOrBluRay || "";
 
     if (showOrHide) {
       moviePopup = (

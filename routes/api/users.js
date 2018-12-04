@@ -107,6 +107,22 @@ router.post("/register", (req, res) => {
   });
 });
 
+//POST api/users/updateuser
+router.post("/updateuser", (req, res) => {
+  User.findOne({ email: req.body.email }).then(user => {
+    user.stats.total = req.body.total;
+    user.stats.season = req.body.season;
+
+    user.save(function(err) {
+      if (err) {
+        console.error("ERROR!");
+      } else {
+        res.json(user);
+      }
+    });
+  });
+});
+
 //POST api/users/login
 //Returnera JWT Token för att komma åt information
 

@@ -61,7 +61,6 @@ class Movies extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.setState({
       movies: nextProps.movies,
       movieInfo: nextProps.movieInfo,
@@ -73,7 +72,6 @@ class Movies extends Component {
   };
   handleConfirm = () => {
     this.deleteMovie(this.state.movie);
-    // console.log(this.state.movie);
     this.setState({ open: false });
   };
 
