@@ -7,13 +7,17 @@ import DrawGrid from "./SeatingGrid";
 import TicketDisplay from "./TicketDisplay";
 import { getCurrentProfile } from "../../actions/profileActions";
 import { getAllUsers } from "../../actions/usersActions";
-import { completeAndSaveBooking } from "../../actions/monMovieActions";
+import {
+  completeAndSaveBooking,
+  removePreviousMoveBookingInformation
+} from "../../actions/monMovieActions";
 
 class Seating extends Component {
   constructor(props) {
     super(props);
     this.state = {
       bookingObj: {},
+      amountOfSeatBookings: 0,
       rowList: [],
       reservedList: [],
       memberList: [],
@@ -25,17 +29,21 @@ class Seating extends Component {
     window.scrollTo(0, 0);
     this.props.getCurrentProfile();
     this.props.getAllUsers();
-    let { bookingObj } = this.props.location.state;
+    let { bookingObj, amountOfSeatBookings } = this.props.location.state;
+    console.log("bok ", amountOfSeatBookings);
 
     if (bookingObj) {
       this.setState({
         bookingObj,
+        amountOfSeatBookings: 4 - amountOfSeatBookings,
         rowList: bookingObj.seating
       });
     }
   }
 
   componentWillReceiveProps(nextProps) {
+    // console.log("seating props: ", nextProps);
+
     if (nextProps.profile.profile) {
       let firstMemberObj = {
         username: nextProps.profile.profile.username || "",
@@ -52,6 +60,19 @@ class Seating extends Component {
         memberList: value
       });
     }
+
+    if (nextProps.bookingResult) {
+      let bookingResult = nextProps.bookingResult;
+      if (bookingResult.success) {
+        this.props.history.push("/mainpage");
+        this.props.removePreviousMoveBookingInformation();
+      } else {
+        console.log(bookingResult.msg);
+        this.props.removePreviousMoveBookingInformation();
+
+        this.setState({ reservedList: [] });
+      }
+    }
   }
 
   completeBooking = () => {
@@ -60,7 +81,7 @@ class Seating extends Component {
       seatResarvation: this.state.reservedList
     };
 
-    console.log("sending: ", bookingBody);
+    // console.log("sending: ", bookingBody);
     this.props.completeAndSaveBooking(bookingBody);
   };
 
@@ -85,7 +106,7 @@ class Seating extends Component {
           reservedList: updateReservedList
         });
       } else {
-        console.log("du kan inte välja fler medemar ");
+        console.log("du kan inte välja fler medlemmar ");
       }
     }
   };
@@ -110,8 +131,9 @@ class Seating extends Component {
       });
       this.setState({ reservedList: newList });
     } else {
-      if (this.state.reservedList.length < 4) {
+      if (this.state.reservedList.length < this.state.amountOfSeatBookings) {
         let newObj = this.shallowObjectCopy(obj);
+        newObj.responsible = this.state.memberList[0];
         newObj.booked = true;
         newObj.customer = this.state.memberList[
           this.state.reservedList.length
@@ -131,8 +153,8 @@ class Seating extends Component {
 
   render() {
     console.log("reserved: ", this.state.reservedList);
-    console.log("rowList: ", this.state.rowList);
-    console.log(this.state.bookingObj);
+    // console.log("rowList: ", this.state.rowList);
+    // console.log(this.state.bookingObj);
 
     // console.log(this.state.profile);
     // let profile = this.props.profile.profile;
@@ -195,7 +217,8 @@ class Seating extends Component {
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  users: state.users
+  users: state.users,
+  bookingResult: state.monMovies.bookingResult
 });
 
 export default connect(
@@ -203,7 +226,8 @@ export default connect(
   {
     getCurrentProfile,
     getAllUsers,
-    completeAndSaveBooking
+    completeAndSaveBooking,
+    removePreviousMoveBookingInformation
     //func goes here
   }
 )(Seating);

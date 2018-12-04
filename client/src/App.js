@@ -77,7 +77,7 @@ class App extends Component {
               {/* <Route exact path="/register" component={Register} /> */}
               {/* <Route exact path="/addmovie" component={AddMovie} /> */}
               <Switch>
-                <Route exact path="/seating" component={Seating} />
+                <PrivateRoute exact path="/seating" component={Seating} />
                 <AdminRoute exact path="/moviearchive" component={Archive} />
 
                 <AdminRoute exact path="/adminhome" component={AdminHome} />

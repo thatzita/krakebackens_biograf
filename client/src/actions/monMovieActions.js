@@ -5,7 +5,8 @@ import {
   DELETE_MONMOVIE,
   UPDATE_MONMOVIE,
   COMPLETE_BOOKING,
-  GET_ARCHIVED_MOVIES
+  GET_ARCHIVED_MOVIES,
+  END_BOOKING_ON_SUCCESS
 } from "./types";
 
 import axios from "axios";
@@ -105,7 +106,22 @@ export const completeAndSaveBooking = bookingObj => dispatch => {
   axios
     .post("/api/monthlyMovies/completeAndSaveBooking", bookingObj)
     .then(res => {
-      console.log("resonse form booking", res);
+      console.log("response form booking", res);
+      if (res) {
+        dispatch({
+          type: COMPLETE_BOOKING,
+          payload: res.data
+        });
+      } else {
+        console.log("något gick fel med response för bokning");
+      }
     })
     .catch(err => console.log(err));
+};
+
+export const removePreviousMoveBookingInformation = () => dispatch => {
+  dispatch({
+    type: END_BOOKING_ON_SUCCESS,
+    payload: undefined
+  });
 };

@@ -5,7 +5,8 @@ import {
   DELETE_MONMOVIE,
   UPDATE_MONMOVIE,
   COMPLETE_BOOKING,
-  GET_ARCHIVED_MOVIES
+  GET_ARCHIVED_MOVIES,
+  END_BOOKING_ON_SUCCESS
 } from "../actions/types";
 
 const initialState = {};
@@ -42,7 +43,15 @@ export default function(state = initialState, action) {
         movieCloseUp: action.payload
       };
     case COMPLETE_BOOKING:
-      console.log("payload ", action.payload);
+      return {
+        ...state,
+        bookingResult: action.payload
+      };
+    case END_BOOKING_ON_SUCCESS:
+      return {
+        ...state,
+        bookingResult: action.payload
+      };
 
     default:
       return state;

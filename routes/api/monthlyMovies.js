@@ -30,37 +30,251 @@ router.post("/uploadMoviePremiere", (req, res) => {
     } else {
       const salong_1 = [
         [
-          { seat: "r1s1", row: 1, booked: false, customer: "", vip: false },
-          { seat: "r1s2", row: 1, booked: false, customer: "", vip: false },
-          { seat: "r1s3", row: 1, booked: false, customer: "", vip: false },
-          { seat: "r1s4", row: 1, booked: false, customer: "", vip: false },
-          { seat: "r1s5", row: 1, booked: false, customer: "", vip: false }
+          {
+            seat: "extra_1",
+            row: 1,
+            seatNr: "1.1",
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r1s4",
+            seatNr: "4",
+            row: 1,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r1s3",
+            seatNr: "3",
+            row: 1,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r1s2",
+            seatNr: "2",
+            row: 1,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r1s1",
+            seatNr: "1",
+            row: 1,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "extra_2",
+            seatNr: "1.2",
+            row: 2,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "extra_3",
+            seatNr: "1.3",
+            row: 3,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          }
         ],
         [
-          { seat: "r2s1", row: 2, booked: false, customer: "", vip: false },
-          { seat: "r2s2", row: 2, booked: true, customer: "", vip: false },
-          { seat: "r2s3", row: 2, booked: true, customer: "", vip: false },
-          { seat: "r2s4", row: 2, booked: true, customer: "", vip: false },
-          { seat: "r2s5", row: 2, booked: true, customer: "", vip: false },
-          { seat: "r2s6", row: 2, booked: true, customer: "", vip: false }
+          {
+            seat: "r2s5",
+            seatNr: "5",
+            row: 2,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r2s4",
+            seatNr: "4",
+            row: 2,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r2s3",
+            seatNr: "3",
+            row: 2,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r2s2",
+            seatNr: "2",
+            row: 2,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r2s1",
+            seatNr: "1",
+            row: 2,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          }
         ],
         [
-          { seat: "r3s1", row: 3, booked: false, customer: "", vip: false },
-          { seat: "r3s2", row: 3, booked: true, customer: "", vip: false },
-          { seat: "r3s3", row: 3, booked: true, customer: "", vip: false },
-          { seat: "r3s4", row: 3, booked: true, customer: "", vip: false },
-          { seat: "r3s5", row: 3, booked: true, customer: "", vip: false },
-          { seat: "r3s6", row: 3, booked: true, customer: "", vip: false },
-          { seat: "r3s7", row: 3, booked: true, customer: "", vip: false }
+          {
+            seat: "r3s6",
+            seatNr: "6",
+            row: 3,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r3s5",
+            seatNr: "5",
+            row: 3,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r3s4",
+            seatNr: "4",
+            row: 3,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r3s3",
+            seatNr: "3",
+            row: 3,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r3s2",
+            seatNr: "2",
+            row: 3,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r3s1",
+            seatNr: "1",
+            row: 3,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          }
         ]
       ];
 
       const salong_2 = [
         [
-          { seat: "r1s1", row: 1, booked: false, customer: "", vip: false },
-          { seat: "r1s2", row: 1, booked: false, customer: "", vip: false },
-          { seat: "r1s3", row: 1, booked: false, customer: "", vip: false },
-          { seat: "r1s4", row: 1, booked: false, customer: "", vip: false }
+          {
+            seat: "extra_4",
+            seatNr: "4",
+            row: 1,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "extra_3",
+            seatNr: "3",
+            row: 1,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "extra_2",
+            seatNr: "2",
+            row: 1,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "extra_1",
+            seatNr: "1",
+            row: 1,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          }
+        ],
+        [
+          {
+            seat: "r1s4",
+            seatNr: "4",
+            row: 1,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r1s3",
+            seatNr: "3",
+            row: 1,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r1s2",
+            seatNr: "2",
+            row: 1,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          },
+          {
+            seat: "r1s1",
+            seatNr: "1",
+            row: 1,
+            booked: false,
+            customer: "",
+            responsible: "",
+            vip: false
+          }
         ]
       ];
       let saloon;
@@ -177,25 +391,28 @@ router.post("/completeAndSaveBooking", (req, res) => {
 
   MonMovie.findOne({ _id: req.body.movieId }).then(movie => {
     if (movie) {
-      // console.log("yes found movie: ", movie);
-      // res.json({ msg: "success" });
       let seatResarvation = req.body.seatResarvation;
-      // console.log(seatResarvation);
+      let allSeatsAreAvailable = true;
 
       let newSeating = movie.seating.map(array => {
-        // let i = 0;
         let newRow = array.map(x => {
-          // console.log(seatResarvation.includes(x.seat));
           let found = false;
           let reservation = {};
           for (let index = 0; index < seatResarvation.length; index++) {
+            console.log(x.booked);
+
             if (seatResarvation[index].seat === x.seat) {
               found = true;
-              reservation = seatResarvation[index];
-              break;
+              if (x.booked === false) {
+                reservation = seatResarvation[index];
+                break;
+              } else {
+                allSeatsAreAvailable = false;
+                break;
+              }
             }
           }
-          // console.log(found);
+
           if (found) {
             return reservation;
           } else {
@@ -205,15 +422,23 @@ router.post("/completeAndSaveBooking", (req, res) => {
 
         return newRow;
       });
-
-      // console.log("newSeating ", newSeating);
-      movie.seating = newSeating;
-      let newMovie = movie;
-      newMovie
-        .save()
-        .then(updatedMonMovie => res.json({ updatedMonMovie }))
-        .catch(err => console.log(err));
-      // console.log(movie);
+      if (allSeatsAreAvailable) {
+        movie.seating = newSeating;
+        let newMovie = movie;
+        newMovie
+          .save()
+          .then(movie =>
+            res.json({ movie, success: true, msg: "Tack för din bokning" })
+          )
+          .catch(err => console.log(err));
+      } else {
+        res.json({
+          movie,
+          success: false,
+          msg:
+            "Någon var tyvärr snabbare och bokade platserna före dig, vänligen försök igen "
+        });
+      }
     } else {
       return res
         .status(404)

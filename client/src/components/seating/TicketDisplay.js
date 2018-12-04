@@ -133,12 +133,7 @@ export default function TicketDisplay(props) {
         >
           Gå tillbaka{" "}
         </Button>
-        <Button
-          as={Link}
-          to="/mainpage"
-          color="violet"
-          onClick={() => props.completeBooking()}
-        >
+        <Button color="violet" onClick={() => props.completeBooking()}>
           Slutför bokning
         </Button>
       </div>
