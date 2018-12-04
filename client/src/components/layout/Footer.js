@@ -49,7 +49,7 @@ class Footer extends Component {
               </Link>
 
               <div className="copyright">
-                <li>
+                <li style={{ listStyle: "none" }}>
                   Kråkebackens Biograf Copyright &copy;{" "}
                   {new Date().getFullYear()}
                 </li>
