@@ -53,6 +53,7 @@ class Movies extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     this.setState({
       movies: nextProps.movies,
       movieInfo: nextProps.movieInfo,
@@ -117,9 +118,7 @@ class Movies extends Component {
                   - {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min
                 </em>{" "}
               </Item.Header>
-              {/* <Item.Meta>
-                <span className="boldSpan"> {movie.release}</span>
-              </Item.Meta> */}
+
               <Item.Extra>
                 {movie.genres.map((genre, i) => {
                   return (
@@ -129,11 +128,6 @@ class Movies extends Component {
                   );
                 })}
               </Item.Extra>
-
-              {/* <Item.Meta>
-                <Icon name="time" color="black" />
-                <span className="cinema boldSpan">{movie.runtime} min</span>
-              </Item.Meta> */}
 
               <Button.Group className="addMovieBtnGroup">
                 <Button
