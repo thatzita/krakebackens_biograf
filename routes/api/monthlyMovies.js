@@ -36,7 +36,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             seatNr: "1.1",
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -45,7 +45,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 1,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -54,7 +54,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 1,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -63,7 +63,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 1,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -72,7 +72,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 1,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -81,7 +81,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 2,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -90,7 +90,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 3,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           }
         ],
@@ -101,7 +101,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 2,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -110,7 +110,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 2,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -119,7 +119,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 2,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -128,7 +128,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 2,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -137,7 +137,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 2,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           }
         ],
@@ -148,7 +148,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 3,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -157,7 +157,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 3,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -166,7 +166,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 3,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -175,7 +175,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 3,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -184,7 +184,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 3,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -193,7 +193,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 3,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           }
         ]
@@ -207,7 +207,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 1,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -216,7 +216,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 1,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -225,7 +225,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 1,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -234,7 +234,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 1,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           }
         ],
@@ -245,7 +245,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 1,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -254,7 +254,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 1,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -263,7 +263,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 1,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           },
           {
@@ -272,7 +272,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             row: 1,
             booked: false,
             customer: "",
-            responsible: "",
+            responsible: { id: "" },
             vip: false
           }
         ]

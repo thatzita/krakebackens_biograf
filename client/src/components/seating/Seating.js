@@ -18,6 +18,7 @@ class Seating extends Component {
     this.state = {
       bookingObj: {},
       amountOfSeatBookings: 0,
+      existingBookings: [],
       rowList: [],
       reservedList: [],
       memberList: [],
@@ -29,30 +30,45 @@ class Seating extends Component {
     window.scrollTo(0, 0);
     this.props.getCurrentProfile();
     this.props.getAllUsers();
-    let { bookingObj, amountOfSeatBookings } = this.props.location.state;
+    let {
+      bookingObj,
+      amountOfSeatBookings,
+      existingBookings
+    } = this.props.location.state;
     console.log("bok ", amountOfSeatBookings);
+    let sortExistingBookings = existingBookings.sort((x, y) => {
+      if (x.customer.status > y.customer.status) {
+        return -1;
+      }
+      if (x.customer.status < y.customer.status) {
+        return 1;
+      }
+      return 0;
+    });
 
     if (bookingObj) {
       this.setState({
         bookingObj,
         amountOfSeatBookings: 4 - amountOfSeatBookings,
+        existingBookings: sortExistingBookings.reverse(),
         rowList: bookingObj.seating
       });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log("seating props: ", nextProps);
-
     if (nextProps.profile.profile) {
       let firstMemberObj = {
         username: nextProps.profile.profile.username || "",
         id: nextProps.profile.profile.id || "",
-        email: nextProps.profile.profile.email || ""
+        email: nextProps.profile.profile.email || "",
+        status: 1
       };
-
+      let { existingBookings } = this.props.location.state;
       let value = this.state.memberList.some(x => x.id === firstMemberObj.id)
         ? this.state.memberList
+        : existingBookings.length > 0
+        ? []
         : [...this.state.memberList, firstMemberObj];
 
       this.setState({
@@ -93,12 +109,16 @@ class Seating extends Component {
         let memberObj = {
           username: username,
           id: id,
-          email: email
+          email: email,
+          status: 2
         };
         let newMemberList = [...this.state.memberList, memberObj];
         let updateReservedList = this.state.reservedList;
         updateReservedList.map((x, index) => {
-          x.customer = newMemberList[index] || { username: "Gäst" };
+          x.customer = newMemberList[index] || {
+            username: "Gäst",
+            status: 3
+          };
         });
 
         this.setState({
@@ -115,7 +135,10 @@ class Seating extends Component {
     let newMemberList = this.state.memberList.filter(x => x.id !== id);
     let updateReservedList = this.state.reservedList;
     updateReservedList.map((x, index) => {
-      x.customer = newMemberList[index] || { username: "Gäst" };
+      x.customer = newMemberList[index] || {
+        username: "Gäst",
+        status: 3
+      };
     });
     this.setState({
       memberList: newMemberList,
@@ -127,17 +150,27 @@ class Seating extends Component {
     if (this.state.reservedList.some(x => x.seat === obj.seat)) {
       let newList = this.state.reservedList.filter(x => x.seat !== obj.seat);
       newList.map((x, index) => {
-        x.customer = this.state.memberList[index] || { username: "Gäst" };
+        x.customer = this.state.memberList[index] || {
+          username: "Gäst",
+          status: 3
+        };
       });
       this.setState({ reservedList: newList });
     } else {
       if (this.state.reservedList.length < this.state.amountOfSeatBookings) {
         let newObj = this.shallowObjectCopy(obj);
-        newObj.responsible = this.state.memberList[0];
+        newObj.responsible = {
+          username: this.state.profile.username,
+          id: this.state.profile.id,
+          email: this.state.profile.email
+        };
         newObj.booked = true;
         newObj.customer = this.state.memberList[
           this.state.reservedList.length
-        ] || { username: "Gäst" };
+        ] || {
+          username: "Gäst",
+          status: 3
+        };
         this.setState({ reservedList: [...this.state.reservedList, newObj] });
         // console.log(this.state.rowList);
       } else {
@@ -198,6 +231,7 @@ class Seating extends Component {
             />
           </div>
           <TicketDisplay
+            existingBookings={this.state.existingBookings}
             completeBooking={this.completeBooking}
             movieId={this.state.bookingObj._id}
             removeMemberFromBooking={this.removeMemberFromBooking}

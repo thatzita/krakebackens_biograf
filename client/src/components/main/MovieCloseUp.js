@@ -27,7 +27,8 @@ class MovieCloseUp extends Component {
     this.state = {
       activeItem: "",
       movieCloseUp: {},
-      amountOfSeatBookings: 4
+      amountOfSeatBookings: 4,
+      existingBookings: []
     };
   }
 
@@ -40,15 +41,21 @@ class MovieCloseUp extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.profile.profile);
+    // console.log("prof ", nextProps.profile.profile);
+    // console.log();
 
     if (nextProps.movieCloseUp && nextProps.profile.profile) {
       let checkSeatBookings = nextProps.movieCloseUp.seating;
+      console.log("seats ", checkSeatBookings);
+
       let howManySeatsAreBooked = [];
       checkSeatBookings.map(array => {
         array.map(x => {
-          if (x.responsible.id === nextProps.profile.profile.id) {
-            howManySeatsAreBooked.push(x);
+          // console.log("res ", x.responsible);
+          if (x.responsible.hasOwnProperty("id")) {
+            if (x.responsible.id === nextProps.profile.profile.id) {
+              howManySeatsAreBooked.push(x);
+            }
           }
         });
       });
@@ -56,7 +63,8 @@ class MovieCloseUp extends Component {
 
       this.setState({
         movieCloseUp: nextProps.movieCloseUp,
-        amountOfSeatBookings: howManySeatsAreBooked.length
+        amountOfSeatBookings: howManySeatsAreBooked.length,
+        existingBookings: howManySeatsAreBooked
       });
     }
   }
@@ -200,7 +208,8 @@ class MovieCloseUp extends Component {
                           state: {
                             bookingObj: movieObject,
                             amountOfSeatBookings: this.state
-                              .amountOfSeatBookings
+                              .amountOfSeatBookings,
+                            existingBookings: this.state.existingBookings
                           }
                         }}
                         color="violet"
