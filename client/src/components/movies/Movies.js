@@ -5,7 +5,15 @@ import Popup from "./Popup";
 import { Link } from "react-router-dom";
 import Admin from "../admin/Admin";
 
-import { Button, Input, Icon, Item, Segment, Confirm } from "semantic-ui-react";
+import {
+  Button,
+  Input,
+  Icon,
+  Item,
+  Segment,
+  Confirm,
+  Label
+} from "semantic-ui-react";
 
 import {
   getAllMovies,
@@ -128,7 +136,9 @@ class Movies extends Component {
                   );
                 })}
               </Item.Extra>
-
+              <br />
+              {movie.dvdOrBluRay === "dvd" ? <Label>DVD</Label> : ""}
+              {movie.dvdOrBluRay === "bluRay" ? <Label>Blu-ray</Label> : ""}
               <Button.Group className="addMovieBtnGroup">
                 <Button
                   basic
