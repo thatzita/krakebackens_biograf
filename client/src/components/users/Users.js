@@ -181,7 +181,16 @@ class Users extends Component {
           <hr />
           <br />
           <Admin />
-          <div className="searchContainer">
+          <Link to="/register">
+            <Button color="green" floated="right">
+              <Icon name="add" />
+              Lägg till ny medlem
+            </Button>
+          </Link>
+          <div
+            className="searchContainer"
+            style={{ marginTop: "5rem", marginBottom: "-1.5rem" }}
+          >
             <Input
               placeholder="Sök efter medlem..."
               onChange={this.onChange}
@@ -189,15 +198,8 @@ class Users extends Component {
               name="search"
               className="userSearch"
             />
-            <Link to="/register">
-              <Button color="green">
-                <Icon name="add" />
-                Lägg till ny medlem
-              </Button>
-            </Link>
           </div>
           <UserPopup />
-          <br />
           <br />
           <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
             {userContent}

@@ -27,14 +27,19 @@ class UserPopup extends Component {
       userInfo: {},
 
       total: null,
-      season: null
-
+      season: null,
+      status: null
       //   description: ""
     };
     this.editValues = this.editValues.bind(this);
   }
 
+  handleClick = () => this.setState({ status: !this.state.status });
+
   closePopup() {
+    this.setState({
+      status: null
+    });
     this.props.userPopupClose();
   }
 
@@ -44,12 +49,13 @@ class UserPopup extends Component {
   }
 
   updateUserDb() {
-    let { userInfo, total, season } = this.state;
+    let { userInfo, total, season, status } = this.state;
     let userDb;
     userDb = {
       total: total,
       season: season,
-      email: userInfo.email
+      email: userInfo.email,
+      status: status
     };
     this.props.updateUser(userDb);
 
@@ -83,14 +89,16 @@ class UserPopup extends Component {
         userInfo: nextProps.users.userInfo,
         showOrHide: nextProps.users.showOrHide,
         total: nextProps.users.userInfo.stats.total,
-        season: nextProps.users.userInfo.stats.season
+        season: nextProps.users.userInfo.stats.season,
+        status: nextProps.users.userInfo.vip.status
       });
     } else {
       this.setState({
         userInfo: nextProps.users.userInfo,
         showOrHide: nextProps.users.showOrHide,
         total: null,
-        season: null
+        season: null,
+        status: null
       });
     }
   }
@@ -125,7 +133,7 @@ class UserPopup extends Component {
   }
 
   render() {
-    let { showOrHide, userInfo, total, season } = this.state;
+    let { showOrHide, userInfo, total, season, status } = this.state;
     let userPopup;
     let vipInfo;
 
@@ -158,7 +166,6 @@ class UserPopup extends Component {
                 </h2>
                 <h4 className="whiteText">Antal besök i år:</h4>
                 <Button
-                  compact
                   size="mini"
                   value="sMinus"
                   onClick={e => this.changeStats(e)}
@@ -172,7 +179,6 @@ class UserPopup extends Component {
                   {season}
                 </span>
                 <Button
-                  compact
                   size="mini"
                   value="sPlus"
                   onClick={e => this.changeStats(e)}
@@ -181,7 +187,6 @@ class UserPopup extends Component {
                 </Button>
                 <h4 className="whiteText">Antal besök totalt:</h4>
                 <Button
-                  compact
                   size="mini"
                   value="tMinus"
                   onClick={e => this.changeStats(e)}
@@ -195,7 +200,6 @@ class UserPopup extends Component {
                   {total}
                 </span>
                 <Button
-                  compact
                   size="mini"
                   value="tPlus"
                   onClick={e => this.changeStats(e)}
@@ -208,7 +212,16 @@ class UserPopup extends Component {
                 <h2 className="whiteText">
                   <Icon name="star" />
                   VIP status:
+                  <Button
+                    floated="right"
+                    toggle
+                    active={status}
+                    onClick={this.handleClick}
+                  >
+                    VIP
+                  </Button>
                 </h2>
+
                 <p>{userInfo.vip.status ? "VIP-medlem" : "Medlem"}</p>
                 <p>
                   {userInfo.vip.status ? `VIP-plats: ${userInfo.vip.seat}` : ""}

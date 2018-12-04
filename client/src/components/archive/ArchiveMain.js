@@ -49,12 +49,16 @@ class ArchiveMain extends Component {
           <hr />
           <br />
           <div className="searchContainer" />
-          <Button onClick={e => this.handleClick(e)} name="movieArchive">
-            Filmer
-          </Button>
-          <Button onClick={e => this.handleClick(e)} name="userArchive">
-            Användare
-          </Button>
+          <Button.Group attached="bottom" style={{ left: "-2.5rem" }}>
+            <Button onClick={e => this.handleClick(e)} name="movieArchive">
+              <Icon name="film" />
+              Filmer
+            </Button>
+            <Button onClick={e => this.handleClick(e)} name="userArchive">
+              <Icon name="users" />
+              Användare
+            </Button>
+          </Button.Group>
           <Admin />
           {this.state.movieArchive ? <MovieArchive /> : ""}
           {this.state.userArchive ? <UserArchive /> : ""}

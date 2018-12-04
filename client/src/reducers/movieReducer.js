@@ -82,7 +82,6 @@ function removeMovie(deleteData, movieArray) {
 
 function updateMovie(updateData, movieArray) {
   let newState = movieArray;
-  console.log(updateData);
   for (let i = 0; i < newState.length; i++) {
     if (updateData.id === newState[i]._id) {
       newState[i].title = updateData.title;

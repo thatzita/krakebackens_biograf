@@ -112,6 +112,7 @@ router.post("/updateuser", (req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
     user.stats.total = req.body.total;
     user.stats.season = req.body.season;
+    user.vip.status = req.body.status;
 
     user.save(function(err) {
       if (err) {

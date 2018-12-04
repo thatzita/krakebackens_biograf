@@ -60,7 +60,6 @@ class UserArchive extends Component {
     let userContent;
 
     if (userArchive !== null || undefined) {
-      console.log(userArchive);
       if (this.props.users.userArchive.length > showMore) {
         showMoreContentButton = (
           <Button
@@ -106,7 +105,7 @@ class UserArchive extends Component {
           </Item>
         );
       });
-
+      archiveItem.reverse();
       userContent = (
         <div>
           <br />
