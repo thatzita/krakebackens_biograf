@@ -252,6 +252,15 @@ class DbPopup extends Component {
                     checked={this.state.dvdOrBluRay === "dvd"}
                     onChange={this.handleChange}
                   />
+                  <Checkbox
+                    style={{ marginLeft: "1rem" }}
+                    radio
+                    label="USB"
+                    name="checkboxRadioGroup"
+                    value="usb"
+                    checked={this.state.dvdOrBluRay === "usb"}
+                    onChange={this.handleChange}
+                  />
                 </Form.Field>
               </Form>
               <br />

@@ -139,6 +139,7 @@ class Movies extends Component {
               <br />
               {movie.dvdOrBluRay === "dvd" ? <Label>DVD</Label> : ""}
               {movie.dvdOrBluRay === "bluRay" ? <Label>Blu-ray</Label> : ""}
+              {movie.dvdOrBluRay === "usb" ? <Label>USB</Label> : ""}
               <Button.Group className="addMovieBtnGroup">
                 <Button
                   basic
