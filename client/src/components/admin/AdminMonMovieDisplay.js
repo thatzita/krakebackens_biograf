@@ -105,45 +105,6 @@ export default class AdminMonMovieDisplay extends Component {
               </div>
             </List.Item>
           );
-        } else if (i === sortedMovieProps.length - 1) {
-          return (
-            <List.Item className="smallOne" key={i}>
-              <Link to="/monMovieList">
-                <div
-                  style={{
-                    position: "relative",
-                    height: "225px",
-                    width: "150px",
-                    marginLeft: "2rem"
-                  }}
-                  className="smallPicture"
-                >
-                  <div
-                    style={{
-                      color: "white"
-                    }}
-                  >
-                    <Icon
-                      name="star"
-                      style={{ marginTop: "4rem", marginLeft: "2.9rem" }}
-                      size="huge"
-                    />
-                  </div>
-                  <h4
-                    style={{
-                      color: "white",
-                      textAlign: "center",
-                      fontWeight: "100",
-                      position: "relative",
-                      top: "-1rem"
-                    }}
-                  >
-                    Månadens filmer
-                  </h4>
-                </div>
-              </Link>
-            </List.Item>
-          );
         } else {
           return (
             <List.Item
@@ -181,7 +142,45 @@ export default class AdminMonMovieDisplay extends Component {
     }
     return (
       <div className="makeItFloat">
-        <List horizontal>{adminContent}</List>
+        <List horizontal>
+          {adminContent}
+          <List.Item className="smallOne" key={Math.random()}>
+            <Link to="/monMovieList">
+              <div
+                style={{
+                  position: "relative",
+                  height: "225px",
+                  width: "150px",
+                  marginLeft: "2rem"
+                }}
+                className="smallPicture"
+              >
+                <div
+                  style={{
+                    color: "white"
+                  }}
+                >
+                  <Icon
+                    name="star"
+                    style={{ marginTop: "4rem", marginLeft: "2.9rem" }}
+                    size="huge"
+                  />
+                </div>
+                <h4
+                  style={{
+                    color: "white",
+                    textAlign: "center",
+                    fontWeight: "100",
+                    position: "relative",
+                    top: "-1rem"
+                  }}
+                >
+                  Månadens filmer
+                </h4>
+              </div>
+            </Link>
+          </List.Item>
+        </List>
       </div>
     );
   }
