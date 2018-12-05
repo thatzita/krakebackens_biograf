@@ -40,9 +40,10 @@
   color: white;
   display: inline-block;
   margin: 0 4rem;
-  margin-top: 0rem;
+  margin-top: 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
+  margin-bottom: 1rem;
 }
 
 .purpleBox > p {

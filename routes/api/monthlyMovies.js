@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const saloonCollection = require("../../seatingStructure/saloonCollection");
+// const salong_2 = require("../../seatingStructure/saloonCollection");
 
 const { MonMovie, MonMovieArchive } = require("../../models/MonthlyMovie");
+const User = require("../../models/User");
 
 //@route    Get api/monthlyMovies/test
 //@desc     Test monthlyMovies route
@@ -22,293 +25,75 @@ router.get("/moviearchive", (req, res) => {
 //@desc     Post a movie premiere to monthlyMovies
 //@access   private
 router.post("/uploadMoviePremiere", (req, res) => {
+  // console.log(req.body);
   MonMovie.findOne({
     $or: [{ title: req.body.mov.title }, { utc_time: req.body.utc_time }]
-  }).then(movie => {
-    if (movie) {
-      return res.status(400).json({ title: "This movie allready is up" });
-    } else {
-      const salong_1 = [
-        [
-          {
-            seat: "extra_1",
-            row: 1,
-            seatNr: "1.1",
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r1s4",
-            seatNr: "4",
-            row: 1,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r1s3",
-            seatNr: "3",
-            row: 1,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r1s2",
-            seatNr: "2",
-            row: 1,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r1s1",
-            seatNr: "1",
-            row: 1,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "extra_2",
-            seatNr: "1.2",
-            row: 2,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "extra_3",
-            seatNr: "1.3",
-            row: 3,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          }
-        ],
-        [
-          {
-            seat: "r2s5",
-            seatNr: "5",
-            row: 2,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r2s4",
-            seatNr: "4",
-            row: 2,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r2s3",
-            seatNr: "3",
-            row: 2,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r2s2",
-            seatNr: "2",
-            row: 2,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r2s1",
-            seatNr: "1",
-            row: 2,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          }
-        ],
-        [
-          {
-            seat: "r3s6",
-            seatNr: "6",
-            row: 3,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r3s5",
-            seatNr: "5",
-            row: 3,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r3s4",
-            seatNr: "4",
-            row: 3,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r3s3",
-            seatNr: "3",
-            row: 3,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r3s2",
-            seatNr: "2",
-            row: 3,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r3s1",
-            seatNr: "1",
-            row: 3,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          }
-        ]
-      ];
-
-      const salong_2 = [
-        [
-          {
-            seat: "extra_4",
-            seatNr: "4",
-            row: 1,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "extra_3",
-            seatNr: "3",
-            row: 1,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "extra_2",
-            seatNr: "2",
-            row: 1,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "extra_1",
-            seatNr: "1",
-            row: 1,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          }
-        ],
-        [
-          {
-            seat: "r1s4",
-            seatNr: "4",
-            row: 1,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r1s3",
-            seatNr: "3",
-            row: 1,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r1s2",
-            seatNr: "2",
-            row: 1,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          },
-          {
-            seat: "r1s1",
-            seatNr: "1",
-            row: 1,
-            booked: false,
-            customer: "",
-            responsible: "",
-            vip: false
-          }
-        ]
-      ];
-      let saloon;
-      if (req.body.saloon === "1") {
-        saloon = salong_1;
+  })
+    .then(movie => {
+      if (movie) {
+        return res.status(400).json({ title: "This movie allready is up" });
       } else {
-        saloon = salong_2;
+        User.find({ "vip.status": "true" })
+          .then(users => {
+            const salong_1 = saloonCollection.salong_1;
+            const salong_2 = saloonCollection.salong_2;
+            let saloon;
+            if (req.body.saloon === "1") {
+              saloon = salong_1;
+            } else {
+              saloon = salong_2;
+            }
+
+            if (users && req.body.saloon === "1") {
+              saloon.map(array => {
+                array.map(x => {
+                  let found = false;
+
+                  for (let i = 0; i < users.length; i++) {
+                    if (x.seat === users[i].vip.seat) {
+                      found = true;
+                      break;
+                    }
+                  }
+                  if (found) {
+                    x.vip = true;
+                  } else {
+                    x.vip = false;
+                  }
+                });
+              });
+            }
+
+            const newMonMovie = new MonMovie({
+              title: req.body.mov.title,
+              description: req.body.mov.description,
+              background: req.body.mov.background,
+              poster: req.body.mov.poster,
+              runtime: req.body.mov.runtime,
+              genres: req.body.mov.genres,
+              imdb_id: req.body.mov.imdb_id,
+              release: req.body.mov.release,
+
+              screeningDate: req.body.date,
+              screeningTime: req.body.time,
+              utc_time: req.body.utc_time,
+              cancel_utc_time: req.body.cancel_utc_time,
+              reminder_utc_time: req.body.reminder_utc_time,
+              screeningStatus: "active",
+              seating: saloon,
+              saloon: req.body.saloon,
+              fullyBooked: false
+            });
+
+            newMonMovie
+              .save()
+              .then(monMovie => res.json(monMovie))
+              .catch(err => console.log(err));
+          })
+          .catch(err => console.log(err));
       }
-
-      const newMonMovie = new MonMovie({
-        title: req.body.mov.title,
-        description: req.body.mov.description,
-        background: req.body.mov.background,
-        poster: req.body.mov.poster,
-        runtime: req.body.mov.runtime,
-        genres: req.body.mov.genres,
-        imdb_id: req.body.mov.imdb_id,
-        release: req.body.mov.release,
-
-        screeningDate: req.body.date,
-        screeningTime: req.body.time,
-        utc_time: req.body.utc_time,
-        screeningStatus: "active",
-        seating: saloon,
-        saloon: req.body.saloon,
-        fullyBooked: false
-      });
-
-      newMonMovie
-        .save()
-        .then(monMovie => res.json(monMovie))
-        .catch(err => console.log(err));
-    }
-  });
+    })
+    .catch(err => console.log(err));
 });
 
 //@route    Get api/monthlyMovies/updateMonthlyMovie
@@ -352,6 +137,7 @@ router.delete("/deleteMonthlyMovie", (req, res) => {
 router.get("/getAllMonthlyMovies", (req, res) => {
   MonMovie.find({})
     .then(monMovies => {
+      // console.log(monMovies);
       res.json({ monMovies });
     })
     .catch(err => console.log(err));
@@ -362,13 +148,13 @@ router.get("/getAllMonthlyMovies", (req, res) => {
 //@access   private
 
 router.get("/singlemovie/", (req, res) => {
-  console.log(req.query.id);
+  // console.log(req.query.id);
   let id = req.query.id;
 
   MonMovie.findOne({ _id: id })
     .then(movie => {
-      console.log("found movie item");
-      console.log("movieItem ", movie);
+      // console.log("found movie item");
+      // console.log("movieItem ", movie);
       if (movie) {
         res.json({ movie });
       } else {

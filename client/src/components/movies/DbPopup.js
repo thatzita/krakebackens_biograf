@@ -8,7 +8,9 @@ import {
   Container,
   Divider,
   Image,
-  Icon
+  Icon,
+  Form,
+  Checkbox
 } from "semantic-ui-react";
 
 class DbPopup extends Component {
@@ -18,10 +20,13 @@ class DbPopup extends Component {
       showOrHideImdb: false,
       movieInfo: {},
       title: "",
-      description: ""
+      description: "",
+      dvdOrBluRay: null
     };
     this.editValues = this.editValues.bind(this);
   }
+
+  handleChange = (e, { value }) => this.setState({ dvdOrBluRay: value });
 
   closePopup() {
     this.props.imdbPopupClose();
@@ -31,8 +36,12 @@ class DbPopup extends Component {
     });
   }
 
+  componentDidUpdate() {
+    console.log(this.state.dvdOrBluRay);
+  }
+
   saveToDb() {
-    let { movieInfo, title, description } = this.state;
+    let { movieInfo, title, description, dvdOrBluRay } = this.state;
 
     let genreArray = movieInfo.genres.map(genre => {
       return genre.name;
@@ -42,20 +51,16 @@ class DbPopup extends Component {
 
     let movieDb;
 
-    console.log(movieInfo);
+    console.log(this.state.dvdOrBluRay);
 
     if (movieInfo.backdrop_path === null) {
-      console.log("no backdrop");
       urlForImg = "";
       movieInfo.backdrop_path = "curtain.jpg";
     }
 
     if (movieInfo.poster_path === null) {
-      console.log("no poster");
       urlForImg = "";
       movieInfo.poster_path = "poster_not_available.jpg";
-      console.log(movieInfo.poster_path);
-      console.log(urlForImg);
     }
 
     if (title === "" && description !== "") {
@@ -68,7 +73,8 @@ class DbPopup extends Component {
         genres: genreArray,
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
-        rating: movieInfo.vote_average
+        rating: movieInfo.vote_average,
+        dvdOrBluRay: this.state.dvdOrBluRay
       };
     } else if (title !== "" && description === "") {
       movieDb = {
@@ -80,7 +86,8 @@ class DbPopup extends Component {
         genres: genreArray,
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
-        rating: movieInfo.vote_average
+        rating: movieInfo.vote_average,
+        dvdOrBluRay: this.state.dvdOrBluRay
       };
     } else if (title !== "" && description !== "") {
       movieDb = {
@@ -92,7 +99,8 @@ class DbPopup extends Component {
         genres: genreArray,
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
-        rating: movieInfo.vote_average
+        rating: movieInfo.vote_average,
+        dvdOrBluRay: this.state.dvdOrBluRay
       };
     } else if (movieInfo.overview === "") {
       movieDb = {
@@ -104,7 +112,8 @@ class DbPopup extends Component {
         genres: genreArray,
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
-        rating: movieInfo.vote_average
+        rating: movieInfo.vote_average,
+        dvdOrBluRay: this.state.dvdOrBluRay
       };
     } else {
       movieDb = {
@@ -116,13 +125,17 @@ class DbPopup extends Component {
         genres: genreArray,
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
-        rating: movieInfo.vote_average
+        rating: movieInfo.vote_average,
+        dvdOrBluRay: this.state.dvdOrBluRay
       };
     }
+
+    console.log(movieDb);
     this.props.addToMovieDb(movieDb);
     this.setState({
       title: "",
-      description: ""
+      description: "",
+      dvdOrBluRay: ""
     });
   }
 
@@ -150,7 +163,8 @@ class DbPopup extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       movieInfo: nextProps.movies.movieInfo,
-      showOrHideImdb: nextProps.movies.showOrHideImdb
+      showOrHideImdb: nextProps.movies.showOrHideImdb,
+      dvdOrBluRay: "bluRay"
     });
   }
 
@@ -218,9 +232,38 @@ class DbPopup extends Component {
                 <strong>Betyg:</strong> {movieInfo.vote_average}
               </p>
 
-              <p className="date">
-                <strong>Status:</strong> {movieInfo.status}
-              </p>
+              <Form>
+                <Form.Field>
+                  <Checkbox
+                    radio
+                    label="Blu-ray"
+                    name="checkboxRadioGroup"
+                    value="bluRay"
+                    checked={this.state.dvdOrBluRay === "bluRay"}
+                    onChange={this.handleChange}
+                  />
+
+                  <Checkbox
+                    style={{ marginLeft: "1rem" }}
+                    radio
+                    label="DVD"
+                    name="checkboxRadioGroup"
+                    value="dvd"
+                    checked={this.state.dvdOrBluRay === "dvd"}
+                    onChange={this.handleChange}
+                  />
+                  <Checkbox
+                    style={{ marginLeft: "1rem" }}
+                    radio
+                    label="USB"
+                    name="checkboxRadioGroup"
+                    value="usb"
+                    checked={this.state.dvdOrBluRay === "usb"}
+                    onChange={this.handleChange}
+                  />
+                </Form.Field>
+              </Form>
+              <br />
               <span className="date boldSpan">Beskrivning:</span>
               {movieInfo.overview ? (
                 <p

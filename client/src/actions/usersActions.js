@@ -5,8 +5,10 @@ import {
   USER_DELETE_DB,
   USER_POPUP,
   USER_POPUP_CLOSE,
-  RESET_USER_STATS
+  RESET_USER_STATS,
   // USER_STATS_TO_ARCHIVE
+  USER_ARCHIVE,
+  UPDATE_USER
 } from "./types";
 
 export const getAllUsers = () => dispatch => {
@@ -15,6 +17,20 @@ export const getAllUsers = () => dispatch => {
     .then(res => {
       dispatch({
         type: GET_ALL_USERS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+export const getUserArchive = () => dispatch => {
+  axios
+    .get("/api/stats/getuserarchive")
+    .then(res => {
+      dispatch({
+        type: USER_ARCHIVE,
         payload: res.data
       });
     })
@@ -55,21 +71,19 @@ export const deleteUserSuccess = deletedUser => {
 };
 
 export const resetStats = () => dispatch => {
-  if (window.confirm("Är du att du vill nollställa statistiken för året?")) {
-    axios.get("/api/users/resetstats").then(res => {
-      if (res) {
-        let success = {
-          msg: "Nollställning lyckades"
-        };
-        dispatch({
-          type: RESET_USER_STATS,
-          payload: success
-        });
-      } else {
-        console.log("Något gick fel vid nollställning.");
-      }
-    });
-  }
+  axios.get("/api/users/resetstats").then(res => {
+    if (res) {
+      let success = {
+        msg: "Nollställning lyckades"
+      };
+      dispatch({
+        type: RESET_USER_STATS,
+        payload: success
+      });
+    } else {
+      console.log("Något gick fel vid nollställning.");
+    }
+  });
 };
 
 export const saveUserStatsToArchive = archiveData => dispatch => {
@@ -79,5 +93,15 @@ export const saveUserStatsToArchive = archiveData => dispatch => {
     } else {
       console.log("Något gick fel när datan skulle sparas till arkivet.");
     }
+  });
+};
+
+export const updateUser = data => dispatch => {
+  axios.post("/api/users/updateuser", data).then(res => {
+    console.log(res.data);
+    dispatch({
+      type: UPDATE_USER,
+      payload: res.data
+    });
   });
 };

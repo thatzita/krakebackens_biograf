@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Icon } from "semantic-ui-react";
 
 export default class DrawGrid extends React.Component {
   constructor(props) {
@@ -55,7 +56,7 @@ export default class DrawGrid extends React.Component {
                 seat.seat !== "extra_3" &&
                 seat.seat !== "extra_4") ||
                 seatsThatAreLeft.length <= 0 ? (
-                (<li
+                <li
                   key={seat.seat}
                   className={
                     seat.booked
@@ -74,91 +75,22 @@ export default class DrawGrid extends React.Component {
                   onClick={() =>
                     seat.booked ? null : this.props.reserveSeat(seat)
                   }
-                /> /*: this.props.saloon === "2" ? (
-                <li
-                  key={seat.seat}
-                  className={
-                    seat.booked
-                      ? "booked"
-                      : reservedList.some(x => x.seat === seat.seat)
-                      ? "reserved"
-                      : "seat"
-                  }
-                  value={seat}
-                  onMouseEnter={() => {
-                    seat.booked
-                      ? this.hoverOn("booked", seat.row)
-                      : this.hoverOn("seat", seat.row);
-                  }}
-                  onMouseLeave={() => this.hoverOff("default")}
-                  onClick={() =>
-                    seat.booked ? null : this.props.reserveSeat(seat)
-                  }
-                />
-              )*/ /*: this.props.saloon === "2" ? (
-                <li
-                  key={seat.seat}
-                  className={
-                    seat.booked
-                      ? "booked"
-                      : reservedList.some(x => x.seat === seat.seat)
-                      ? "reserved"
-                      : "seat"
-                  }
-                  value={seat}
-                  onMouseEnter={() => {
-                    seat.booked
-                      ? this.hoverOn("booked", seat.row)
-                      : this.hoverOn("seat", seat.row);
-                  }}
-                  onMouseLeave={() => this.hoverOff("default")}
-                  onClick={() =>
-                    seat.booked ? null : this.props.reserveSeat(seat)
-                  }
-                />
-              )*/ /*: this.props.saloon === "2" ? (
-                <li
-                  key={seat.seat}
-                  className={
-                    seat.booked
-                      ? "booked"
-                      : reservedList.some(x => x.seat === seat.seat)
-                      ? "reserved"
-                      : "seat"
-                  }
-                  value={seat}
-                  onMouseEnter={() => {
-                    seat.booked
-                      ? this.hoverOn("booked", seat.row)
-                      : this.hoverOn("seat", seat.row);
-                  }}
-                  onMouseLeave={() => this.hoverOff("default")}
-                  onClick={() =>
-                    seat.booked ? null : this.props.reserveSeat(seat)
-                  }
-                />
-              )*/ /*: this.props.saloon === "2" ? (
-                <li
-                  key={seat.seat}
-                  className={
-                    seat.booked
-                      ? "booked"
-                      : reservedList.some(x => x.seat === seat.seat)
-                      ? "reserved"
-                      : "seat"
-                  }
-                  value={seat}
-                  onMouseEnter={() => {
-                    seat.booked
-                      ? this.hoverOn("booked", seat.row)
-                      : this.hoverOn("seat", seat.row);
-                  }}
-                  onMouseLeave={() => this.hoverOff("default")}
-                  onClick={() =>
-                    seat.booked ? null : this.props.reserveSeat(seat)
-                  }
-                />
-              )*/)
+                >
+                  {" "}
+                  {seat.vip ? (
+                    <Icon
+                      color="black"
+                      name="star"
+                      size="small"
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        height: "100%",
+                        margin: "auto"
+                      }}
+                    />
+                  ) : null}{" "}
+                </li>
               ) : null;
             })}
           </ul>

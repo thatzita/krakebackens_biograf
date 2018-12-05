@@ -8,7 +8,8 @@ import {
   Divider,
   Icon,
   Image,
-  Button
+  Button,
+  Confirm
 } from "semantic-ui-react";
 
 import {
@@ -24,9 +25,18 @@ class UserStatistic extends Component {
       users: [],
       userStatistic: {
         season: 0
-      }
+      },
+      show: false
     };
   }
+
+  handleConfirm = () => {
+    // console.log("clear stats");
+    this.resetSeasonStats();
+    this.setState({ open: false });
+  };
+
+  handleCancel = () => this.setState({ open: false });
 
   componentDidMount() {
     this.props.getAllUsers();
@@ -73,11 +83,16 @@ class UserStatistic extends Component {
     return newList.slice(0, 3);
   }
 
+  show = () => {
+    this.setState({ open: true });
+  };
+
   resetSeasonStats() {
     let topUsers = this.topUsersThisSeason();
     let newTopUsers = topUsers.map(user => {
       return `${user.username} - ${user.stats.season} besök`;
     });
+
     let seasonViewings = this.seasonUsers();
 
     let dateObj = new Date();
@@ -101,7 +116,7 @@ class UserStatistic extends Component {
   render() {
     //state
     const { users } = this.state.users;
-
+    const { open } = this.state;
     //Content
     let userContent;
     let userContentTopList;
@@ -202,10 +217,20 @@ class UserStatistic extends Component {
             style={{ margin: "0 auto" }}
             basic
             color="purple"
-            onClick={e => this.resetSeasonStats()}
+            onClick={e => this.show()}
           >
             Nollställ årets statistik
           </Button>
+          <Confirm
+            open={open}
+            className="confirmDeleteMovie"
+            header="Nollställa statistik"
+            content="Är du säker på att du vill nollställa statistiken?"
+            cancelButton="Gå tillbaka"
+            confirmButton="Nollställ"
+            onCancel={this.handleCancel}
+            onConfirm={this.handleConfirm}
+          />
         </div>
       </React.Fragment>
     );

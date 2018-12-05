@@ -15,7 +15,6 @@ export default function(state = initialState, action) {
   // console.log('reducer starts')
   switch (action.type) {
     case GET_ARCHIVED_MOVIES:
-      console.log(action.payload);
       return {
         ...state,
         movies: action.payload

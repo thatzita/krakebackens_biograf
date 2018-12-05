@@ -34,7 +34,8 @@ router.post("/addmovie", (req, res) => {
         imdb_id: req.body.imdb_id,
         release: req.body.release,
         rating: req.body.rating,
-        crowRating: req.body.crowRating
+        crowRating: req.body.crowRating,
+        dvdOrBluRay: req.body.dvdOrBluRay
       });
       newMovie.save().then(movie => {
         res.json({ movie });
@@ -46,6 +47,7 @@ router.post("/addmovie", (req, res) => {
 //HÄMTA FILMERNA I DB
 router.get("/allmovies", (req, res) => {
   Movie.find({}).then(movies => {
+    // console.log(movies);
     res.json({ movies });
   });
 });
@@ -65,7 +67,8 @@ router.post("/update", (req, res) => {
   let updateField = {
     title: movieData.title,
     description: movieData.description,
-    crowRating: movieData.crowRating
+    crowRating: movieData.crowRating,
+    dvdOrBluRay: movieData.dvdOrBluRay
   };
 
   Movie.findOneAndUpdate({ _id: movieData.id }, updateField).then(movie => {

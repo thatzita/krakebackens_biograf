@@ -77,6 +77,12 @@ export default function MoviePicker(props) {
                         <Header.Subheader
                           style={{ maxWidth: "50%", minWidth: "280px" }}
                         >
+                          <strong>Kråkan tycker:</strong> {item.crowRating}
+                        </Header.Subheader>
+                        <br />
+                        <Header.Subheader
+                          style={{ maxWidth: "50%", minWidth: "280px" }}
+                        >
                           {item.description}
                         </Header.Subheader>
                       </Header.Content>

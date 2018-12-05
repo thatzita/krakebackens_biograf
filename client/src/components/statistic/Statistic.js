@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./statistic.css";
 import Admin from "../admin/Admin";
 import UserStatistic from "./UserStatistic";
+import MovieStatistic from "./MovieStatistic";
 import { Icon, Segment } from "semantic-ui-react";
 
 class Statistic extends Component {
@@ -17,6 +18,13 @@ class Statistic extends Component {
           <Admin />
           <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
             <UserStatistic />
+            <br />
+            <br />
+            <br />
+            <hr />
+            <br />
+
+            <MovieStatistic />
           </Segment>
         </div>
       </div>

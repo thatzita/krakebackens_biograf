@@ -107,6 +107,24 @@ router.post("/register", (req, res) => {
   });
 });
 
+//POST api/users/updateuser
+router.post("/updateuser", (req, res) => {
+  User.findOne({ email: req.body.email }).then(user => {
+    user.stats.total = req.body.total;
+    user.stats.season = req.body.season;
+    user.vip.status = req.body.status;
+    user.vip.seat = req.body.seat;
+
+    user.save(function(err) {
+      if (err) {
+        console.error("ERROR!");
+      } else {
+        res.json(user);
+      }
+    });
+  });
+});
+
 //POST api/users/login
 //Returnera JWT Token för att komma åt information
 
@@ -150,7 +168,7 @@ router.post("/login", (req, res) => {
         jwt.sign(
           payload,
           keys.secretOrKey,
-          { expiresIn: 7200000 }, //Hur länge din token ska vara giltlig, 2h
+          { expiresIn: 3600 }, //Hur länge din token ska vara giltlig, 2h
           (err, token) => {
             res.json({
               success: true,

@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import {
   moviePopupClose,
   updateDb,
-  deleteMovie
+  deleteMovie,
+  getAllMovies
 } from "../../actions/movieActions";
 import {
   Card,
@@ -15,7 +16,9 @@ import {
   Image,
   Icon,
   Segment,
-  Confirm
+  Confirm,
+  Form,
+  Checkbox
 } from "semantic-ui-react";
 import "./movies.css";
 
@@ -29,10 +32,13 @@ class Popup extends Component {
       description: "",
       crowRating: "",
       show: false,
-      movie: {}
+      movie: {},
+      dvdOrBluRay: ""
     };
     this.editValues = this.editValues.bind(this);
   }
+
+  handleChange = (e, { value }) => this.setState({ dvdOrBluRay: value });
 
   closePopup() {
     this.props.moviePopupClose();
@@ -45,14 +51,18 @@ class Popup extends Component {
 
   updateMovieDb() {
     let { movieInfo } = this.state;
-    let { title, description, crowRating } = this.state;
+    let { title, description, crowRating, dvdOrBluRay } = this.state;
     let movieDb;
-    // console.log(this.state);
 
     if (movieInfo.crowRating === null) {
-      // console.log(crowRating);
-      // console.log(movieInfo.crowRating);
-      crowRating = "Kråkan har inte tyckt till, än...";
+      this.setState({
+        crowRating: "Kråkan har inte tyckt till, än..."
+      });
+    }
+    if (movieInfo.dvdOrBluRay === undefined) {
+      this.setState({
+        dvdOrBluRay: "bluRay"
+      });
     }
 
     if (title === "" && description === "" && crowRating === "") {
@@ -60,67 +70,76 @@ class Popup extends Component {
         title: movieInfo.title,
         description: movieInfo.description,
         crowRating: movieInfo.crowRating,
-        id: movieInfo._id
+        id: movieInfo._id,
+        dvdOrBluRay: dvdOrBluRay
       };
     } else if (title !== "" && description !== "" && crowRating !== "") {
       movieDb = {
         title: title,
         description: description,
         crowRating: crowRating,
-        id: movieInfo._id
+        id: movieInfo._id,
+        dvdOrBluRay: dvdOrBluRay
       };
     } else if (title !== "" && description === "" && crowRating === "") {
       movieDb = {
         title: title,
         description: movieInfo.description,
         crowRating: movieInfo.crowRating,
-        id: movieInfo._id
+        id: movieInfo._id,
+        dvdOrBluRay: dvdOrBluRay
       };
     } else if (title === "" && description !== "" && crowRating === "") {
       movieDb = {
         title: movieInfo.title,
         description: description,
         crowRating: movieInfo.crowRating,
-        id: movieInfo._id
+        id: movieInfo._id,
+        dvdOrBluRay: dvdOrBluRay
       };
     } else if (title === "" && description === "" && crowRating !== "") {
       movieDb = {
         title: movieInfo.title,
         description: movieInfo.description,
         crowRating: crowRating,
-        id: movieInfo._id
+        id: movieInfo._id,
+        dvdOrBluRay: dvdOrBluRay
       };
     } else if (title !== "" && description !== "" && crowRating === "") {
       movieDb = {
         title: title,
         description: description,
         crowRating: movieInfo.crowRating,
-        id: movieInfo._id
+        id: movieInfo._id,
+        dvdOrBluRay: dvdOrBluRay
       };
     } else if (title === "" && description !== "" && crowRating !== "") {
       movieDb = {
         title: movieInfo.title,
         description: description,
         crowRating: crowRating,
-        id: movieInfo._id
+        id: movieInfo._id,
+        dvdOrBluRay: dvdOrBluRay
       };
     } else if (title !== "" && description === "" && crowRating !== "") {
       movieDb = {
         title: title,
         description: movieInfo.description,
         crowRating: crowRating,
-        id: movieInfo._id
+        id: movieInfo._id,
+        dvdOrBluRay: dvdOrBluRay
       };
     }
-    // console.log(movieDb);
 
     this.props.updateDb(movieDb);
     this.setState({
       title: "",
       description: "",
       crowRating: ""
+      // dvdOrBluRay: ""
     });
     this.closePopup();
+    this.props.getAllMovies();
   }
 
   changeInput(event) {
@@ -139,6 +158,7 @@ class Popup extends Component {
         this.setState({
           description: data
         });
+        break;
       case "crowRating":
         this.setState({
           crowRating: data
@@ -154,6 +174,11 @@ class Popup extends Component {
       movieInfo: nextProps.movies.movieInfo,
       showOrHide: nextProps.movies.showOrHide
     });
+    if (nextProps.movies.movieInfo) {
+      this.setState({
+        dvdOrBluRay: nextProps.movies.movieInfo.dvdOrBluRay
+      });
+    }
   }
 
   show = movie => {
@@ -241,6 +266,39 @@ class Popup extends Component {
                 </p>
               </span>
               <br />
+              <Form>
+                <Form.Field>
+                  <Checkbox
+                    radio
+                    label="Blu-ray"
+                    name="checkboxRadioGroup"
+                    value="bluRay"
+                    checked={this.state.dvdOrBluRay === "bluRay"}
+                    onChange={this.handleChange}
+                  />
+
+                  <Checkbox
+                    style={{ marginLeft: "1rem" }}
+                    radio
+                    label="DVD"
+                    name="checkboxRadioGroup"
+                    value="dvd"
+                    checked={this.state.dvdOrBluRay === "dvd"}
+                    onChange={this.handleChange}
+                  />
+
+                  <Checkbox
+                    style={{ marginLeft: "1rem" }}
+                    radio
+                    label="USB"
+                    name="checkboxRadioGroup"
+                    value="usb"
+                    checked={this.state.dvdOrBluRay === "usb"}
+                    onChange={this.handleChange}
+                  />
+                </Form.Field>
+              </Form>
+              <br />
               <span className="date boldSpan">Beskrivning:</span>
               <p
                 className="description"
@@ -259,7 +317,6 @@ class Popup extends Component {
                 <Button
                   attached="bottom"
                   className="deleteButtonPopup"
-                  // onClick={e => this.deleteMovie(movieInfo)}
                   onClick={e => this.show(movieInfo)}
                 >
                   Ta bort från databasen
@@ -322,6 +379,7 @@ export default connect(
     //func goes here
     moviePopupClose,
     deleteMovie,
-    updateDb
+    updateDb,
+    getAllMovies
   }
 )(Popup);

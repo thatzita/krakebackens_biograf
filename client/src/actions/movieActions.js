@@ -99,7 +99,8 @@ export const getMovieInfoAddtoDb = movieId => dispatch => {
         genres: genreArray,
         imdb_id: movieToAdd.imdb_id,
         release: movieToAdd.release_date,
-        rating: movieToAdd.vote_average
+        rating: movieToAdd.vote_average,
+        dvdOrBluRay: "bluRay"
       };
       axios.post("/api/movies/addmovie", addToDb).then(res => {
         let success = {

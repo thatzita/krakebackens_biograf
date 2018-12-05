@@ -43,6 +43,14 @@ const MonthlyMovieSchema = new Schema({
     type: String,
     required: true
   },
+  cancel_utc_time: {
+    type: String,
+    required: true
+  },
+  reminder_utc_time: {
+    type: String,
+    required: true
+  },
   seating: {
     type: Array,
     required: true
@@ -51,7 +59,8 @@ const MonthlyMovieSchema = new Schema({
     type: String,
     required: true
   },
-  fullyBooked: Boolean
+  fullyBooked: Boolean,
+  crowRating: String
 });
 
 let MonMovie = mongoose.model("monthlyMovies", MonthlyMovieSchema);

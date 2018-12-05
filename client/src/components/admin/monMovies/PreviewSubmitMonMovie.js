@@ -45,6 +45,9 @@ export default function PreviewSubmitMonMovie(props) {
                   {props.saloon ? props.saloon : "1"}
                 </span>
               </Item.Meta>
+              <Item.Meta style={{ maxWidth: "50%", minWidth: "280px" }}>
+                <strong>Kråkan tycker:</strong> {props.eventObject.crowRating}
+              </Item.Meta>
               <Item.Description style={{ maxWidth: "70%", minWidth: "280px" }}>
                 {props.eventObject.description
                   ? props.eventObject.description

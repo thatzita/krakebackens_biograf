@@ -3,13 +3,27 @@ import {
   USER_POPUP,
   USER_POPUP_CLOSE,
   USER_DELETE_DB,
-  RESET_USER_STATS
+  RESET_USER_STATS,
+  USER_ARCHIVE,
+  UPDATE_USER
 } from "../actions/types";
 
 const initialState = {};
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case UPDATE_USER:
+      let updateUserArr = updatedUser(action.payload, state.users);
+      return {
+        ...state,
+        userInfo: action.payload,
+        users: updateUserArr
+      };
+    case USER_ARCHIVE:
+      return {
+        ...state,
+        userArchive: action.payload
+      };
     case GET_ALL_USERS:
       return {
         ...state,
@@ -59,4 +73,15 @@ function removeUser(deleteData, userArray) {
     return listItem !== deleteData;
   });
   return updatedUserList;
+}
+
+function updatedUser(data, array) {
+  let newUserArr = array.map(user => {
+    if (user.email === data.email) {
+      return (user = data);
+    } else {
+      return user;
+    }
+  });
+  return newUserArr;
 }

@@ -5,7 +5,15 @@ import Popup from "./Popup";
 import { Link } from "react-router-dom";
 import Admin from "../admin/Admin";
 
-import { Button, Input, Icon, Item, Segment, Confirm } from "semantic-ui-react";
+import {
+  Button,
+  Input,
+  Icon,
+  Item,
+  Segment,
+  Confirm,
+  Label
+} from "semantic-ui-react";
 
 import {
   getAllMovies,
@@ -64,7 +72,6 @@ class Movies extends Component {
   };
   handleConfirm = () => {
     this.deleteMovie(this.state.movie);
-    // console.log(this.state.movie);
     this.setState({ open: false });
   };
 
@@ -117,9 +124,7 @@ class Movies extends Component {
                   - {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min
                 </em>{" "}
               </Item.Header>
-              {/* <Item.Meta>
-                <span className="boldSpan"> {movie.release}</span>
-              </Item.Meta> */}
+
               <Item.Extra>
                 {movie.genres.map((genre, i) => {
                   return (
@@ -129,12 +134,10 @@ class Movies extends Component {
                   );
                 })}
               </Item.Extra>
-
-              {/* <Item.Meta>
-                <Icon name="time" color="black" />
-                <span className="cinema boldSpan">{movie.runtime} min</span>
-              </Item.Meta> */}
-
+              <br />
+              {movie.dvdOrBluRay === "dvd" ? <Label>DVD</Label> : ""}
+              {movie.dvdOrBluRay === "bluRay" ? <Label>Blu-ray</Label> : ""}
+              {movie.dvdOrBluRay === "usb" ? <Label>USB</Label> : ""}
               <Button.Group className="addMovieBtnGroup">
                 <Button
                   basic
@@ -197,7 +200,21 @@ class Movies extends Component {
           <hr />
           <br />
           <Admin />
-          <div className="searchContainer">
+          <Link to="/addmovie">
+            <Button
+              // style={{ marginTop: "-1rem" }}
+              color="green"
+              floated="right"
+            >
+              <Icon name="add" />
+              Lägg till nya filmer
+            </Button>
+          </Link>
+
+          <div
+            className="searchContainer"
+            style={{ marginTop: "5rem", marginBottom: "-4rem" }}
+          >
             <Input
               className="movieSearch"
               placeholder="Sök i databasen..."
@@ -205,13 +222,6 @@ class Movies extends Component {
               value={this.state.search}
               name="search"
             />
-
-            <Link to="/addmovie">
-              <Button color="green">
-                <Icon name="add" />
-                Lägg till i databasen
-              </Button>
-            </Link>
           </div>
           <Popup />
           <br />
