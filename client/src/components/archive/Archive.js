@@ -54,38 +54,41 @@ class Archive extends Component {
     this.props.getAllMoviesArchive();
   }
 
-  bookedSeats(seats) {
-    console.log(seats.length);
+  bookedSeats(movie) {
+    console.log(movie);
     let count = 0;
 
-    if (seats.length === 1) {
-      console.log(seats);
-      seats[0].forEach(seat => {
-        if (seat.booked === true) {
+    if (movie.saloon === "2") {
+      movie.seating[0].map(seat => {
+        if (seat.booked) {
+          count++;
+        }
+      });
+      movie.seating[1].map(seat => {
+        if (seat.booked) {
           count++;
         }
       });
       return count;
     }
 
-    if (seats.length > 1) {
-      seats[0].forEach(seat => {
-        if (seat.booked === true) {
+    if (movie.saloon === "1") {
+      movie.seating[0].map(seat => {
+        if (seat.booked) {
+          count++;
+        }
+      });
+      movie.seating[1].map(seat => {
+        if (seat.booked) {
+          count++;
+        }
+      });
+      movie.seating[2].map(seat => {
+        if (seat.booked) {
           count++;
         }
       });
 
-      seats[1].forEach(seat => {
-        if (seat.booked === true) {
-          count++;
-        }
-      });
-
-      seats[2].forEach(seat => {
-        if (seat.booked === true) {
-          count++;
-        }
-      });
       return count;
     }
   }
@@ -160,7 +163,7 @@ class Archive extends Component {
               </Item.Extra>
               <Item.Extra>
                 <Label>Salong {movie.saloon}</Label>
-                <Label>{this.bookedSeats(movie.seating)} bokade</Label>
+                <Label>{this.bookedSeats(movie)} bokade</Label>
               </Item.Extra>
 
               {/* <Button.Group className="addMovieBtnGroup">
