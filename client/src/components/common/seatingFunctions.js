@@ -22,8 +22,6 @@ function seatNameConverter(seat) {
     seating = "Parkett 5";
   } else if (seat.substring(2, 4) === "s6") {
     seating = "Parkett 6";
-  } else if (seat.substring(2, 4) === "s7") {
-    seating = "Parkett 7";
   }
 
   if (row === undefined && seating === undefined) {

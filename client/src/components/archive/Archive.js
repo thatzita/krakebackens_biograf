@@ -179,6 +179,7 @@ class Archive extends Component {
           </Item>
         );
       });
+      movieItem.reverse();
 
       movieContent = (
         <div>

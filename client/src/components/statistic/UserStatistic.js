@@ -211,7 +211,7 @@ class UserStatistic extends Component {
         {userContentTopList}
         <br />
         <div
-          style={{ position: "absolute", left: "50%", marginLeft: "-100px" }}
+          style={{ position: "absolute", left: "47%", marginLeft: "-100px" }}
         >
           <Button
             style={{ margin: "0 auto" }}
@@ -219,13 +219,13 @@ class UserStatistic extends Component {
             color="purple"
             onClick={e => this.show()}
           >
-            Nollställ årets statistik
+            Nollställ årets användarstatistik
           </Button>
           <Confirm
             open={open}
             className="confirmDeleteMovie"
-            header="Nollställa statistik"
-            content="Är du säker på att du vill nollställa statistiken?"
+            header="Nollställa årets statistik"
+            content="Är du säker på att du vill nollställa statistiken för alla användare?"
             cancelButton="Gå tillbaka"
             confirmButton="Nollställ"
             onCancel={this.handleCancel}

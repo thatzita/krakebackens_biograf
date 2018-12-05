@@ -26,7 +26,7 @@ export default class AdminMonMovieDisplay extends Component {
     let sortedMovieProps = movieProps.sort(function(a, b) {
       return new Date(a.utc_time) - new Date(b.utc_time);
     });
-    sortedMovieProps = sortedMovieProps.filter((item, i) => i <= 4);
+    sortedMovieProps = sortedMovieProps.filter((item, i) => i <= 3);
     if (sortedMovieProps.length === 0) {
       adminContent = (
         <List.Item className="smallOne" key={Math.random()}>
@@ -144,42 +144,46 @@ export default class AdminMonMovieDisplay extends Component {
       <div className="makeItFloat">
         <List horizontal>
           {adminContent}
-          <List.Item className="smallOne" key={Math.random()}>
-            <Link to="/monMovieList">
-              <div
-                style={{
-                  position: "relative",
-                  height: "225px",
-                  width: "150px",
-                  marginLeft: "2rem"
-                }}
-                className="smallPicture"
-              >
+          {sortedMovieProps.length > 0 ? (
+            <List.Item className="smallOne" key={Math.random()}>
+              <Link to="/monMovieList">
                 <div
                   style={{
-                    color: "white"
-                  }}
-                >
-                  <Icon
-                    name="star"
-                    style={{ marginTop: "4rem", marginLeft: "2.9rem" }}
-                    size="huge"
-                  />
-                </div>
-                <h4
-                  style={{
-                    color: "white",
-                    textAlign: "center",
-                    fontWeight: "100",
                     position: "relative",
-                    top: "-1rem"
+                    height: "225px",
+                    width: "150px",
+                    marginLeft: "2rem"
                   }}
+                  className="smallPicture"
                 >
-                  Månadens filmer
-                </h4>
-              </div>
-            </Link>
-          </List.Item>
+                  <div
+                    style={{
+                      color: "white"
+                    }}
+                  >
+                    <Icon
+                      name="star"
+                      style={{ marginTop: "4rem", marginLeft: "2.9rem" }}
+                      size="huge"
+                    />
+                  </div>
+                  <h4
+                    style={{
+                      color: "white",
+                      textAlign: "center",
+                      fontWeight: "100",
+                      position: "relative",
+                      top: "-1rem"
+                    }}
+                  >
+                    Månadens filmer
+                  </h4>
+                </div>
+              </Link>
+            </List.Item>
+          ) : (
+            ""
+          )}
         </List>
       </div>
     );
