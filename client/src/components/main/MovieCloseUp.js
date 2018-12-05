@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./movieCloseUp.css";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { getCurrentProfile } from "../../actions/profileActions";
 
 import {
   getSpecificMonMovie
@@ -23,21 +24,49 @@ import {
 class MovieCloseUp extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeItem: "" };
+    this.state = {
+      activeItem: "",
+      movieCloseUp: {},
+      amountOfSeatBookings: 4,
+      existingBookings: []
+    };
   }
 
   componentDidMount() {
-    // let str = window.location.href;
-    // let str = this.props.location.pathname;
-    // console.log("location ", this.props.match.params);
-
-    // let lineIndex = str.lastIndexOf("/");
-    // let id = str.substring(lineIndex + 1);
     window.scrollTo(0, 0);
     let { movieId } = this.props.location.state;
     console.log(movieId);
-
+    this.props.getCurrentProfile();
     this.props.getSpecificMonMovie(movieId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // console.log("prof ", nextProps.profile.profile);
+    // console.log();
+
+    if (nextProps.movieCloseUp && nextProps.profile.profile) {
+      let checkSeatBookings = nextProps.movieCloseUp.seating;
+      console.log("seats ", checkSeatBookings);
+
+      let howManySeatsAreBooked = [];
+      checkSeatBookings.map(array => {
+        array.map(x => {
+          // console.log("res ", x.responsible);
+          if (x.responsible.hasOwnProperty("id")) {
+            if (x.responsible.id === nextProps.profile.profile.id) {
+              howManySeatsAreBooked.push(x);
+            }
+          }
+        });
+      });
+      console.log("how many ", howManySeatsAreBooked.length);
+
+      this.setState({
+        movieCloseUp: nextProps.movieCloseUp,
+        amountOfSeatBookings: howManySeatsAreBooked.length,
+        existingBookings: howManySeatsAreBooked
+      });
+    }
   }
 
   // handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -47,10 +76,11 @@ class MovieCloseUp extends Component {
 
   render() {
     const { activeItem } = this.state;
+    // console.log(this.state);
 
     // console.log("props: ", this.props.movieCloseUp);
 
-    let movieObject = this.props.movieCloseUp || {}; // movieItem[0] || {};
+    let movieObject = this.state.movieCloseUp; // movieItem[0] || {};
     let displayImage = movieObject.background || "default.jpg";
     let countSeats = movieObject.seating || [];
     // console.log("seats ", movieObject.seating || []);
@@ -177,11 +207,16 @@ class MovieCloseUp extends Component {
 
                     <Table.Cell textAlign="right">
                       <Button
-                        // disabled={Object.keys(movieObject).length === 0}
+                        disabled={this.state.amountOfSeatBookings === 4}
                         as={Link}
                         to={{
                           pathname: "/seating",
-                          state: { bookingObj: movieObject }
+                          state: {
+                            bookingObj: movieObject,
+                            amountOfSeatBookings: this.state
+                              .amountOfSeatBookings,
+                            existingBookings: this.state.existingBookings
+                          }
                         }}
                         color="violet"
                       >
@@ -200,6 +235,7 @@ class MovieCloseUp extends Component {
 }
 
 const mapStateToProps = state => ({
+  profile: state.profile,
   movieCloseUp: state.monMovies.movieCloseUp
   // monMovies: state.monMovies
 });
@@ -207,7 +243,8 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    getSpecificMonMovie
+    getSpecificMonMovie,
+    getCurrentProfile
     // getAllMonMovies
   }
 )(MovieCloseUp);

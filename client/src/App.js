@@ -77,12 +77,12 @@ class App extends Component {
               {/* <Route exact path="/register" component={Register} /> */}
               {/* <Route exact path="/addmovie" component={AddMovie} /> */}
               <Switch>
-                <Route exact path="/seating" component={Seating} />
                 <AdminRoute
                   exact
                   path="/moviearchive"
                   component={ArchiveMain}
                 />
+                <PrivateRoute exact path="/seating" component={Seating} />
 
                 <AdminRoute exact path="/adminhome" component={AdminHome} />
 

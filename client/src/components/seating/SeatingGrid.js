@@ -1,17 +1,25 @@
 import React, { Component } from "react";
+import { Icon } from "semantic-ui-react";
 
 export default class DrawGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentHoverItem: "seat",
+      currentSeat: 1,
       currentRow: 1
     };
   }
   componentDidMount() {}
 
-  hoverOn = (value, currentRow) => {
-    this.setState({ currentHoverItem: value, currentRow });
+  hoverOn = (value, seat) => {
+    // console.log(value);
+
+    this.setState({
+      currentHoverItem: value,
+      currentRow: seat.row,
+      currentSeat: seat.seatNr
+    });
   };
   hoverOff = value => {
     this.setState({ currentHoverItem: value });
@@ -25,7 +33,10 @@ export default class DrawGrid extends React.Component {
       let newArray = array.filter(
         x =>
           x.booked === false &&
-          (x.seat !== "r1s1" && x.seat !== "r2s1" && x.seat !== "r3s1")
+          (x.seat !== "extra_1" &&
+            x.seat !== "extra_2" &&
+            x.seat !== "extra_3" &&
+            x.seat !== "extra_4")
       );
       newArray.map(y => {
         seatsThatAreLeft.push(y);
@@ -40,9 +51,10 @@ export default class DrawGrid extends React.Component {
         {this.props.rowList.map((row, index) => (
           <ul key={index} className="row">
             {row.map(seat => {
-              return (seat.seat !== "r1s1" &&
-                seat.seat !== "r2s1" &&
-                seat.seat !== "r3s1") ||
+              return (seat.seat !== "extra_1" &&
+                seat.seat !== "extra_2" &&
+                seat.seat !== "extra_3" &&
+                seat.seat !== "extra_4") ||
                 seatsThatAreLeft.length <= 0 ? (
                 <li
                   key={seat.seat}
@@ -56,35 +68,29 @@ export default class DrawGrid extends React.Component {
                   value={seat}
                   onMouseEnter={() => {
                     seat.booked
-                      ? this.hoverOn("booked", seat.row)
-                      : this.hoverOn("seat", seat.row);
+                      ? this.hoverOn("booked", seat)
+                      : this.hoverOn("seat", seat);
                   }}
                   onMouseLeave={() => this.hoverOff("default")}
                   onClick={() =>
                     seat.booked ? null : this.props.reserveSeat(seat)
                   }
-                />
-              ) : this.props.saloon === "2" ? (
-                <li
-                  key={seat.seat}
-                  className={
-                    seat.booked
-                      ? "booked"
-                      : reservedList.some(x => x.seat === seat.seat)
-                      ? "reserved"
-                      : "seat"
-                  }
-                  value={seat}
-                  onMouseEnter={() => {
-                    seat.booked
-                      ? this.hoverOn("booked", seat.row)
-                      : this.hoverOn("seat", seat.row);
-                  }}
-                  onMouseLeave={() => this.hoverOff("default")}
-                  onClick={() =>
-                    seat.booked ? null : this.props.reserveSeat(seat)
-                  }
-                />
+                >
+                  {" "}
+                  {seat.vip ? (
+                    <Icon
+                      color="black"
+                      name="star"
+                      size="small"
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        height: "100%",
+                        margin: "auto"
+                      }}
+                    />
+                  ) : null}{" "}
+                </li>
               ) : null;
             })}
           </ul>
@@ -99,7 +105,10 @@ export default class DrawGrid extends React.Component {
           {this.state.currentHoverItem === "seat" ? (
             <React.Fragment>
               <div className="miniSeat" />{" "}
-              <p> Parkett, Rad {this.state.currentRow}</p>
+              <p>
+                {" "}
+                Parkett {this.state.currentSeat}, Rad {this.state.currentRow}
+              </p>
             </React.Fragment>
           ) : null}
           {this.state.currentHoverItem === "booked" ? (

@@ -7,13 +7,18 @@ import DrawGrid from "./SeatingGrid";
 import TicketDisplay from "./TicketDisplay";
 import { getCurrentProfile } from "../../actions/profileActions";
 import { getAllUsers } from "../../actions/usersActions";
-import { completeAndSaveBooking } from "../../actions/monMovieActions";
+import {
+  completeAndSaveBooking,
+  removePreviousMoveBookingInformation
+} from "../../actions/monMovieActions";
 
 class Seating extends Component {
   constructor(props) {
     super(props);
     this.state = {
       bookingObj: {},
+      amountOfSeatBookings: 0,
+      existingBookings: [],
       rowList: [],
       reservedList: [],
       memberList: [],
@@ -25,11 +30,28 @@ class Seating extends Component {
     window.scrollTo(0, 0);
     this.props.getCurrentProfile();
     this.props.getAllUsers();
-    let { bookingObj } = this.props.location.state;
+    let {
+      bookingObj,
+      amountOfSeatBookings,
+      existingBookings
+    } = this.props.location.state;
+
+    // console.log("bok ", amountOfSeatBookings);
+    let sortExistingBookings = existingBookings.sort((x, y) => {
+      if (x.customer.status > y.customer.status) {
+        return -1;
+      }
+      if (x.customer.status < y.customer.status) {
+        return 1;
+      }
+      return 0;
+    });
 
     if (bookingObj) {
       this.setState({
         bookingObj,
+        amountOfSeatBookings: 4 - amountOfSeatBookings,
+        existingBookings: sortExistingBookings.reverse(),
         rowList: bookingObj.seating
       });
     }
@@ -40,17 +62,33 @@ class Seating extends Component {
       let firstMemberObj = {
         username: nextProps.profile.profile.username || "",
         id: nextProps.profile.profile.id || "",
-        email: nextProps.profile.profile.email || ""
+        email: nextProps.profile.profile.email || "",
+        status: 1
       };
-
+      let { existingBookings } = this.props.location.state;
       let value = this.state.memberList.some(x => x.id === firstMemberObj.id)
         ? this.state.memberList
+        : existingBookings.length > 0
+        ? []
         : [...this.state.memberList, firstMemberObj];
 
       this.setState({
         profile: nextProps.profile.profile,
         memberList: value
       });
+    }
+
+    if (nextProps.bookingResult) {
+      let bookingResult = nextProps.bookingResult;
+      if (bookingResult.success) {
+        this.props.history.push("/mainpage");
+        this.props.removePreviousMoveBookingInformation();
+      } else {
+        console.log(bookingResult.msg);
+        this.props.removePreviousMoveBookingInformation();
+
+        this.setState({ reservedList: [] });
+      }
     }
   }
 
@@ -60,7 +98,7 @@ class Seating extends Component {
       seatResarvation: this.state.reservedList
     };
 
-    console.log("sending: ", bookingBody);
+    // console.log("sending: ", bookingBody);
     this.props.completeAndSaveBooking(bookingBody);
   };
 
@@ -72,12 +110,16 @@ class Seating extends Component {
         let memberObj = {
           username: username,
           id: id,
-          email: email
+          email: email,
+          status: 2
         };
         let newMemberList = [...this.state.memberList, memberObj];
         let updateReservedList = this.state.reservedList;
         updateReservedList.map((x, index) => {
-          x.customer = newMemberList[index] || { username: "Gäst" };
+          x.customer = newMemberList[index] || {
+            username: "Gäst",
+            status: 3
+          };
         });
 
         this.setState({
@@ -85,7 +127,7 @@ class Seating extends Component {
           reservedList: updateReservedList
         });
       } else {
-        console.log("du kan inte välja fler medemar ");
+        console.log("du kan inte välja fler medlemmar ");
       }
     }
   };
@@ -94,7 +136,10 @@ class Seating extends Component {
     let newMemberList = this.state.memberList.filter(x => x.id !== id);
     let updateReservedList = this.state.reservedList;
     updateReservedList.map((x, index) => {
-      x.customer = newMemberList[index] || { username: "Gäst" };
+      x.customer = newMemberList[index] || {
+        username: "Gäst",
+        status: 3
+      };
     });
     this.setState({
       memberList: newMemberList,
@@ -106,16 +151,27 @@ class Seating extends Component {
     if (this.state.reservedList.some(x => x.seat === obj.seat)) {
       let newList = this.state.reservedList.filter(x => x.seat !== obj.seat);
       newList.map((x, index) => {
-        x.customer = this.state.memberList[index] || { username: "Gäst" };
+        x.customer = this.state.memberList[index] || {
+          username: "Gäst",
+          status: 3
+        };
       });
       this.setState({ reservedList: newList });
     } else {
-      if (this.state.reservedList.length < 4) {
+      if (this.state.reservedList.length < this.state.amountOfSeatBookings) {
         let newObj = this.shallowObjectCopy(obj);
+        newObj.responsible = {
+          username: this.state.profile.username,
+          id: this.state.profile.id,
+          email: this.state.profile.email
+        };
         newObj.booked = true;
         newObj.customer = this.state.memberList[
           this.state.reservedList.length
-        ] || { username: "Gäst" };
+        ] || {
+          username: "Gäst",
+          status: 3
+        };
         this.setState({ reservedList: [...this.state.reservedList, newObj] });
         // console.log(this.state.rowList);
       } else {
@@ -131,8 +187,8 @@ class Seating extends Component {
 
   render() {
     console.log("reserved: ", this.state.reservedList);
-    console.log("rowList: ", this.state.rowList);
-    console.log(this.state.bookingObj);
+    // console.log("rowList: ", this.state.rowList);
+    // console.log(this.state.bookingObj);
 
     // console.log(this.state.profile);
     // let profile = this.props.profile.profile;
@@ -176,6 +232,7 @@ class Seating extends Component {
             />
           </div>
           <TicketDisplay
+            existingBookings={this.state.existingBookings}
             completeBooking={this.completeBooking}
             movieId={this.state.bookingObj._id}
             removeMemberFromBooking={this.removeMemberFromBooking}
@@ -195,7 +252,8 @@ class Seating extends Component {
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  users: state.users
+  users: state.users,
+  bookingResult: state.monMovies.bookingResult
 });
 
 export default connect(
@@ -203,7 +261,8 @@ export default connect(
   {
     getCurrentProfile,
     getAllUsers,
-    completeAndSaveBooking
+    completeAndSaveBooking,
+    removePreviousMoveBookingInformation
     //func goes here
   }
 )(Seating);

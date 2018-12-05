@@ -26,22 +26,38 @@ class CreateMonMovie extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.props.getAllMovies();
   }
 
   onSubmitEvent = () => {
+    // console.log("date ", this.state.date);
+    // console.log("time ", this.state.time);
+
     let createDate = new Date(this.state.date + "T" + this.state.time);
     let utc_time = createDate.toUTCString();
-    console.log(this.state.eventObject);
+
+    let createDate_1 = new Date(this.state.date + "T" + this.state.time);
+    let createDate_2 = new Date(this.state.date + "T" + this.state.time);
+    let cancelTime = new Date(
+      createDate_1.setHours(createDate_1.getHours() - 2)
+    );
+    let reminderTime = new Date(
+      createDate_2.setHours(createDate_2.getHours() - 6)
+    );
+
+    let cancel_utc_time = cancelTime.toUTCString();
+    let reminder_utc_time = reminderTime.toUTCString();
+
     let monMovieDb = {
       mov: this.state.eventObject,
       date: this.state.date,
       time: this.state.time,
       utc_time: utc_time,
+      cancel_utc_time: cancel_utc_time,
+      reminder_utc_time: reminder_utc_time,
       saloon: this.state.saloon
     };
-    console.log(this.state);
-    // console.log("Value : ", monMovieDb);
     this.props.postMonmovie(monMovieDb);
   };
 
@@ -70,6 +86,7 @@ class CreateMonMovie extends Component {
   };
 
   goToOrLeavePreviewPage = bol => {
+    window.scrollTo(0, 0);
     this.setState({ previewPage: bol });
   };
 
