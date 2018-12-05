@@ -5,7 +5,15 @@ import PropTypes from "prop-types";
 import UserPopup from "./UserPopup";
 import Admin from "../admin/Admin";
 
-import { Button, Input, Icon, Item, Segment, Confirm } from "semantic-ui-react";
+import {
+  Button,
+  Input,
+  Icon,
+  Item,
+  Segment,
+  Confirm,
+  Label
+} from "semantic-ui-react";
 import { getAllUsers, userPopup, deleteUser } from "../../actions/usersActions";
 import "./users.css";
 
@@ -118,11 +126,13 @@ class Users extends Component {
               </Item.Meta>
               <Item.Meta>
                 <span className="boldSpan">
-                  Status:{" "}
                   {user.vip.status ? (
-                    <Icon name="star" color="yellow" />
+                    <Label>
+                      <Icon name="star" color="yellow" />
+                      VIP
+                    </Label>
                   ) : (
-                    <Icon name="star" />
+                    ""
                   )}
                 </span>
               </Item.Meta>
@@ -139,7 +149,6 @@ class Users extends Component {
 
               <Button
                 basic
-                // onClick={e => this.deleteUser(user)}
                 onClick={e => this.show(user)}
                 attached="bottom"
                 floated="right"

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { seatNameConverter } from "../common/seatingFunctions";
 import {
   userPopupClose,
   updateUser,
@@ -9,7 +10,7 @@ import {
 } from "../../actions/usersActions";
 import {
   Button,
-  Header,
+  Dropdown,
   Container,
   Divider,
   Image,
@@ -18,6 +19,7 @@ import {
   Segment
 } from "semantic-ui-react";
 import "./users.css";
+import { vipOptions } from "./vipSeating.js";
 
 class UserPopup extends Component {
   constructor() {
@@ -28,10 +30,12 @@ class UserPopup extends Component {
 
       total: null,
       season: null,
-      status: null
+      status: null,
+      seat: null
       //   description: ""
     };
     this.editValues = this.editValues.bind(this);
+    this.seatValue = this.seatValue.bind(this);
   }
 
   handleClick = () => this.setState({ status: !this.state.status });
@@ -49,14 +53,25 @@ class UserPopup extends Component {
   }
 
   updateUserDb() {
-    let { userInfo, total, season, status } = this.state;
+    let { userInfo, total, season, status, seat } = this.state;
     let userDb;
+
+    let seating;
+
+    if (status === false) {
+      seating = "";
+    } else {
+      seating = seat;
+    }
+
     userDb = {
       total: total,
       season: season,
       email: userInfo.email,
-      status: status
+      status: status,
+      seat: seating
     };
+    console.log(userDb);
     this.props.updateUser(userDb);
 
     this.props.userPopupClose();
@@ -90,7 +105,8 @@ class UserPopup extends Component {
         showOrHide: nextProps.users.showOrHide,
         total: nextProps.users.userInfo.stats.total,
         season: nextProps.users.userInfo.stats.season,
-        status: nextProps.users.userInfo.vip.status
+        status: nextProps.users.userInfo.vip.status,
+        seat: nextProps.users.userInfo.vip.seat
       });
     } else {
       this.setState({
@@ -98,7 +114,8 @@ class UserPopup extends Component {
         showOrHide: nextProps.users.showOrHide,
         total: null,
         season: null,
-        status: null
+        status: null,
+        seat: null
       });
     }
   }
@@ -107,14 +124,14 @@ class UserPopup extends Component {
     switch (value) {
       case "sMinus":
         this.setState({
-          season: Number(this.state.season) - 1,
-          total: Number(this.state.total) - 1
+          season: Number(this.state.season) - 1
+          // total: Number(this.state.total) - 1
         });
         break;
       case "sPlus":
         this.setState({
-          season: Number(this.state.season) + 1,
-          total: Number(this.state.total) + 1
+          season: Number(this.state.season) + 1
+          // total: Number(this.state.total) + 1
         });
         break;
       case "tMinus":
@@ -132,10 +149,28 @@ class UserPopup extends Component {
     }
   }
 
+  seatValue(e, { value }) {
+    e.persist();
+
+    this.setState({
+      seat: value
+    });
+  }
+
+  seatingNrToName() {
+    let { seat } = this.state;
+    return seatNameConverter(seat);
+  }
+
   render() {
-    let { showOrHide, userInfo, total, season, status } = this.state;
+    let { showOrHide, userInfo, total, season, status, seat } = this.state;
     let userPopup;
     let vipInfo;
+    let vipSeating;
+
+    if (seat !== null || undefined) {
+      vipSeating = this.seatingNrToName();
+    }
 
     if (showOrHide) {
       userPopup = (
@@ -212,6 +247,10 @@ class UserPopup extends Component {
                 <h2 className="whiteText">
                   <Icon name="star" />
                   VIP status:
+                </h2>
+                <div
+                  style={{ float: "right", position: "relative", top: "-3rem" }}
+                >
                   <Button
                     floated="right"
                     toggle
@@ -220,16 +259,23 @@ class UserPopup extends Component {
                   >
                     VIP
                   </Button>
-                </h2>
-
-                <p>{userInfo.vip.status ? "VIP-medlem" : "Medlem"}</p>
-                <p>
-                  {userInfo.vip.status ? `VIP-plats: ${userInfo.vip.seat}` : ""}
-                </p>
+                  {status ? (
+                    <Dropdown
+                      placeholder="Väljs VIP-plats"
+                      // fluid
+                      search
+                      selection
+                      options={vipOptions}
+                      onChange={this.seatValue}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <h4>{status ? "VIP-medlem" : "Medlem"}</h4>
+                <h4>{status ? `${vipSeating}` : "-"}</h4>
               </Card.Content>
 
-              {/* <h3>Filmer du sett:</h3>
-              <ul>{watchedMovies}</ul> */}
               <Button.Group>
                 <Button
                   attached="bottom"
@@ -242,11 +288,10 @@ class UserPopup extends Component {
                   className="updateButton"
                   color="green"
                   attached="bottom"
-                  onClick={e => this.updateUserDb(userInfo)}
+                  onClick={e => this.updateUserDb()}
                 >
                   Uppdatera databasen
                 </Button>
-
                 <Button
                   attached="bottom"
                   className="closeButton"

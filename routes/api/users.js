@@ -113,6 +113,7 @@ router.post("/updateuser", (req, res) => {
     user.stats.total = req.body.total;
     user.stats.season = req.body.season;
     user.vip.status = req.body.status;
+    user.vip.seat = req.body.seat;
 
     user.save(function(err) {
       if (err) {

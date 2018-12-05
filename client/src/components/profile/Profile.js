@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { seatNameConverter } from "../common/seatingFunctions";
 import {
   Button,
   Divider,
@@ -57,26 +58,18 @@ class Profile extends Component {
       let vipInfo;
 
       if (profile.vip.status) {
-        console.log(profile.vip.status);
+        console.log(profile.vip.seat);
+        let seating = seatNameConverter(profile.vip.seat);
         vipInfo = {
           vipStatus: `VIP-medlem`,
-          vipPlats: `VIP-plats: ${profile.vip.seat}`
+          vipPlats: ` ${seating}`
         };
       } else {
         vipInfo = {
           vipStatus: `Medlem`,
-          vipPlats: ``
+          vipPlats: `-`
         };
       }
-
-      // let watchedMovies;
-      // if (profile.moviesViewed.length > 0) {
-      //   watchedMovies = profile.moviesViewed.map((movie, i) => {
-      //     return <li key={i}>{movie}</li>;
-      //   });
-      // } else {
-      //   watchedMovies = `Du har inte gått på bio än.`;
-      // }
 
       loggedInProfile = (
         <div className="profileInfoContainer">
@@ -88,7 +81,6 @@ class Profile extends Component {
               paddingBottom: "2rem"
             }}
           >
-            {/* <Card fluid className="cardContainer"> */}
             <Card className="containerInPopup">
               <Image
                 className="crowPicture"
@@ -97,7 +89,6 @@ class Profile extends Component {
                 circular
                 centered
               />
-              {/* <Card.Header>{profile.username}</Card.Header> */}
               <h1 style={{ textAlign: "center" }}>{profile.username}</h1>
               <h3
                 className="whiteText"
