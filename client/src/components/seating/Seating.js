@@ -35,7 +35,8 @@ class Seating extends Component {
       amountOfSeatBookings,
       existingBookings
     } = this.props.location.state;
-    console.log("bok ", amountOfSeatBookings);
+
+    // console.log("bok ", amountOfSeatBookings);
     let sortExistingBookings = existingBookings.sort((x, y) => {
       if (x.customer.status > y.customer.status) {
         return -1;

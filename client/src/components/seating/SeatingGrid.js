@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Icon } from "semantic-ui-react";
 
 export default class DrawGrid extends React.Component {
   constructor(props) {
@@ -74,7 +75,22 @@ export default class DrawGrid extends React.Component {
                   onClick={() =>
                     seat.booked ? null : this.props.reserveSeat(seat)
                   }
-                />
+                >
+                  {" "}
+                  {seat.vip ? (
+                    <Icon
+                      color="black"
+                      name="star"
+                      size="small"
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        height: "100%",
+                        margin: "auto"
+                      }}
+                    />
+                  ) : null}{" "}
+                </li>
               ) : null;
             })}
           </ul>
