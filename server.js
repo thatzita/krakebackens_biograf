@@ -60,8 +60,8 @@ app.use("/api/stats", stats);
 //Schedule
 const CronJob = require("cron").CronJob;
 new CronJob(
-  "0 9,12,15,18,21,0 * * *", // At minute 0 past hour 9, 12, 15, 18, 21, and 0.
-  // "* * * * *", // Varje minut
+  // "0 9,12,15,18,21,0 * * *", // At minute 0 past hour 9, 12, 15, 18, 21, and 0.
+  "* * * * *", // Varje minut
   async function() {
     let todaysDate = new Date();
     let seatsTaken = [];
