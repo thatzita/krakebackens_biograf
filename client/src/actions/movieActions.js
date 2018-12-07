@@ -12,7 +12,7 @@ import {
   UPDATE_MOVIE_DB
 } from "./types";
 
-export const getAllMovies = movieData => dispatch => {
+export const getAllMovies = () => dispatch => {
   axios
     .get("/api/movies/allmovies")
     .then(res => {
@@ -54,17 +54,11 @@ export const searchMovie = movieData => dispatch => {
 
   let key = "&api_key=1ca6bbafafae8cf950e1fbb80a4824c7";
 
-  // let instance = axios.create();
-  // delete instance.defaults.headers.common["Authorization"];
-
   delete axios.defaults.headers.common["Authorization"];
-
   axios.get(url + movieData + key).then(res => {
     let movieList = res.data.results;
-    // instance.defaults.headers.common["Authorization"] = localStorage.jwtToken;
 
     axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
-
     dispatch(showMoviesFound(movieList));
   });
 };
@@ -76,24 +70,58 @@ export const showMoviesFound = movieData => {
   };
 };
 
+//ADD IMDB DATA WITHOUT POPUP
+export const getMovieInfoAddtoDb = movieId => dispatch => {
+  let url = "https://api.themoviedb.org/3/movie/";
+  let key = "?api_key=1ca6bbafafae8cf950e1fbb80a4824c7&language=sv";
+
+  delete axios.defaults.headers.common["Authorization"];
+
+  axios
+    .get(url + movieId + key)
+    .then(res => {
+      let movie = res.data;
+      axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
+      return movie;
+    })
+    .then(movieToAdd => {
+      let urlForImg = "http://image.tmdb.org/t/p/original";
+      let genreArray = movieToAdd.genres.map(genre => {
+        return genre.name;
+      });
+
+      let addToDb = {
+        title: movieToAdd.title,
+        description: movieToAdd.overview,
+        background: urlForImg + movieToAdd.backdrop_path,
+        poster: urlForImg + movieToAdd.poster_path,
+        runtime: movieToAdd.runtime,
+        genres: genreArray,
+        imdb_id: movieToAdd.imdb_id,
+        release: movieToAdd.release_date,
+        rating: movieToAdd.vote_average,
+        dvdOrBluRay: "bluRay"
+      };
+      axios.post("/api/movies/addmovie", addToDb).then(res => {
+        let success = {
+          title: "Film tillagd!",
+          msg: "Filmen finns nu i databasen"
+        };
+        dispatch(movieAddedSuccess(success));
+      });
+    });
+};
+
 //IMDB POPUP
 export const imdbPopup = movieId => dispatch => {
   let url = "https://api.themoviedb.org/3/movie/";
   let key = "?api_key=1ca6bbafafae8cf950e1fbb80a4824c7&language=sv";
 
-  // let instance = axios.create();
-  // delete instance.defaults.headers.common["Authorization"];
-
-  // let instance = axios.create();
   delete axios.defaults.headers.common["Authorization"];
 
-  // instance.get(url + movieId + key).then(res => {
   axios.get(url + movieId + key).then(res => {
     let movie = res.data;
-    // instance.defaults.headers.common["Authorization"] = localStorage.jwtToken;
-
     axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
-
     dispatch(showSpecificMovie(movie));
   });
 };

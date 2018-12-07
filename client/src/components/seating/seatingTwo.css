@@ -1,0 +1,112 @@
+.cinemaBackground {
+  padding: 2rem 4rem;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background-color: rgb(0, 0, 0);
+  color: #fff;
+}
+.cinemaWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+.bookingContainer {
+  width: 50%;
+  height: 100%;
+  /* margin: auto; */
+}
+
+.seatingContainer {
+  width: 35%;
+  /* margin: 1rem; */
+  min-width: 450px;
+  /* position: absolute; */
+  /* left: 2rem; */
+}
+.row {
+  width: auto;
+  list-style: none;
+  min-width: 450px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.seat {
+  margin: 0.5rem;
+  height: 35px;
+  width: 8%;
+  border-radius: 0 0 15px 15px;
+  background-color: gray;
+  /* min-width: 55px; */
+  /* min-height: 40px; */
+}
+
+.booked {
+  margin: 0.5rem;
+  height: 35px;
+  width: 8%;
+  border-radius: 0 0 15px 15px;
+  background-color: rgb(98, 20, 172);
+}
+
+.reserved {
+  margin: 0.5rem;
+  height: 35px;
+  width: 8%;
+  border-radius: 0 0 15px 15px;
+  background-color: rgb(255, 255, 255);
+}
+
+.seat:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.reserved:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.seatingInfo {
+  margin-top: 2rem;
+  width: 100%;
+  min-width: 450px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.miniSeat {
+  margin: 1rem;
+  height: 20px;
+  width: 5%;
+  border-radius: 0 0 10px 10px;
+  background-color: gray;
+}
+.miniReserved {
+  margin: 1rem;
+  height: 20px;
+  width: 5%;
+  border-radius: 0 0 10px 10px;
+  background-color: rgb(255, 255, 255);
+}
+.miniBooked {
+  margin: 1rem;
+  height: 20px;
+  width: 5%;
+  border-radius: 0 0 10px 10px;
+  background-color: rgb(98, 20, 172);
+}
+
+#bioduk {
+  width: 100%;
+  min-width: 450px;
+}

@@ -83,7 +83,7 @@ router.post("/register", (req, res) => {
 
               // setup email data with unicode symbols
               let mailOptions = {
-                from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
+                from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`, // sender address
                 to: `${req.body.email}`, // list of receivers
                 subject: `Välkommen till Kråkebackens biograf ${
                   req.body.username
@@ -104,6 +104,24 @@ router.post("/register", (req, res) => {
         });
       });
     }
+  });
+});
+
+//POST api/users/updateuser
+router.post("/updateuser", (req, res) => {
+  User.findOne({ email: req.body.email }).then(user => {
+    user.stats.total = req.body.total;
+    user.stats.season = req.body.season;
+    user.vip.status = req.body.status;
+    user.vip.seat = req.body.seat;
+
+    user.save(function(err) {
+      if (err) {
+        console.error("ERROR!");
+      } else {
+        res.json(user);
+      }
+    });
   });
 });
 
@@ -150,7 +168,7 @@ router.post("/login", (req, res) => {
         jwt.sign(
           payload,
           keys.secretOrKey,
-          { expiresIn: 720 }, //Hur länge din token ska vara giltlig
+          { expiresIn: 3600 }, //Hur länge din token ska vara giltlig, 2h
           (err, token) => {
             res.json({
               success: true,
@@ -177,13 +195,35 @@ router.get(
       email: req.user.email,
       vip: req.user.vip,
       stats: req.user.stats,
-      moviesViewed: req.user.moviesViewed
+      moviesViewed: req.user.moviesViewed,
+      admin: req.user.admin
     });
   }
 );
 
-//DELETE api/users/
+//GET api/users/allusers
+//Hämta alla medlemmar
+router.get("/allusers", (req, res) => {
+  User.find({}, function(err, users) {
+    res.json(users);
+  });
+});
 
+// TODO: Se till att informationen sparas i userStatsArchive
+//GET api/users/resetstats
+//nollställ statistik för alla medlemmar
+router.get("/resetstats", (req, res) => {
+  User.updateMany(
+    {},
+    { $set: { "stats.season": 0 } },
+    { upsert: true },
+    function(err, users) {
+      res.json(users);
+    }
+  );
+});
+
+//DELETE api/users/
 router.delete(
   "/",
   passport.authenticate("jwt", { session: false }),
@@ -194,8 +234,14 @@ router.delete(
   }
 );
 
-//POST api/users/forgot
+//DELETE api/users/deleteuser > ADMIN KAN GÖRA DETTA
+router.delete("/deleteuser", (req, res) => {
+  User.findOneAndDelete({ _id: req.body.objId }, function(err, user) {
+    res.json({ success: true });
+  });
+});
 
+//POST api/users/forgot
 router.post("/forgot", (req, res, next) => {
   //VALIDERING AV MAILINPUT MÅSTE SKAPAS
 
@@ -258,7 +304,7 @@ router.post("/forgot", (req, res, next) => {
 
         // setup email data with unicode symbols
         let mailOptions = {
-          from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
+          from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`, // sender address
           to: `${req.body.email}`, // list of receivers
           subject: `Glömt ditt lösenord?`, // Subject line
           html: output // html body
@@ -351,7 +397,7 @@ router.post("/reset/:token", function(req, res) {
 
                 // setup email data with unicode symbols
                 let mailOptions = {
-                  from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
+                  from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`, // sender address
                   to: user.email, // list of receivers
                   subject: `Lösenord återställt!`, // Subject line
                   html: output // html body
@@ -381,8 +427,6 @@ router.post("/reset/:token", function(req, res) {
 
 //http://localhost:5000/api/users/changepassword/
 router.post("/changepassword", function(req, res) {
-  console.log(req.body);
-
   const { errors, isValid } = validateResetInput(req.body);
 
   //Validering av password i (reset.js)

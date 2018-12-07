@@ -86,6 +86,7 @@ function updateMovie(updateData, movieArray) {
     if (updateData.id === newState[i]._id) {
       newState[i].title = updateData.title;
       newState[i].description = updateData.description;
+      newState[i].crowRating = updateData.crowRating;
     }
   }
   return newState;

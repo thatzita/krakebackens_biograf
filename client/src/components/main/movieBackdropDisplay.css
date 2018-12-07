@@ -1,0 +1,35 @@
+.movieBackdropContainer {
+  height: 90vh;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  background-color: black;
+}
+
+.movieBackdrop {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  box-shadow: inset 0 -190px 100px -10px rgb(0, 0, 0);
+  -webkit-box-shadow: inset 0 -190px 100px -10px rgb(0, 0, 0);
+  -moz-box-shadow: inset 0 -190px 100px -10px rgb(0, 0, 0);
+}
+
+.backdropContent {
+  width: 100%;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  color: #fff;
+  bottom: 0;
+  /* background-color: rgb(0, 0, 0, 1); */
+  /* box-shadow: 0 0 100px 50px rgb(0, 0, 0, 1); */
+}
+.backdropContent > div {
+  position: relative;
+  bottom: 3rem;
+}
+.backdropContent > div > h1 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

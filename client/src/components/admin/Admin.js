@@ -2,9 +2,27 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Menu, Segment, Image, Divider, Button } from "semantic-ui-react";
+import { Menu, Segment, Icon, Button, Header, Image } from "semantic-ui-react";
 import "./admin.css";
-import { getCurrentProfile } from "../../actions/profileActions";
+import {
+  getCurrentProfile,
+  clearCurrentProfile
+} from "../../actions/profileActions";
+import { goToAdminPage } from "../../actions/webPageStateActions";
+import { logoutUser } from "../../actions/authActions";
+
+const adminNavbarStyle = {
+  borderRadius: "0",
+  position: "fixed",
+  zIndex: "2",
+  margin: "0",
+  left: "0",
+  top: "0",
+  height: "100vh",
+  width: "20%",
+  minWidth: "230px",
+  maxWidth: "300px"
+};
 
 class Admin extends Component {
   constructor() {
@@ -25,67 +43,139 @@ class Admin extends Component {
     });
   }
 
+  logoutUserAndClearProfile() {
+    this.props.clearCurrentProfile();
+    this.props.logoutUser();
+    localStorage.removeItem("adminPage");
+  }
+
   render() {
     const { username } = this.props.auth.user;
+
     const { activeItem } = this.state;
+    // className="menuContainer"
     return (
-      <div className="menuContainer">
-        <Menu inverted vertical>
+      <Segment inverted style={adminNavbarStyle}>
+        <Header
+          dividing
+          inverted
+          as="h3"
+          textAlign="center"
+          style={{ marginTop: "2rem" }}
+        >
+          <Image
+            src="krakebackens_logo.png"
+            style={{ width: "80px", marginBottom: "1rem" }}
+          />
+          <br />
+          Välkommen
+          <Header.Subheader style={{ marginTop: "0.5rem" }}>
+            {username}.
+          </Header.Subheader>
+        </Header>
+
+        <Menu
+          inverted
+          vertical
+          style={{ position: "relative", margin: "auto" }}
+        >
+          <Menu.Menu
+            style={{
+              margin: "auto",
+              textAlign: "center",
+              marginBottom: "2rem"
+            }}
+          >
+            <Menu.Item
+              name="Logga ut"
+              active={activeItem === "Logga ut"}
+              onClick={() => this.logoutUserAndClearProfile()}
+            >
+              Logga ut
+            </Menu.Item>
+          </Menu.Menu>
+
           <Menu.Item
+            as={Link}
+            to="/adminhome"
             name="Hem"
             active={activeItem === "Hem"}
             onClick={this.handleItemClick}
-          />
+          >
+            Hem
+            <Icon name="home" />
+          </Menu.Item>
+
           <Menu.Item
+            as={Link}
+            to="/users"
             name="Medlemmar"
             active={activeItem === "Medlemmar"}
             onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            as={Link}
-            to="/register"
-            name="Lägg till medlem"
-            active={activeItem === "Lägg till medlem"}
-            onClick={this.handleItemClick}
-          />
+          >
+            Medlemmar
+            <Icon name="users" />
+          </Menu.Item>
+
           <Menu.Item
             as={Link}
             to="/movies"
-            name="Filmdatabas"
-            active={activeItem === "Filmdatabas"}
+            name="Filmer"
+            active={activeItem === "Filmer"}
             onClick={this.handleItemClick}
-          />
+          >
+            Filmer
+            <Icon name="film" />
+          </Menu.Item>
+
           <Menu.Item
             as={Link}
-            to="/addmovie"
-            name="Lägg till film"
-            active={activeItem === "Lägg till film"}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            as={Link}
-            to="/monthlymovies"
+            to="/monMovieList"
             name="Månadens filmer"
             active={activeItem === "Månadens filmer"}
             onClick={this.handleItemClick}
-          />
+          >
+            Månadens Filmer
+            <Icon name="star" />
+          </Menu.Item>
+
           <Menu.Item
             as={Link}
             to="/statistic"
             name="Statistik"
             active={activeItem === "Statistik"}
             onClick={this.handleItemClick}
-          />
+          >
+            Statistik
+            <Icon name="chart bar" />
+          </Menu.Item>
 
           <Menu.Item
             as={Link}
-            to="/mainpage"
-            name="Tillbaka till Biografen"
-            active={activeItem === "Tillbaka till Biografen"}
+            to="/moviearchive"
+            name="Arkivet"
+            active={activeItem === "Arkivet"}
             onClick={this.handleItemClick}
-          />
+          >
+            Arkivet
+            <Icon name="archive" />
+          </Menu.Item>
         </Menu>
-      </div>
+
+        <Button
+          style={{ marginTop: "4rem" }}
+          inverted
+          basic
+          as={Link}
+          to="/mainpage"
+          name="Tillbaka till Biografen"
+          active={activeItem === "Tillbaka till Biografen"}
+          onClick={() => this.props.goToAdminPage(false)}
+        >
+          <Icon name="left angle" />
+          Tillbaka till Biografen
+        </Button>
+      </Segment>
       //   </div>
     );
   }
@@ -93,7 +183,9 @@ class Admin extends Component {
 Admin.propTypes = {
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  clearCurrentProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -105,6 +197,9 @@ export default connect(
   mapStateToProps,
   {
     //func goes here
-    getCurrentProfile
+    clearCurrentProfile,
+    logoutUser,
+    getCurrentProfile,
+    goToAdminPage
   }
 )(Admin);

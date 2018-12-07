@@ -1,15 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Button, Divider } from "semantic-ui-react";
+import { seatNameConverter } from "../common/seatingFunctions";
+import {
+  Button,
+  Divider,
+  Segment,
+  Card,
+  Image,
+  Icon,
+  Confirm
+} from "semantic-ui-react";
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
 import { Link } from "react-router-dom";
+import Footer from "../layout/Footer";
+import "./profile.css";
 
 class Profile extends Component {
   constructor() {
     super();
     this.state = {
-      errors: {}
+      errors: {},
+      show: false
     };
   }
 
@@ -26,52 +38,123 @@ class Profile extends Component {
       profile: nextProps.profile.profile
     });
   }
+  show = () => {
+    this.setState({ open: true });
+  };
+  handleConfirm = () => {
+    this.onDeleteClick();
+    this.setState({ open: false });
+  };
+
+  handleCancel = () => this.setState({ open: false });
 
   render() {
     let loggedInProfile;
     const profile = this.state.profile;
+    const { open } = this.state;
 
     if (profile) {
       //   let vipPlats;
       let vipInfo;
 
       if (profile.vip.status) {
+        let seating = seatNameConverter(profile.vip.seat);
         vipInfo = {
-          vipStatus: `Du är VIP`,
-          vipPlats: `Din plats är ${profile.vip.seat}`
+          vipStatus: `VIP-medlem`,
+          vipPlats: ` ${seating}`
         };
       } else {
         vipInfo = {
-          vipStatus: `Du är inte VIP`,
-          vipPlats: `Du har ingen VIP-plats`
+          vipStatus: `Medlem`,
+          vipPlats: `-`
         };
-      }
-
-      let watchedMovies;
-      if (profile.moviesViewed.length > 0) {
-        watchedMovies = profile.moviesViewed.map((movie, i) => {
-          return <li key={i}>{movie}</li>;
-        });
-      } else {
-        watchedMovies = `Du har inte gått på bio än.`;
       }
 
       loggedInProfile = (
-        <div>
-          <h3>Användarnamn:</h3>
-          <p>{profile.username}</p>
-          <h3>Epost:</h3>
-          <p>{profile.email}</p>
-          <h3>Statistik:</h3>
-          <h4>Antal besök i år:</h4>
-          <p>{profile.stats.season}</p>
-          <h4>Antal besök totalt:</h4>
-          <p>{profile.stats.total}</p>
-          <h3>VIP status:</h3>
-          <p>{vipInfo.vipStatus}</p>
-          <p>{vipInfo.vipPlats}</p>
-          <h3>Filmer du sett:</h3>
-          <ul>{watchedMovies}</ul>
+        <div className="profileInfoContainer">
+          <hr />
+          <Segment
+            inverted
+            style={{
+              marginBottom: "0rem",
+              paddingBottom: "2rem"
+            }}
+          >
+            <Card className="containerInPopup">
+              <Image
+                className="crowPicture"
+                src="krakebackens_logo.png"
+                size="medium"
+                circular
+                centered
+              />
+              <h1 style={{ textAlign: "center" }}>{profile.username}</h1>
+              <h3
+                className="whiteText"
+                style={{ textAlign: "center", marginTop: "-1rem" }}
+              >
+                <Icon name="mail" />
+                {profile.email}
+              </h3>
+
+              <Card.Content className="userStats">
+                <h2
+                  className="whiteText"
+                  // style={{ textDecoration: "underline" }}
+                >
+                  <Icon name="chart bar" />
+                  Statistik:
+                </h2>
+                <h4 className="whiteText">Antal besök i år:</h4>
+                <span className="whiteText">{profile.stats.season}</span>
+                <h4 className="whiteText">Antal besök totalt:</h4>
+                <span className="whiteText">{profile.stats.total}</span>
+              </Card.Content>
+
+              <Card.Content className="userVip">
+                <h2
+                  // style={{ textDecoration: "underline" }}
+                  className="whiteText"
+                >
+                  <Icon name="star" />
+                  VIP status:
+                </h2>
+                <p>{vipInfo.vipStatus}</p>
+                <p>{vipInfo.vipPlats}</p>
+              </Card.Content>
+
+              {/* <h3>Filmer du sett:</h3>
+              <ul>{watchedMovies}</ul> */}
+            </Card>
+            <Button.Group className="profileButtons">
+              <Button
+                attached="bottom"
+                className="deleteButton"
+                // onClick={this.onDeleteClick.bind(this)}
+                onClick={e => this.show()}
+              >
+                Ta bort konto
+              </Button>
+              <Confirm
+                open={open}
+                className="confirmDeleteUser"
+                header="Du är på väg att ta ditt konto"
+                content="Är du säker att du vill ta bort ditt konto? Det går inte att få tillbaka kontot!"
+                cancelButton="Gå tillbaka"
+                confirmButton="Ta bort"
+                onCancel={this.handleCancel}
+                onConfirm={this.handleConfirm}
+              />
+              <Button className="UpdateButton" color="green" attached="bottom">
+                Uppdatera konto
+              </Button>
+              <Link to="/changepassword">
+                <Button className="linkedButton" attached="bottom" color="blue">
+                  Byt lösenord
+                </Button>
+              </Link>
+            </Button.Group>
+          </Segment>
         </div>
       );
     } else {
@@ -80,18 +163,13 @@ class Profile extends Component {
 
     return (
       <div>
-        <h1>Profilsida</h1>
-        <Divider />
+        <h1 style={{ marginTop: "3rem", color: "white", textAlign: "center" }}>
+          Profilsida
+        </h1>
+
         {loggedInProfile}
-        <Button basic onClick={this.onDeleteClick.bind(this)}>
-          Ta bort konto
-        </Button>
-        <Button primary>Uppdatera konto</Button>
-        <Link to="/changepassword">
-          <Button basic color="violet">
-            Byt lösenord
-          </Button>
-        </Link>
+
+        <Footer />
       </div>
     );
   }

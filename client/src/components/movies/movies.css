@@ -1,12 +1,47 @@
 div.containerMovies {
-  /* position: relative; */
-  margin-left: 285px;
-  max-width: 65rem;
+  margin-left: 30rem;
+  max-width: 60rem;
 }
 div.containerAddmovie {
-  /* position: relative; */
-  margin-left: 285px;
-  max-width: 65rem;
+  margin-left: 30rem;
+  padding-bottom: 8rem;
+  max-width: 60rem;
+  min-height: 50rem;
+  margin-bottom: -10rem;
+
+  /* border: 3px solid purple; */
+}
+div.addmovieDiv {
+  background-color: #f8f8ff;
+  padding-bottom: 8rem;
+  margin-bottom: -7rem;
+}
+div.movies {
+  background-color: #f8f8ff;
+  padding-bottom: 8rem;
+  margin-bottom: -7rem;
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+}
+div.addMovie {
+  background-color: #f8f8ff;
+  padding-bottom: 12rem;
+  margin-bottom: -7rem;
+}
+.ui.input.movieSearch {
+  width: 40rem;
+}
+div.searchContainer {
+  text-align: center;
+}
+.crowRating,
+.description {
+  font-weight: 400;
+  /* margin-left: 10px;
+  min-width: 3rem;
+  display: inline-block;
+  padding: 1px 10px; */
 }
 
 .ui.basic.purple.button,
@@ -31,43 +66,83 @@ div.containerAddmovie {
 .boldSpan {
   font-weight: 700;
 }
-.editIcon,
-.deleteIcon {
-  cursor: pointer;
+
+h1.titlePopup,
+h1.titlePopupDb {
+  color: white;
+}
+.ui.purple.basic.button.loadMoreBtn {
+  margin-top: 20rem;
+  width: 20rem;
+  z-index: 100;
+}
+.loadMoreBtnContainer {
+  text-align: center;
+  margin-left: 10rem;
+  margin-top: 10rem;
+  margin-bottom: -5rem;
 }
 
 .popup {
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: 10;
-  position: fixed;
-  /* width: 80%;*/
-  height: 70%;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  border: 1px solid whitesmoke;
   overflow-y: scroll;
-}
-.containerInPopup {
-  color: ghostwhite;
-  padding-right: 200px;
+  position: fixed;
+  padding-top: 1rem;
+
+  z-index: 10;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
-.descriptionContainer {
-  margin-right: 50px;
-  width: 35rem;
+.ui.buttons.addMovieBtnGroup {
+  position: relative;
+  float: right;
+  bottom: 0;
+}
+
+.ui.inverted.black.segment {
+  position: sticky;
+  z-index: 2;
+}
+
+.imgPosition {
+  /* left: -7rem; */
+  margin-right: 10rem;
+  position: relative;
+}
+
+.ui.card,
+.ui.cards > .card.containerInPopup {
+  color: ghostwhite;
+  width: 70rem;
+  padding: 1rem;
+  background-color: rgb(25, 25, 25);
+  margin: 0 auto;
+}
+
+.ui.large.image.imageBorder {
+  margin-left: 2rem;
+}
+
+.ui.buttons.btnGroupPopup {
+  margin-top: -4rem;
+  position: relative;
+}
+
+div.ui.bottom.attached.button.deleteButtonPopup {
 }
 
 [contenteditable="true"]:active,
 [contenteditable="true"]:focus {
   border: none;
+  /* border: 1px solid white; */
   outline: none;
+  /* display: inline-block; */
 }
 
-[contenteditable="true"]:focus > style {
-  display: block;
-}
 .ui.attached.buttons .button {
   padding: 10px 5px;
   left: 4%;
@@ -75,4 +150,9 @@ div.containerAddmovie {
 }
 .imageBorder {
   border: 1px solid whitesmoke;
+  float: right;
+}
+.ui.small.modal.transition.visible.active.confirmDeleteMovie
+  button.ui.primary.button {
+  background: red;
 }

@@ -1,0 +1,39 @@
+div.containerStatistic {
+  /* position: relative; */
+  margin-left: 30rem;
+  max-width: 60rem;
+}
+div.tableContainer {
+  width: 700px;
+  overflow: hidden;
+  margin-left: 4rem;
+}
+
+.firstList {
+  width: 300px;
+  float: left;
+}
+.secondList {
+  width: 300px;
+  float: right;
+}
+
+div.statistics {
+  background-color: #f8f8ff;
+  padding-bottom: 11rem;
+  margin-bottom: -7rem;
+}
+h1.title {
+  padding-top: 2rem;
+  color: black;
+}
+.statsFromUsers {
+  margin-bottom: -10rem;
+}
+
+.ui.statistics:first-child.userGroup {
+  /* margin: 0 auto; */
+  /* position: relative; */
+  background: transparent;
+  margin-left: 4rem;
+}

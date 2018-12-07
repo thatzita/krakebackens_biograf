@@ -9,3 +9,89 @@
   height: 100vh;
   width: 16rem;
 }
+
+.adminhome {
+  background-color: #f8f8ff;
+  padding-bottom: 8rem;
+  margin-bottom: -7rem;
+  height: 100%;
+}
+.containerAdminHome {
+  margin-left: 30rem;
+  max-width: 60rem;
+}
+.adminMovieBackdropContainer {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  margin-top: 0.5rem;
+}
+.adminMovieBackdrop {
+  height: 100%;
+  width: 100%;
+}
+
+.purpleBox {
+  background-color: #621e96;
+  width: 10rem;
+  height: 10rem;
+  position: relative;
+  color: white;
+  display: inline-block;
+  margin: 0 4rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.purpleBox > p {
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.film.huge.icon.iconPos,
+.users.huge.icon.iconPos,
+.chart.bar.huge.icon.iconPos {
+  text-align: center;
+  margin-left: 25%;
+  margin-top: 10%;
+}
+
+.makeItFloat .bigPicture {
+  float: left;
+}
+
+.makeItFloat .smallPicture {
+  /* margin-top: -2rem; */
+}
+.ui.horizontal.list div.item .smallOne {
+  position: relative;
+  border: 2px solid black;
+
+  padding-left: 20rem;
+}
+
+.makeItFloat > .ui.horizontal.list .item .bigPicture {
+  padding-left: 7rem;
+  width: 50rem;
+}
+
+.makeItFloat > .ui.horizontal.list .item .smallPicture {
+  float: left;
+  margin-top: 1rem;
+  background: rgba(98, 30, 150, 1);
+
+  /* border-radius: 0.5rem; */
+}
+
+.makeItFloat .ui.list {
+  margin-left: -2rem;
+}
+
+.smallPicture > .ui.tiny.image {
+  /* border-radius: 0.5rem; */
+}

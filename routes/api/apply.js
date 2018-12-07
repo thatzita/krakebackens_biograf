@@ -58,7 +58,7 @@ router.post("/form", (req, res) => {
         // setup email data with unicode symbols
         let mailOptions = {
           from: `${req.body.email}`, // sender address
-          to: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // list of receivers
+          to: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
           subject: `Förfrågan om medlemskap från ${req.body.username}`, // Subject line
           html: output // html body
         };
