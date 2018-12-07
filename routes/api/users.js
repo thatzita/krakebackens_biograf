@@ -83,7 +83,7 @@ router.post("/register", (req, res) => {
 
               // setup email data with unicode symbols
               let mailOptions = {
-                from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
+                from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`, // sender address
                 to: `${req.body.email}`, // list of receivers
                 subject: `Välkommen till Kråkebackens biograf ${
                   req.body.username
@@ -304,7 +304,7 @@ router.post("/forgot", (req, res, next) => {
 
         // setup email data with unicode symbols
         let mailOptions = {
-          from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
+          from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`, // sender address
           to: `${req.body.email}`, // list of receivers
           subject: `Glömt ditt lösenord?`, // Subject line
           html: output // html body
@@ -397,7 +397,7 @@ router.post("/reset/:token", function(req, res) {
 
                 // setup email data with unicode symbols
                 let mailOptions = {
-                  from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // sender address
+                  from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`, // sender address
                   to: user.email, // list of receivers
                   subject: `Lösenord återställt!`, // Subject line
                   html: output // html body
@@ -427,8 +427,6 @@ router.post("/reset/:token", function(req, res) {
 
 //http://localhost:5000/api/users/changepassword/
 router.post("/changepassword", function(req, res) {
-  console.log(req.body);
-
   const { errors, isValid } = validateResetInput(req.body);
 
   //Validering av password i (reset.js)

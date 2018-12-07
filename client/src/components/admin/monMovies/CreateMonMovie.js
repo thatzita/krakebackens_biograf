@@ -91,7 +91,7 @@ class CreateMonMovie extends Component {
   };
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
 
     let movies = this.props.movies || [];
 
@@ -145,7 +145,7 @@ class CreateMonMovie extends Component {
         />
       </React.Fragment>
     );
-    console.log(this.state.saloon);
+    // console.log(this.state.saloon);
 
     return (
       // <React.Fragment>

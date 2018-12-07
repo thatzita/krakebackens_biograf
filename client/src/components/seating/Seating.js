@@ -84,7 +84,6 @@ class Seating extends Component {
         this.props.history.push("/mainpage");
         this.props.removePreviousMoveBookingInformation();
       } else {
-        console.log(bookingResult.msg);
         this.props.removePreviousMoveBookingInformation();
 
         this.setState({ reservedList: [] });
@@ -104,7 +103,6 @@ class Seating extends Component {
 
   addMemberToBooking = (username, id, email) => {
     if (this.state.memberList.some(x => x.id === id)) {
-      console.log("du har redan lagt till den här medlemmen");
     } else {
       if (this.state.memberList.length < 4) {
         let memberObj = {
@@ -127,7 +125,7 @@ class Seating extends Component {
           reservedList: updateReservedList
         });
       } else {
-        console.log("du kan inte välja fler medlemmar ");
+        console.log("Du kan inte välja fler medlemmar ");
       }
     }
   };
@@ -186,7 +184,7 @@ class Seating extends Component {
   };
 
   render() {
-    console.log("reserved: ", this.state.reservedList);
+    // console.log("reserved: ", this.state.reservedList);
     // console.log("rowList: ", this.state.rowList);
     // console.log(this.state.bookingObj);
 

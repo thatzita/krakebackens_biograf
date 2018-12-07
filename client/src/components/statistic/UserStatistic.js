@@ -67,14 +67,12 @@ class UserStatistic extends Component {
   guestStatsTotal() {
     const { users } = this.state.users;
     let guest;
-    console.log(users.length);
 
     for (let i = 0; i < users.length; i++) {
       if (users[i].email === "charliegh.christyana@moneyln.com") {
         guest = users[i];
       }
     }
-    console.log(guest.stats.total);
     return guest.stats.total;
   }
 

@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const async = require("async");
+const path = require("path");
 
 const { MonMovie } = require("./models/MonthlyMovie");
 const User = require("./models/User.js");
@@ -55,6 +56,14 @@ app.use("/api/apply", apply);
 app.use("/api/monthlyMovies", monthlyMovies);
 app.use("/api/movies", movies);
 app.use("/api/stats", stats);
+
+//Server static assets if in prod
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 //Schedule
 const CronJob = require("cron").CronJob;

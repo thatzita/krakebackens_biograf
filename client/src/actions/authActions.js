@@ -19,7 +19,7 @@ export const registerUser = (userData, history) => dispatch => {
     .then(res => {
       let success = {};
       if (res.status === 200) {
-        console.log(res);
+        // console.log(res);
         success = {
           title: "Användare skapad!",
           msg: "Ett mail har skickats till " + userData.email + "."

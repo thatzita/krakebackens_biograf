@@ -98,7 +98,7 @@ export const saveUserStatsToArchive = archiveData => dispatch => {
 
 export const updateUser = data => dispatch => {
   axios.post("/api/users/updateuser", data).then(res => {
-    console.log(res.data);
+    // console.log(res.data);
     dispatch({
       type: UPDATE_USER,
       payload: res.data

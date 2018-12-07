@@ -169,12 +169,6 @@ router.get("/singlemovie/", (req, res) => {
 
 // complete and save booking
 router.post("/completeAndSaveBooking", (req, res) => {
-  console.log("the movieID: ", req.body.movieId);
-
-  // let updatingField = {
-  //   seating:
-  // }
-
   MonMovie.findOne({ _id: req.body.movieId }).then(movie => {
     if (movie) {
       let seatResarvation = req.body.seatResarvation;
@@ -185,8 +179,6 @@ router.post("/completeAndSaveBooking", (req, res) => {
           let found = false;
           let reservation = {};
           for (let index = 0; index < seatResarvation.length; index++) {
-            console.log(x.booked);
-
             if (seatResarvation[index].seat === x.seat) {
               found = true;
               if (x.booked === false) {
@@ -216,13 +208,11 @@ router.post("/completeAndSaveBooking", (req, res) => {
         //Check saloon 2 if fullybooked
         if (newMovie.saloon === "2") {
           newMovie.seating[0].map(seat => {
-            console.log(seat.booked);
             if (seat.booked) {
               seatCount++;
             }
           });
           newMovie.seating[1].map(seat => {
-            console.log(seat.booked);
             if (seat.booked) {
               seatCount++;
             }

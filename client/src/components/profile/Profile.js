@@ -58,7 +58,6 @@ class Profile extends Component {
       let vipInfo;
 
       if (profile.vip.status) {
-        console.log(profile.vip.seat);
         let seating = seatNameConverter(profile.vip.seat);
         vipInfo = {
           vipStatus: `VIP-medlem`,

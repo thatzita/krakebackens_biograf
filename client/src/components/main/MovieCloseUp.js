@@ -46,7 +46,7 @@ class MovieCloseUp extends Component {
 
     if (nextProps.movieCloseUp && nextProps.profile.profile) {
       let checkSeatBookings = nextProps.movieCloseUp.seating;
-      console.log("seats ", checkSeatBookings);
+      // console.log("seats ", checkSeatBookings);
 
       let howManySeatsAreBooked = [];
       checkSeatBookings.map(array => {
@@ -59,7 +59,7 @@ class MovieCloseUp extends Component {
           }
         });
       });
-      console.log("how many ", howManySeatsAreBooked.length);
+      // console.log("how many ", howManySeatsAreBooked.length);
 
       this.setState({
         movieCloseUp: nextProps.movieCloseUp,
