@@ -107,7 +107,7 @@ export default class DrawGrid extends React.Component {
               <div className="miniSeat" />{" "}
               <p>
                 {" "}
-                Parkett {this.state.currentSeat}, Rad {this.state.currentRow}
+                Stol {this.state.currentSeat}, Rad {this.state.currentRow}
               </p>
             </React.Fragment>
           ) : null}

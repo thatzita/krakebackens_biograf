@@ -11,17 +11,17 @@ function seatNameConverter(seat) {
   }
 
   if (seat.substring(2, 4) === "s1") {
-    seating = "Parkett 1";
+    seating = "Stol 1";
   } else if (seat.substring(2, 4) === "s2") {
-    seating = "Parkett 2";
+    seating = "Stol 2";
   } else if (seat.substring(2, 4) === "s3") {
-    seating = "Parkett 3";
+    seating = "Stol 3";
   } else if (seat.substring(2, 4) === "s4") {
-    seating = "Parkett 4";
+    seating = "Stol 4";
   } else if (seat.substring(2, 4) === "s5") {
-    seating = "Parkett 5";
+    seating = "Stol 5";
   } else if (seat.substring(2, 4) === "s6") {
-    seating = "Parkett 6";
+    seating = "Stol 6";
   }
 
   if (row === undefined && seating === undefined) {

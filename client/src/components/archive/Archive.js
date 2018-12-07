@@ -55,10 +55,9 @@ class Archive extends Component {
   }
 
   bookedSeats(movie) {
-    console.log(movie);
     let count = 0;
 
-    if (movie.saloon === "2") {
+    if (movie.saloon === "2" && movie.fullyBooked === false) {
       movie.seating[0].map(seat => {
         if (seat.booked) {
           count++;
@@ -69,10 +68,12 @@ class Archive extends Component {
           count++;
         }
       });
-      return count;
+      return count + " bokade";
+    } else if (movie.fullyBooked) {
+      return (count = "Fullbokad");
     }
 
-    if (movie.saloon === "1") {
+    if (movie.saloon === "1" && movie.fullyBooked === false) {
       movie.seating[0].map(seat => {
         if (seat.booked) {
           count++;
@@ -88,8 +89,9 @@ class Archive extends Component {
           count++;
         }
       });
-
-      return count;
+      return count + " bokade";
+    } else if (movie.fullyBooked) {
+      return (count = "Fullbokad");
     }
   }
 
@@ -129,7 +131,6 @@ class Archive extends Component {
         );
       });
       let movieItem = filteredMovies.map((movie, index) => {
-        let count = 0;
         return (
           <Item key={index}>
             <Item.Image
@@ -163,21 +164,8 @@ class Archive extends Component {
               </Item.Extra>
               <Item.Extra>
                 <Label>Salong {movie.saloon}</Label>
-                <Label>{this.bookedSeats(movie)} bokade</Label>
+                <Label>{this.bookedSeats(movie)}</Label>
               </Item.Extra>
-
-              {/* <Button.Group className="addMovieBtnGroup">
-                <Button
-                  color="blue"
-                  style={{ height: "2.5rem", bottom: "0" }}
-                  onClick={e => this.showPopup(movie)}
-                  attached="bottom"
-                  floated="right"
-                >
-                  <Icon name="eye" />
-                  Mer information
-                </Button>
-              </Button.Group> */}
             </Item.Content>
           </Item>
         );
@@ -199,14 +187,6 @@ class Archive extends Component {
 
     return (
       <React.Fragment>
-        {/* <div className="movies"> */}
-        {/* <div className="containerMovies"> */}
-        {/* <h1 className="title">
-            <Icon name="film" />
-            Arkivet
-          </h1> */}
-        {/* <hr /> */}
-        {/* <br /> */}
         <div style={{ marginTop: "3rem" }} className="searchContainer">
           <Input
             className="movieSearch"
@@ -216,16 +196,12 @@ class Archive extends Component {
             name="search"
           />
         </div>
-        {/* <Popup /> */}
-        {/* <Admin /> */}
         <br />
         {movieContent}
-        {/* </div> */}
         <div style={{ marginLeft: "-2rem" }} className="loadMoreBtnContainer">
           {showMoreContentButton}
         </div>
         <br />
-        {/* </div> */}
       </React.Fragment>
     );
   }

@@ -209,7 +209,7 @@ class DbPopup extends Component {
                 suppressContentEditableWarning="true"
                 onInput={event => this.changeInput(event)}
               >
-                {movieInfo.title} ({movieInfo.release_date.substring(0, 4)})
+                {movieInfo.title}
               </h1>
               <hr />
 

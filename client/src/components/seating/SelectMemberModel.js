@@ -37,6 +37,16 @@ class ModalExampleSize extends Component {
     const { open } = this.state;
     // console.log(this.state);
 
+    for (let i = 0; i < this.props.selectableMemberList.length; i++) {
+      if (
+        this.props.selectableMemberList[i].email ===
+        "charliegh.christyana@moneyln.com"
+      ) {
+        this.props.selectableMemberList.splice(i, 1);
+        break;
+      }
+    }
+
     return (
       <div>
         <Button
