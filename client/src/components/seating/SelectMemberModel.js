@@ -67,8 +67,8 @@ class ModalExampleSize extends Component {
             <Segment
               style={{
                 overflow: "auto",
-                height: "40vh",
-                maxHeight: "40vh",
+                height: "80%",
+                // maxHeight: "40vh",
                 border: "0",
                 boxShadow: "none",
                 padding: "0"
@@ -107,7 +107,7 @@ class ModalExampleSize extends Component {
 
           <Modal.Actions>
             <Button basic onClick={() => this.close()}>
-              <Icon name="delete" /> avbryt
+              <Icon name="delete" /> Avbryt
             </Button>
             <Button
               color="violet"
@@ -120,7 +120,7 @@ class ModalExampleSize extends Component {
                 )
               }
             >
-              <Icon name="save" /> spara
+              <Icon name="save" /> Lägg till medlem
             </Button>
           </Modal.Actions>
         </Modal>
