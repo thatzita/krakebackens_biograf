@@ -124,8 +124,8 @@ new CronJob(
         }
 
         //FIXME: Aktivera innan push
-        // movie.remove();
-        // swap.save();
+        movie.remove();
+        swap.save();
 
         return seatsTaken;
       }
