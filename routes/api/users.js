@@ -282,7 +282,7 @@ router.post("/forgot", (req, res, next) => {
         });
       },
       function(token, user, done) {
-        const url = "http://localhost:3000/reset";
+        const url = "https://krakebackensbiograf.herokuapp.com/reset";
         const output = `
       <h1>Glömt lösenord?</h1>
       
