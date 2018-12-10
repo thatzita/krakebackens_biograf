@@ -13,8 +13,6 @@ export default class DrawGrid extends React.Component {
   componentDidMount() {}
 
   hoverOn = (value, seat) => {
-    // console.log(value);
-
     this.setState({
       currentHoverItem: value,
       currentRow: seat.row,
@@ -26,7 +24,6 @@ export default class DrawGrid extends React.Component {
   };
 
   render() {
-    // let rowList = bestObjectCopyEver(this.props.rowList);
     //FIXME: lägg till den här funktionen senare som en funktion i seating.js och begräns antalet gånger informationen filtreras
     let seatsThatAreLeft = [];
     this.props.rowList.map(array => {

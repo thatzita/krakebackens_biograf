@@ -25,7 +25,7 @@ class Footer extends Component {
                   <Icon name="phone" /> 0706-84 19 52
                 </li>
                 <li>
-                  <Icon name="mail" /> krakebacken@gmail.com
+                  <Icon name="mail" /> krakebackensbiograf@gmail.com
                 </li>
               </ul>
             </div>

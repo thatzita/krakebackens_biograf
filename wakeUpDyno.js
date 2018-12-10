@@ -5,12 +5,12 @@ const options = {
   port: 80,
   path: "/WAKEUP_DYNO"
 };
-console.log("======WAKUP DYNO START");
+console.log("============VÄCK SERVERN============");
 http
   .get(options, function(res) {
     res.on("data", function(chunk) {
       try {
-        console.log("======WAKUP DYNO: HEROKU RESPONSE: " + chunk);
+        console.log("============SERVERN HAR VAKNAT============" + chunk);
       } catch (err) {
         console.log(err.message);
       }

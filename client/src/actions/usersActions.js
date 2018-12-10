@@ -21,7 +21,7 @@ export const getAllUsers = () => dispatch => {
       });
     })
     .catch(err => {
-      console.log(err);
+      throw err;
     });
 };
 
@@ -35,19 +35,24 @@ export const getUserArchive = () => dispatch => {
       });
     })
     .catch(err => {
-      console.log(err);
+      throw err;
     });
 };
 
 export const deleteUser = user => dispatch => {
   let objId = user._id;
-  axios.delete("/api/users/deleteuser", { data: { objId } }).then(res => {
-    if (res) {
-      dispatch(deleteUserSuccess(user));
-    } else {
-      console.log("Något gick fel.");
-    }
-  });
+  axios
+    .delete("/api/users/deleteuser", { data: { objId } })
+    .then(res => {
+      if (res) {
+        dispatch(deleteUserSuccess(user));
+      } else {
+        console.log("Något gick fel när användaren skulle tas bort.");
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
 };
 
 export const userPopup = userData => {
@@ -71,19 +76,24 @@ export const deleteUserSuccess = deletedUser => {
 };
 
 export const resetStats = () => dispatch => {
-  axios.get("/api/users/resetstats").then(res => {
-    if (res) {
-      let success = {
-        msg: "Nollställning lyckades"
-      };
-      dispatch({
-        type: RESET_USER_STATS,
-        payload: success
-      });
-    } else {
-      console.log("Något gick fel vid nollställning.");
-    }
-  });
+  axios
+    .get("/api/users/resetstats")
+    .then(res => {
+      if (res) {
+        let success = {
+          msg: "Nollställning lyckades"
+        };
+        dispatch({
+          type: RESET_USER_STATS,
+          payload: success
+        });
+      } else {
+        console.log("Något gick fel vid nollställning.");
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
 };
 
 export const saveUserStatsToArchive = archiveData => dispatch => {
@@ -91,14 +101,13 @@ export const saveUserStatsToArchive = archiveData => dispatch => {
     if (res) {
       console.log("Sparat statistik i arkivet");
     } else {
-      console.log("Något gick fel när datan skulle sparas till arkivet.");
+      console.log("Något gick fel när data skulle sparas till arkivet.");
     }
   });
 };
 
 export const updateUser = data => dispatch => {
   axios.post("/api/users/updateuser", data).then(res => {
-    // console.log(res.data);
     dispatch({
       type: UPDATE_USER,
       payload: res.data

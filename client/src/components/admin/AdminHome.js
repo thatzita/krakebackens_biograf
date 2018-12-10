@@ -72,6 +72,13 @@ class AdminHome extends Component {
                 <p>Statistik</p>
               </div>
             </Link>
+            <Link to="/moviearchive">
+              <div className="purpleBox">
+                {" "}
+                <Icon className="iconPos" size="huge" name="archive" />
+                <p>Arkivet</p>
+              </div>
+            </Link>
           </Segment>
           <Admin />
         </div>

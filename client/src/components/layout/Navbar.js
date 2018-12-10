@@ -36,12 +36,9 @@ class Navbar extends Component {
 
   render() {
     let { activeItem } = this.state;
-    // const { isAuthenticated, user } = this.props.auth;
 
     let { isAuthenticated } = this.props.auth;
     let { admin } = this.props.auth.user;
-
-    // console.log(admin);
 
     return (
       <React.Fragment>
@@ -131,13 +128,6 @@ class Navbar extends Component {
                       onClick={() => this.props.goToAdminPage(true)}
                     />
                   ) : (
-                    // <Menu.Item
-                    //   as={Link}
-                    //   to="/register"
-                    //   name="Registrera dig"
-                    //   active={activeItem === "register"}
-                    //   onClick={this.handleItemClick}
-                    // />
                     ""
                   )}
 

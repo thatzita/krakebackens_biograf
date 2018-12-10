@@ -22,15 +22,12 @@ class Mainpage extends Component {
 
   render() {
     const { user } = this.props.auth;
-    // console.log(this.props);
-    // console.log(user);
+
     const { profile, loading } = this.props.profile;
 
     const movieList = this.props.monMovies.monMovies || [];
     let randomMovieObj =
       movieList[Math.floor(Math.random() * movieList.length)] || {};
-
-    // console.log(movieList);
 
     let mainpageContent;
 
@@ -50,20 +47,8 @@ class Mainpage extends Component {
           }}
         >
           <MovieBackdropDisplay monMovie={randomMovieObj} />
-          {/* <div className="mainpage">
-            <div className="containerMainpage">
-              <h1>Kråkebackens biograf</h1>
-              {mainpageContent}
-            </div>
-          </div> */}
-          <MonMovieDisplay
-            // setCurrentCloseUpMovieId={this.props.setCurrentCloseUpMovieId}
-            monMovies={movieList}
-          />
-          {/* <MovieCloseUp
-            currentCloseUpMovieId={this.props.currentCloseUpMovieId}
-            monMovies={movieList}
-          /> */}
+
+          <MonMovieDisplay monMovies={movieList} />
         </Segment>
         <Footer />
       </React.Fragment>
@@ -89,6 +74,5 @@ export default connect(
   {
     getCurrentProfile,
     getAllMonMovies
-    // setCurrentCloseUpMovieId
   }
 )(Mainpage);

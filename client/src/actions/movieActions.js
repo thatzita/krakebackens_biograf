@@ -167,13 +167,18 @@ export const movieAddedSuccess = success => {
 //DELETE FRÅN DB
 export const deleteMovie = movie => dispatch => {
   let objId = movie._id;
-  axios.delete("/api/movies", { data: { objId } }).then(res => {
-    if (res) {
-      dispatch(movieDeleteSuccess(movie));
-    } else {
-      console.log("Något gick fel.");
-    }
-  });
+  axios
+    .delete("/api/movies", { data: { objId } })
+    .then(res => {
+      if (res) {
+        dispatch(movieDeleteSuccess(movie));
+      } else {
+        console.log("Något gick fel när film skulle tas bort från databasen.");
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
 };
 
 export const movieDeleteSuccess = deletedMovie => {
@@ -185,11 +190,16 @@ export const movieDeleteSuccess = deletedMovie => {
 
 //UPPDATERA DB
 export const updateDb = updatedMovie => dispatch => {
-  axios.post("/api/movies/update", { data: { updatedMovie } }).then(res => {
-    if (res) {
-      dispatch(movieUpdated(updatedMovie));
-    }
-  });
+  axios
+    .post("/api/movies/update", { data: { updatedMovie } })
+    .then(res => {
+      if (res) {
+        dispatch(movieUpdated(updatedMovie));
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
 };
 
 export const movieUpdated = updated => {

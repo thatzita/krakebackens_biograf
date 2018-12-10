@@ -22,9 +22,6 @@ const app = express();
 //Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// console.log(__dirname + "/client/public");
-
-// app.use(express.static(__dirname + "/client/public"));
 
 //Konfiguration för mLab, filen ska inte följa med
 const db = require("./config/keys").mongoURI;
@@ -39,7 +36,7 @@ mongoose
     console.log("Kopplad till Kråkebackens databas");
   })
   .catch(err => {
-    console.log(err);
+    throw err;
   });
 
 //Passport middleware för authentication
@@ -123,15 +120,11 @@ new CronJob(
           });
         }
 
-        //FIXME: Aktivera innan push
         movie.remove();
         swap.save();
 
         return seatsTaken;
       }
-      //  else {
-      //   console.log("Ingen visning i salong " + movie.saloon);
-      // }
     });
     let updateUser = await User.find({ email: { $in: seatsTaken } });
 

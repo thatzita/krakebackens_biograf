@@ -12,10 +12,12 @@ import {
   Divider
 } from "semantic-ui-react";
 import SelectMemberModel from "./SelectMemberModel";
+import { seatNameConverter } from "../common/seatingFunctions.js";
 
 // const reservedList = [1, 2, 3];
 
 export default function TicketDisplay(props) {
+  console.log(props);
   let selectedMembersList =
     props.memberList.filter(x => x.id !== props.profile.id) || [];
   return (
@@ -154,6 +156,9 @@ export default function TicketDisplay(props) {
                         {item.customer.username} - <em>Medlem</em>
                         <Header.Subheader>Datum: {props.date}</Header.Subheader>
                         <Header.Subheader>Tid: {props.time}</Header.Subheader>
+                        <Header.Subheader>
+                          {seatNameConverter(item.seat)}
+                        </Header.Subheader>
                       </Header.Content>
                     </Header>
                   </div>
@@ -188,6 +193,9 @@ export default function TicketDisplay(props) {
                         Gäst
                         <Header.Subheader>Datum: {props.date}</Header.Subheader>
                         <Header.Subheader>Tid: {props.time}</Header.Subheader>
+                        <Header.Subheader>
+                          {seatNameConverter(item.seat)}
+                        </Header.Subheader>
                       </Header.Content>
                     </Header>
                   </div>
@@ -207,9 +215,19 @@ export default function TicketDisplay(props) {
         >
           Gå tillbaka{" "}
         </Button>
-        <Button color="violet" onClick={() => props.completeBooking()}>
-          Slutför bokning
-        </Button>
+        {props.reservedList.length > 0 ? (
+          <Button color="violet" onClick={() => props.completeBooking()}>
+            Slutför bokning
+          </Button>
+        ) : (
+          <Button
+            disabled
+            color="violet"
+            onClick={() => props.completeBooking()}
+          >
+            Slutför bokning
+          </Button>
+        )}
       </div>
     </React.Fragment>
   );

@@ -19,7 +19,6 @@ const monMovieDisplaySize = {
   borderRadius: "0",
   backgroundColor: "rgb(0,0,0)"
 };
-// this.props.setCurrentCloseUpMovieId(item._id)
 export default class MonMovieDisplay extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +27,6 @@ export default class MonMovieDisplay extends Component {
 
   render() {
     let movieProps = this.props.monMovies || [];
-    console.log(this.props.monMovies);
 
     return (
       <Segment padded="very" inverted style={monMovieDisplaySize}>
@@ -41,7 +39,6 @@ export default class MonMovieDisplay extends Component {
               textAlign: "center"
             }}
             key={item._id}
-            // onClick={() => this.props.setCurrentCloseUpMovieId(true, item._id)}
           >
             <Reveal
               as={Link}
@@ -54,7 +51,6 @@ export default class MonMovieDisplay extends Component {
               <Reveal.Content visible style={{ border: "1px solid gray" }}>
                 <div
                   style={{
-                    // textAlign: "center",
                     bottom: "0rem",
                     zIndex: "2",
                     color: "white",
@@ -76,7 +72,6 @@ export default class MonMovieDisplay extends Component {
                 <Dimmer.Dimmable dimmed={true}>
                   <Image size="small" src={item.poster} />
                   <Dimmer active={true} onClickOutside={this.handleHide}>
-                    {/* <h3>{item.title}</h3> */}
                     <h4>{item.screeningDate}</h4>
                     <h4 style={{ marginBottom: "2rem" }}>
                       {item.screeningTime}

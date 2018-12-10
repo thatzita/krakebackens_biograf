@@ -35,8 +35,7 @@ class ModalExampleSize extends Component {
 
   render() {
     const { open } = this.state;
-    // console.log(this.state);
-
+    //FIXME: Ändra Gäst e-post till något annat som du har bättre kontroll över (en av dina egna mailadresser)
     for (let i = 0; i < this.props.selectableMemberList.length; i++) {
       if (
         this.props.selectableMemberList[i].email ===
@@ -96,10 +95,7 @@ class ModalExampleSize extends Component {
                       </Table.Cell>
                       <Table.Cell>
                         <Header>
-                          <Header.Content>
-                            {item.username}
-                            {/* <Header.Subheader style={{maxWidth:'50%', minWidth: '280px'}}>{item.description}</Header.Subheader> */}
-                          </Header.Content>
+                          <Header.Content>{item.username}</Header.Content>
                         </Header>
                       </Table.Cell>
                     </Table.Row>

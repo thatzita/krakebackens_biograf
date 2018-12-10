@@ -12,7 +12,6 @@ import {
 const initialState = {};
 
 export default function(state = initialState, action) {
-  // console.log('reducer starts')
   switch (action.type) {
     case GET_ARCHIVED_MOVIES:
       return {
@@ -25,7 +24,6 @@ export default function(state = initialState, action) {
         monMovies: [...state.monMovies, action.payload]
       };
     case GET_MONMOVIES:
-      // console.log('payload ',action.payload);
       return {
         ...state,
         monMovies: action.payload

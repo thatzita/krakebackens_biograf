@@ -70,7 +70,7 @@ router.post("/register", (req, res) => {
         </ul>
 
         Med vänlig hälsning,
-        Kråkebackens biograf
+        Kråkan
         `;
               let transporter = nodemailer.createTransport({
                 service: "Gmail",
@@ -83,7 +83,7 @@ router.post("/register", (req, res) => {
 
               // setup email data with unicode symbols
               let mailOptions = {
-                from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`, // sender address
+                from: `"Kråkebackens Biograf" ${process.env.MAIL_ADDR}`, // sender address
                 to: `${req.body.email}`, // list of receivers
                 subject: `Välkommen till Kråkebackens biograf ${
                   req.body.username
@@ -94,13 +94,15 @@ router.post("/register", (req, res) => {
               // send mail with defined transport object
               transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
-                  return console.log(error);
+                  throw error;
                 }
               });
 
               res.json({ user });
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+              throw err;
+            });
         });
       });
     }
@@ -290,7 +292,7 @@ router.post("/forgot", (req, res, next) => {
       <p>Klicka på länken nedan för att skapa ett nytt lösenord:</p>
       <a href="${url}/${token}">Återställ mitt lösenord</a>
       <p>Med vänlig hälsning,
-      Kråkebackens biograf</p>
+      Kråkan</p>
       `;
 
         let transporter = nodemailer.createTransport({
@@ -304,19 +306,22 @@ router.post("/forgot", (req, res, next) => {
 
         // setup email data with unicode symbols
         let mailOptions = {
-          from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`, // sender address
+          from: `"Kråkebackens Biograf" ${process.env.MAIL_ADDR}`, // sender address
           to: `${req.body.email}`, // list of receivers
           subject: `Glömt ditt lösenord?`, // Subject line
           html: output // html body
         };
 
         // send mail with defined transport object
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            return console.log(error);
-          }
-        });
-        // .catch(err => console.log(err));
+        transporter
+          .sendMail(mailOptions, (error, info) => {
+            if (error) {
+              throw error;
+            }
+          })
+          .catch(err => {
+            throw err;
+          });
       }
     ],
     function(err) {
@@ -331,8 +336,6 @@ router.post("/forgot", (req, res, next) => {
 // api/users/reset/
 //http://localhost:5000/api/users/reset/
 router.post("/reset/:token", function(req, res) {
-  // console.log(req.body);
-
   const { errors, isValid } = validateResetInput(req.body);
 
   //Validering av password i (reset.js)
@@ -383,7 +386,7 @@ router.post("/reset/:token", function(req, res) {
     <h1>Vi har återställt ditt lösenord</h1>
     <p>Du kan logga in med dina nya uppgifter.</p>
     <p>Med vänlig hälsning,<br>
-    Kråkebackens biograf</p>
+    Kråkan</p>
     `;
 
                 let transporter = nodemailer.createTransport({
@@ -397,7 +400,7 @@ router.post("/reset/:token", function(req, res) {
 
                 // setup email data with unicode symbols
                 let mailOptions = {
-                  from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`, // sender address
+                  from: `"Kråkebackens Biograf" ${process.env.MAIL_ADDR}`, // sender address
                   to: user.email, // list of receivers
                   subject: `Lösenord återställt!`, // Subject line
                   html: output // html body
@@ -406,12 +409,12 @@ router.post("/reset/:token", function(req, res) {
                 // send mail with defined transport object
                 transporter.sendMail(mailOptions, (error, info) => {
                   if (error) {
-                    return console.log(error);
+                    throw error;
                   }
                 });
               });
             } else {
-              res.send("ERROR:Passwords do not match.");
+              res.send("ERROR! lösenord matchar inte");
             }
           }
         );

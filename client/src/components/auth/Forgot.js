@@ -45,7 +45,6 @@ class Forgot extends Component {
       email: this.state.email
     };
 
-    // console.log(`Skicka ett mail till ${user.email}`);
     this.props.forgotPassword(user);
   }
 

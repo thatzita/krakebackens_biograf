@@ -34,12 +34,12 @@
 
 .purpleBox {
   background-color: #621e96;
-  width: 10rem;
-  height: 10rem;
+  width: 9rem;
+  height: 9rem;
   position: relative;
   color: white;
   display: inline-block;
-  margin: 0 4rem;
+  margin: 0 2.5rem;
   margin-top: 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -55,7 +55,8 @@
 
 .film.huge.icon.iconPos,
 .users.huge.icon.iconPos,
-.chart.bar.huge.icon.iconPos {
+.chart.bar.huge.icon.iconPos,
+.archive.huge.icon.iconPos {
   text-align: center;
   margin-left: 25%;
   margin-top: 10%;
