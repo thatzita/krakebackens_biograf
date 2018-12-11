@@ -42,7 +42,6 @@ class MonMovieList extends Component {
   render() {
     const { movie, open } = this.state;
     let monList = this.props.monMovies.monMovies || [];
-    console.log(monList);
 
     return (
       <div className="monMovies">

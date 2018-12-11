@@ -41,17 +41,12 @@ class MovieCloseUp extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log("prof ", nextProps.profile.profile);
-    // console.log();
-
     if (nextProps.movieCloseUp && nextProps.profile.profile) {
       let checkSeatBookings = nextProps.movieCloseUp.seating;
-      // console.log("seats ", checkSeatBookings);
 
       let howManySeatsAreBooked = [];
       checkSeatBookings.map(array => {
         array.map(x => {
-          // console.log("res ", x.responsible);
           if (x.responsible.hasOwnProperty("id")) {
             if (x.responsible.id === nextProps.profile.profile.id) {
               howManySeatsAreBooked.push(x);
@@ -59,7 +54,6 @@ class MovieCloseUp extends Component {
           }
         });
       });
-      // console.log("how many ", howManySeatsAreBooked.length);
 
       this.setState({
         movieCloseUp: nextProps.movieCloseUp,
@@ -69,34 +63,24 @@ class MovieCloseUp extends Component {
     }
   }
 
-  // handleItemClick = (e, { name }) => this.setState({ activeItem: name });
   handleItemClick = () => {
     console.log("trailer");
   };
 
   render() {
     const { activeItem } = this.state;
-    // console.log(this.state);
-
-    // console.log("props: ", this.props.movieCloseUp);
 
     let movieObject = this.state.movieCloseUp; // movieItem[0] || {};
     let displayImage = movieObject.background || "default.jpg";
     let countSeats = movieObject.seating || [];
-    // console.log("seats ", movieObject.seating || []);
     let seatsThatAreLeft = [];
     countSeats.map(array => {
-      let newArray = array.filter(
-        x => x.booked === false
-        // &&
-        // (x.seat !== "r1s1" && x.seat !== "r2s1" && x.seat !== "r3s1")
-      );
+      let newArray = array.filter(x => x.booked === false);
       newArray.map(y => {
         seatsThatAreLeft.push(y);
       });
     });
 
-    console.log(movieObject);
     if (displayImage === "http://image.tmdb.org/t/p/originalnull") {
       displayImage = "curtain.jpg";
     }
@@ -150,7 +134,7 @@ class MovieCloseUp extends Component {
                     : "kärlek"}{" "}
                 </p>
                 <p>
-                  <strong>Kråkan Tycker: </strong>
+                  <strong>Kråkan tycker: </strong>
                   {movieObject.crowRating
                     ? movieObject.crowRating
                     : "Kråkan har inte tyckt till än..."}
@@ -241,7 +225,6 @@ class MovieCloseUp extends Component {
 const mapStateToProps = state => ({
   profile: state.profile,
   movieCloseUp: state.monMovies.movieCloseUp
-  // monMovies: state.monMovies
 });
 
 export default connect(
@@ -249,6 +232,5 @@ export default connect(
   {
     getSpecificMonMovie,
     getCurrentProfile
-    // getAllMonMovies
   }
 )(MovieCloseUp);

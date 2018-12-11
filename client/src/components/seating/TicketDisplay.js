@@ -14,10 +14,7 @@ import {
 import SelectMemberModel from "./SelectMemberModel";
 import { seatNameConverter } from "../common/seatingFunctions.js";
 
-// const reservedList = [1, 2, 3];
-
 export default function TicketDisplay(props) {
-  console.log(props);
   let selectedMembersList =
     props.memberList.filter(x => x.id !== props.profile.id) || [];
   return (

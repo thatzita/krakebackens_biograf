@@ -89,12 +89,18 @@ router.post("/uploadMoviePremiere", (req, res) => {
             newMonMovie
               .save()
               .then(monMovie => res.json(monMovie))
-              .catch(err => console.log(err));
+              .catch(err => {
+                throw err;
+              });
           })
-          .catch(err => console.log(err));
+          .catch(err => {
+            throw err;
+          });
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      throw err;
+    });
 });
 
 //@route    Get api/monthlyMovies/updateMonthlyMovie
@@ -119,7 +125,9 @@ router.post("/updateMonthlyMovie", (req, res) => {
         });
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      throw err;
+    });
 });
 
 //@route    Get api/monthlyMovies/deleteMonthlyMovie
@@ -141,7 +149,9 @@ router.get("/getAllMonthlyMovies", (req, res) => {
       // console.log(monMovies);
       res.json({ monMovies });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      throw err;
+    });
 });
 
 //@route    Get api/mainpage/:movieId
@@ -149,13 +159,10 @@ router.get("/getAllMonthlyMovies", (req, res) => {
 //@access   private
 
 router.get("/singlemovie/", (req, res) => {
-  // console.log(req.query.id);
   let id = req.query.id;
 
   MonMovie.findOne({ _id: id })
     .then(movie => {
-      // console.log("found movie item");
-      // console.log("movieItem ", movie);
       if (movie) {
         res.json({ movie });
       } else {
