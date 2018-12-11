@@ -37,10 +37,16 @@ export default class MovieBackdropDisplay extends Component {
           }}
         />
         <div className="backdropContent">
-          <div>
+          <div style={{ marginTop: "3rem" }}>
             <Label color="violet">På bio nu</Label>
 
             <h1>{movieItem.title ? movieItem.title : "Title"}</h1>
+            <span>
+              {movieItem.screeningDate ? movieItem.screeningDate : "1989-03-08"}
+            </span>
+            <span style={{ marginLeft: "1rem" }}>
+              {movieItem.screeningTime ? movieItem.screeningTime : "13:37"}
+            </span>
             <Menu
               inverted
               secondary

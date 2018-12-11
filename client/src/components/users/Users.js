@@ -128,8 +128,8 @@ class Users extends Component {
                 <span className="boldSpan">
                   {user.vip.status ? (
                     <Label>
-                      <Icon name="star" color="yellow" />
-                      VIP
+                      <Icon name="star" color="orange" />
+                      &nbsp;VIP
                     </Label>
                   ) : (
                     ""

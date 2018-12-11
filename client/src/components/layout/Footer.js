@@ -17,7 +17,7 @@ class Footer extends Component {
             />
             <div className="contactUs">
               <h3 className="h3ContactFooter">Kontakta oss</h3>
-              <ul className="contactUsUl">
+              <ul style={{ listStyle: "none" }} className="contactUsUl">
                 <li>
                   <Icon name="home" /> Skogen
                 </li>
@@ -25,12 +25,12 @@ class Footer extends Component {
                   <Icon name="phone" /> 0706-84 19 52
                 </li>
                 <li>
-                  <Icon name="mail" /> krakebacken@gmail.com
+                  <Icon name="mail" /> krakebackensbiograf@gmail.com
                 </li>
               </ul>
             </div>
             <h3 className="h3headerFooter">Kråkebackens Biograf</h3>
-            <ul className="footerLinks">
+            <ul style={{ listStyle: "none" }} className="footerLinks">
               <Link to="/mainpage">
                 <li>Biljetter</li>
               </Link>

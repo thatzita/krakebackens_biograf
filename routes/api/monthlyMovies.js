@@ -34,7 +34,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
   })
     .then(movie => {
       if (movie) {
-        return res.status(400).json({ title: "This movie allready is up" });
+        return res.status(400).json({ title: "This movie already is up" });
       } else {
         User.find({ "vip.status": "true" })
           .then(users => {
@@ -173,12 +173,7 @@ router.get("/singlemovie/", (req, res) => {
 
 // complete and save booking
 router.post("/completeAndSaveBooking", (req, res) => {
-  console.log("the movieID: ", req.body.responsible.email);
-
-  // let updatingField = {
-  //   seating:
-  // }
-
+  // console.log("the movieID: ", req.body.responsible.email);
   MonMovie.findOne({ _id: req.body.movieId }).then(movie => {
     if (movie) {
       let seatResarvation = req.body.seatResarvation;
@@ -189,8 +184,6 @@ router.post("/completeAndSaveBooking", (req, res) => {
           let found = false;
           let reservation = {};
           for (let index = 0; index < seatResarvation.length; index++) {
-            console.log(x.booked);
-
             if (seatResarvation[index].seat === x.seat) {
               found = true;
               if (x.booked === false) {
@@ -216,6 +209,47 @@ router.post("/completeAndSaveBooking", (req, res) => {
         // the booking was successful, save and return the updated movie
         movie.seating = newSeating;
         let newMovie = movie;
+        let seatCount = 0;
+
+        //Check saloon 2 if fullybooked
+        if (newMovie.saloon === "2") {
+          newMovie.seating[0].map(seat => {
+            if (seat.booked) {
+              seatCount++;
+            }
+          });
+          newMovie.seating[1].map(seat => {
+            if (seat.booked) {
+              seatCount++;
+            }
+          });
+          if (seatCount === 8) {
+            newMovie.fullyBooked = true;
+          }
+        }
+        //Check saloon 1 if fullybooked
+        if (newMovie.saloon === "1") {
+          newMovie.seating[0].map(seat => {
+            if (seat.booked) {
+              seatCount++;
+            }
+          });
+          newMovie.seating[1].map(seat => {
+            if (seat.booked) {
+              seatCount++;
+            }
+          });
+          newMovie.seating[2].map(seat => {
+            if (seat.booked) {
+              seatCount++;
+            }
+          });
+
+          if (seatCount === 18) {
+            newMovie.fullyBooked = true;
+          }
+        }
+
         newMovie
           .save()
           .then(movie =>

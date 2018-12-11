@@ -3,10 +3,8 @@ const isEmpty = require("./is-empty");
 
 module.exports = function validateApplicationInput(data) {
   let errors = {};
-  //   console.log(data);
 
   //Kollar om login uppgifterna stämmer
-
   data.email = !isEmpty(data.email) ? data.email : "";
   data.username = !isEmpty(data.username) ? data.username : "";
 

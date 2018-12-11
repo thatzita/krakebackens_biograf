@@ -124,13 +124,11 @@ class Seating extends Component {
       responsible: this.state.profile
     };
 
-    // console.log("sending: ", bookingBody);
     this.props.completeAndSaveBooking(bookingBody);
   };
 
   addMemberToBooking = (username, id, email) => {
     if (this.state.memberList.some(x => x.id === id)) {
-      console.log("du har redan lagt till den här medlemmen");
     } else {
       if (this.state.memberList.length < 4) {
         let memberObj = {
@@ -153,7 +151,7 @@ class Seating extends Component {
           reservedList: updateReservedList
         });
       } else {
-        console.log("du kan inte välja fler medlemmar ");
+        console.log("Du kan inte välja fler medlemmar ");
       }
     }
   };
@@ -199,7 +197,6 @@ class Seating extends Component {
           status: 3
         };
         this.setState({ reservedList: [...this.state.reservedList, newObj] });
-        // console.log(this.state.rowList);
       } else {
         //TODO: skapa en notifikation till användaren att den har bokat max antalet av platser
         console.log("Du kan inte välja fler platser");
@@ -216,12 +213,6 @@ class Seating extends Component {
   };
 
   render() {
-    console.log("reserved: ", this.state.reservedList);
-    // console.log("rowList: ", this.state.rowList);
-    // console.log(this.state.bookingObj);
-
-    // console.log(this.state.profile);
-    // let profile = this.props.profile.profile;
     let movie = this.state.bookingObj;
     let movieImage = movie.poster || "default.jpg";
     return (
@@ -235,8 +226,6 @@ class Seating extends Component {
                 paddingBottom: "1rem",
                 width: "100%",
                 minWidth: "450px",
-                // minWidth: "500px",
-                // padding: "1rem 0",
                 marginBottom: "2rem",
                 borderBottom: "1px solid gray"
               }}
@@ -294,6 +283,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
+    //func goes here
     getCurrentProfile,
     getAllUsers,
     completeAndSaveBooking,

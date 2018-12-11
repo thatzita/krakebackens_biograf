@@ -31,7 +31,6 @@ class UserStatistic extends Component {
   }
 
   handleConfirm = () => {
-    // console.log("clear stats");
     this.resetSeasonStats();
     this.setState({ open: false });
   };
@@ -53,7 +52,6 @@ class UserStatistic extends Component {
     let seasonStats = users.reduce(function(acc, obj) {
       return acc + obj.stats.season;
     }, 0);
-
     return seasonStats;
   }
 
@@ -66,13 +64,45 @@ class UserStatistic extends Component {
     return totalStats;
   }
 
+  guestStatsTotal() {
+    const { users } = this.state.users;
+    let guest;
+
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].email === "charliegh.christyana@moneyln.com") {
+        guest = users[i];
+      }
+    }
+    return guest.stats.total;
+  }
+
+  guestStatsSeason() {
+    const { users } = this.state.users;
+    let guest;
+
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].email === "charliegh.christyana@moneyln.com") {
+        guest = users[i];
+      }
+    }
+    return guest.stats.season;
+  }
+
   topUsersThisSeason() {
     const { users } = this.state.users;
     let newList = users.sort(function(a, b) {
       return parseFloat(b.stats.season) - parseFloat(a.stats.season);
     });
 
-    return newList.slice(0, 3);
+    //TODO: Byt mail på Guestkonto
+    for (let i = 0; i < newList.length; i++) {
+      if (newList[i].email === "charliegh.christyana@moneyln.com") {
+        newList.splice(i, 1);
+        break;
+      }
+    }
+
+    return newList.slice(0, 5);
   }
 
   topUsersInTotal() {
@@ -80,7 +110,16 @@ class UserStatistic extends Component {
     let newList = users.sort(function(a, b) {
       return parseFloat(b.stats.total) - parseFloat(a.stats.total);
     });
-    return newList.slice(0, 3);
+
+    //TODO: Byt mail på Guestkonto
+    for (let i = 0; i < newList.length; i++) {
+      if (newList[i].email === "charliegh.christyana@moneyln.com") {
+        newList.splice(i, 1);
+        break;
+      }
+    }
+
+    return newList.slice(0, 5);
   }
 
   show = () => {
@@ -117,12 +156,15 @@ class UserStatistic extends Component {
     //state
     const { users } = this.state.users;
     const { open } = this.state;
+
     //Content
     let userContent;
     let userContentTopList;
 
     if (users) {
       //Stats
+      let guestUserTotal = this.guestStatsTotal();
+      let guestUserSeason = this.guestStatsSeason();
       let seasonUserStats = this.seasonUsers();
       let totalUserStats = this.totalUsers();
       let topUserSeason = this.topUsersThisSeason();
@@ -136,8 +178,16 @@ class UserStatistic extends Component {
               <Statistic.Label>Besök i år</Statistic.Label>
             </Statistic>
             <Statistic>
+              <Statistic.Value>{guestUserSeason}</Statistic.Value>
+              <Statistic.Label>gäster i år</Statistic.Label>
+            </Statistic>
+            <Statistic>
               <Statistic.Value>{totalUserStats}</Statistic.Value>
               <Statistic.Label>besökare totalt</Statistic.Label>
+            </Statistic>
+            <Statistic>
+              <Statistic.Value>{guestUserTotal}</Statistic.Value>
+              <Statistic.Label>gäster totalt</Statistic.Label>
             </Statistic>
             <Statistic>
               <Statistic.Value>{users.length}</Statistic.Value>
@@ -151,7 +201,6 @@ class UserStatistic extends Component {
         <div className="tableContainer">
           <div className="firstList">
             <h2>Top 5 besökare i år</h2>
-
             <List size="large" animated verticalAlign="middle">
               {topUserSeason.map(user => {
                 return (
@@ -201,17 +250,15 @@ class UserStatistic extends Component {
 
     return (
       <React.Fragment>
-        {/* <h2>Statistik från medlemmar</h2> */}
         <br />
         {userContent}
         <br />
-        {/* <Divider /> */}
         <br />
         <br />
         {userContentTopList}
         <br />
         <div
-          style={{ position: "absolute", left: "50%", marginLeft: "-100px" }}
+          style={{ position: "absolute", left: "47%", marginLeft: "-100px" }}
         >
           <Button
             style={{ margin: "0 auto" }}
@@ -219,13 +266,13 @@ class UserStatistic extends Component {
             color="purple"
             onClick={e => this.show()}
           >
-            Nollställ årets statistik
+            Nollställ årets användarstatistik
           </Button>
           <Confirm
             open={open}
             className="confirmDeleteMovie"
-            header="Nollställa statistik"
-            content="Är du säker på att du vill nollställa statistiken?"
+            header="Nollställa årets statistik"
+            content="Är du säker på att du vill nollställa statistiken för alla användare?"
             cancelButton="Gå tillbaka"
             confirmButton="Nollställ"
             onCancel={this.handleCancel}

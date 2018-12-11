@@ -47,7 +47,6 @@ router.post("/addmovie", (req, res) => {
 //HÄMTA FILMERNA I DB
 router.get("/allmovies", (req, res) => {
   Movie.find({}).then(movies => {
-    // console.log(movies);
     res.json({ movies });
   });
 });

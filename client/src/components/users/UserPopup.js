@@ -71,7 +71,6 @@ class UserPopup extends Component {
       status: status,
       seat: seating
     };
-    console.log(userDb);
     this.props.updateUser(userDb);
 
     this.props.userPopupClose();
@@ -201,12 +200,12 @@ class UserPopup extends Component {
                 </h2>
                 <h4 className="whiteText">Antal besök i år:</h4>
                 <Button
+                  inverted
                   size="mini"
                   value="sMinus"
                   onClick={e => this.changeStats(e)}
-                >
-                  <Icon name="minus" size="small" />{" "}
-                </Button>
+                  icon="minus"
+                />
                 <span
                   style={{ fontSize: "1.8rem", margin: "1rem" }}
                   className="whiteText"
@@ -214,20 +213,20 @@ class UserPopup extends Component {
                   {season}
                 </span>
                 <Button
+                  inverted
                   size="mini"
                   value="sPlus"
                   onClick={e => this.changeStats(e)}
-                >
-                  <Icon name="plus" size="small" />{" "}
-                </Button>
+                  icon="plus"
+                />
                 <h4 className="whiteText">Antal besök totalt:</h4>
                 <Button
+                  inverted
                   size="mini"
                   value="tMinus"
                   onClick={e => this.changeStats(e)}
-                >
-                  <Icon name="minus" size="small" />{" "}
-                </Button>
+                  icon="minus"
+                />
                 <span
                   style={{ fontSize: "1.8rem", margin: "1rem" }}
                   className="whiteText"
@@ -235,12 +234,12 @@ class UserPopup extends Component {
                   {total}
                 </span>
                 <Button
+                  inverted
                   size="mini"
                   value="tPlus"
                   onClick={e => this.changeStats(e)}
-                >
-                  <Icon name="plus" size="small" />{" "}
-                </Button>
+                  icon="plus"
+                />
               </Card.Content>
 
               <Card.Content className="userVip">

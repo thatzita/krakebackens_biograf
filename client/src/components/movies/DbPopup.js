@@ -36,10 +36,6 @@ class DbPopup extends Component {
     });
   }
 
-  componentDidUpdate() {
-    console.log(this.state.dvdOrBluRay);
-  }
-
   saveToDb() {
     let { movieInfo, title, description, dvdOrBluRay } = this.state;
 
@@ -50,8 +46,6 @@ class DbPopup extends Component {
     let urlForImg = "http://image.tmdb.org/t/p/original";
 
     let movieDb;
-
-    console.log(this.state.dvdOrBluRay);
 
     if (movieInfo.backdrop_path === null) {
       urlForImg = "";
@@ -130,7 +124,6 @@ class DbPopup extends Component {
       };
     }
 
-    console.log(movieDb);
     this.props.addToMovieDb(movieDb);
     this.setState({
       title: "",
@@ -209,7 +202,7 @@ class DbPopup extends Component {
                 suppressContentEditableWarning="true"
                 onInput={event => this.changeInput(event)}
               >
-                {movieInfo.title} ({movieInfo.release_date.substring(0, 4)})
+                {movieInfo.title}
               </h1>
               <hr />
 

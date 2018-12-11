@@ -31,12 +31,8 @@ class CreateMonMovie extends Component {
   }
 
   onSubmitEvent = () => {
-    // console.log("date ", this.state.date);
-    // console.log("time ", this.state.time);
-
     let createDate = new Date(this.state.date + "T" + this.state.time);
     let utc_time = createDate.toUTCString();
-
     let createDate_1 = new Date(this.state.date + "T" + this.state.time);
     let createDate_2 = new Date(this.state.date + "T" + this.state.time);
     let cancelTime = new Date(
@@ -91,10 +87,7 @@ class CreateMonMovie extends Component {
   };
 
   render() {
-    console.log(this.state);
-
     let movies = this.props.movies || [];
-
     let movieList =
       this.state.search.length <= 0
         ? []
@@ -145,16 +138,13 @@ class CreateMonMovie extends Component {
         />
       </React.Fragment>
     );
-    console.log(this.state.saloon);
 
     return (
-      // <React.Fragment>
       <div className="containerMonMoviesCreateBackground">
         <div className="containerMonMoviesCreate">
           {this.state.previewPage ? previewSubmitPage : createPage}
         </div>
       </div>
-      // </React.Fragment>
     );
   }
 }

@@ -46,7 +46,7 @@ class MovieCloseUp extends Component {
 
     if (nextProps.movieCloseUp && nextProps.profile.profile) {
       let checkSeatBookings = nextProps.movieCloseUp.seating;
-      console.log("seats ", checkSeatBookings);
+      // console.log("seats ", checkSeatBookings);
 
       let howManySeatsAreBooked = [];
       checkSeatBookings.map(array => {
@@ -59,7 +59,7 @@ class MovieCloseUp extends Component {
           }
         });
       });
-      console.log("how many ", howManySeatsAreBooked.length);
+      // console.log("how many ", howManySeatsAreBooked.length);
 
       this.setState({
         movieCloseUp: nextProps.movieCloseUp,
@@ -96,6 +96,7 @@ class MovieCloseUp extends Component {
       });
     });
 
+    console.log(movieObject);
     if (displayImage === "http://image.tmdb.org/t/p/originalnull") {
       displayImage = "curtain.jpg";
     }
@@ -184,7 +185,9 @@ class MovieCloseUp extends Component {
                   <Table.Row>
                     <Table.HeaderCell>Datum</Table.HeaderCell>
                     <Table.HeaderCell>Tid</Table.HeaderCell>
+                    <Table.HeaderCell>Salong</Table.HeaderCell>
                     <Table.HeaderCell>Platser</Table.HeaderCell>
+
                     <Table.HeaderCell />
                   </Table.Row>
                 </Table.Header>
@@ -197,6 +200,7 @@ class MovieCloseUp extends Component {
                     <Table.Cell>
                       {movieObject.screeningTime || "tid"}
                     </Table.Cell>
+                    <Table.Cell>{movieObject.saloon}</Table.Cell>
                     <Table.Cell>{seatsThatAreLeft.length}</Table.Cell>
 
                     <Table.Cell textAlign="right">

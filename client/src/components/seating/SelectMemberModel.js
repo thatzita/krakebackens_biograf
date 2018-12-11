@@ -35,7 +35,16 @@ class ModalExampleSize extends Component {
 
   render() {
     const { open } = this.state;
-    // console.log(this.state);
+    //FIXME: Ändra Gäst e-post till något annat som du har bättre kontroll över (en av dina egna mailadresser)
+    for (let i = 0; i < this.props.selectableMemberList.length; i++) {
+      if (
+        this.props.selectableMemberList[i].email ===
+        "charliegh.christyana@moneyln.com"
+      ) {
+        this.props.selectableMemberList.splice(i, 1);
+        break;
+      }
+    }
 
     return (
       <div>
@@ -58,8 +67,8 @@ class ModalExampleSize extends Component {
             <Segment
               style={{
                 overflow: "auto",
-                height: "40vh",
-                maxHeight: "40vh",
+                height: "80%",
+                // maxHeight: "40vh",
                 border: "0",
                 boxShadow: "none",
                 padding: "0"
@@ -86,10 +95,7 @@ class ModalExampleSize extends Component {
                       </Table.Cell>
                       <Table.Cell>
                         <Header>
-                          <Header.Content>
-                            {item.username}
-                            {/* <Header.Subheader style={{maxWidth:'50%', minWidth: '280px'}}>{item.description}</Header.Subheader> */}
-                          </Header.Content>
+                          <Header.Content>{item.username}</Header.Content>
                         </Header>
                       </Table.Cell>
                     </Table.Row>
@@ -101,7 +107,7 @@ class ModalExampleSize extends Component {
 
           <Modal.Actions>
             <Button basic onClick={() => this.close()}>
-              <Icon name="delete" /> avbryt
+              <Icon name="delete" /> Avbryt
             </Button>
             <Button
               color="violet"
@@ -114,7 +120,7 @@ class ModalExampleSize extends Component {
                 )
               }
             >
-              <Icon name="save" /> spara
+              <Icon name="save" /> Lägg till medlem
             </Button>
           </Modal.Actions>
         </Modal>

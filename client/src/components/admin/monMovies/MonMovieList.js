@@ -35,7 +35,6 @@ class MonMovieList extends Component {
   };
   handleConfirm = () => {
     this.props.deleteMonMovie(this.state.movie);
-    // console.log(this.state.movie);
     this.setState({ open: false });
   };
 
@@ -43,7 +42,6 @@ class MonMovieList extends Component {
   render() {
     const { movie, open } = this.state;
     let monList = this.props.monMovies.monMovies || [];
-    console.log(monList);
 
     return (
       <div className="monMovies">
@@ -115,7 +113,6 @@ class MonMovieList extends Component {
                         <Icon name="edit" /> Ändra
                       </Button>
                       <Button
-                        // onClick={() => this.props.deleteMonMovie(item)}
                         onClick={e => this.show(item)}
                         basic
                         floated="right"

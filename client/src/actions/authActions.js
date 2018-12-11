@@ -15,11 +15,9 @@ import {
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post("/api/users/register", userData)
-    // .then(res => history.push("/login"))
     .then(res => {
       let success = {};
       if (res.status === 200) {
-        console.log(res);
         success = {
           title: "Användare skapad!",
           msg: "Ett mail har skickats till " + userData.email + "."

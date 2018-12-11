@@ -62,34 +62,37 @@ class Reset extends Component {
     const { success } = this.state;
     return (
       <div>
-        <h1>Återställ lösenord</h1>
-        <Form error success>
-          <Form.Field>
-            <label>Lösenord</label>
-            <input
-              type="password"
-              placeholder="Skriv ett lösenord"
-              name="password"
-              value={password}
-              onChange={this.onChange}
-            />
-            <Message error content={errors.password} />
-          </Form.Field>
-          <Form.Field>
-            <input
-              type="password"
-              placeholder="Bekräfta lösenord "
-              name="password2"
-              value={password2}
-              onChange={this.onChange}
-            />
-            <Message error content={errors.password2} />
-          </Form.Field>
-          <Button type="submit" onClick={this.onSubmit}>
-            Återställ mitt lösenord!
-          </Button>
-          <Message success header={success.title} content={success.msg} />
-        </Form>
+        <div className="loginContainer">
+          <h1 className="loginTitle">Återställ lösenord</h1>
+          <Form error success>
+            <Form.Field>
+              <label className="loginFieldLabel">Lösenord</label>
+              <input
+                type="password"
+                placeholder="Skriv ett lösenord"
+                name="password"
+                value={password}
+                onChange={this.onChange}
+              />
+              <Message error content={errors.password} />
+            </Form.Field>
+            <Form.Field>
+              <label className="loginFieldLabel">Bekräfta lösenord</label>
+              <input
+                type="password"
+                placeholder="Bekräfta lösenord "
+                name="password2"
+                value={password2}
+                onChange={this.onChange}
+              />
+              <Message error content={errors.password2} />
+            </Form.Field>
+            <Button type="submit" onClick={this.onSubmit}>
+              Återställ mitt lösenord!
+            </Button>
+            <Message success header={success.title} content={success.msg} />
+          </Form>
+        </div>
         <Footer />
       </div>
     );

@@ -58,7 +58,7 @@ router.post("/form", (req, res) => {
         // setup email data with unicode symbols
         let mailOptions = {
           from: `${req.body.email}`, // sender address
-          to: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>', // list of receivers
+          to: `"Kråkebackens Biograf" ${process.env.MAIL_ADDR}`,
           subject: `Förfrågan om medlemskap från ${req.body.username}`, // Subject line
           html: output // html body
         };
@@ -66,7 +66,7 @@ router.post("/form", (req, res) => {
         // send mail with defined transport object
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
-            return console.log(error);
+            return error;
           }
         });
       }
