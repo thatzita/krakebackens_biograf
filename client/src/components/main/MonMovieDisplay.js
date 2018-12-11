@@ -8,7 +8,8 @@ import {
   Header,
   Image,
   Segment,
-  Icon
+  Icon,
+  Label
 } from "semantic-ui-react";
 
 const monMovieDisplaySize = {
@@ -29,7 +30,7 @@ export default class MonMovieDisplay extends Component {
     let movieProps = this.props.monMovies || [];
 
     return (
-      <Segment padded="very" inverted style={monMovieDisplaySize}>
+      <Segment raised padded="very" inverted style={monMovieDisplaySize}>
         {movieProps.map(item => (
           <div
             style={{
@@ -49,32 +50,15 @@ export default class MonMovieDisplay extends Component {
               animated="small fade"
             >
               <Reveal.Content visible style={{ border: "1px solid gray" }}>
-                <div
-                  style={{
-                    bottom: "0rem",
-                    zIndex: "2",
-                    color: "white",
-                    fontSize: "1.3rem",
-                    position: "absolute",
-                    backgroundColor: "rgba(0,0,0,0.7)"
-                  }}
-                >
-                  <span style={{ marginRight: "0.3rem", marginLeft: "0.3rem" }}>
-                    {item.screeningDate}
-                  </span>
-                  <span style={{ marginRight: "0.3rem" }}>
-                    {item.screeningTime}
-                  </span>
-                </div>
                 <Image size="small" src={item.poster} />
               </Reveal.Content>
               <Reveal.Content hidden style={{ border: "1px solid black" }}>
                 <Dimmer.Dimmable dimmed={true}>
                   <Image size="small" src={item.poster} />
                   <Dimmer active={true} onClickOutside={this.handleHide}>
-                    <h4>{item.screeningDate}</h4>
-                    <h4 style={{ marginBottom: "2rem" }}>
-                      {item.screeningTime}
+                    <h4 style={{ marginBottom: "2rem", lineHeight: "28px" }}>
+                      <Icon name="time" />
+                      {item.screeningTime}{" "}
                     </h4>
                     <Button inverted basic>
                       Boka
@@ -83,7 +67,20 @@ export default class MonMovieDisplay extends Component {
                 </Dimmer.Dimmable>
               </Reveal.Content>
             </Reveal>
-            <p style={{ paddingTop: "0.5rem" }}>{item.title}</p>
+            <Label
+              color="violet"
+              size="small"
+              style={{
+                width: "100%",
+                margin: "0",
+                borderRadius: "0 0 5px 5px"
+              }}
+            >
+              <Icon name="calendar alternate outline" /> {item.screeningDate}
+            </Label>
+            <p style={{ paddingTop: "0.5rem", fontSize: "1.1rem" }}>
+              {item.title}
+            </p>
           </div>
         ))}
       </Segment>

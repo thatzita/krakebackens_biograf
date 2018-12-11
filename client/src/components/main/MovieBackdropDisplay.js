@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import { Label, Icon, Menu } from "semantic-ui-react";
 
@@ -66,6 +67,11 @@ export default class MovieBackdropDisplay extends Component {
                 <Icon name="play" /> Se trailer
               </Menu.Item>
               <Menu.Item
+                as={Link}
+                to={{
+                  pathname: "/movieselection",
+                  state: { movieId: movieItem._id }
+                }}
                 name="biljetter"
                 active={activeItem === "biljetter"}
                 onClick={this.handleItemClick}
