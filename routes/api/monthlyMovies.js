@@ -1,6 +1,9 @@
+require("dotenv").config();
+
 const express = require("express");
 const router = express.Router();
 const saloonCollection = require("../../seatingStructure/saloonCollection");
+const nodemailer = require("nodemailer");
 // const salong_2 = require("../../seatingStructure/saloonCollection");
 
 const { MonMovie, MonMovieArchive } = require("../../models/MonthlyMovie");
@@ -67,6 +70,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             const newMonMovie = new MonMovie({
               title: req.body.mov.title,
               description: req.body.mov.description,
+              // crowMessage: req.body.mov.crowRaiting
               background: req.body.mov.background,
               poster: req.body.mov.poster,
               runtime: req.body.mov.runtime,
@@ -80,7 +84,8 @@ router.post("/uploadMoviePremiere", (req, res) => {
               utc_time: req.body.utc_time,
               cancel_utc_time: req.body.cancel_utc_time,
               reminder_utc_time: req.body.reminder_utc_time,
-              screeningStatus: "active",
+              reminderIsSent: false,
+              // screeningStatus: "active",
               seating: saloon,
               saloon: req.body.saloon,
               fullyBooked: false
@@ -177,6 +182,7 @@ router.get("/singlemovie/", (req, res) => {
 
 // complete and save booking
 router.post("/completeAndSaveBooking", (req, res) => {
+  // console.log("the movieID: ", req.body.responsible.email);
   MonMovie.findOne({ _id: req.body.movieId }).then(movie => {
     if (movie) {
       let seatResarvation = req.body.seatResarvation;
@@ -209,6 +215,7 @@ router.post("/completeAndSaveBooking", (req, res) => {
         return newRow;
       });
       if (allSeatsAreAvailable) {
+        // the booking was successful, save and return the updated movie
         movie.seating = newSeating;
         let newMovie = movie;
         let seatCount = 0;
@@ -258,6 +265,92 @@ router.post("/completeAndSaveBooking", (req, res) => {
             res.json({ movie, success: true, msg: "Tack för din bokning" })
           )
           .catch(err => console.log(err));
+
+        let output = `
+        <!DOCTYPE html>
+        <html lang="en" dir="ltr">
+        
+        <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+          <title></title>
+          <style></style>
+        </head>
+        
+        <body>
+          <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+            <tr>
+              <td align="center" valign="top">
+                <table style="background-color:rgb(71,8,119)" border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
+                  <tr>
+                    <td align="center" valign="top">
+                      <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
+                        <tr>
+                          <td style="padding-bottom: 5px" align="center" valign="top">
+                            <h2 style=" font-family: Arial,sans-serif; color:white">Tack för din bokning!</h2>
+                            <!-- <hr/> -->
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="background-color:white;" align="center" valign="top">
+                      <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody">
+                        <tr>
+                          <td style="padding:auto;" align="center" valign="top">
+        
+                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Dina billjetter till filmen <strong> ${
+                                movie.title
+                              } </strong> kommer finnas på din profilsida. På din profilsida kan du även reglera och avboka biljetter</p>
+        
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:0" align="center" valign="top">
+                      <table style="background-color:#f4f4f4" border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
+                        <tr>
+                          <td align="center" valign="top">
+                            <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Ni är varmt välkommna</p>
+                            <p style="font-family: Arial,sans-serif; margin-top:1rem; font-size: 0.8rem;"> <em>Kom gärna en halvtimme innan visning för mingel och tilltugg</em> </p>
+        
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+          `;
+        let transporter = nodemailer.createTransport({
+          service: "Gmail",
+          host: "smtp.gmail.com",
+          auth: {
+            user: process.env.MAIL_ADDR,
+            pass: process.env.MAIL_PW
+          }
+        });
+
+        let mailOptions = {
+          from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>',
+          to: `bringmybeerbro@gmail.com`, // list of receivers
+          subject: "Bokningsbekräftelse", // Subject line
+          // text: 'Hello world?', // plain text body
+          html: output // html body
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            return console.log(error);
+          }
+          console.log("info: ", info);
+        });
       } else {
         res.json({
           movie,

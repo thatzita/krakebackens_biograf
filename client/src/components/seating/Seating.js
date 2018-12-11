@@ -5,11 +5,13 @@ import { Header, Image } from "semantic-ui-react";
 import "./seatingTwo.css";
 import DrawGrid from "./SeatingGrid";
 import TicketDisplay from "./TicketDisplay";
+import LostSeatMessage from "./LostSeatMessage";
 import { getCurrentProfile } from "../../actions/profileActions";
 import { getAllUsers } from "../../actions/usersActions";
 import {
   completeAndSaveBooking,
-  removePreviousMoveBookingInformation
+  removePreviousMoveBookingInformation,
+  getSpecificMonMovie
 } from "../../actions/monMovieActions";
 
 class Seating extends Component {
@@ -22,19 +24,23 @@ class Seating extends Component {
       rowList: [],
       reservedList: [],
       memberList: [],
-      profile: {}
+      profile: {},
+      firstRefrech: true,
+      popUpMessage: false,
+      showFailMessage: false
     };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    this.props.getCurrentProfile();
-    this.props.getAllUsers();
     let {
       bookingObj,
       amountOfSeatBookings,
       existingBookings
     } = this.props.location.state;
+
+    this.props.getCurrentProfile();
+    this.props.getAllUsers();
 
     let sortExistingBookings = existingBookings.sort((x, y) => {
       if (x.customer.status > y.customer.status) {
@@ -47,6 +53,8 @@ class Seating extends Component {
     });
 
     if (bookingObj) {
+      this.props.getSpecificMonMovie(bookingObj._id);
+
       this.setState({
         bookingObj,
         amountOfSeatBookings: 4 - amountOfSeatBookings,
@@ -77,15 +85,27 @@ class Seating extends Component {
       });
     }
 
+    if (nextProps.movieCloseUp && this.state.firstRefrech) {
+      this.setState({
+        bookingObj: nextProps.movieCloseUp,
+        rowList: nextProps.movieCloseUp.seating
+      });
+    }
+
     if (nextProps.bookingResult) {
       let bookingResult = nextProps.bookingResult;
       if (bookingResult.success) {
         this.props.history.push("/mainpage");
         this.props.removePreviousMoveBookingInformation();
       } else {
+        this.setState({
+          bookingObj: bookingResult.movie,
+          rowList: bookingResult.movie.seating,
+          reservedList: [],
+          firstRefrech: false,
+          showFailMessage: true
+        });
         this.props.removePreviousMoveBookingInformation();
-
-        this.setState({ reservedList: [] });
       }
     }
   }
@@ -93,7 +113,8 @@ class Seating extends Component {
   completeBooking = () => {
     let bookingBody = {
       movieId: this.state.bookingObj._id,
-      seatResarvation: this.state.reservedList
+      seatResarvation: this.state.reservedList,
+      responsible: this.state.profile
     };
 
     this.props.completeAndSaveBooking(bookingBody);
@@ -176,6 +197,10 @@ class Seating extends Component {
     }
   };
 
+  closeFailMessage = () => {
+    this.setState({ showFailMessage: false });
+  };
+
   shallowObjectCopy = src => {
     return Object.assign({}, src);
   };
@@ -232,6 +257,10 @@ class Seating extends Component {
             selectableMemberList={this.props.users.users || []}
           />
         </div>
+        <LostSeatMessage
+          closeFailMessage={this.closeFailMessage}
+          showFailMessage={this.state.showFailMessage}
+        />
       </div>
     );
   }
@@ -240,7 +269,8 @@ class Seating extends Component {
 const mapStateToProps = state => ({
   profile: state.profile,
   users: state.users,
-  bookingResult: state.monMovies.bookingResult
+  bookingResult: state.monMovies.bookingResult,
+  movieCloseUp: state.monMovies.movieCloseUp
 });
 
 export default connect(
@@ -250,6 +280,9 @@ export default connect(
     getCurrentProfile,
     getAllUsers,
     completeAndSaveBooking,
-    removePreviousMoveBookingInformation
+    removePreviousMoveBookingInformation,
+    getSpecificMonMovie
+
+    //func goes here
   }
 )(Seating);

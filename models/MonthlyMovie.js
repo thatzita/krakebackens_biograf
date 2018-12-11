@@ -23,6 +23,9 @@ const MonthlyMovieSchema = new Schema({
   description: {
     type: String
   },
+  crowMessage: {
+    type: String
+  },
   genres: [],
   imdb_id: {
     type: String
@@ -49,6 +52,10 @@ const MonthlyMovieSchema = new Schema({
   },
   reminder_utc_time: {
     type: String,
+    required: true
+  },
+  reminderIsSent: {
+    type: Boolean,
     required: true
   },
   seating: {

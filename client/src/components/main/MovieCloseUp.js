@@ -35,7 +35,6 @@ class MovieCloseUp extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     let { movieId } = this.props.location.state;
-    console.log(movieId);
     this.props.getCurrentProfile();
     this.props.getSpecificMonMovie(movieId);
   }
@@ -119,7 +118,7 @@ class MovieCloseUp extends Component {
                   )
                 </h1>
                 <p>
-                  Kråkans premiär:{" "}
+                  Premiär:{" "}
                   {movieObject.screeningDate
                     ? movieObject.screeningDate
                     : "åååå-mm-dd"}
