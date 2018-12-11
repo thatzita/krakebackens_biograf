@@ -120,7 +120,8 @@ class Seating extends Component {
   completeBooking = () => {
     let bookingBody = {
       movieId: this.state.bookingObj._id,
-      seatResarvation: this.state.reservedList
+      seatResarvation: this.state.reservedList,
+      responsible: this.state.profile
     };
 
     // console.log("sending: ", bookingBody);

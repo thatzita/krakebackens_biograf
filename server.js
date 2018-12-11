@@ -86,6 +86,35 @@ new CronJob(
   "Europe/Stockholm"
 );
 
+// Cronjob not complete
+// new CronJob(
+//   "*/2 * * * *",
+//   function() {
+//     let todaysDate = new Date();
+//     MonMovie.find({}).then(movies => {
+//       movies.forEach(movie => {
+//         if (todaysDate > new Date(movie.reminder_utc_time)) {
+//           console.log("skickar påminelse för filmen ", movie.title);
+//           let listOfEmailAdresses = [];
+//           movie.seating.map(array => {
+//             array.map(item => {
+//               if (item.email) {
+//                 listOfEmailAdresses.push(item.email);
+//               }
+//             });
+//           });
+//           console.log("emailList: ", listOfEmailAdresses);
+//         } else {
+//           console.log("hitta ingen");
+//         }
+//       });
+//     });
+//   },
+//   null,
+//   true,
+//   "Europe/Stockholm"
+// );
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
