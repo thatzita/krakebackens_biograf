@@ -40,6 +40,9 @@ class AddMovie extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+    if (event.key === "Enter") {
+      this.onSubmit(event);
+    }
   }
 
   onSubmit(event) {
@@ -85,7 +88,6 @@ class AddMovie extends Component {
                   color="blue"
                   onClick={e => this.showPopup(movie.id)}
                   attached="bottom"
-                  // floated="right"
                 >
                   <Icon name="eye" className="editIcon" /> Mer info
                 </Button>
@@ -93,7 +95,6 @@ class AddMovie extends Component {
                   color="green"
                   onClick={e => this.addToDb(movie.id)}
                   attached="bottom"
-                  // floated="right"
                 >
                   <Icon name="add circle" className="editIcon" />
                   Lägg till
@@ -124,6 +125,7 @@ class AddMovie extends Component {
                 name="searchedMovie"
                 value={this.state.searchedMovie}
                 onChange={this.onChange}
+                onKeyPress={this.onChange}
                 placeholder="Skriv namn på film..."
               />
               <Button color="violet" type="submit" onClick={this.onSubmit}>
