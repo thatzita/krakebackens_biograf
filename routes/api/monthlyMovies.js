@@ -70,6 +70,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             const newMonMovie = new MonMovie({
               title: req.body.mov.title,
               description: req.body.mov.description,
+              // crowMessage: req.body.mov.crowRaiting
               background: req.body.mov.background,
               poster: req.body.mov.poster,
               runtime: req.body.mov.runtime,
