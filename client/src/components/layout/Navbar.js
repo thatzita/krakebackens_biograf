@@ -26,7 +26,12 @@ class Navbar extends Component {
     this.state = { activeItem: "home" };
   }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name });
+    if (name === "Filmer") {
+      window.scrollTo({ top: 550, behavior: "smooth" });
+    }
+  };
 
   onLogoutClick = event => {
     event.preventDefault();

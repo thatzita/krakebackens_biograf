@@ -73,6 +73,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
               genres: req.body.mov.genres,
               imdb_id: req.body.mov.imdb_id,
               release: req.body.mov.release,
+              crowRating: req.body.mov.crowRating,
 
               screeningDate: req.body.date,
               screeningTime: req.body.time,
@@ -243,27 +244,6 @@ router.post("/completeAndSaveBooking", (req, res) => {
             newMovie.fullyBooked = true;
           }
         }
-
-        // if (newMovie.saloon === "1") {
-        //   newMovie.seating[0].map(seat => {
-        //     if (seat.booked) {
-        //       seatCount++;
-        //     }
-        //   });
-        //   newMovie.seating[1].map(seat => {
-        //     if (seat.booked) {
-        //       seatCount++;
-        //     }
-        //   });
-        //   newMovie.seating[2].map(seat => {
-        //     if (seat.booked) {
-        //       seatCount++;
-        //     }
-        //   });
-        //   return seatCount;
-        // }
-
-        // console.log(newMovie.seating[0]);
 
         newMovie
           .save()
