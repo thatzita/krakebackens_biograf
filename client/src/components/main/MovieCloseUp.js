@@ -63,7 +63,7 @@ class MovieCloseUp extends Component {
   }
 
   handleItemClick = () => {
-    console.log("trailer");
+    window.open(this.state.movieCloseUp.trailer, "_blank");
   };
 
   render() {

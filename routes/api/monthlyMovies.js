@@ -78,6 +78,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
               imdb_id: req.body.mov.imdb_id,
               release: req.body.mov.release,
               crowRating: req.body.mov.crowRating,
+              trailer: req.body.mov.trailer,
 
               screeningDate: req.body.date,
               screeningTime: req.body.time,

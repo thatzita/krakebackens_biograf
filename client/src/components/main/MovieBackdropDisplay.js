@@ -7,10 +7,15 @@ import "./movieBackdropDisplay.css";
 export default class MovieBackdropDisplay extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeItem: "" };
+    this.state = { activeItem: "", trailerUrl: "" };
   }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick = (e, { name }) => {
+    if (name === "trailer") {
+      window.open(this.props.monMovie.trailer, "_blank");
+    }
+    this.setState({ activeItem: name });
+  };
 
   render() {
     const { activeItem } = this.state;
@@ -63,7 +68,8 @@ export default class MovieBackdropDisplay extends Component {
                 active={activeItem === "trailer"}
                 onClick={this.handleItemClick}
               >
-                <Icon name="play" /> Se trailer
+                <Icon name="play" />
+                Se trailer
               </Menu.Item>
               <Menu.Item
                 name="biljetter"

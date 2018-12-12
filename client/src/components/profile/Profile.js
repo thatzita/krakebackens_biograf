@@ -112,25 +112,18 @@ class Profile extends Component {
               </Card.Content>
 
               <Card.Content className="userVip">
-                <h2
-                  // style={{ textDecoration: "underline" }}
-                  className="whiteText"
-                >
+                <h2 className="whiteText">
                   <Icon name="star" />
                   VIP status:
                 </h2>
                 <p>{vipInfo.vipStatus}</p>
                 <p>{vipInfo.vipPlats}</p>
               </Card.Content>
-
-              {/* <h3>Filmer du sett:</h3>
-              <ul>{watchedMovies}</ul> */}
             </Card>
             <Button.Group className="profileButtons">
               <Button
                 attached="bottom"
                 className="deleteButton"
-                // onClick={this.onDeleteClick.bind(this)}
                 onClick={e => this.show()}
               >
                 Ta bort konto

@@ -68,7 +68,8 @@ class DbPopup extends Component {
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
         rating: movieInfo.vote_average,
-        dvdOrBluRay: this.state.dvdOrBluRay
+        dvdOrBluRay: this.state.dvdOrBluRay,
+        tmdbId: movieInfo.id
       };
     } else if (title !== "" && description === "") {
       movieDb = {
@@ -81,7 +82,8 @@ class DbPopup extends Component {
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
         rating: movieInfo.vote_average,
-        dvdOrBluRay: this.state.dvdOrBluRay
+        dvdOrBluRay: this.state.dvdOrBluRay,
+        tmdbId: movieInfo.id
       };
     } else if (title !== "" && description !== "") {
       movieDb = {
@@ -94,7 +96,8 @@ class DbPopup extends Component {
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
         rating: movieInfo.vote_average,
-        dvdOrBluRay: this.state.dvdOrBluRay
+        dvdOrBluRay: this.state.dvdOrBluRay,
+        tmdbId: movieInfo.id
       };
     } else if (movieInfo.overview === "") {
       movieDb = {
@@ -107,7 +110,8 @@ class DbPopup extends Component {
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
         rating: movieInfo.vote_average,
-        dvdOrBluRay: this.state.dvdOrBluRay
+        dvdOrBluRay: this.state.dvdOrBluRay,
+        tmdbId: movieInfo.id
       };
     } else {
       movieDb = {
@@ -120,7 +124,8 @@ class DbPopup extends Component {
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
         rating: movieInfo.vote_average,
-        dvdOrBluRay: this.state.dvdOrBluRay
+        dvdOrBluRay: this.state.dvdOrBluRay,
+        tmdbId: movieInfo.id
       };
     }
 

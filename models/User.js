@@ -28,7 +28,6 @@ const UserSchema = new Schema({
     total: { type: Number },
     season: { type: Number }
   },
-  moviesViewed: [],
   resetPwToken: String,
   resetPwExpires: Date,
   admin: Boolean
