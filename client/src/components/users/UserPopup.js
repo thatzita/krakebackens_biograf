@@ -170,7 +170,7 @@ class UserPopup extends Component {
     }
 
     if (showOrHide) {
-      if ((userInfo.email = "charliegh.christyana@moneyln.com")) {
+      if (userInfo.email === "charliegh.christyana@moneyln.com") {
         userPopup = (
           <div className="popupUser">
             <Segment inverted>

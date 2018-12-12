@@ -132,7 +132,10 @@ export const getMovieInfoAddtoDb = movieId => dispatch => {
 //IMDB POPUP
 export const imdbPopup = movieId => dispatch => {
   let url = "https://api.themoviedb.org/3/movie/";
-  let key = `api_key=${keys.API_KEY}&language=sv`;
+
+  let key = `?api_key=${keys.API_KEY}&language=sv`;
+
+  console.log(url + movieId + key);
 
   delete axios.defaults.headers.common["Authorization"];
 

@@ -39,6 +39,8 @@ class DbPopup extends Component {
   saveToDb() {
     let { movieInfo, title, description, dvdOrBluRay } = this.state;
 
+    console.log(movieInfo.id);
+
     let genreArray = movieInfo.genres.map(genre => {
       return genre.name;
     });
@@ -68,8 +70,7 @@ class DbPopup extends Component {
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
         rating: movieInfo.vote_average,
-        dvdOrBluRay: this.state.dvdOrBluRay,
-        tmdbId: movieInfo.id
+        dvdOrBluRay: this.state.dvdOrBluRay
       };
     } else if (title !== "" && description === "") {
       movieDb = {
@@ -82,8 +83,7 @@ class DbPopup extends Component {
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
         rating: movieInfo.vote_average,
-        dvdOrBluRay: this.state.dvdOrBluRay,
-        tmdbId: movieInfo.id
+        dvdOrBluRay: this.state.dvdOrBluRay
       };
     } else if (title !== "" && description !== "") {
       movieDb = {
@@ -96,8 +96,7 @@ class DbPopup extends Component {
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
         rating: movieInfo.vote_average,
-        dvdOrBluRay: this.state.dvdOrBluRay,
-        tmdbId: movieInfo.id
+        dvdOrBluRay: this.state.dvdOrBluRay
       };
     } else if (movieInfo.overview === "") {
       movieDb = {
@@ -110,8 +109,7 @@ class DbPopup extends Component {
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
         rating: movieInfo.vote_average,
-        dvdOrBluRay: this.state.dvdOrBluRay,
-        tmdbId: movieInfo.id
+        dvdOrBluRay: this.state.dvdOrBluRay
       };
     } else {
       movieDb = {
@@ -124,12 +122,11 @@ class DbPopup extends Component {
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
         rating: movieInfo.vote_average,
-        dvdOrBluRay: this.state.dvdOrBluRay,
-        tmdbId: movieInfo.id
+        dvdOrBluRay: this.state.dvdOrBluRay
       };
     }
 
-    this.props.addToMovieDb(movieDb);
+    this.props.addToMovieDb(movieDb, movieInfo.id);
     this.setState({
       title: "",
       description: "",
