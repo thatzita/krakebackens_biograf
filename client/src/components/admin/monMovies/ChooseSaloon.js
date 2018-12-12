@@ -6,7 +6,7 @@ export default function ChooseSaloon(props) {
     <Segment
       style={{
         boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)",
-        marginTop: "5rem"
+        marginTop: "1rem"
       }}
     >
       <Header>

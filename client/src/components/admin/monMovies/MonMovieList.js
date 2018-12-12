@@ -98,15 +98,37 @@ class MonMovieList extends Component {
                       <Icon name="users" color="grey" />{" "}
                       {"Salong " + item.saloon}
                     </Item.Meta>
-                    <Item.Meta style={{ maxWidth: "50%", minWidth: "280px" }}>
-                      <strong>Kråkan tycker:</strong> {item.crowRating}
-                    </Item.Meta>
+
+                    {/* <Item.Meta style={{ maxWidth: "50%", minWidth: "280px" }}>
+                      <strong>Kråkan tycker:</strong> <br />
+                      {item.crowRating}
+                    </Item.Meta> */}
                     <Item.Description
                       style={{ maxWidth: "70%", minWidth: "280px" }}
                     >
                       {item.description}
                     </Item.Description>
                     <Item.Extra>{item.genres.map(gen => gen + " ")}</Item.Extra>
+                    <Item.Header
+                      style={{ fontSize: "1rem", marginTop: "1rem" }}
+                    >
+                      Kråkan tycker:
+                    </Item.Header>
+                    <Item.Description
+                      style={{
+                        maxWidth: "50%",
+                        minWidth: "280px",
+                        marginTop: "0"
+                      }}
+                    >
+                      {item.crowRating}
+                    </Item.Description>
+                    {item.monMovieMessage ? (
+                      <Segment style={{ backgroundColor: "#f4f4f4" }}>
+                        <h5>Meddelande</h5>
+                        {item.monMovieMessage}
+                      </Segment>
+                    ) : null}
 
                     <Item.Extra>
                       <Button color="violet" floated="right">

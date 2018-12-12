@@ -7,6 +7,7 @@ const nodemailer = require("nodemailer");
 // const salong_2 = require("../../seatingStructure/saloonCollection");
 
 const { MonMovie, MonMovieArchive } = require("../../models/MonthlyMovie");
+const Movie = require("../../models/Movie");
 const User = require("../../models/User");
 
 //@route    Get api/monthlyMovies/test
@@ -29,6 +30,22 @@ router.get("/moviearchive", (req, res) => {
 //@access   private
 router.post("/uploadMoviePremiere", (req, res) => {
   // console.log(req.body);
+  let updateField = {
+    crowRating: req.body.crowRating
+  };
+
+  Movie.findOneAndUpdate({ imdb_id: req.body.mov.imdb_id }, updateField, {
+    new: true
+  }).then(movie => {
+    if (movie) {
+      console.log("update crowrating: ", movie);
+    } else {
+      return res.status(400).json({
+        title: "we could not find the movie to update the crow rating"
+      });
+    }
+  });
+
   MonMovie.findOne({
     $or: [{ title: req.body.mov.title }, { utc_time: req.body.utc_time }]
   })
@@ -70,14 +87,14 @@ router.post("/uploadMoviePremiere", (req, res) => {
             const newMonMovie = new MonMovie({
               title: req.body.mov.title,
               description: req.body.mov.description,
-              // crowMessage: req.body.mov.crowRaiting
+              monMovieMessage: req.body.monMovieMessage,
               background: req.body.mov.background,
               poster: req.body.mov.poster,
               runtime: req.body.mov.runtime,
               genres: req.body.mov.genres,
               imdb_id: req.body.mov.imdb_id,
               release: req.body.mov.release,
-              crowRating: req.body.mov.crowRating,
+              crowRating: req.body.crowRating,
 
               screeningDate: req.body.date,
               screeningTime: req.body.time,
