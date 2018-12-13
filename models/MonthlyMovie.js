@@ -23,7 +23,7 @@ const MonthlyMovieSchema = new Schema({
   description: {
     type: String
   },
-  crowMessage: {
+  monMovieMessage: {
     type: String
   },
   genres: [],

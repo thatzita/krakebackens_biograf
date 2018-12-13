@@ -8,6 +8,8 @@ import DateTimePicker from "./DateTimePicker";
 import MoviePicker from "./MoviePicker";
 import ChooseSaloon from "./ChooseSaloon";
 import PreviewSubmitMonMovie from "./PreviewSubmitMonMovie";
+import MonMovieMessage from "./MonMovieMessage";
+import MonMovieCrowRating from "./MonMovieCrowRating";
 import Admin from "../../admin/Admin";
 import "./monMovies.css";
 
@@ -21,7 +23,9 @@ class CreateMonMovie extends Component {
       movieId: "",
       saloon: "1",
       eventObject: {},
-      previewPage: false
+      previewPage: false,
+      crowRating: "",
+      monMovieMessage: ""
     };
   }
 
@@ -51,7 +55,9 @@ class CreateMonMovie extends Component {
       utc_time: utc_time,
       cancel_utc_time: cancel_utc_time,
       reminder_utc_time: reminder_utc_time,
-      saloon: this.state.saloon
+      saloon: this.state.saloon,
+      crowRating: this.state.crowRating,
+      monMovieMessage: this.state.monMovieMessage
     };
     this.props.postMonmovie(monMovieDb);
   };
@@ -66,6 +72,14 @@ class CreateMonMovie extends Component {
     this.setState({ saloon: value });
   };
 
+  handleTextarea = (name, value) => {
+    if (name === "crowRating") {
+      this.setState({ crowRating: value });
+    } else {
+      this.setState({ monMovieMessage: value });
+    }
+  };
+
   selectMovie = (id, movies) => {
     let movId;
     if (id) {
@@ -75,7 +89,11 @@ class CreateMonMovie extends Component {
       } else {
         movId = id;
         let objArray = movies.filter(obj => obj._id === movId);
-        this.setState({ movieId: movId, eventObject: objArray[0] || {} });
+        this.setState({
+          movieId: movId,
+          eventObject: objArray[0] || {},
+          crowRating: objArray[0].crowRating || ""
+        });
       }
     }
   };
@@ -86,6 +104,8 @@ class CreateMonMovie extends Component {
   };
 
   render() {
+    console.log(this.state.monMovieMessage);
+
     let movies = this.props.movies || [];
     let movieList =
       this.state.search.length <= 0
@@ -108,6 +128,14 @@ class CreateMonMovie extends Component {
           movieList={movieList}
           movies={movies}
           eventObject={this.state.eventObject}
+        />
+        <MonMovieCrowRating
+          crowRating={this.state.crowRating}
+          handleTextarea={this.handleTextarea}
+        />
+        <MonMovieMessage
+          monMovieMessage={this.state.monMovieMessage}
+          handleTextarea={this.handleTextarea}
         />
         <ChooseSaloon
           handleChange={this.handleChange}
@@ -134,6 +162,8 @@ class CreateMonMovie extends Component {
           time={this.state.time}
           goToOrLeavePreviewPage={this.goToOrLeavePreviewPage}
           onSubmitEvent={this.onSubmitEvent}
+          monMovieMessage={this.state.monMovieMessage}
+          crowRating={this.state.crowRating}
         />
       </React.Fragment>
     );

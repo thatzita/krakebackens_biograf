@@ -8,7 +8,7 @@ export default function DateTimePicker(props) {
       className="timeAndDate"
       style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}
     >
-      <Header as="h2" dividing>
+      <Header as="h2">
         <Icon name="calendar alternate outline" />
         <Header.Content>Välj datum och tid för filmvisning</Header.Content>
       </Header>

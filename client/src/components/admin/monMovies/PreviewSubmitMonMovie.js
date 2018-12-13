@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Icon, Item, Button } from "semantic-ui-react";
+import { Segment, Icon, Item, Button, Divider } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Admin from "../../admin/Admin";
 
@@ -23,7 +23,7 @@ export default function PreviewSubmitMonMovie(props) {
             />
 
             <Item.Content>
-              <Item.Header as="a">
+              <Item.Header>
                 {props.eventObject.title
                   ? props.eventObject.title
                   : "Oops, något gick fel"}
@@ -45,9 +45,7 @@ export default function PreviewSubmitMonMovie(props) {
                   {props.saloon ? props.saloon : "1"}
                 </span>
               </Item.Meta>
-              <Item.Meta style={{ maxWidth: "50%", minWidth: "280px" }}>
-                <strong>Kråkan tycker:</strong> {props.eventObject.crowRating}
-              </Item.Meta>
+
               <Item.Description style={{ maxWidth: "70%", minWidth: "280px" }}>
                 {props.eventObject.description
                   ? props.eventObject.description
@@ -57,7 +55,19 @@ export default function PreviewSubmitMonMovie(props) {
                 {props.eventObject.genres
                   ? props.eventObject.genres.map(gen => gen + " ")
                   : null}
+                <Divider />
               </Item.Extra>
+              <Item.Header style={{ fontSize: "1rem", marginTop: "1rem" }}>
+                Kråkan tycker
+              </Item.Header>
+              <Item.Description style={{ maxWidth: "50%", minWidth: "280px" }}>
+                {props.crowRating}
+              </Item.Description>
+              {/* <Divider /> */}
+              <Item.Header style={{ fontSize: "1rem", marginTop: "1rem" }}>
+                Meddelande
+              </Item.Header>
+              <Item.Description>{props.monMovieMessage}</Item.Description>
             </Item.Content>
           </Item>
           <Item>

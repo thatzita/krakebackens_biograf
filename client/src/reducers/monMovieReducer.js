@@ -28,6 +28,16 @@ export default function(state = initialState, action) {
         ...state,
         monMovies: action.payload
       };
+    case UPDATE_MONMOVIE:
+      // console.log("state before", state.monMovies);
+      let updatedMonMovieList = filterUpdate(action.payload, state.monMovies);
+      // console.log("state ", state.monMovies);
+      // console.log("reducer new ", updatedMonMovieList);
+
+      return {
+        ...state,
+        monMovies: updatedMonMovieList
+      };
     case DELETE_MONMOVIE:
       let newMonMovieState = removeMonMovie(action.payload, state.monMovies);
       return {
@@ -58,5 +68,19 @@ export default function(state = initialState, action) {
 
 const removeMonMovie = (deleteItem, stateArray) => {
   let updatedList = stateArray.filter(item => item !== deleteItem);
+  return updatedList;
+};
+
+const filterUpdate = (updatedItem, currentArray = []) => {
+  let updatedList = currentArray.map(x => {
+    if (x._id === updatedItem._id) {
+      // console.log(x.title);
+      x = updatedItem;
+      return x;
+    } else {
+      return x;
+    }
+  });
+  // console.log("update ", updatedList);
   return updatedList;
 };

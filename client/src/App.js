@@ -31,6 +31,7 @@ import Seating from "./components/seating/Seating";
 import ArchiveMain from "./components/archive/ArchiveMain";
 
 import CreateMonMovie from "./components/admin/monMovies/CreateMonMovie";
+import UpdateMonMovie from "./components/admin/monMovies/UpdateMonMovie";
 import MonMovieList from "./components/admin/monMovies/MonMovieList";
 
 import MovieCloseUp from "./components/main/MovieCloseUp";
@@ -85,7 +86,11 @@ class App extends Component {
                 <PrivateRoute exact path="/seating" component={Seating} />
 
                 <AdminRoute exact path="/adminhome" component={AdminHome} />
-
+                <AdminRoute
+                  exact
+                  path="/updatemovie"
+                  component={UpdateMonMovie}
+                />
                 <AdminRoute
                   exact
                   path="/monMovieList"
