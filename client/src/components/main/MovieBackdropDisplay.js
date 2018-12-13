@@ -1,24 +1,28 @@
 import React, { Component } from "react";
 
-import { Label, Icon, Menu } from "semantic-ui-react";
+import { Label, Icon, Menu, Modal } from "semantic-ui-react";
 
 import "./movieBackdropDisplay.css";
 
 export default class MovieBackdropDisplay extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeItem: "", trailerUrl: "" };
+    this.state = { activeItem: "", movieTrailer: null };
   }
 
   handleItemClick = (e, { name }) => {
     if (name === "trailer") {
-      window.open(this.props.monMovie.trailer, "_blank");
+      let str = this.props.monMovie.trailer;
+      let find = "watch\\?v\\=";
+      let reg = new RegExp(find, "g");
+      str = str.replace(reg, "embed/");
+      this.setState({ movieTrailer: str });
     }
     this.setState({ activeItem: name });
   };
 
   render() {
-    const { activeItem } = this.state;
+    const { activeItem, movieTrailer } = this.state;
     let movieItem = this.props.monMovie || {};
     let displayImage = movieItem.background || "default.jpg";
 
@@ -63,14 +67,21 @@ export default class MovieBackdropDisplay extends Component {
                 border: "0"
               }}
             >
-              <Menu.Item
-                name="trailer"
-                active={activeItem === "trailer"}
-                onClick={this.handleItemClick}
+              <Modal
+                trigger={
+                  <Menu.Item
+                    name="trailer"
+                    active={activeItem === "trailer"}
+                    onClick={this.handleItemClick}
+                  >
+                    <Icon name="play" />
+                    Se trailer
+                  </Menu.Item>
+                }
               >
-                <Icon name="play" />
-                Se trailer
-              </Menu.Item>
+                {<iframe width="900" height="600" src={movieTrailer} />}
+              </Modal>
+
               <Menu.Item
                 name="biljetter"
                 active={activeItem === "biljetter"}

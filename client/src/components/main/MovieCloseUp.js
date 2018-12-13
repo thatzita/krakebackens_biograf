@@ -18,7 +18,8 @@ import {
   Segment,
   Menu,
   Icon,
-  Table
+  Table,
+  Modal
 } from "semantic-ui-react";
 
 class MovieCloseUp extends Component {
@@ -28,7 +29,8 @@ class MovieCloseUp extends Component {
       activeItem: "",
       movieCloseUp: {},
       amountOfSeatBookings: 4,
-      existingBookings: []
+      existingBookings: [],
+      movieTrailer: null
     };
   }
 
@@ -63,16 +65,23 @@ class MovieCloseUp extends Component {
   }
 
   handleItemClick = () => {
-    window.open(this.state.movieCloseUp.trailer, "_blank");
+    // <iframe width='1080' height='760' src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+    // http://youtube.com/watch?v=6ZfuNTqbHE8
+    let str = this.state.movieCloseUp.trailer;
+    let find = "watch\\?v\\=";
+    let reg = new RegExp(find, "g");
+    str = str.replace(reg, "embed/");
+    this.setState({ movieTrailer: str });
   };
 
   render() {
-    const { activeItem } = this.state;
+    const { activeItem, movieTrailer } = this.state;
 
     let movieObject = this.state.movieCloseUp; // movieItem[0] || {};
     let displayImage = movieObject.background || "default.jpg";
     let countSeats = movieObject.seating || [];
     let seatsThatAreLeft = [];
+
     countSeats.map(array => {
       let newArray = array.filter(x => x.booked === false);
       newArray.map(y => {
@@ -101,6 +110,7 @@ class MovieCloseUp extends Component {
                 backgroundPosition: "center"
               }}
             />
+
             <div className="movieDescription">
               <Segment
                 inverted
@@ -143,16 +153,21 @@ class MovieCloseUp extends Component {
                     ? movieObject.description
                     : "beskrivning"}
                 </p>
-
-                <Menu inverted secondary style={{ background: "none" }}>
-                  <Menu.Item
-                    name="trailer"
-                    active={activeItem === "trailer"}
-                    onClick={this.handleItemClick}
-                  >
-                    <Icon name="play" /> Spela trailer
-                  </Menu.Item>
-                </Menu>
+                <Modal
+                  trigger={
+                    <Menu inverted secondary style={{ background: "none" }}>
+                      <Menu.Item
+                        name="trailer"
+                        active={activeItem === "trailer"}
+                        onClick={this.handleItemClick}
+                      >
+                        <Icon name="play" /> Spela trailer
+                      </Menu.Item>
+                    </Menu>
+                  }
+                >
+                  {<iframe width="900" height="600" src={movieTrailer} />}
+                </Modal>
               </Segment>
             </div>
           </div>
