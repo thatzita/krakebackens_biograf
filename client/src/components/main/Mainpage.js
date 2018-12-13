@@ -14,7 +14,6 @@ class Mainpage extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
     this.props.getAllMonMovies();
-
     if (localStorage.adminPage) {
       this.props.history.push("/adminhome");
     }
@@ -63,6 +62,7 @@ Mainpage.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  movies: state.movies,
   profile: state.profile,
   auth: state.auth,
   monMovies: state.monMovies,

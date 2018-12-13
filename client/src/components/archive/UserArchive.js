@@ -24,7 +24,7 @@ class UserArchive extends Component {
       errors: {},
       userArchive: null,
       search: "",
-      showMore: 5,
+      showMore: 10,
       show: false
     };
     this.onChange = this.onChange.bind(this);
@@ -32,7 +32,7 @@ class UserArchive extends Component {
 
   showMoreContent() {
     this.setState({
-      showMore: this.state.showMore + 5
+      showMore: this.state.showMore + 10
     });
   }
 

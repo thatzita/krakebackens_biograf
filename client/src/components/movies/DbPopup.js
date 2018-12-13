@@ -120,11 +120,12 @@ class DbPopup extends Component {
         imdb_id: movieInfo.imdb_id,
         release: movieInfo.release_date,
         rating: movieInfo.vote_average,
-        dvdOrBluRay: this.state.dvdOrBluRay
+        dvdOrBluRay: this.state.dvdOrBluRay,
+        trailer: null
       };
     }
 
-    this.props.addToMovieDb(movieDb);
+    this.props.addToMovieDb(movieDb, movieInfo.id);
     this.setState({
       title: "",
       description: "",
@@ -319,12 +320,10 @@ class DbPopup extends Component {
 DbPopup.propTypes = {
   imdbPopupClose: PropTypes.func.isRequired,
   addToMovieDb: PropTypes.func.isRequired,
-  // movieInfo: PropTypes.object.isRequired,
   movies: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  //   movieInfo: state.movieInfo,
   movies: state.movies
 });
 

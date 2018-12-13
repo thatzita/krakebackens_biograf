@@ -76,8 +76,7 @@ new CronJob(
             if (user.customer.id) {
               seatsTaken.push(user.customer.email);
             } else if (user.customer.status === 3) {
-              //TODO: Ändra till en annan gästmail + konto
-              user.customer.email = "charliegh.christyana@moneyln.com";
+              user.customer.email = "charliegh.christyana@moneyln.com"; //Dummy mail, existerar inte
               seatsTaken.push(user.customer.email);
             }
           });
@@ -85,8 +84,7 @@ new CronJob(
             if (user.customer.id) {
               seatsTaken.push(user.customer.email);
             } else if (user.customer.status === 3) {
-              //TODO: Ändra till en annan gästmail + konto
-              user.customer.email = "charliegh.christyana@moneyln.com";
+              user.customer.email = "charliegh.christyana@moneyln.com"; //Dummy mail, existerar inte
               seatsTaken.push(user.customer.email);
             }
           });
@@ -94,8 +92,7 @@ new CronJob(
             if (user.customer.id) {
               seatsTaken.push(user.customer.email);
             } else if (user.customer.status === 3) {
-              //TODO: Ändra till en annan gästmail + konto
-              user.customer.email = "charliegh.christyana@moneyln.com";
+              user.customer.email = "charliegh.christyana@moneyln.com"; //Dummy mail, existerar inte
               seatsTaken.push(user.customer.email);
             }
           });
@@ -104,8 +101,7 @@ new CronJob(
             if (user.customer.id) {
               seatsTaken.push(user.customer.email);
             } else if (user.customer.status === 3) {
-              //TODO: Ändra till en annan gästmail + konto
-              user.customer.email = "charliegh.christyana@moneyln.com";
+              user.customer.email = "charliegh.christyana@moneyln.com"; //Dummy mail, existerar inte
               seatsTaken.push(user.customer.email);
             }
           });
@@ -113,8 +109,7 @@ new CronJob(
             if (user.customer.id) {
               seatsTaken.push(user.customer.email);
             } else if (user.customer.status === 3) {
-              //TODO: Ändra till en annan gästmail + konto
-              user.customer.email = "charliegh.christyana@moneyln.com";
+              user.customer.email = "charliegh.christyana@moneyln.com"; //Dummy mail, existerar inte
               seatsTaken.push(user.customer.email);
             }
           });

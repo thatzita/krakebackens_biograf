@@ -80,6 +80,9 @@ export default function TicketDisplay(props) {
                         {item.customer.username} - <em>Medlem</em>
                         <Header.Subheader>Datum: {props.date}</Header.Subheader>
                         <Header.Subheader>Tid: {props.time}</Header.Subheader>
+                        <Header.Subheader>
+                          {seatNameConverter(item.seat)}
+                        </Header.Subheader>
                       </Header.Content>
                     </Header>
                   </div>
@@ -115,6 +118,9 @@ export default function TicketDisplay(props) {
                         Gäst
                         <Header.Subheader>Datum: {props.date}</Header.Subheader>
                         <Header.Subheader>Tid: {props.time}</Header.Subheader>
+                        <Header.Subheader>
+                          {seatNameConverter(item.seat)}
+                        </Header.Subheader>
                       </Header.Content>
                     </Header>
                   </div>

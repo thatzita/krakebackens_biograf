@@ -241,7 +241,9 @@ img {
   font-weight: 100;
   text-decoration: underline;
   /* bottom: -10rem; */
-  position: absolute;
+  /* position: absolute; */
+  float: right;
+  margin-right: 60%;
   /* left: 40%; */
 }
 .footerLinks > a > li {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import keys from "../config/keys";
 import {
   GET_MOVIES,
   GET_ERRORS,
@@ -52,7 +53,7 @@ export const moviePopupClose = () => {
 export const searchMovie = movieData => dispatch => {
   let url = "https://api.themoviedb.org/3/search/movie?query=";
 
-  let key = "&api_key=1ca6bbafafae8cf950e1fbb80a4824c7";
+  let key = `&api_key=${keys.API_KEY}`;
 
   delete axios.defaults.headers.common["Authorization"];
   axios.get(url + movieData + key).then(res => {
@@ -73,15 +74,28 @@ export const showMoviesFound = movieData => {
 //ADD IMDB DATA WITHOUT POPUP
 export const getMovieInfoAddtoDb = movieId => dispatch => {
   let url = "https://api.themoviedb.org/3/movie/";
-  let key = "?api_key=1ca6bbafafae8cf950e1fbb80a4824c7&language=sv";
+  let key = `?api_key=${keys.API_KEY}&language=sv`;
+
+  let trailerUrl = "https://api.themoviedb.org/3/movie/";
+  let trailerKey = `/videos?api_key=${keys.API_KEY}`;
 
   delete axios.defaults.headers.common["Authorization"];
+
+  let trailerVideo;
+
+  axios.get(trailerUrl + movieId + trailerKey).then(res => {
+    let trailer = res.data.results;
+    if (trailer.length > 0) {
+      trailerVideo = `http://youtube.com/watch?v=${trailer[0].key}`;
+    } else {
+      trailerVideo = `http://youtube.com`;
+    }
+  });
 
   axios
     .get(url + movieId + key)
     .then(res => {
       let movie = res.data;
-      axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
       return movie;
     })
     .then(movieToAdd => {
@@ -100,8 +114,11 @@ export const getMovieInfoAddtoDb = movieId => dispatch => {
         imdb_id: movieToAdd.imdb_id,
         release: movieToAdd.release_date,
         rating: movieToAdd.vote_average,
-        dvdOrBluRay: "bluRay"
+        dvdOrBluRay: "bluRay",
+        trailer: trailerVideo
       };
+
+      axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
       axios.post("/api/movies/addmovie", addToDb).then(res => {
         let success = {
           title: "Film tillagd!",
@@ -115,7 +132,7 @@ export const getMovieInfoAddtoDb = movieId => dispatch => {
 //IMDB POPUP
 export const imdbPopup = movieId => dispatch => {
   let url = "https://api.themoviedb.org/3/movie/";
-  let key = "?api_key=1ca6bbafafae8cf950e1fbb80a4824c7&language=sv";
+  let key = `?api_key=${keys.API_KEY}&language=sv`;
 
   delete axios.defaults.headers.common["Authorization"];
 
@@ -140,15 +157,50 @@ export const showSpecificMovie = movieData => {
   };
 };
 
+//TODO: Trailer via
 //LÄGG TILL I DB
-export const addToMovieDb = addToDb => dispatch => {
-  axios.post("/api/movies/addmovie", addToDb).then(res => {
-    let success = {
-      title: "Film tillagd!",
-      msg: "Filmen finns nu i databasen"
+export const addToMovieDb = (addToDb, movieId) => dispatch => {
+  let movieInfo = addToDb;
+  let id = movieId;
+
+  delete axios.defaults.headers.common["Authorization"];
+
+  function fetchTrailerUrl(id) {
+    let trailerUrl = "https://api.themoviedb.org/3/movie/";
+    let trailerKey = `/videos?api_key=${keys.API_KEY}`;
+    const request = axios
+      .get(trailerUrl + id + trailerKey)
+      .then(function(response) {
+        return response.data;
+      })
+      .catch(function(error) {
+        return Promise.reject(error);
+      });
+
+    return {
+      payload: request
     };
-    dispatch(movieAddedSuccess(success));
-  });
+  }
+
+  fetchTrailerUrl(id)
+    .payload.then(data => {
+      if (data.results.length > 0) {
+        movieInfo.trailer = `http://youtube.com/watch?v=${data.results[0].key}`;
+      } else {
+        movieInfo.trailer = `http://youtube.com/`;
+      }
+    })
+    .then(() => {
+      axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
+
+      axios.post("/api/movies/addmovie", movieInfo).then(res => {
+        let success = {
+          title: "Film tillagd!",
+          msg: "Filmen finns nu i databasen"
+        };
+        dispatch(movieAddedSuccess(success));
+      });
+    });
 };
 
 export const movieAddedSuccess = success => {

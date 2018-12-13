@@ -124,13 +124,11 @@ class UserPopup extends Component {
       case "sMinus":
         this.setState({
           season: Number(this.state.season) - 1
-          // total: Number(this.state.total) - 1
         });
         break;
       case "sPlus":
         this.setState({
           season: Number(this.state.season) + 1
-          // total: Number(this.state.total) + 1
         });
         break;
       case "tMinus":
@@ -172,138 +170,233 @@ class UserPopup extends Component {
     }
 
     if (showOrHide) {
-      userPopup = (
-        <div className="popupUser">
-          <Segment inverted>
-            {/* <Card fluid className="cardContainer"> */}
-            <Card className="containerInPopup">
-              <Image
-                className="crowPicture"
-                src="krakebackens_logo.png"
-                size="small"
-                circular
-                centered
-              />
-              <h1 style={{ textAlign: "center" }}>{userInfo.username}</h1>
-              <h3
-                className="whiteText"
-                style={{ textAlign: "center", marginTop: "-1rem" }}
-              >
-                <Icon name="mail" />
-                {userInfo.email}
-              </h3>
-
-              <Card.Content className="userStats">
-                <h2 className="whiteText">
-                  <Icon name="chart bar" />
-                  Statistik:
-                </h2>
-                <h4 className="whiteText">Antal besök i år:</h4>
-                <Button
-                  inverted
-                  size="mini"
-                  value="sMinus"
-                  onClick={e => this.changeStats(e)}
-                  icon="minus"
+      if (userInfo.email === "charliegh.christyana@moneyln.com") {
+        userPopup = (
+          <div className="popupUser">
+            <Segment inverted>
+              <Card className="containerInPopup">
+                <Image
+                  className="crowPicture"
+                  src="krakebackens_logo.png"
+                  size="small"
+                  circular
+                  centered
                 />
-                <span
-                  style={{ fontSize: "1.8rem", margin: "1rem" }}
+                <h1 style={{ textAlign: "center" }}>Gästkonto</h1>
+                <h3
                   className="whiteText"
+                  style={{ textAlign: "center", marginTop: "-1rem" }}
                 >
-                  {season}
-                </span>
-                <Button
-                  inverted
-                  size="mini"
-                  value="sPlus"
-                  onClick={e => this.changeStats(e)}
-                  icon="plus"
-                />
-                <h4 className="whiteText">Antal besök totalt:</h4>
-                <Button
-                  inverted
-                  size="mini"
-                  value="tMinus"
-                  onClick={e => this.changeStats(e)}
-                  icon="minus"
-                />
-                <span
-                  style={{ fontSize: "1.8rem", margin: "1rem" }}
-                  className="whiteText"
-                >
-                  {total}
-                </span>
-                <Button
-                  inverted
-                  size="mini"
-                  value="tPlus"
-                  onClick={e => this.changeStats(e)}
-                  icon="plus"
-                />
-              </Card.Content>
+                  Kontot används för att att spara statistik från gäster.
+                </h3>
 
-              <Card.Content className="userVip">
-                <h2 className="whiteText">
-                  <Icon name="star" />
-                  VIP status:
-                </h2>
-                <div
-                  style={{ float: "right", position: "relative", top: "-3rem" }}
-                >
+                <Card.Content className="userStats">
+                  <h2 className="whiteText">
+                    <Icon name="chart bar" />
+                    Statistik:
+                  </h2>
+                  <h4 className="whiteText">Antal besök i år:</h4>
                   <Button
-                    floated="right"
-                    toggle
-                    active={status}
-                    onClick={this.handleClick}
+                    inverted
+                    size="mini"
+                    value="sMinus"
+                    onClick={e => this.changeStats(e)}
+                    icon="minus"
+                  />
+                  <span
+                    style={{ fontSize: "1.8rem", margin: "1rem" }}
+                    className="whiteText"
                   >
-                    VIP
-                  </Button>
-                  {status ? (
-                    <Dropdown
-                      placeholder="Väljs VIP-plats"
-                      // fluid
-                      search
-                      selection
-                      options={vipOptions}
-                      onChange={this.seatValue}
-                    />
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <h4>{status ? "VIP-medlem" : "Medlem"}</h4>
-                <h4>{status ? `${vipSeating}` : "-"}</h4>
-              </Card.Content>
+                    {season}
+                  </span>
+                  <Button
+                    inverted
+                    size="mini"
+                    value="sPlus"
+                    onClick={e => this.changeStats(e)}
+                    icon="plus"
+                  />
+                  <h4 className="whiteText">Antal besök totalt:</h4>
+                  <Button
+                    inverted
+                    size="mini"
+                    value="tMinus"
+                    onClick={e => this.changeStats(e)}
+                    icon="minus"
+                  />
+                  <span
+                    style={{ fontSize: "1.8rem", margin: "1rem" }}
+                    className="whiteText"
+                  >
+                    {total}
+                  </span>
+                  <Button
+                    inverted
+                    size="mini"
+                    value="tPlus"
+                    onClick={e => this.changeStats(e)}
+                    icon="plus"
+                  />
+                </Card.Content>
 
-              <Button.Group>
-                <Button
-                  attached="bottom"
-                  className="deleteButton"
-                  onClick={e => this.deleteUser(userInfo)}
+                <Button.Group>
+                  <Button
+                    className="updateButton"
+                    color="green"
+                    attached="bottom"
+                    onClick={e => this.updateUserDb()}
+                  >
+                    Uppdatera databasen
+                  </Button>
+                  <Button
+                    attached="bottom"
+                    className="closeButton"
+                    onClick={e => this.closePopup()}
+                  >
+                    <Icon name="left chevron" />
+                    Stäng
+                  </Button>
+                </Button.Group>
+              </Card>
+            </Segment>
+          </div>
+        );
+      } else {
+        userPopup = (
+          <div className="popupUser">
+            <Segment inverted>
+              <Card className="containerInPopup">
+                <Image
+                  className="crowPicture"
+                  src="krakebackens_logo.png"
+                  size="small"
+                  circular
+                  centered
+                />
+                <h1 style={{ textAlign: "center" }}>{userInfo.username}</h1>
+                <h3
+                  className="whiteText"
+                  style={{ textAlign: "center", marginTop: "-1rem" }}
                 >
-                  Ta bort från databasen
-                </Button>
-                <Button
-                  className="updateButton"
-                  color="green"
-                  attached="bottom"
-                  onClick={e => this.updateUserDb()}
-                >
-                  Uppdatera databasen
-                </Button>
-                <Button
-                  attached="bottom"
-                  className="closeButton"
-                  onClick={e => this.closePopup()}
-                >
-                  <Icon name="left chevron" />
-                  Stäng
-                </Button>
-              </Button.Group>
-            </Card>
-          </Segment>
-        </div>
-      );
+                  <Icon name="mail" />
+                  {userInfo.email}
+                </h3>
+
+                <Card.Content className="userStats">
+                  <h2 className="whiteText">
+                    <Icon name="chart bar" />
+                    Statistik:
+                  </h2>
+                  <h4 className="whiteText">Antal besök i år:</h4>
+                  <Button
+                    inverted
+                    size="mini"
+                    value="sMinus"
+                    onClick={e => this.changeStats(e)}
+                    icon="minus"
+                  />
+                  <span
+                    style={{ fontSize: "1.8rem", margin: "1rem" }}
+                    className="whiteText"
+                  >
+                    {season}
+                  </span>
+                  <Button
+                    inverted
+                    size="mini"
+                    value="sPlus"
+                    onClick={e => this.changeStats(e)}
+                    icon="plus"
+                  />
+                  <h4 className="whiteText">Antal besök totalt:</h4>
+                  <Button
+                    inverted
+                    size="mini"
+                    value="tMinus"
+                    onClick={e => this.changeStats(e)}
+                    icon="minus"
+                  />
+                  <span
+                    style={{ fontSize: "1.8rem", margin: "1rem" }}
+                    className="whiteText"
+                  >
+                    {total}
+                  </span>
+                  <Button
+                    inverted
+                    size="mini"
+                    value="tPlus"
+                    onClick={e => this.changeStats(e)}
+                    icon="plus"
+                  />
+                </Card.Content>
+
+                <Card.Content className="userVip">
+                  <h2 className="whiteText">
+                    <Icon name="star" />
+                    VIP status:
+                  </h2>
+                  <div
+                    style={{
+                      float: "right",
+                      position: "relative",
+                      top: "-3rem"
+                    }}
+                  >
+                    <Button
+                      floated="right"
+                      toggle
+                      active={status}
+                      onClick={this.handleClick}
+                    >
+                      VIP
+                    </Button>
+                    {status ? (
+                      <Dropdown
+                        placeholder="Väljs VIP-plats"
+                        search
+                        selection
+                        options={vipOptions}
+                        onChange={this.seatValue}
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <h4>{status ? "VIP-medlem" : "Medlem"}</h4>
+                  <h4>{status ? `${vipSeating}` : "-"}</h4>
+                </Card.Content>
+
+                <Button.Group>
+                  <Button
+                    attached="bottom"
+                    className="deleteButton"
+                    onClick={e => this.deleteUser(userInfo)}
+                  >
+                    Ta bort från databasen
+                  </Button>
+                  <Button
+                    className="updateButton"
+                    color="green"
+                    attached="bottom"
+                    onClick={e => this.updateUserDb()}
+                  >
+                    Uppdatera databasen
+                  </Button>
+                  <Button
+                    attached="bottom"
+                    className="closeButton"
+                    onClick={e => this.closePopup()}
+                  >
+                    <Icon name="left chevron" />
+                    Stäng
+                  </Button>
+                </Button.Group>
+              </Card>
+            </Segment>
+          </div>
+        );
+      }
     } else {
       userPopup = "";
     }
@@ -313,10 +406,7 @@ class UserPopup extends Component {
 
 UserPopup.propTypes = {
   userPopupClose: PropTypes.func.isRequired,
-  //   updateDb: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired,
-  //   userInfo: PropTypes.object.isRequired
-  //   movies: PropTypes.object.isRequired
   users: PropTypes.object.isRequired
 };
 

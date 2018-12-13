@@ -47,7 +47,12 @@ class Footer extends Component {
               <Link to="/mainpage">
                 <li>Kontakta oss</li>
               </Link>
-
+              <Image
+                style={{ marginRight: "28%" }}
+                floated="right"
+                size="small"
+                src="tmdb_logo.png"
+              />
               <div className="copyright">
                 <li style={{ listStyle: "none" }}>
                   Kråkebackens Biograf Copyright &copy;{" "}

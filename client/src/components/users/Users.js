@@ -80,6 +80,7 @@ class Users extends Component {
     const { showMore, open } = this.state;
     let showMoreContentButton;
     let userContent;
+    let guestAccount;
 
     if (users !== undefined) {
       if (this.props.users.users.length > showMore) {
@@ -101,74 +102,115 @@ class Users extends Component {
       });
 
       let userCards = filteredUsers.map(user => {
-        return (
-          <Item key={user._id}>
-            <Icon
-              className="userIconPointer"
-              name="user circle outline"
-              size="big"
-              color="violet"
-              onClick={e => this.showUserPopup(user)}
-            />
-            <Item.Content>
-              <Item.Header>{user.username}</Item.Header>
-              <Item.Meta className="ItemEmail">
-                <Icon name="mail" />
+        if (user.email === "charliegh.christyana@moneyln.com") {
+          guestAccount = (
+            <div style={{ backgroundColor: "#f4f4f4" }}>
+              <Item.Group>
+                <Item key={user._id}>
+                  <Icon
+                    className="userIconPointer"
+                    name="user circle outline"
+                    size="big"
+                    onClick={e => this.showUserPopup(user)}
+                  />
+                  <Item.Content>
+                    <Item.Header>Gästkonto</Item.Header>
+                    <Item.Meta className="ItemEmail">
+                      <em
+                        style={{
+                          fontSize: "1rem",
+                          color: "gray"
+                        }}
+                      >
+                        Statistik från gäster
+                      </em>
+                    </Item.Meta>
+                  </Item.Content>
 
-                <em
-                  style={{
-                    fontSize: "1rem",
-                    color: "gray"
-                  }}
-                >
-                  {user.email}
-                </em>
-              </Item.Meta>
-              <Item.Meta>
-                <span className="boldSpan">
-                  {user.vip.status ? (
-                    <Label>
-                      <Icon name="star" color="orange" />
-                      &nbsp;VIP
-                    </Label>
-                  ) : (
-                    ""
-                  )}
-                </span>
-              </Item.Meta>
-            </Item.Content>
-            <Item.Group>
-              <Button
-                color="blue"
+                  <Item.Group>
+                    <Button
+                      color="blue"
+                      onClick={e => this.showUserPopup(user)}
+                      attached="bottom"
+                      floated="right"
+                    >
+                      <Icon name="eye" className="editIcon" /> Mer info
+                    </Button>
+                  </Item.Group>
+                </Item>
+              </Item.Group>
+            </div>
+          );
+        } else {
+          return (
+            <Item key={user._id}>
+              <Icon
+                className="userIconPointer"
+                name="user circle outline"
+                size="big"
+                color="violet"
                 onClick={e => this.showUserPopup(user)}
-                attached="bottom"
-                floated="right"
-              >
-                <Icon name="eye" className="editIcon" /> Mer info
-              </Button>
-
-              <Button
-                basic
-                onClick={e => this.show(user)}
-                attached="bottom"
-                floated="right"
-              >
-                <Icon name="delete" />
-                Ta bort
-              </Button>
-              <Confirm
-                open={open}
-                className="confirmDeleteUser"
-                cancelButton="Gå tillbaka"
-                confirmButton="Ta bort"
-                header="Du är på väg att ta bort en medlem"
-                content="Är du säker? Det går inte att återställa en borttagen medlem."
-                onCancel={this.handleCancel}
-                onConfirm={this.handleConfirm}
               />
-            </Item.Group>
-          </Item>
-        );
+              <Item.Content>
+                <Item.Header>{user.username}</Item.Header>
+                <Item.Meta className="ItemEmail">
+                  <Icon name="mail" />
+
+                  <em
+                    style={{
+                      fontSize: "1rem",
+                      color: "gray"
+                    }}
+                  >
+                    {user.email}
+                  </em>
+                </Item.Meta>
+                <Item.Meta>
+                  <span className="boldSpan">
+                    {user.vip.status ? (
+                      <Label>
+                        <Icon name="star" color="orange" />
+                        &nbsp;VIP
+                      </Label>
+                    ) : (
+                      ""
+                    )}
+                  </span>
+                </Item.Meta>
+              </Item.Content>
+              <Item.Group>
+                <Button
+                  color="blue"
+                  onClick={e => this.showUserPopup(user)}
+                  attached="bottom"
+                  floated="right"
+                >
+                  <Icon name="eye" className="editIcon" /> Mer info
+                </Button>
+
+                <Button
+                  basic
+                  onClick={e => this.show(user)}
+                  attached="bottom"
+                  floated="right"
+                >
+                  <Icon name="delete" />
+                  Ta bort
+                </Button>
+                <Confirm
+                  open={open}
+                  className="confirmDeleteUser"
+                  cancelButton="Gå tillbaka"
+                  confirmButton="Ta bort"
+                  header="Du är på väg att ta bort en medlem"
+                  content="Är du säker? Det går inte att återställa en borttagen medlem."
+                  onCancel={this.handleCancel}
+                  onConfirm={this.handleConfirm}
+                />
+              </Item.Group>
+            </Item>
+          );
+        }
       });
 
       userContent = (
@@ -210,6 +252,14 @@ class Users extends Component {
           </div>
           <UserPopup />
           <br />
+          <Segment
+            style={{
+              boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)",
+              backgroundColor: "#f4f4f4"
+            }}
+          >
+            {guestAccount}
+          </Segment>
           <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
             {userContent}
           </Segment>

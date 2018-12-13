@@ -108,7 +108,7 @@ class ChangePassword extends Component {
                     Tillbaka
                   </Button>
                 </Link>
-                {/* <Message success header={success.title} content={success.msg} /> */}
+                <Message success header={success.title} content={success.msg} />
               </Form>
               <br />
             </Card>

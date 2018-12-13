@@ -27,7 +27,7 @@ class Archive extends Component {
       monMovies: [],
       movieInfo: {},
       search: "",
-      showMore: 5,
+      showMore: 10,
       show: false,
       movie: {}
     };
@@ -42,7 +42,7 @@ class Archive extends Component {
 
   showMoreContent() {
     this.setState({
-      showMore: this.state.showMore + 5
+      showMore: this.state.showMore + 10
     });
   }
 

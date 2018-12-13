@@ -48,7 +48,6 @@ class CreateMonMovie extends Component {
 
     let cancel_utc_time = cancelTime.toUTCString();
     let reminder_utc_time = reminderTime.toUTCString();
-
     let monMovieDb = {
       mov: this.state.eventObject,
       date: this.state.date,

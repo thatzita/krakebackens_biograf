@@ -30,7 +30,7 @@ class Movies extends Component {
       movies: [],
       movieInfo: {},
       search: "",
-      showMore: 5,
+      showMore: 10,
       show: false,
       movie: {}
     };
@@ -45,7 +45,7 @@ class Movies extends Component {
 
   showMoreContent() {
     this.setState({
-      showMore: this.state.showMore + 5
+      showMore: this.state.showMore + 10
     });
   }
 
@@ -67,9 +67,11 @@ class Movies extends Component {
       profile: nextProps.profile.profile
     });
   }
+
   show = movie => {
     this.setState({ open: true, movie: movie });
   };
+
   handleConfirm = () => {
     this.deleteMovie(this.state.movie);
     this.setState({ open: false });
@@ -104,6 +106,7 @@ class Movies extends Component {
           -1
         );
       });
+
       let movieItem = filteredMovies.map(movie => {
         return (
           <Item key={movie.imdb_id}>
@@ -142,7 +145,6 @@ class Movies extends Component {
                 <Button
                   basic
                   style={{ height: "2.5rem", bottom: "0" }}
-                  // onClick={e => this.deleteMovie(movie)}
                   onClick={e => this.show(movie)}
                   attached="bottom"
                   floated="right"
@@ -180,7 +182,6 @@ class Movies extends Component {
         <div>
           <br />
           <br />
-          {/* <h2>Filmdatabas</h2> */}
           <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
             <Item.Group divided>{movieItem.slice(0, showMore)}</Item.Group>
           </Segment>
@@ -201,11 +202,7 @@ class Movies extends Component {
           <br />
           <Admin />
           <Link to="/addmovie">
-            <Button
-              // style={{ marginTop: "-1rem" }}
-              color="green"
-              floated="right"
-            >
+            <Button color="green" floated="right">
               <Icon name="add" />
               Lägg till nya filmer
             </Button>
@@ -237,8 +234,6 @@ class Movies extends Component {
 Movies.propTypes = {
   getAllMovies: PropTypes.func.isRequired,
   deleteMovie: PropTypes.func.isRequired,
-  // movieInfo: PropTypes.func.isRequired,
-  // popupMovie: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   movies: PropTypes.object.isRequired
