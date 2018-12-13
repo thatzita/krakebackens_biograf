@@ -7,8 +7,12 @@ import "./movieBackdropDisplay.css";
 export default class MovieBackdropDisplay extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeItem: "", movieTrailer: null };
+    this.state = { activeItem: "", movieTrailer: null, modalOpen: false };
   }
+
+  handleOpen = () => this.setState({ modalOpen: true });
+
+  handleClose = () => this.setState({ modalOpen: false });
 
   handleItemClick = (e, { name }) => {
     if (name === "trailer") {
@@ -16,7 +20,7 @@ export default class MovieBackdropDisplay extends Component {
       let find = "watch\\?v\\=";
       let reg = new RegExp(find, "g");
       str = str.replace(reg, "embed/");
-      this.setState({ movieTrailer: str });
+      this.setState({ movieTrailer: str, modalOpen: true });
     }
     this.setState({ activeItem: name });
   };
@@ -69,17 +73,37 @@ export default class MovieBackdropDisplay extends Component {
             >
               <Modal
                 trigger={
-                  <Menu.Item
-                    name="trailer"
-                    active={activeItem === "trailer"}
-                    onClick={this.handleItemClick}
-                  >
-                    <Icon name="play" />
-                    Se trailer
-                  </Menu.Item>
+                  <Menu inverted secondary style={{ background: "none" }}>
+                    <Menu.Item
+                      name="trailer"
+                      active={activeItem === "trailer"}
+                      onClick={this.handleItemClick}
+                    >
+                      <Icon name="play" /> Spela trailer
+                    </Menu.Item>
+                  </Menu>
                 }
+                open={this.state.modalOpen}
+                onClose={this.handleClose}
               >
-                {<iframe width="900" height="600" src={movieTrailer} />}
+                {
+                  <React.Fragment>
+                    <Icon
+                      style={{
+                        position: "absolute",
+                        right: "-2.5rem",
+                        fontSize: "2rem",
+                        fontWeight: "100"
+                      }}
+                      color="red"
+                      onClick={this.handleClose}
+                      inverted
+                      name="close"
+                    />
+
+                    <iframe width="900" height="600" src={movieTrailer} />
+                  </React.Fragment>
+                }
               </Modal>
 
               <Menu.Item

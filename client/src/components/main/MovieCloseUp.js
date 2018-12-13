@@ -30,7 +30,8 @@ class MovieCloseUp extends Component {
       movieCloseUp: {},
       amountOfSeatBookings: 4,
       existingBookings: [],
-      movieTrailer: null
+      movieTrailer: null,
+      modalOpen: false
     };
   }
 
@@ -64,6 +65,10 @@ class MovieCloseUp extends Component {
     }
   }
 
+  handleOpen = () => this.setState({ modalOpen: true });
+
+  handleClose = () => this.setState({ modalOpen: false });
+
   handleItemClick = () => {
     // <iframe width='1080' height='760' src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
     // http://youtube.com/watch?v=6ZfuNTqbHE8
@@ -71,7 +76,7 @@ class MovieCloseUp extends Component {
     let find = "watch\\?v\\=";
     let reg = new RegExp(find, "g");
     str = str.replace(reg, "embed/");
-    this.setState({ movieTrailer: str });
+    this.setState({ movieTrailer: str, modalOpen: true });
   };
 
   render() {
@@ -165,8 +170,27 @@ class MovieCloseUp extends Component {
                       </Menu.Item>
                     </Menu>
                   }
+                  open={this.state.modalOpen}
+                  onClose={this.handleClose}
                 >
-                  {<iframe width="900" height="600" src={movieTrailer} />}
+                  {
+                    <React.Fragment>
+                      <Icon
+                        style={{
+                          position: "absolute",
+                          right: "-2.5rem",
+                          fontSize: "2rem",
+                          fontWeight: "100"
+                        }}
+                        color="red"
+                        onClick={this.handleClose}
+                        inverted
+                        name="close"
+                      />
+
+                      <iframe width="900" height="600" src={movieTrailer} />
+                    </React.Fragment>
+                  }
                 </Modal>
               </Segment>
             </div>
