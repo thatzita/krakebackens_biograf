@@ -132,10 +132,7 @@ export const getMovieInfoAddtoDb = movieId => dispatch => {
 //IMDB POPUP
 export const imdbPopup = movieId => dispatch => {
   let url = "https://api.themoviedb.org/3/movie/";
-
   let key = `?api_key=${keys.API_KEY}&language=sv`;
-
-  console.log(url + movieId + key);
 
   delete axios.defaults.headers.common["Authorization"];
 
@@ -160,15 +157,50 @@ export const showSpecificMovie = movieData => {
   };
 };
 
+//TODO: Trailer via
 //LÄGG TILL I DB
-export const addToMovieDb = addToDb => dispatch => {
-  axios.post("/api/movies/addmovie", addToDb).then(res => {
-    let success = {
-      title: "Film tillagd!",
-      msg: "Filmen finns nu i databasen"
+export const addToMovieDb = (addToDb, movieId) => dispatch => {
+  let movieInfo = addToDb;
+  let id = movieId;
+
+  delete axios.defaults.headers.common["Authorization"];
+
+  function fetchTrailerUrl(id) {
+    let trailerUrl = "https://api.themoviedb.org/3/movie/";
+    let trailerKey = `/videos?api_key=${keys.API_KEY}`;
+    const request = axios
+      .get(trailerUrl + id + trailerKey)
+      .then(function(response) {
+        return response.data;
+      })
+      .catch(function(error) {
+        return Promise.reject(error);
+      });
+
+    return {
+      payload: request
     };
-    dispatch(movieAddedSuccess(success));
-  });
+  }
+
+  fetchTrailerUrl(id)
+    .payload.then(data => {
+      if (data.results.length > 0) {
+        movieInfo.trailer = `http://youtube.com/watch?v=${data.results[0].key}`;
+      } else {
+        movieInfo.trailer = `http://youtube.com/`;
+      }
+    })
+    .then(() => {
+      axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
+
+      axios.post("/api/movies/addmovie", movieInfo).then(res => {
+        let success = {
+          title: "Film tillagd!",
+          msg: "Filmen finns nu i databasen"
+        };
+        dispatch(movieAddedSuccess(success));
+      });
+    });
 };
 
 export const movieAddedSuccess = success => {
