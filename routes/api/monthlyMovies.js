@@ -130,17 +130,21 @@ router.post("/uploadMoviePremiere", (req, res) => {
 //@access   private
 
 router.post("/updateMonthlyMovie", (req, res) => {
-  let updateField = {
-    title: req.body.title,
-    description: req.body.description,
-    screeningDate: req.body.date,
-    screeningTime: req.body.time
-  };
+  // let updateField = {
+  //   title: req.body.title,
+  //   description: req.body.description,
+  //   screeningDate: req.body.date,
+  //   screeningTime: req.body.time
+  // };
 
-  MonMovie.findOneAndUpdate({ _id: req.body._id }, updateField)
-    .then(movie => {
-      if (movie) {
-        res.json({ movie });
+  let updateField = req.body;
+
+  // console.log("uppdatefield: ", req.body);
+
+  MonMovie.findOneAndUpdate({ _id: req.body._id }, updateField, { new: true })
+    .then(monMovie => {
+      if (monMovie) {
+        res.json({ monMovie });
       } else {
         res.status(400).json({
           title: "Filmen finns inte i databasen och kan inte updateras"

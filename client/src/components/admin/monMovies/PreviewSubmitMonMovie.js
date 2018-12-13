@@ -23,7 +23,7 @@ export default function PreviewSubmitMonMovie(props) {
             />
 
             <Item.Content>
-              <Item.Header as="a">
+              <Item.Header>
                 {props.eventObject.title
                   ? props.eventObject.title
                   : "Oops, något gick fel"}

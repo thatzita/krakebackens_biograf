@@ -41,6 +41,22 @@ export const postMonmovie = data => dispatch => {
     });
 };
 
+// UPDATE monMovie
+export const updateMonmovie = data => dispatch => {
+  axios
+    .post("/api/monthlyMovies/updateMonthlyMovie", data)
+    .then(res => {
+      // console.log("data till upload: ", res.data);
+      dispatch({
+        type: UPDATE_MONMOVIE,
+        payload: res.data.monMovie
+      });
+    })
+    .catch(err => {
+      throw err;
+    });
+};
+
 // GET ALL MONMOVIES
 export const getAllMonMovies = () => dispatch => {
   axios

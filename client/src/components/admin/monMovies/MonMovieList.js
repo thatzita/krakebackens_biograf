@@ -131,7 +131,15 @@ class MonMovieList extends Component {
                     ) : null}
 
                     <Item.Extra>
-                      <Button color="violet" floated="right">
+                      <Button
+                        color="violet"
+                        floated="right"
+                        as={Link}
+                        to={{
+                          pathname: "/updatemovie",
+                          state: { monMovie: item }
+                        }}
+                      >
                         <Icon name="edit" /> Ändra
                       </Button>
                       <Button
