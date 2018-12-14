@@ -86,9 +86,9 @@ export const getMovieInfoAddtoDb = movieId => dispatch => {
   axios.get(trailerUrl + movieId + trailerKey).then(res => {
     let trailer = res.data.results;
     if (trailer.length > 0) {
-      trailerVideo = `https://youtube.com/watch?v=${trailer[0].key}`;
+      trailerVideo = `//youtube.com/watch?v=${trailer[0].key}`;
     } else {
-      trailerVideo = `https://youtube.com`;
+      trailerVideo = `//youtube.com`;
     }
   });
 
@@ -185,11 +185,9 @@ export const addToMovieDb = (addToDb, movieId) => dispatch => {
   fetchTrailerUrl(id)
     .payload.then(data => {
       if (data.results.length > 0) {
-        movieInfo.trailer = `https://youtube.com/watch?v=${
-          data.results[0].key
-        }`;
+        movieInfo.trailer = `//youtube.com/watch?v=${data.results[0].key}`;
       } else {
-        movieInfo.trailer = `https://youtube.com/`;
+        movieInfo.trailer = `//youtube.com/`;
       }
     })
     .then(() => {
