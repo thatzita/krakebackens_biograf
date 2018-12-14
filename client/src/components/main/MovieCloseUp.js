@@ -70,9 +70,10 @@ class MovieCloseUp extends Component {
   handleClose = () => this.setState({ modalOpen: false });
 
   handleItemClick = () => {
-    // <iframe width='1080' height='760' src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+    // <iframe width='1080' height='760' src="//youtube.com/embed/6ZfuNTqbHE8" frameborder="0" allowfullscreen></iframe>
     // http://youtube.com/watch?v=6ZfuNTqbHE8
     let str = this.state.movieCloseUp.trailer;
+    console.log(str);
     let find = "watch\\?v\\=";
     let reg = new RegExp(find, "g");
     str = str.replace(reg, "embed/");
@@ -158,6 +159,7 @@ class MovieCloseUp extends Component {
                     ? movieObject.description
                     : "beskrivning"}
                 </p>
+
                 <Modal
                   trigger={
                     <Menu inverted secondary style={{ background: "none" }}>
@@ -188,7 +190,37 @@ class MovieCloseUp extends Component {
                         name="close"
                       />
 
-                      <iframe width="900" height="600" src={movieTrailer} />
+                      {movieTrailer === "//youtube.com/" ? (
+                        <div
+                          style={{
+                            background: "black",
+                            height: "400px",
+                            border: "2px solid white"
+                          }}
+                        >
+                          <Image
+                            style={{
+                              width: "300px",
+                              top: "18%",
+                              margin: "0 auto"
+                            }}
+                            src="krakebackens_logo.png"
+                          />
+                          <p
+                            style={{
+                              color: "white",
+                              fontSize: "3rem",
+                              textAlign: "center",
+                              position: "relative",
+                              top: "-21rem"
+                            }}
+                          >
+                            Filmen saknar trailer
+                          </p>
+                        </div>
+                      ) : (
+                        <iframe width="900" height="600" src={movieTrailer} />
+                      )}
                     </React.Fragment>
                   }
                 </Modal>

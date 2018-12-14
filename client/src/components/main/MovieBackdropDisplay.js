@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import { Label, Icon, Menu, Modal } from "semantic-ui-react";
+import { Label, Icon, Menu, Modal, Image } from "semantic-ui-react";
 
 import "./movieBackdropDisplay.css";
 
@@ -102,7 +102,37 @@ export default class MovieBackdropDisplay extends Component {
                       name="close"
                     />
 
-                    <iframe width="900" height="600" src={movieTrailer} />
+                    {movieTrailer === "//youtube.com/" ? (
+                      <div
+                        style={{
+                          background: "black",
+                          height: "400px",
+                          border: "2px solid white"
+                        }}
+                      >
+                        <Image
+                          style={{
+                            width: "300px",
+                            top: "18%",
+                            margin: "0 auto"
+                          }}
+                          src="krakebackens_logo.png"
+                        />
+                        <p
+                          style={{
+                            color: "white",
+                            fontSize: "3rem",
+                            textAlign: "center",
+                            position: "relative",
+                            top: "-21rem"
+                          }}
+                        >
+                          Filmen saknar trailer
+                        </p>
+                      </div>
+                    ) : (
+                      <iframe width="900" height="600" src={movieTrailer} />
+                    )}
                   </React.Fragment>
                 }
               </Modal>
