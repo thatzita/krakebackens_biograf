@@ -322,7 +322,7 @@ router.post("/completeAndSaveBooking", (req, res) => {
                         <tr>
                           <td style="padding:auto;" align="center" valign="top">
         
-                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Dina billjetter till filmen <strong> ${
+                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Dina biljetter till filmen <strong> ${
                                 movie.title
                               } </strong> kommer finnas på din profilsida. På din profilsida kan du även reglera och avboka biljetter</p>
         

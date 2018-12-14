@@ -52,6 +52,8 @@ class Reset extends Component {
     let lastSlash = str.lastIndexOf("/");
     let token = str.substring(lastSlash + 1);
 
+    console.log(token);
+
     const user = {
       password: this.state.password,
       password2: this.state.password2,
@@ -104,7 +106,7 @@ class Reset extends Component {
 }
 
 Reset.propTypes = {
-  errors: PropTypes.object.isRequired,
+  // errors: PropTypes.object.isRequired,
   resetPassword: PropTypes.func.isRequired,
   success: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
