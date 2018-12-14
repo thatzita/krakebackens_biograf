@@ -285,12 +285,21 @@ router.post("/forgot", (req, res, next) => {
       },
       function(token, user, done) {
         const url = "https://krakebackensbiograf.herokuapp.com/reset";
+        //   const output = `
+        // <h1>Glömt lösenord?</h1>
+
+        // <p>Usch då det var ju dumt att du glömt ditt lösenord.</p>
+        // <p>Klicka på länken nedan för att skapa ett nytt lösenord:</p>
+        // <a href="${url}/${token}">Återställ mitt lösenord</a>
+        // <p>Med vänlig hälsning,
+        // Kråkan</p>
+        // `;
         const output = `
       <h1>Glömt lösenord?</h1>
       
       <p>Usch då det var ju dumt att du glömt ditt lösenord.</p>
       <p>Klicka på länken nedan för att skapa ett nytt lösenord:</p>
-      <a href="${url}/${token}">Återställ mitt lösenord</a>
+      <a href="${url}">Återställ mitt lösenord</a>
       <p>Med vänlig hälsning,
       Kråkan</p>
       `;
@@ -335,7 +344,7 @@ router.post("/forgot", (req, res, next) => {
 //TODO: Fixa errorhantering
 // api/users/reset/
 //http://localhost:5000/api/users/reset/
-router.post("/reset/:token", function(req, res) {
+router.post("/reset/", function(req, res) {
   const { errors, isValid } = validateResetInput(req.body);
 
   //Validering av password i (reset.js)

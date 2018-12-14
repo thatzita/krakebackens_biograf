@@ -42,6 +42,10 @@ class Reset extends Component {
     });
   }
 
+  componentDidMount() {
+    console.log(this.props.auth);
+  }
+
   onSubmit(event) {
     event.preventDefault();
     let str = window.location.href;

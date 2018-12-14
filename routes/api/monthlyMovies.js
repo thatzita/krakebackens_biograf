@@ -362,7 +362,7 @@ router.post("/completeAndSaveBooking", (req, res) => {
 
         let mailOptions = {
           from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
-          to: `bringmybeerbro@gmail.com`, // list of receivers
+          to: seatResarvation[0].responsible.email, // list of receivers
           subject: "Bokningsbekräftelse", // Subject line
           html: output // html body
         };

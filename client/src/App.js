@@ -13,7 +13,6 @@ import AdminRoute from "./components/common/AdminRoute";
 
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
-import Footer from "./components/layout/Footer";
 import AdminHome from "./components/admin/AdminHome";
 import Login from "./components/auth/Login";
 import Apply from "./components/auth/Apply";
@@ -73,10 +72,8 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/apply" component={Apply} />
               <Route exact path="/forgot" component={Forgot} />
-              <Route exact path="/reset/:token" component={Reset} />
-              {/* Ska vara privat route */}
-              {/* <Route exact path="/register" component={Register} /> */}
-              {/* <Route exact path="/addmovie" component={AddMovie} /> */}
+              <Route exect path="/reset/:token" component={Reset} />
+
               <Switch>
                 <AdminRoute
                   exact
@@ -84,7 +81,6 @@ class App extends Component {
                   component={ArchiveMain}
                 />
                 <PrivateRoute exact path="/seating" component={Seating} />
-
                 <AdminRoute exact path="/adminhome" component={AdminHome} />
                 <AdminRoute
                   exact
@@ -101,7 +97,6 @@ class App extends Component {
                   path="/createMonMovie"
                   component={CreateMonMovie}
                 />
-
                 <PrivateRoute
                   exact
                   path="/movieselection"
@@ -122,8 +117,6 @@ class App extends Component {
                 <AdminRoute exact path="/statistic" component={Statistic} />
               </Switch>
             </div>
-
-            {/* <Footer /> */}
           </div>
         </Router>
       </Provider>
