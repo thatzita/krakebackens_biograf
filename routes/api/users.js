@@ -299,8 +299,11 @@ router.post("/forgot", (req, res, next) => {
           service: "Gmail",
           host: "smtp.gmail.com",
           auth: {
+            type: "login",
             user: process.env.MAIL_ADDR,
             pass: process.env.MAIL_PW
+            // user: "krakebackensbiograf@gmail.com",
+            // pass: "krakaniskogen"
           }
         });
 
@@ -312,16 +315,13 @@ router.post("/forgot", (req, res, next) => {
           html: output // html body
         };
 
+        console.log(mailOptions);
         // send mail with defined transport object
-        transporter
-          .sendMail(mailOptions, (error, info) => {
-            if (error) {
-              throw error;
-            }
-          })
-          .catch(err => {
-            throw err;
-          });
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            throw error;
+          }
+        });
       }
     ],
     function(err) {

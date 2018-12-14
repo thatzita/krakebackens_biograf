@@ -104,8 +104,6 @@ class CreateMonMovie extends Component {
   };
 
   render() {
-    console.log(this.state.monMovieMessage);
-
     let movies = this.props.movies || [];
     let movieList =
       this.state.search.length <= 0

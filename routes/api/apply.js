@@ -54,7 +54,7 @@ router.post("/form", (req, res) => {
             pass: process.env.MAIL_PW
           }
         });
-
+        console.log(process.env.MAIL_ADDR);
         // setup email data with unicode symbols
         let mailOptions = {
           from: `${req.body.email}`, // sender address

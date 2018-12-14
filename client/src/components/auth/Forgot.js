@@ -90,7 +90,7 @@ class Forgot extends Component {
 
 Forgot.propTypes = {
   forgotPassword: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
+  // errors: PropTypes.object.isRequired,
   success: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };

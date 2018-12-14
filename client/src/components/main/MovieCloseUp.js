@@ -73,7 +73,6 @@ class MovieCloseUp extends Component {
     // <iframe width='1080' height='760' src="//youtube.com/embed/6ZfuNTqbHE8" frameborder="0" allowfullscreen></iframe>
     // http://youtube.com/watch?v=6ZfuNTqbHE8
     let str = this.state.movieCloseUp.trailer;
-    console.log(str);
     let find = "watch\\?v\\=";
     let reg = new RegExp(find, "g");
     str = str.replace(reg, "embed/");

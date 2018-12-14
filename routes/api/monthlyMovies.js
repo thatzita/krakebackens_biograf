@@ -38,7 +38,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
     new: true
   }).then(movie => {
     if (movie) {
-      console.log("update crowrating: ", movie);
+      // console.log("update crowrating: ", movie);
     } else {
       return res.status(400).json({
         title: "we could not find the movie to update the crow rating"
@@ -209,6 +209,7 @@ router.post("/completeAndSaveBooking", (req, res) => {
     if (movie) {
       let seatResarvation = req.body.seatResarvation;
       let allSeatsAreAvailable = true;
+      console.log(seatResarvation);
 
       let newSeating = movie.seating.map(array => {
         let newRow = array.map(x => {
@@ -360,10 +361,9 @@ router.post("/completeAndSaveBooking", (req, res) => {
         });
 
         let mailOptions = {
-          from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>',
+          from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
           to: `bringmybeerbro@gmail.com`, // list of receivers
           subject: "Bokningsbekräftelse", // Subject line
-          // text: 'Hello world?', // plain text body
           html: output // html body
         };
 
@@ -371,7 +371,6 @@ router.post("/completeAndSaveBooking", (req, res) => {
           if (error) {
             return console.log(error);
           }
-          console.log("info: ", info);
         });
       } else {
         res.json({
