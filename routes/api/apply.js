@@ -37,17 +37,6 @@ router.post("/form", (req, res) => {
         res.json(success);
 
         const output = `
-        <h1></h1>
-        <ul>
-            <li>Användarnamn som vill användas är:<br>
-            <strong>${req.body.username}</strong></li>
-            <li>Epost som ska användas är: <br>
-            <strong>${req.body.email}</strong>
-            </li>
-        </ul>
-
-
-
         <!DOCTYPE html>
         <html lang="en" dir="ltr">
         

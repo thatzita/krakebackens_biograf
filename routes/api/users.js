@@ -86,9 +86,7 @@ router.post("/register", (req, res) => {
                         <tr>
                           <td style="padding:auto;" align="center" valign="top">
         
-                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">${
-                                req.body.username
-                              }, du har blivit godkänd av dom högre höjderna och är nu medlem i Kråkebackens biograf!</p>
+                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Du har blivit godkänd av dom högre höjderna!</p>
                               <ul style="list-style: none; font-family: Arial,sans-serif;  margin:0; line-height:27px;">
                                 <li>Ditt användarnamn är:<br>
                                 <strong>${req.body.username}</strong></li>
@@ -370,8 +368,8 @@ router.post("/forgot", (req, res, next) => {
                         <tr>
                           <td style="padding:auto;" align="center" valign="top">
         
-                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Usch det var ju dumt att du glömt ditt lösenord.</p>
-                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Klicka på länken nedan för att skapa ett nytt lösenord:</p>
+                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Usch det var ju dumt att du glömt ditt lösenord. Klicka på länken nedan för att återställa det!</p>
+                              </p>
                               <a style="font-family: Arial,sans-serif;  margin:0; line-height:27px;" href="${url}/${token}">Återställ mitt lösenord</a>
                           </td>
                         </tr>
