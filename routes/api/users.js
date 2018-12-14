@@ -285,24 +285,15 @@ router.post("/forgot", (req, res, next) => {
       },
       function(token, user, done) {
         const url = "https://krakebackensbiograf.herokuapp.com/reset";
-        //   const output = `
-        // <h1>Glömt lösenord?</h1>
-
-        // <p>Usch då det var ju dumt att du glömt ditt lösenord.</p>
-        // <p>Klicka på länken nedan för att skapa ett nytt lösenord:</p>
-        // <a href="${url}/${token}">Återställ mitt lösenord</a>
-        // <p>Med vänlig hälsning,
-        // Kråkan</p>
-        // `;
         const output = `
-      <h1>Glömt lösenord?</h1>
-      
-      <p>Usch då det var ju dumt att du glömt ditt lösenord.</p>
-      <p>Klicka på länken nedan för att skapa ett nytt lösenord:</p>
-      <a href="${url}">Återställ mitt lösenord</a>
-      <p>Med vänlig hälsning,
-      Kråkan</p>
-      `;
+        <h1>Glömt lösenord?</h1>
+
+        <p>Usch då det var ju dumt att du glömt ditt lösenord.</p>
+        <p>Klicka på länken nedan för att skapa ett nytt lösenord:</p>
+        <a href="${url}/${token}">Återställ mitt lösenord</a>
+        <p>Med vänlig hälsning,
+        Kråkan</p>
+        `;
 
         let transporter = nodemailer.createTransport({
           service: "Gmail",
