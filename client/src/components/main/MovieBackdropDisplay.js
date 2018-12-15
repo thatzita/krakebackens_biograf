@@ -73,6 +73,7 @@ export default class MovieBackdropDisplay extends Component {
               }}
             >
               <Modal
+                style={{ textAlign: "center", backgroundColor: "black" }}
                 trigger={
                   <Menu inverted secondary style={{ background: "none" }}>
                     <Menu.Item
