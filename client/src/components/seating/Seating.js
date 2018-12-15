@@ -95,7 +95,10 @@ class Seating extends Component {
     if (nextProps.bookingResult) {
       let bookingResult = nextProps.bookingResult;
       if (bookingResult.success) {
-        this.props.history.push("/mainpage");
+        this.props.history.push({
+          pathname: "/mainpage",
+          state: { ticketBooked: true }
+        });
         this.props.removePreviousMoveBookingInformation();
       } else {
         this.setState({

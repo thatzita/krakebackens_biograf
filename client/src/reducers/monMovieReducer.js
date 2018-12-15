@@ -53,7 +53,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         bookingResult: action.payload
-        // movieCloseUp: action.payload.movie
       };
     case END_BOOKING_ON_SUCCESS:
       return {

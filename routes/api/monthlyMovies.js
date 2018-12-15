@@ -209,7 +209,6 @@ router.post("/completeAndSaveBooking", (req, res) => {
     if (movie) {
       let seatResarvation = req.body.seatResarvation;
       let allSeatsAreAvailable = true;
-      console.log(seatResarvation);
 
       let newSeating = movie.seating.map(array => {
         let newRow = array.map(x => {

@@ -160,6 +160,7 @@ class MovieCloseUp extends Component {
                 </p>
 
                 <Modal
+                  style={{ textAlign: "center", backgroundColor: "black" }}
                   trigger={
                     <Menu inverted secondary style={{ background: "none" }}>
                       <Menu.Item
