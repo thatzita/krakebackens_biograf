@@ -110,7 +110,7 @@ class App extends Component {
                   component={ChangePassword}
                 />
                 <AdminRoute exact path="/users" component={Users} />
-                <AdminRoute exact path="/movies" component={Movies} />
+                <PrivateRoute exact path="/movies" component={Movies} />
                 <AdminRoute exact path="/addmovie" component={AddMovie} />
                 <AdminRoute exact path="/admin" component={Admin} />
                 <AdminRoute exact path="/register" component={Register} />

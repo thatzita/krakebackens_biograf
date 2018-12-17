@@ -131,11 +131,11 @@ class Admin extends Component {
           <Menu.Item
             as={Link}
             to="/monMovieList"
-            name="Månadens filmer"
-            active={activeItem === "Månadens filmer"}
+            name="Kommande filmer"
+            active={activeItem === "Kommande filmer"}
             onClick={this.handleItemClick}
           >
-            Månadens Filmer
+            Kommande filmer
             <Icon name="star" />
           </Menu.Item>
 

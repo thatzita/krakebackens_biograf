@@ -60,7 +60,7 @@ export default class AdminMonMovieDisplay extends Component {
                   top: "-1rem"
                 }}
               >
-                Månadens filmer
+                Kommande filmer
               </h1>
             </div>
           </Link>
@@ -176,7 +176,7 @@ export default class AdminMonMovieDisplay extends Component {
                       top: "-1rem"
                     }}
                   >
-                    Månadens filmer
+                    Kommande filmer
                   </h4>
                 </div>
               </Link>

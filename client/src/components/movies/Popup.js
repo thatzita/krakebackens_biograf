@@ -203,7 +203,6 @@ class Popup extends Component {
           <Card className="containerInPopup">
             <div className="imgPosition">
               <Image
-                // floated="right"
                 className="imageBorder"
                 size="large"
                 src={movieInfo.background}
@@ -215,7 +214,6 @@ class Popup extends Component {
               <Image
                 size="small"
                 className="imageBorder"
-                // floated="left"
                 src={movieInfo.poster}
                 alt="Bild saknas"
                 onError={e => {
@@ -227,7 +225,7 @@ class Popup extends Component {
             <div className="descriptionContainer">
               <h1
                 className="titlePopup"
-                contentEditable={true}
+                contentEditable={this.props.auth.user.admin ? true : false}
                 suppressContentEditableWarning="true"
                 onInput={event => this.changeInput(event)}
               >
@@ -256,7 +254,7 @@ class Popup extends Component {
                 Kråkan tycker till:
                 <p
                   className="crowRating"
-                  contentEditable={true}
+                  contentEditable={this.props.auth.user.admin ? true : false}
                   suppressContentEditableWarning="true"
                   onInput={event => this.changeInput(event)}
                 >
@@ -266,89 +264,106 @@ class Popup extends Component {
                 </p>
               </span>
               <br />
-              <Form>
-                <Form.Field>
-                  <Checkbox
-                    radio
-                    label="Blu-ray"
-                    name="checkboxRadioGroup"
-                    value="bluRay"
-                    checked={this.state.dvdOrBluRay === "bluRay"}
-                    onChange={this.handleChange}
-                  />
+              {this.props.auth.user.admin ? (
+                <Form>
+                  <Form.Field>
+                    <Checkbox
+                      radio
+                      label="Blu-ray"
+                      name="checkboxRadioGroup"
+                      value="bluRay"
+                      checked={this.state.dvdOrBluRay === "bluRay"}
+                      onChange={this.handleChange}
+                    />
 
-                  <Checkbox
-                    style={{ marginLeft: "1rem" }}
-                    radio
-                    label="DVD"
-                    name="checkboxRadioGroup"
-                    value="dvd"
-                    checked={this.state.dvdOrBluRay === "dvd"}
-                    onChange={this.handleChange}
-                  />
+                    <Checkbox
+                      style={{ marginLeft: "1rem" }}
+                      radio
+                      label="DVD"
+                      name="checkboxRadioGroup"
+                      value="dvd"
+                      checked={this.state.dvdOrBluRay === "dvd"}
+                      onChange={this.handleChange}
+                    />
 
-                  <Checkbox
-                    style={{ marginLeft: "1rem" }}
-                    radio
-                    label="USB"
-                    name="checkboxRadioGroup"
-                    value="usb"
-                    checked={this.state.dvdOrBluRay === "usb"}
-                    onChange={this.handleChange}
-                  />
-                </Form.Field>
-              </Form>
+                    <Checkbox
+                      style={{ marginLeft: "1rem" }}
+                      radio
+                      label="USB"
+                      name="checkboxRadioGroup"
+                      value="usb"
+                      checked={this.state.dvdOrBluRay === "usb"}
+                      onChange={this.handleChange}
+                    />
+                  </Form.Field>
+                </Form>
+              ) : (
+                ""
+              )}
               <br />
               <span className="date boldSpan">Beskrivning:</span>
               <p
                 className="description"
-                contentEditable={true}
+                contentEditable={this.props.auth.user.admin ? true : false}
                 suppressContentEditableWarning="true"
                 onInput={event => this.changeInput(event)}
               >
                 {movieInfo.description}
               </p>
               <Divider />
-              <Button.Group
-                fluid
-                style={{ marginTop: "-2rem" }}
-                className="btnGroupPopup"
-              >
-                <Button
-                  attached="bottom"
-                  className="deleteButtonPopup"
-                  onClick={e => this.show(movieInfo)}
+              {this.props.auth.user.admin ? (
+                <Button.Group
+                  fluid
+                  style={{ marginTop: "-2rem" }}
+                  className="btnGroupPopup"
                 >
-                  Ta bort från databasen
-                </Button>
-                <Confirm
-                  open={open}
-                  className="confirmDeleteMovie"
-                  header="Du är på väg att ta bort en film"
-                  content="Är du säker att du vill ta bort filmen?"
-                  cancelButton="Gå tillbaka"
-                  confirmButton="Ta bort"
-                  onCancel={this.handleCancel}
-                  onConfirm={this.handleConfirm}
-                />
-                <Button
-                  className="UpdateButton"
-                  color="green"
-                  attached="bottom"
-                  onClick={e => this.updateMovieDb(movieInfo)}
-                >
-                  Uppdatera databasen
-                </Button>
+                  <Button
+                    attached="bottom"
+                    className="deleteButtonPopup"
+                    onClick={e => this.show(movieInfo)}
+                  >
+                    Ta bort från databasen
+                  </Button>
+                  <Confirm
+                    open={open}
+                    className="confirmDeleteMovie"
+                    header="Du är på väg att ta bort en film"
+                    content="Är du säker att du vill ta bort filmen?"
+                    cancelButton="Gå tillbaka"
+                    confirmButton="Ta bort"
+                    onCancel={this.handleCancel}
+                    onConfirm={this.handleConfirm}
+                  />
+                  <Button
+                    className="UpdateButton"
+                    color="green"
+                    attached="bottom"
+                    onClick={e => this.updateMovieDb(movieInfo)}
+                  >
+                    Uppdatera databasen
+                  </Button>
 
+                  <Button
+                    attached="bottom"
+                    className="closeButton"
+                    onClick={e => this.closePopup()}
+                  >
+                    <Icon name="left chevron" />
+                    Stäng
+                  </Button>
+                </Button.Group>
+              ) : (
                 <Button
+                  fluid
+                  style={{ marginTop: "-0.5rem", marginLeft: "0rem" }}
                   attached="bottom"
-                  className="closeButton"
+                  // className="closeButton"
                   onClick={e => this.closePopup()}
                 >
                   <Icon name="left chevron" />
                   Stäng
                 </Button>
-              </Button.Group>
+              )}
             </div>
           </Card>
         </div>
@@ -364,13 +379,14 @@ Popup.propTypes = {
   moviePopupClose: PropTypes.func.isRequired,
   updateDb: PropTypes.func.isRequired,
   deleteMovie: PropTypes.func.isRequired,
-  // movieInfo: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   movies: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   movieInfo: state.movieInfo,
-  movies: state.movies
+  movies: state.movies,
+  auth: state.auth
 });
 
 export default connect(

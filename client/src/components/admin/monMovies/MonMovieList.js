@@ -58,7 +58,7 @@ class MonMovieList extends Component {
             >
               <div>
                 {" "}
-                <Icon name="star" /> Månadens filmer
+                <Icon name="star" /> Kommande filmer
               </div>
               <Button
                 color="green"

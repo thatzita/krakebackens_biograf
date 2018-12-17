@@ -106,6 +106,17 @@ class Navbar extends Component {
                     />
                   ) : null}
 
+                  {admin ? null : (
+                    <Menu.Item
+                      as={Link}
+                      to="/movies"
+                      name="Filmsortiment"
+                      active={activeItem === "Filmsortiment"}
+                      onClick={this.handleItemClick}
+                      content="Filmsortiment"
+                    />
+                  )}
+
                   {isAuthenticated ? (
                     <Menu.Item
                       as={Link}

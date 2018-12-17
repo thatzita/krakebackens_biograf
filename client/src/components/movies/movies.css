@@ -2,6 +2,15 @@ div.containerMovies {
   margin-left: 30rem;
   max-width: 60rem;
 }
+
+.containerMoviesUser {
+  max-width: 50rem;
+}
+.movieAlign {
+  position: relative;
+  left: 50%;
+  margin-left: -25rem;
+}
 div.containerAddmovie {
   margin-left: 30rem;
   padding-bottom: 8rem;
@@ -71,6 +80,12 @@ h1.titlePopup,
 h1.titlePopupDb {
   color: white;
 }
+
+h1.userMovies {
+  color: white;
+  text-align: center;
+  margin-top: 3rem;
+}
 .ui.purple.basic.button.loadMoreBtn {
   margin-top: 20rem;
   width: 20rem;
@@ -79,6 +94,11 @@ h1.titlePopupDb {
 .loadMoreBtnContainer {
   text-align: center;
   margin-left: 10rem;
+  margin-top: 10rem;
+  margin-bottom: -5rem;
+}
+.loadMoreBtnContainerUser {
+  text-align: center;
   margin-top: 10rem;
   margin-bottom: -5rem;
 }
@@ -130,9 +150,6 @@ h1.titlePopupDb {
 .ui.buttons.btnGroupPopup {
   margin-top: -4rem;
   position: relative;
-}
-
-div.ui.bottom.attached.button.deleteButtonPopup {
 }
 
 [contenteditable="true"]:active,
