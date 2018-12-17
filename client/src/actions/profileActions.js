@@ -5,7 +5,8 @@ import {
   PROFILE_LOADING,
   GET_ERRORS,
   CLEAR_CURRENT_PROFILE,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  CHANGE_USERNAME
 } from "./types";
 
 export const getCurrentProfile = () => dispatch => {
@@ -57,4 +58,20 @@ export const clearCurrentProfile = () => {
   return {
     type: CLEAR_CURRENT_PROFILE
   };
+};
+
+export const changeUsername = data => dispatch => {
+  console.log(data);
+
+  axios
+    .post("/api/users/changeusername", data)
+    .then(res => {
+      dispatch({
+        type: CHANGE_USERNAME,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      throw err;
+    });
 };

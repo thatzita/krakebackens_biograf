@@ -7,6 +7,7 @@ import {
   USER_CREATED,
   FORGOT_USER,
   RESET_USER
+  // CHANGE_USERNAME
 } from "./types";
 
 //Skickas till reducer
@@ -142,6 +143,7 @@ export const changePassword = userData => dispatch => {
     .then(res => {
       if (res) {
         let success = {
+          value: true,
           title: "Lösenord bytt!",
           msg: "Du kan nu logga in med ditt nya lösenord."
         };

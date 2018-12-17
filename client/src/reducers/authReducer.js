@@ -4,6 +4,7 @@ import {
   USER_CREATED,
   FORGOT_USER,
   RESET_USER
+  // CHANGE_USERNAME
 } from "../actions/types";
 
 const initialState = {
@@ -34,6 +35,7 @@ export default function(state = initialState, action) {
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload
       };
+
     default:
       return state;
   }

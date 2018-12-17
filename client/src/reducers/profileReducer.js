@@ -1,7 +1,8 @@
 import {
   GET_PROFILE,
   PROFILE_LOADING,
-  CLEAR_CURRENT_PROFILE
+  CLEAR_CURRENT_PROFILE,
+  CHANGE_USERNAME
 } from "../actions/types";
 
 const initialState = {
@@ -27,6 +28,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         profile: null
+      };
+    case CHANGE_USERNAME:
+      return {
+        ...state,
+        profile: action.payload.profile,
+        nameSuccess: action.payload.success
       };
     default:
       return state;

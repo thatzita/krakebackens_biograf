@@ -64,6 +64,16 @@ router.post("/uploadMoviePremiere", (req, res) => {
               saloon = salong_2;
             }
 
+            saloon.map(array => {
+              array.map(x => {
+                x.eventType = "movie";
+                x.title = req.body.mov.title;
+                x.screeningDate = req.body.date;
+                x.screeningTime = req.body.time;
+                x._id = req.body.mov.imdb_id;
+              });
+            });
+
             if (users && req.body.saloon === "1") {
               saloon.map(array => {
                 array.map(x => {
@@ -201,6 +211,11 @@ router.get("/singlemovie/", (req, res) => {
       console.log(err);
     });
 });
+
+// remove booking
+// router.post('/removeMovieBooking', (req,res)=>{
+
+// });
 
 // complete and save booking
 router.post("/completeAndSaveBooking", (req, res) => {

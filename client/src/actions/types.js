@@ -13,6 +13,8 @@ export const USER_CREATED = "USER_CREATED";
 export const FORGOT_USER = "FORGOT_USER";
 export const RESET_USER = "RESET_USER";
 
+export const CHANGE_USERNAME = "CHANGE_USERNAME";
+
 // MonMovies
 export const GET_MONMOVIES = "GET_MONMOVIES";
 export const GET_CLOSEUP_MONMOVIE = "GET_CLOSEUP_MONMOVIE";
