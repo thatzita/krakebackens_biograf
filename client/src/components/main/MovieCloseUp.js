@@ -45,7 +45,6 @@ class MovieCloseUp extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.movieCloseUp && nextProps.profile.profile) {
       let checkSeatBookings = nextProps.movieCloseUp.seating;
-
       let howManySeatsAreBooked = [];
       checkSeatBookings.map(array => {
         array.map(x => {
