@@ -274,10 +274,14 @@ class Movies extends Component {
 
           <div
             className="searchContainer"
-            style={{ marginTop: "5rem", marginBottom: "-4rem" }}
+            style={
+              this.props.auth.user.admin
+                ? { marginTop: "5rem", marginBottom: "-4rem" }
+                : { marginTop: "1rem", marginBottom: "-4rem" }
+            }
           >
             <Input
-              style={{ zIndex: "10" }}
+              style={{ zIndex: "1" }}
               className="movieSearch"
               placeholder="Sök i databasen..."
               onChange={this.onChange}
