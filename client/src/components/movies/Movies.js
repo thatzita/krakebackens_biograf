@@ -277,6 +277,7 @@ class Movies extends Component {
             style={{ marginTop: "5rem", marginBottom: "-4rem" }}
           >
             <Input
+              style={{ zIndex: "10" }}
               className="movieSearch"
               placeholder="Sök i databasen..."
               onChange={this.onChange}

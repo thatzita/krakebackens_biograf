@@ -133,7 +133,7 @@ class MovieCloseUp extends Component {
                   )
                 </h1>
                 <p>
-                  Premiär:{" "}
+                  <strong>Kråkans premiär: </strong>
                   {movieObject.screeningDate
                     ? movieObject.screeningDate
                     : "åååå-mm-dd"}
@@ -158,6 +158,11 @@ class MovieCloseUp extends Component {
                     ? movieObject.description
                     : "beskrivning"}
                 </p>
+
+                <Segment raised inverted>
+                  <h5>Meddelande:</h5>
+                  {movieObject.monMovieMessage}
+                </Segment>
 
                 <Modal
                   style={{ textAlign: "center", backgroundColor: "black" }}
