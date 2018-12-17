@@ -10,7 +10,8 @@ import {
   IMDB_POPUP_CLOSE,
   MOVIE_ADDED_SUCCESS,
   DELETE_MOVIE_DB,
-  UPDATE_MOVIE_DB
+  UPDATE_MOVIE_DB,
+  RESET_MOVIE_SUCCESS
 } from "./types";
 
 export const getAllMovies = () => dispatch => {
@@ -213,6 +214,13 @@ export const movieAddedSuccess = success => {
     type: MOVIE_ADDED_SUCCESS,
     payload: success
   };
+};
+
+export const resetMovieSuccess = () => dispatch => {
+  dispatch({
+    type: RESET_MOVIE_SUCCESS,
+    payload: null
+  });
 };
 
 //DELETE FRÅN DB

@@ -7,7 +7,8 @@ import {
   IMDB_POPUP_CLOSE,
   MOVIE_ADDED_SUCCESS,
   DELETE_MOVIE_DB,
-  UPDATE_MOVIE_DB
+  UPDATE_MOVIE_DB,
+  RESET_MOVIE_SUCCESS
 } from "../actions/types";
 
 const initialState = {};
@@ -36,6 +37,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         moviesFound: action.payload
+      };
+    case RESET_MOVIE_SUCCESS:
+      return {
+        ...state,
+        success: action.payload
       };
     case IMDB_POPUP:
       return {

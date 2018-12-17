@@ -13,12 +13,14 @@ import {
 import {
   searchMovie,
   imdbPopup,
-  getMovieInfoAddtoDb
+  getMovieInfoAddtoDb,
+  resetMovieSuccess
 } from "../../actions/movieActions";
 import DbPopup from "./DbPopup";
 import { Link } from "react-router-dom";
 import Admin from "../admin/Admin";
 import { getCurrentProfile } from "../../actions/profileActions";
+import { resetSuccess } from "../../actions/authActions";
 
 class AddMovie extends Component {
   constructor() {
@@ -41,12 +43,10 @@ class AddMovie extends Component {
     if (nextProps.movies.success !== undefined) {
       setTimeout(() => {
         this.setState({
-          moviesFound: nextProps.movies.moviesFound,
-          popupMovie: nextProps.movies.popupMovie,
-          profile: nextProps.profile.profile,
           success: null
         });
-      }, 3000);
+      }, 3500);
+
       this.setState({
         moviesFound: nextProps.movies.moviesFound,
         popupMovie: nextProps.movies.popupMovie,
@@ -72,6 +72,8 @@ class AddMovie extends Component {
   }
 
   onSubmit(event) {
+    this.props.resetMovieSuccess();
+
     event.preventDefault();
     let { searchedMovie } = this.state;
     this.props.searchMovie(searchedMovie);
@@ -222,6 +224,7 @@ export default connect(
     searchMovie,
     imdbPopup,
     getCurrentProfile,
-    getMovieInfoAddtoDb
+    getMovieInfoAddtoDb,
+    resetMovieSuccess
   }
 )(AddMovie);
