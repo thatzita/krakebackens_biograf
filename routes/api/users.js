@@ -86,7 +86,7 @@ router.post("/register", (req, res) => {
                         <tr>
                           <td style="padding:auto;" align="center" valign="top">
         
-                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Du har blivit godkänd av dom högre höjderna!</p>
+                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Du har blivit godkänd av dom högre makterna!</p>
                               <ul style="list-style: none; font-family: Arial,sans-serif;  margin:0; line-height:27px;">
                                 <li>Ditt användarnamn är:<br>
                                 <strong>${req.body.username}</strong></li>
@@ -95,7 +95,7 @@ router.post("/register", (req, res) => {
                                 </li>
                                 <li>Använd följande lösenord när du loggar in första gången: <br>
                                 <strong>${passwordForUser}</strong> <br>
-                                Observera att du kan ändra lösenord när du väl loggat in!
+                                Observera att du kan ändra lösenord när du väl loggat in under din profil!
                                 </li>
                             </ul>
                           </td>
@@ -513,7 +513,7 @@ router.post("/reset/:token", function(req, res) {
                         <tr>
                           <td style="padding:auto;" align="center" valign="top">
         
-                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Du kan logga in med dina nya uppgifter.</p>
+                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Ditt lösenord är nu återställt. Du kan logga in med dina nya uppgifter.</p>
         
                           </td>
                         </tr>

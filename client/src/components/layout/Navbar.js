@@ -106,7 +106,7 @@ class Navbar extends Component {
                     />
                   ) : null}
 
-                  {admin ? null : (
+                  {isAuthenticated && admin !== true ? (
                     <Menu.Item
                       as={Link}
                       to="/movies"
@@ -115,7 +115,7 @@ class Navbar extends Component {
                       onClick={this.handleItemClick}
                       content="Filmsortiment"
                     />
-                  )}
+                  ) : null}
 
                   {isAuthenticated ? (
                     <Menu.Item
