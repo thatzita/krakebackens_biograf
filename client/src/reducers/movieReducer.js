@@ -53,7 +53,8 @@ export default function(state = initialState, action) {
     case MOVIE_ADDED_SUCCESS:
       return {
         ...state,
-        ...(state.showOrHideImdb = false)
+        ...(state.showOrHideImdb = false),
+        success: action.payload
       };
     case DELETE_MOVIE_DB:
       let newMovieState = removeMovie(action.payload, state.movies);

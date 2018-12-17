@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Input, Segment, Button, Item, Image, Icon } from "semantic-ui-react";
+import {
+  Input,
+  Segment,
+  Button,
+  Item,
+  Image,
+  Icon,
+  Message
+} from "semantic-ui-react";
 import {
   searchMovie,
   imdbPopup,
@@ -18,7 +26,8 @@ class AddMovie extends Component {
     this.state = {
       moviesFound: [],
       searchedMovie: "",
-      popupMovie: null
+      popupMovie: null,
+      success: null
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -29,11 +38,28 @@ class AddMovie extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      moviesFound: nextProps.movies.moviesFound,
-      popupMovie: nextProps.movies.popupMovie,
-      profile: nextProps.profile.profile
-    });
+    if (nextProps.movies.success !== undefined) {
+      setTimeout(() => {
+        this.setState({
+          moviesFound: nextProps.movies.moviesFound,
+          popupMovie: nextProps.movies.popupMovie,
+          profile: nextProps.profile.profile,
+          success: null
+        });
+      }, 3000);
+      this.setState({
+        moviesFound: nextProps.movies.moviesFound,
+        popupMovie: nextProps.movies.popupMovie,
+        profile: nextProps.profile.profile,
+        success: nextProps.movies.success
+      });
+    } else {
+      this.setState({
+        moviesFound: nextProps.movies.moviesFound,
+        popupMovie: nextProps.movies.popupMovie,
+        profile: nextProps.profile.profile
+      });
+    }
   }
 
   onChange(event) {
@@ -60,7 +86,7 @@ class AddMovie extends Component {
   }
 
   render() {
-    let { moviesFound } = this.state;
+    let { moviesFound, success } = this.state;
     let movieList;
     let posterUrl = "http://image.tmdb.org/t/p/w300";
 
@@ -139,6 +165,27 @@ class AddMovie extends Component {
                 </Button>
               </Link>
             </div>
+            {success ? (
+              <div
+                style={{
+                  position: "fixed",
+                  width: "25rem",
+                  zIndex: "15",
+                  top: "20%",
+                  left: "22rem"
+                }}
+              >
+                <Message
+                  className="addedSuccessful"
+                  floating
+                  success
+                  header={success.title}
+                  content={success.msg}
+                />
+              </div>
+            ) : (
+              ""
+            )}
             <br />
             <br />
             <DbPopup />

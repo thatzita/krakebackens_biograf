@@ -104,6 +104,11 @@ export const getMovieInfoAddtoDb = movieId => dispatch => {
         return genre.name;
       });
 
+      if (movieToAdd.overview === "") {
+        movieToAdd.overview =
+          "Beskrivning saknas, hojta på kråkan så fixar han det!";
+      }
+
       let addToDb = {
         title: movieToAdd.title,
         description: movieToAdd.overview,

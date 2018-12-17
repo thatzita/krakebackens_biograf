@@ -117,6 +117,12 @@ h1.userMovies {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
+.addedSuccessful {
+  height: 5rem;
+  text-align: center;
+  /* top: 50px; */
+}
+
 .ui.buttons.addMovieBtnGroup {
   position: relative;
   float: right;
