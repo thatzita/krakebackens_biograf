@@ -22,18 +22,21 @@ const sortExistingTickets = array => {
 
 const findAllResponsibleTickets = (currentUser, monMovies = []) => {
   let arrayOfTickets = [];
-  console.log(monMovies);
-  let movieArray = monMovies.monMovies || [];
+  console.log("monMovies ", monMovies);
+  let movieArray = monMovies || [];
+  console.log("monMovieslist ", movieArray);
 
-  movieArray.map(monMovie => {
-    monMovie.seating.map(array => {
-      array.map(seat => {
-        if (currentUser.id === seat.responsible.id) {
-          arrayOfTickets.push(seat);
-        }
+  if (movieArray.length > 0) {
+    movieArray.map(monMovie => {
+      monMovie.seating.map(array => {
+        array.map(seat => {
+          if (currentUser.id === seat.responsible.id) {
+            arrayOfTickets.push(seat);
+          }
+        });
       });
     });
-  });
+  }
 
   console.log("tickets: ", arrayOfTickets);
   return sortExistingTickets(arrayOfTickets);
@@ -84,6 +87,7 @@ export default function ProfileTicketDisplay(props) {
               <Button
                 onClick={() =>
                   props.removeBooking(
+                    item,
                     item.customer.id,
                     item.responsible.id,
                     item._id
@@ -136,6 +140,7 @@ export default function ProfileTicketDisplay(props) {
               <Button
                 onClick={() =>
                   props.removeBooking(
+                    item,
                     item.customer.id,
                     item.responsible.id,
                     item._id

@@ -6,7 +6,8 @@ import {
   UPDATE_MONMOVIE,
   COMPLETE_BOOKING,
   GET_ARCHIVED_MOVIES,
-  END_BOOKING_ON_SUCCESS
+  END_BOOKING_ON_SUCCESS,
+  UPDATE_BOOKING
 } from "./types";
 
 import axios from "axios";
@@ -105,6 +106,22 @@ export const deleteMonMovie = movie => dispatch => {
       } else {
         console.log("Något gick fel när film skulle tas bort.");
       }
+    })
+    .catch(err => {
+      throw err;
+    });
+};
+
+export const removeAndCancelMovieBooking = removeObj => dispatch => {
+  axios
+    .post("/api/monthlyMovies/removeMovieBooking", removeObj)
+    .then(res => {
+      console.log("final result data: ", res.data);
+
+      dispatch({
+        type: UPDATE_BOOKING,
+        payload: res.data.monMovie
+      });
     })
     .catch(err => {
       throw err;

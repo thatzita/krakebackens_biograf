@@ -14,15 +14,18 @@ import {
 import ProfileHeader from "./ProfileHeader";
 import ProfileTicketDisplay from "./ProfileTicketDisplay";
 import { getCurrentProfile } from "../../actions/profileActions";
-import { getAllMonMovies } from "../../actions/monMovieActions";
+import {
+  getAllMonMovies,
+  removeAndCancelMovieBooking
+} from "../../actions/monMovieActions";
 
 import { Link } from "react-router-dom";
 import Footer from "../layout/Footer";
 import "./profile.css";
 
 class Profile extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       errors: {},
       show: false,
@@ -47,22 +50,69 @@ class Profile extends Component {
     if (nextProps.profile.profile) {
       this.setState({
         profile: nextProps.profile.profile,
-        monMovies: nextProps.monMovies
+        monMovies: nextProps.monMovies.monMovies
       });
     }
   }
 
-  removeBooking = (customerId, resonsibleId, movieId) => {
-    let removeBookingObj = {
-      customerId,
-      resonsibleId,
-      movieId
-    };
-    console.log(removeBookingObj);
-    console.log(removeBookingObj.customerId === removeBookingObj.resonsibleId);
+  removeBooking = (seatingObj, customerId, resonsibleId, movieId) => {
+    let monMovies = this.state.monMovies || [];
+    let obj;
+    let specificMovie = monMovies.filter(mov => mov.imdb_id === movieId);
+
+    console.log(specificMovie);
+
+    // if customer is the same as responsible send list and not one obj
+    if (customerId === resonsibleId) {
+      console.log("movie ", specificMovie[0]);
+      let allBookings = [];
+      specificMovie[0].seating.map(array => {
+        array.map(seat => {
+          if (seat.responsible.id === resonsibleId) {
+            let newMultipulSeatingObj = this.shallowObjectCopy(seat);
+            newMultipulSeatingObj.customer = "";
+            newMultipulSeatingObj.responsible = { id: "" };
+            newMultipulSeatingObj.booked = false;
+            allBookings.push(newMultipulSeatingObj);
+          }
+        });
+      });
+
+      obj = {
+        reservations: allBookings,
+        resonsibleId,
+        movieId,
+        responsibleMember: true
+      };
+
+      // console.log("all res ", obj);
+    } else {
+      // let singleBooking = [];
+      let newSeatingObj = this.shallowObjectCopy(seatingObj);
+      newSeatingObj.customer = "";
+      newSeatingObj.responsible = { id: "" };
+      newSeatingObj.booked = false;
+
+      obj = {
+        reservations: newSeatingObj,
+        resonsibleId,
+        movieId,
+        responsibleMember: false
+      };
+    }
+
+    console.log("obj ", obj);
+    this.props.removeAndCancelMovieBooking(obj);
+    // this.props.getAllMonMovies();
+  };
+
+  shallowObjectCopy = src => {
+    return Object.assign({}, src);
   };
 
   render() {
+    console.log("state ", this.state);
+
     // let loggedInProfile;
     // const profile = this.state.profile;
     // const { open } = this.state;
@@ -203,5 +253,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, getAllMonMovies }
+  { getCurrentProfile, getAllMonMovies, removeAndCancelMovieBooking }
 )(Profile);

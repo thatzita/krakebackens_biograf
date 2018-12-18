@@ -6,7 +6,8 @@ import {
   UPDATE_MONMOVIE,
   COMPLETE_BOOKING,
   GET_ARCHIVED_MOVIES,
-  END_BOOKING_ON_SUCCESS
+  END_BOOKING_ON_SUCCESS,
+  UPDATE_BOOKING
 } from "../actions/types";
 
 const initialState = {};
@@ -60,7 +61,16 @@ export default function(state = initialState, action) {
         ...state,
         bookingResult: action.payload
       };
+    case UPDATE_BOOKING:
+      let monMovieListAfterRemovedBooking = filterUpdate(
+        action.payload,
+        state.monMovies
+      );
 
+      return {
+        ...state,
+        monMovies: monMovieListAfterRemovedBooking
+      };
     default:
       return state;
   }

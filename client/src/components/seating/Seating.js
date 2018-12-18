@@ -206,6 +206,8 @@ class Seating extends Component {
   };
 
   render() {
+    console.log(this.state.reservedList);
+
     let movie = this.state.bookingObj;
     let movieImage = movie.poster || "default.jpg";
     return (

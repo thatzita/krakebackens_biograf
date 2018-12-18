@@ -213,97 +213,171 @@ router.get("/singlemovie/", (req, res) => {
 });
 
 // remove booking
-// router.post('/removeMovieBooking', (req,res)=>{
+router.post("/removeMovieBooking", (req, res) => {
+  MonMovie.findOne({ imdb_id: req.body.movieId })
+    .then(monMovie => {
+      if (monMovie) {
+        let newSeating;
+        if (req.body.responsibleMember) {
+          let seatList = req.body.reservations;
 
-// });
+          newSeating = monMovie.seating.map(array => {
+            let newRow = array.map(x => {
+              let found = false;
+              let reservation = {};
+              for (let index = 0; index < seatList.length; index++) {
+                if (seatList[index].seat === x.seat) {
+                  found = true;
+                  reservation = seatList[index];
+                  break;
+                }
+              }
+
+              if (found) {
+                return reservation;
+              } else {
+                return x;
+              }
+            });
+
+            return newRow;
+          });
+        } else {
+          let seatObj = req.body.reservations;
+          let singleObjList = [seatObj];
+
+          newSeating = monMovie.seating.map(array => {
+            let newRow = array.map(x => {
+              let found = false;
+              let reservation = {};
+              for (let index = 0; index < singleObjList.length; index++) {
+                if (singleObjList[index].seat === x.seat) {
+                  found = true;
+                  reservation = singleObjList[index];
+                  break;
+                }
+              }
+
+              if (found) {
+                return reservation;
+              } else {
+                return x;
+              }
+            });
+
+            return newRow;
+          });
+
+          // console.log("single: ", req.body.reservations);
+        }
+        monMovie.seating = newSeating;
+        let newMonMovie = monMovie;
+        newMonMovie
+          .save()
+          .then(monMovie => {
+            console.log("response ", monMovie);
+            res.json({ monMovie });
+          })
+          .catch(err => console.log(err));
+      } else {
+        return res
+          .status(404)
+          .json({ title: "The movie you are trying to book do not exist" });
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
+});
 
 // complete and save booking
 router.post("/completeAndSaveBooking", (req, res) => {
   // console.log("the movieID: ", req.body.responsible.email);
-  MonMovie.findOne({ _id: req.body.movieId }).then(movie => {
-    if (movie) {
-      let seatResarvation = req.body.seatResarvation;
-      let allSeatsAreAvailable = true;
+  MonMovie.findOne({ _id: req.body.movieId })
+    .then(movie => {
+      if (movie) {
+        let seatResarvation = req.body.seatResarvation;
+        let allSeatsAreAvailable = true;
 
-      let newSeating = movie.seating.map(array => {
-        let newRow = array.map(x => {
-          let found = false;
-          let reservation = {};
-          for (let index = 0; index < seatResarvation.length; index++) {
-            if (seatResarvation[index].seat === x.seat) {
-              found = true;
-              if (x.booked === false) {
-                reservation = seatResarvation[index];
-                break;
-              } else {
-                allSeatsAreAvailable = false;
-                break;
+        let newSeating = movie.seating.map(array => {
+          let newRow = array.map(x => {
+            let found = false;
+            let reservation = {};
+            for (let index = 0; index < seatResarvation.length; index++) {
+              if (seatResarvation[index].seat === x.seat) {
+                found = true;
+                if (x.booked === false) {
+                  reservation = seatResarvation[index];
+                  break;
+                } else {
+                  allSeatsAreAvailable = false;
+                  break;
+                }
               }
             }
-          }
 
-          if (found) {
-            return reservation;
-          } else {
-            return x;
-          }
+            if (found) {
+              return reservation;
+            } else {
+              return x;
+            }
+          });
+
+          return newRow;
         });
+        if (allSeatsAreAvailable) {
+          // the booking was successful, save and return the updated movie
+          movie.seating = newSeating;
+          let newMovie = movie;
+          let seatCount = 0;
 
-        return newRow;
-      });
-      if (allSeatsAreAvailable) {
-        // the booking was successful, save and return the updated movie
-        movie.seating = newSeating;
-        let newMovie = movie;
-        let seatCount = 0;
-
-        //Check saloon 2 if fullybooked
-        if (newMovie.saloon === "2") {
-          newMovie.seating[0].map(seat => {
-            if (seat.booked) {
-              seatCount++;
+          //Check saloon 2 if fullybooked
+          if (newMovie.saloon === "2") {
+            newMovie.seating[0].map(seat => {
+              if (seat.booked) {
+                seatCount++;
+              }
+            });
+            newMovie.seating[1].map(seat => {
+              if (seat.booked) {
+                seatCount++;
+              }
+            });
+            if (seatCount === 8) {
+              newMovie.fullyBooked = true;
             }
-          });
-          newMovie.seating[1].map(seat => {
-            if (seat.booked) {
-              seatCount++;
-            }
-          });
-          if (seatCount === 8) {
-            newMovie.fullyBooked = true;
           }
-        }
-        //Check saloon 1 if fullybooked
-        if (newMovie.saloon === "1") {
-          newMovie.seating[0].map(seat => {
-            if (seat.booked) {
-              seatCount++;
-            }
-          });
-          newMovie.seating[1].map(seat => {
-            if (seat.booked) {
-              seatCount++;
-            }
-          });
-          newMovie.seating[2].map(seat => {
-            if (seat.booked) {
-              seatCount++;
-            }
-          });
+          //Check saloon 1 if fullybooked
+          if (newMovie.saloon === "1") {
+            newMovie.seating[0].map(seat => {
+              if (seat.booked) {
+                seatCount++;
+              }
+            });
+            newMovie.seating[1].map(seat => {
+              if (seat.booked) {
+                seatCount++;
+              }
+            });
+            newMovie.seating[2].map(seat => {
+              if (seat.booked) {
+                seatCount++;
+              }
+            });
 
-          if (seatCount === 18) {
-            newMovie.fullyBooked = true;
+            if (seatCount === 18) {
+              newMovie.fullyBooked = true;
+            }
           }
-        }
 
-        newMovie
-          .save()
-          .then(movie =>
-            res.json({ movie, success: true, msg: "Tack för din bokning" })
-          )
-          .catch(err => console.log(err));
+          newMovie
+            .save()
+            .then(movie =>
+              res.json({ movie, success: true, msg: "Tack för din bokning" })
+            )
+            .catch(err => console.log(err));
 
-        let output = `
+          let output = `
         <!DOCTYPE html>
         <html lang="en" dir="ltr">
         
@@ -365,43 +439,46 @@ router.post("/completeAndSaveBooking", (req, res) => {
         </body>
         </html>
           `;
-        let transporter = nodemailer.createTransport({
-          service: "Gmail",
-          host: "smtp.gmail.com",
-          auth: {
-            user: process.env.MAIL_ADDR,
-            pass: process.env.MAIL_PW
-          }
-        });
+          let transporter = nodemailer.createTransport({
+            service: "Gmail",
+            host: "smtp.gmail.com",
+            auth: {
+              user: process.env.MAIL_ADDR,
+              pass: process.env.MAIL_PW
+            }
+          });
 
-        let mailOptions = {
-          from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>',
-          to: `bringmybeerbro@gmail.com`, // list of receivers
-          subject: "Bokningsbekräftelse", // Subject line
-          // text: 'Hello world?', // plain text body
-          html: output // html body
-        };
+          let mailOptions = {
+            from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>',
+            to: `bringmybeerbro@gmail.com`, // list of receivers
+            subject: "Bokningsbekräftelse", // Subject line
+            // text: 'Hello world?', // plain text body
+            html: output // html body
+          };
 
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            return console.log(error);
-          }
-          console.log("info: ", info);
-        });
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              return console.log(error);
+            }
+            console.log("info: ", info);
+          });
+        } else {
+          res.json({
+            movie,
+            success: false,
+            msg:
+              "Någon var tyvärr snabbare och bokade platserna före dig, vänligen försök igen "
+          });
+        }
       } else {
-        res.json({
-          movie,
-          success: false,
-          msg:
-            "Någon var tyvärr snabbare och bokade platserna före dig, vänligen försök igen "
-        });
+        return res
+          .status(404)
+          .json({ title: "The movie you are trying to book do not exist" });
       }
-    } else {
-      return res
-        .status(404)
-        .json({ title: "The movie you are trying to book do not exist" });
-    }
-  });
+    })
+    .catch(err => {
+      throw err;
+    });
 });
 
 module.exports = router;
