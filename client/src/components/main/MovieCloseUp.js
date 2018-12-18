@@ -69,8 +69,6 @@ class MovieCloseUp extends Component {
   handleClose = () => this.setState({ modalOpen: false });
 
   handleItemClick = () => {
-    // <iframe width='1080' height='760' src="//youtube.com/embed/6ZfuNTqbHE8" frameborder="0" allowfullscreen></iframe>
-    // http://youtube.com/watch?v=6ZfuNTqbHE8
     let str = this.state.movieCloseUp.trailer;
     let find = "watch\\?v\\=";
     let reg = new RegExp(find, "g");
@@ -194,7 +192,7 @@ class MovieCloseUp extends Component {
                         name="close"
                       />
 
-                      {movieTrailer === "//youtube.com/" ? (
+                      {movieTrailer === "//youtube.com" ? (
                         <div
                           style={{
                             background: "black",

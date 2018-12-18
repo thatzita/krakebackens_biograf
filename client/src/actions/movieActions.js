@@ -193,7 +193,7 @@ export const addToMovieDb = (addToDb, movieId) => dispatch => {
       if (data.results.length > 0) {
         movieInfo.trailer = `//youtube.com/watch?v=${data.results[0].key}`;
       } else {
-        movieInfo.trailer = `//youtube.com/`;
+        movieInfo.trailer = `//youtube.com`;
       }
     })
     .then(() => {

@@ -26,7 +26,7 @@ class Users extends Component {
       user: {},
       userInfo: {},
       search: "",
-      showMore: 5,
+      showMore: 10,
       open: false
     };
     this.onChange = this.onChange.bind(this);
@@ -51,7 +51,7 @@ class Users extends Component {
 
   showMoreContent() {
     this.setState({
-      showMore: this.state.showMore + 5
+      showMore: this.state.showMore + 10
     });
   }
 

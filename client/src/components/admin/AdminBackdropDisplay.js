@@ -1,19 +1,14 @@
 import React, { Component } from "react";
-
-import { Label, Icon, Menu } from "semantic-ui-react";
-
 import "./admin.css";
 
 export default class AdminBackdropDisplay extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeItem: "" };
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
-    const { activeItem } = this.state;
     let movieItem = this.props.monMovie || {};
     let displayImage = movieItem.background || "default.jpg";
 

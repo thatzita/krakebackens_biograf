@@ -1,10 +1,7 @@
-require("dotenv").config();
-
 const express = require("express");
 const router = express.Router();
 const saloonCollection = require("../../seatingStructure/saloonCollection");
 const nodemailer = require("nodemailer");
-// const salong_2 = require("../../seatingStructure/saloonCollection");
 
 const { MonMovie, MonMovieArchive } = require("../../models/MonthlyMovie");
 const Movie = require("../../models/Movie");
@@ -29,7 +26,6 @@ router.get("/moviearchive", (req, res) => {
 //@desc     Post a movie premiere to monthlyMovies
 //@access   private
 router.post("/uploadMoviePremiere", (req, res) => {
-  // console.log(req.body);
   let updateField = {
     crowRating: req.body.crowRating
   };
@@ -38,7 +34,6 @@ router.post("/uploadMoviePremiere", (req, res) => {
     new: true
   }).then(movie => {
     if (movie) {
-      // console.log("update crowrating: ", movie);
     } else {
       return res.status(400).json({
         title: "we could not find the movie to update the crow rating"
@@ -103,7 +98,6 @@ router.post("/uploadMoviePremiere", (req, res) => {
               cancel_utc_time: req.body.cancel_utc_time,
               reminder_utc_time: req.body.reminder_utc_time,
               reminderIsSent: false,
-              // screeningStatus: "active",
               seating: saloon,
               saloon: req.body.saloon,
               fullyBooked: false
@@ -131,16 +125,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
 //@access   private
 
 router.post("/updateMonthlyMovie", (req, res) => {
-  // let updateField = {
-  //   title: req.body.title,
-  //   description: req.body.description,
-  //   screeningDate: req.body.date,
-  //   screeningTime: req.body.time
-  // };
-
   let updateField = req.body;
-
-  // console.log("uppdatefield: ", req.body);
 
   MonMovie.findOneAndUpdate({ _id: req.body._id }, updateField, { new: true })
     .then(monMovie => {
@@ -160,7 +145,6 @@ router.post("/updateMonthlyMovie", (req, res) => {
 //@route    Get api/monthlyMovies/deleteMonthlyMovie
 //@desc     delete monthly movie
 //@access   private
-
 router.delete("/deleteMonthlyMovie", (req, res) => {
   MonMovie.findOneAndDelete({ _id: req.body.objId }).then(() => {
     res.json({ success: true });
@@ -173,7 +157,6 @@ router.delete("/deleteMonthlyMovie", (req, res) => {
 router.get("/getAllMonthlyMovies", (req, res) => {
   MonMovie.find({})
     .then(monMovies => {
-      // console.log(monMovies);
       res.json({ monMovies });
     })
     .catch(err => {
@@ -204,7 +187,6 @@ router.get("/singlemovie/", (req, res) => {
 
 // complete and save booking
 router.post("/completeAndSaveBooking", (req, res) => {
-  // console.log("the movieID: ", req.body.responsible.email);
   MonMovie.findOne({ _id: req.body.movieId }).then(movie => {
     if (movie) {
       let seatResarvation = req.body.seatResarvation;

@@ -1,4 +1,3 @@
-require("dotenv").config(); // inlogg till epost som skickar mail
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");

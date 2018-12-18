@@ -1,4 +1,3 @@
-require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
@@ -112,7 +111,6 @@ router.post("/form", (req, res) => {
             pass: process.env.MAIL_PW
           }
         });
-        console.log(process.env.MAIL_ADDR);
         // setup email data with unicode symbols
         let mailOptions = {
           from: `${req.body.email}`, // sender address

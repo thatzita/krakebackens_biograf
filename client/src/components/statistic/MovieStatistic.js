@@ -56,7 +56,6 @@ class MovieStatistic extends Component {
 
   percentageOfSeatsTaken() {
     const { monMovies } = this.state;
-    console.log(monMovies);
 
     let count = 0;
     let saloonOneCount = 0;
@@ -103,13 +102,12 @@ class MovieStatistic extends Component {
     let totalSaloonTwoCount = saloonTwoCount * 8;
     let totalBothSaloons = totalSaloonOneCount + totalSaloonTwoCount;
 
-    let percentage = count / totalBothSaloons;
+    let percentage = count / totalBothSaloons || "";
 
-    console.log(percentage);
     percentage = percentage.toString();
     percentage = percentage.substring(2, 4);
 
-    return percentage;
+    return percentage + "%";
   }
 
   render() {
@@ -121,7 +119,7 @@ class MovieStatistic extends Component {
             <Statistic.Label>fullbokade filmer</Statistic.Label>
           </Statistic>
           <Statistic>
-            <Statistic.Value>{this.percentageOfSeatsTaken()}%</Statistic.Value>
+            <Statistic.Value>{this.percentageOfSeatsTaken()}</Statistic.Value>
             <Statistic.Label>av platserna bokade i snitt</Statistic.Label>
           </Statistic>
           <Statistic>

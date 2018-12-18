@@ -20,7 +20,6 @@ import DbPopup from "./DbPopup";
 import { Link } from "react-router-dom";
 import Admin from "../admin/Admin";
 import { getCurrentProfile } from "../../actions/profileActions";
-import { resetSuccess } from "../../actions/authActions";
 
 class AddMovie extends Component {
   constructor() {
@@ -80,6 +79,7 @@ class AddMovie extends Component {
   }
 
   showPopup(movieId) {
+    this.props.resetMovieSuccess();
     this.props.imdbPopup(movieId);
   }
 

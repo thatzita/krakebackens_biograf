@@ -19,7 +19,8 @@ import {
 import {
   getAllMovies,
   moviePopup,
-  deleteMovie
+  deleteMovie,
+  resetMovieSuccess
 } from "../../actions/movieActions";
 import "./movies.css";
 
@@ -59,6 +60,7 @@ class Movies extends Component {
 
   componentDidMount() {
     this.props.getAllMovies();
+    this.props.resetMovieSuccess();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -328,6 +330,7 @@ export default connect(
   {
     getAllMovies,
     moviePopup,
-    deleteMovie
+    deleteMovie,
+    resetMovieSuccess
   }
 )(Movies);

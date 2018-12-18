@@ -103,7 +103,7 @@ export default class MovieBackdropDisplay extends Component {
                       name="close"
                     />
 
-                    {movieTrailer === "//youtube.com/" ? (
+                    {movieTrailer === "//youtube.com" ? (
                       <div
                         style={{
                           background: "black",
