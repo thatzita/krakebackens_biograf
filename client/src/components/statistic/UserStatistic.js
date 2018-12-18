@@ -7,7 +7,6 @@ import {
   List,
   Divider,
   Icon,
-  Image,
   Button,
   Confirm
 } from "semantic-ui-react";
@@ -254,7 +253,7 @@ class UserStatistic extends Component {
         {userContent}
         <br />
         <br />
-        <br />
+
         {userContentTopList}
         <br />
         <div

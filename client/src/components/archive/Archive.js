@@ -1,19 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-// import Popup from "./Popup";
-import { Link } from "react-router-dom";
-import Admin from "../admin/Admin";
 
-import {
-  Button,
-  Input,
-  Icon,
-  Item,
-  Segment,
-  Confirm,
-  Label
-} from "semantic-ui-react";
+import { Button, Input, Icon, Item, Segment, Label } from "semantic-ui-react";
 
 import { moviePopup } from "../../actions/movieActions";
 import { getAllMoviesArchive } from "../../actions/monMovieActions";
@@ -136,7 +125,6 @@ class Archive extends Component {
             <Item.Image
               className="posterImg"
               size="tiny"
-              // onClick={e => this.showPopup(movie)}
               src={movie.poster}
               onError={e => {
                 e.target.src = "poster_not_available.jpg";

@@ -32,8 +32,6 @@ h1.title {
 }
 
 .ui.statistics:first-child.userGroup {
-  /* margin: 0 auto; */
-  /* position: relative; */
   background: transparent;
-  margin-left: 4rem;
+  margin-left: 1rem;
 }

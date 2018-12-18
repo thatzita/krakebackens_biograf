@@ -11,7 +11,7 @@ const User = require("./models/User.js");
 
 //API paths
 const users = require("./routes/api/users");
-const profile = require("./routes/api/profile");
+// const profile = require("./routes/api/profile");
 const apply = require("./routes/api/apply");
 const monthlyMovies = require("./routes/api/monthlyMovies");
 const movies = require("./routes/api/movies");
@@ -48,7 +48,7 @@ require("./config/passport.js")(passport);
 
 //Routes
 app.use("/api/users", users);
-app.use("/api/profile", profile);
+// app.use("/api/profile", profile);
 app.use("/api/apply", apply);
 app.use("/api/monthlyMovies", monthlyMovies);
 app.use("/api/movies", movies);
