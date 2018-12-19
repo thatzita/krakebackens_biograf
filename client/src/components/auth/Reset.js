@@ -100,7 +100,7 @@ class Reset extends Component {
 }
 
 Reset.propTypes = {
-  errors: PropTypes.object.isRequired,
+  // errors: PropTypes.object.isRequired,
   resetPassword: PropTypes.func.isRequired,
   success: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired

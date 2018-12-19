@@ -5,7 +5,6 @@ import { imdbPopupClose, addToMovieDb } from "../../actions/movieActions";
 import {
   Button,
   Card,
-  Container,
   Divider,
   Image,
   Icon,

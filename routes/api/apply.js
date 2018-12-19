@@ -1,4 +1,3 @@
-require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
@@ -37,14 +36,72 @@ router.post("/form", (req, res) => {
         res.json(success);
 
         const output = `
-        <h1>Förfrågan om medlemskap från ${req.body.username}</h1>
-        <ul>
-            <li>Användarnamn som vill användas är:<br>
-            <strong>${req.body.username}</strong></li>
-            <li>Epost som ska användas är: <br>
-            <strong>${req.body.email}</strong>
-            </li>
-        </ul>
+        <!DOCTYPE html>
+        <html lang="en" dir="ltr">
+        
+        <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+          <title></title>
+          <style></style>
+        </head>
+        
+        <body>
+          <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+            <tr>
+              <td align="center" valign="top">
+                <table style="background-color:rgb(71,8,119)" border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
+                  <tr>
+                    <td align="center" valign="top">
+                      <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
+                        <tr>
+                          <td style="padding-bottom: 5px" align="center" valign="top">
+                            <h2 style=" font-family: Arial,sans-serif; color:white">Förfrågan om medlemskap från ${
+                              req.body.username
+                            }</h2>
+                            <!-- <hr/> -->
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="background-color:white;" align="center" valign="top">
+                      <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody">
+                        <tr>
+                          <td style="padding:auto;" align="center" valign="top">
+        
+                          <ul style="list-style: none; font-family: Arial,sans-serif;  margin:0; line-height:27px;">
+                          <li>Användarnamn som vill användas är:<br>
+                          <strong>${req.body.username}</strong></li>
+                          <li>Epost som ska användas är: <br>
+                          <strong>${req.body.email}</strong>
+                          </li>
+                      </ul>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:0" align="center" valign="top">
+                      <table style="background-color:#f4f4f4" border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
+                        <tr>
+                          <td align="center" valign="top">
+                            <p style="font-family: Arial,sans-serif; margin-top:1rem; font-size: 0.8rem;"> <em>Hälsningar från ${
+                              req.body.username
+                            }</em> </p>
+        
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
         `;
         let transporter = nodemailer.createTransport({
           service: "Gmail",
@@ -54,7 +111,6 @@ router.post("/form", (req, res) => {
             pass: process.env.MAIL_PW
           }
         });
-
         // setup email data with unicode symbols
         let mailOptions = {
           from: `${req.body.email}`, // sender address

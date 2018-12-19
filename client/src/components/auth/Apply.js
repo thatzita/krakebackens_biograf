@@ -2,9 +2,19 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button, Form, Checkbox, Message, Icon } from "semantic-ui-react";
+import {
+  Button,
+  Form,
+  Checkbox,
+  Message,
+  Icon,
+  Modal,
+  Segment
+} from "semantic-ui-react";
 import Footer from "../layout/Footer";
 import { userRequest } from "../../actions/applyActions";
+import termsOfService from "./policy/termsOfService";
+import privacyPolicy from "./policy/privacyPolicy";
 
 class Apply extends Component {
   constructor() {
@@ -13,11 +23,15 @@ class Apply extends Component {
       username: "",
       email: "",
       errors: {},
-      success: {}
+      success: {},
+      checked: false
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  toggle = () => this.setState({ checked: !this.state.checked });
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({
@@ -52,10 +66,14 @@ class Apply extends Component {
   }
 
   render() {
-    const { username, email } = this.state;
-    const { errors } = this.state;
-    const { success } = this.state;
+    const { username, email, checked, errors, success } = this.state;
 
+    const tos = <a href="#">Terms of Service</a>;
+    const pp = (
+      <a href="#" style={{ marginLeft: "1rem" }}>
+        Privacy Policy
+      </a>
+    );
     return (
       <div>
         <div className="applyContainer">
@@ -84,15 +102,38 @@ class Apply extends Component {
               />
               <Message error content={errors.email} />
             </Form.Field>
-            <Form.Field
-              control={Checkbox}
-              label={{ children: "I agree to the Terms and Conditions" }}
-              className="applyFieldLabel"
-            />
-            <Button color="violet" type="submit" onClick={this.onSubmit}>
-              <Icon name="send" />
-              Skicka förfrågan
-            </Button>
+            <Segment inverted>
+              <Form.Field
+                onChange={this.toggle}
+                checked={checked}
+                control={Checkbox}
+                label={{
+                  children: `Jag godkänner villkoren`
+                }}
+                className="applyFieldLabel"
+              />
+              <Modal trigger={tos} closeIcon>
+                <Modal.Content style={{ backgroundColor: "#1B1C1D" }}>
+                  {termsOfService()}
+                </Modal.Content>
+              </Modal>
+              <Modal trigger={pp} closeIcon>
+                <Modal.Content style={{ backgroundColor: "#1B1C1D" }}>
+                  {privacyPolicy()}
+                </Modal.Content>
+              </Modal>
+            </Segment>
+            {checked ? (
+              <Button color="violet" type="submit" onClick={this.onSubmit}>
+                <Icon name="send" />
+                Skicka förfrågan
+              </Button>
+            ) : (
+              <Button disabled color="violet" type="submit">
+                <Icon name="send" />
+                Skicka förfrågan
+              </Button>
+            )}
             <Link to="/">
               <Button>
                 <Icon name="left chevron" />

@@ -23,7 +23,6 @@ class Statistic extends Component {
             <br />
             <hr />
             <br />
-
             <MovieStatistic />
           </Segment>
         </div>

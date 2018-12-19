@@ -17,6 +17,7 @@ import { seatNameConverter } from "../common/seatingFunctions.js";
 export default function TicketDisplay(props) {
   let selectedMembersList =
     props.memberList.filter(x => x.id !== props.profile.id) || [];
+
   return (
     <React.Fragment>
       <div style={{ width: "40%", minWidth: "450px", height: "100%" }}>
@@ -218,6 +219,7 @@ export default function TicketDisplay(props) {
         >
           Gå tillbaka{" "}
         </Button>
+
         {props.reservedList.length > 0 ? (
           <Button color="violet" onClick={() => props.completeBooking()}>
             Slutför bokning

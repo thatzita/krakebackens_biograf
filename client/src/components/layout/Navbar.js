@@ -59,6 +59,10 @@ class Navbar extends Component {
                   <Image
                     style={{ width: "40px" }}
                     src="krakebackens_logo.png"
+                    onError={e => {
+                      e.target.src =
+                        "https://firebasestorage.googleapis.com/v0/b/krakebackensbiograf-c3aa9.appspot.com/o/krakebackens_logo.png?alt=media&token=4c75370b-fa7d-4838-af81-040c458dd767";
+                    }}
                   />
                   <h2
                     style={{
@@ -99,6 +103,17 @@ class Navbar extends Component {
                       name="Filmer"
                       active={activeItem === "Filmer"}
                       onClick={this.handleItemClick}
+                    />
+                  ) : null}
+
+                  {isAuthenticated && admin !== true ? (
+                    <Menu.Item
+                      as={Link}
+                      to="/movies"
+                      name="Filmsortiment"
+                      active={activeItem === "Filmsortiment"}
+                      onClick={this.handleItemClick}
+                      content="Filmsortiment"
                     />
                   ) : null}
 

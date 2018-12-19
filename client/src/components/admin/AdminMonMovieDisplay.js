@@ -1,17 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
-import {
-  Button,
-  Dimmer,
-  Reveal,
-  Header,
-  Image,
-  Segment,
-  Icon,
-  Item,
-  List
-} from "semantic-ui-react";
+import { Image, Icon, List } from "semantic-ui-react";
 
 export default class AdminMonMovieDisplay extends Component {
   constructor(props) {
@@ -60,7 +49,7 @@ export default class AdminMonMovieDisplay extends Component {
                   top: "-1rem"
                 }}
               >
-                Månadens filmer
+                Kommande filmer
               </h1>
             </div>
           </Link>
@@ -176,7 +165,7 @@ export default class AdminMonMovieDisplay extends Component {
                       top: "-1rem"
                     }}
                   >
-                    Månadens filmer
+                    Kommande filmer
                   </h4>
                 </div>
               </Link>

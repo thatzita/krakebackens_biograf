@@ -56,34 +56,27 @@ const findAllResponsibleTickets = (currentUser, monMovies = []) => {
 export default function ProfileTicketDisplay(props) {
   console.log(props);
   let userTickets = findAllResponsibleTickets(props.profile, props.monMovies);
+  console.log(userTickets);
 
   return (
     <Segment.Group>
       <Segment style={{ backgroundColor: "black" }} inverted>
-        {userTickets.map((mon, index) => (
-          <Segment inverted key={index}>
+        {userTickets.map((mon, i) => (
+          <Segment inverted key={i}>
             <Header inverted dividing as="h2">
               <Image
                 rounded
-                src={
-                  mon[index].poster
-                    ? mon[index].poster
-                    : "poster_not_available.jpg"
-                }
+                src={mon[0].poster ? mon[0].poster : "poster_not_available.jpg"}
               />{" "}
               <Header.Content>
-                {mon[index].title ? mon[index].title : "Filmtitel"}
+                {mon[0].title ? mon[0].title : "Filmtitel"}
                 <Header.Subheader>
                   Datum:{" "}
-                  {mon[index].screeningDate
-                    ? mon[index].screeningDate
-                    : "Filmtitel"}
+                  {mon[0].screeningDate ? mon[0].screeningDate : "Filmtitel"}
                 </Header.Subheader>
                 <Header.Subheader>
                   Tid:{" "}
-                  {mon[index].screeningTime
-                    ? mon[index].screeningTime
-                    : "Filmtitel"}
+                  {mon[0].screeningTime ? mon[0].screeningTime : "Filmtitel"}
                 </Header.Subheader>
               </Header.Content>
             </Header>

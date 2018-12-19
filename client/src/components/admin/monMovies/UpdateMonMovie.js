@@ -44,10 +44,6 @@ class UpdateMonMovie extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProp) {
-    // console.log("recived props: ", nextProp);
-  }
-
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   onSaveAndUpdate = () => {
@@ -57,7 +53,6 @@ class UpdateMonMovie extends Component {
     updatedMonMovie.crowRating = this.state.crowRating;
     updatedMonMovie.monMovieMessage = this.state.monMovieMessage;
 
-    // console.log("new ", updatedMonMovie);
     this.props.updateMonmovie(updatedMonMovie);
   };
 
@@ -65,8 +60,6 @@ class UpdateMonMovie extends Component {
     return Object.assign({}, src);
   };
   render() {
-    // console.log(this.state);
-
     return (
       <React.Fragment>
         <Admin />
@@ -144,7 +137,6 @@ class UpdateMonMovie extends Component {
               <Form.Input
                 size="big"
                 name="title"
-                // style={{ color: "#470877" }}
                 label="Title"
                 onChange={this.handleChange}
                 value={this.state.title || ""}
@@ -160,7 +152,6 @@ class UpdateMonMovie extends Component {
               />
               <Form.TextArea
                 size="big"
-                // style={{ color: "#470877" }}
                 name="crowRating"
                 label="Kråkan tycker till"
                 onChange={this.handleChange}
@@ -169,7 +160,6 @@ class UpdateMonMovie extends Component {
               />
               <Form.TextArea
                 size="big"
-                // style={{ color: "#470877" }}
                 name="monMovieMessage"
                 label="Meddelande"
                 onChange={this.handleChange}
@@ -205,9 +195,7 @@ class UpdateMonMovie extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  // monMovie: state
-});
+const mapStateToProps = state => ({});
 
 export default connect(
   mapStateToProps,

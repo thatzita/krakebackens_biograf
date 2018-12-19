@@ -30,7 +30,8 @@ class MovieCloseUp extends Component {
       movieCloseUp: {},
       amountOfSeatBookings: 4,
       existingBookings: [],
-      movieTrailer: null
+      movieTrailer: null,
+      modalOpen: false
     };
   }
 
@@ -44,7 +45,7 @@ class MovieCloseUp extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.movieCloseUp && nextProps.profile.profile) {
       let checkSeatBookings = nextProps.movieCloseUp.seating;
-      console.log(nextProps.movieCloseUp.seating);
+      // console.log(nextProps.movieCloseUp.seating);
 
       let howManySeatsAreBooked = [];
       checkSeatBookings.map(array => {
@@ -65,14 +66,16 @@ class MovieCloseUp extends Component {
     }
   }
 
+  handleOpen = () => this.setState({ modalOpen: true });
+
+  handleClose = () => this.setState({ modalOpen: false });
+
   handleItemClick = () => {
-    // <iframe width='1080' height='760' src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-    // http://youtube.com/watch?v=6ZfuNTqbHE8
     let str = this.state.movieCloseUp.trailer;
     let find = "watch\\?v\\=";
     let reg = new RegExp(find, "g");
     str = str.replace(reg, "embed/");
-    this.setState({ movieTrailer: str });
+    this.setState({ movieTrailer: str, modalOpen: true });
   };
 
   render() {
@@ -129,7 +132,7 @@ class MovieCloseUp extends Component {
                   )
                 </h1>
                 <p>
-                  Premiär:{" "}
+                  <strong>Kråkans premiär: </strong>
                   {movieObject.screeningDate
                     ? movieObject.screeningDate
                     : "åååå-mm-dd"}
@@ -154,7 +157,14 @@ class MovieCloseUp extends Component {
                     ? movieObject.description
                     : "beskrivning"}
                 </p>
+
+                <Segment raised inverted>
+                  <h5>Meddelande:</h5>
+                  {movieObject.monMovieMessage}
+                </Segment>
+
                 <Modal
+                  style={{ textAlign: "center", backgroundColor: "black" }}
                   trigger={
                     <Menu inverted secondary style={{ background: "none" }}>
                       <Menu.Item
@@ -166,8 +176,57 @@ class MovieCloseUp extends Component {
                       </Menu.Item>
                     </Menu>
                   }
+                  open={this.state.modalOpen}
+                  onClose={this.handleClose}
                 >
-                  {<iframe width="900" height="600" src={movieTrailer} />}
+                  {
+                    <React.Fragment>
+                      <Icon
+                        style={{
+                          position: "absolute",
+                          right: "-2.5rem",
+                          fontSize: "2rem",
+                          fontWeight: "100"
+                        }}
+                        color="red"
+                        onClick={this.handleClose}
+                        inverted
+                        name="close"
+                      />
+
+                      {movieTrailer === "//youtube.com" ? (
+                        <div
+                          style={{
+                            background: "black",
+                            height: "400px",
+                            border: "2px solid white"
+                          }}
+                        >
+                          <Image
+                            style={{
+                              width: "300px",
+                              top: "18%",
+                              margin: "0 auto"
+                            }}
+                            src="krakebackens_logo.png"
+                          />
+                          <p
+                            style={{
+                              color: "white",
+                              fontSize: "3rem",
+                              textAlign: "center",
+                              position: "relative",
+                              top: "-21rem"
+                            }}
+                          >
+                            Filmen saknar trailer
+                          </p>
+                        </div>
+                      ) : (
+                        <iframe width="900" height="600" src={movieTrailer} />
+                      )}
+                    </React.Fragment>
+                  }
                 </Modal>
               </Segment>
             </div>

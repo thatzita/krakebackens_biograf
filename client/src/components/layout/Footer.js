@@ -14,6 +14,10 @@ class Footer extends Component {
               style={{ top: "30px" }}
               size="mini"
               src="krakebackens_logo.png"
+              onError={e => {
+                e.target.src =
+                  "https://firebasestorage.googleapis.com/v0/b/krakebackensbiograf-c3aa9.appspot.com/o/krakebackens_logo.png?alt=media&token=4c75370b-fa7d-4838-af81-040c458dd767";
+              }}
             />
             <div className="contactUs">
               <h3 className="h3ContactFooter">Kontakta oss</h3>
@@ -52,6 +56,10 @@ class Footer extends Component {
                 floated="right"
                 size="small"
                 src="tmdb_logo.png"
+                onError={e => {
+                  e.target.src =
+                    "https://firebasestorage.googleapis.com/v0/b/krakebackensbiograf-c3aa9.appspot.com/o/tmdb_logo.png?alt=media&token=50fc5646-b590-485e-9aa6-6df8ac99ce55";
+                }}
               />
               <div className="copyright">
                 <li style={{ listStyle: "none" }}>

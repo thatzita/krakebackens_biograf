@@ -10,7 +10,8 @@ import {
   IMDB_POPUP_CLOSE,
   MOVIE_ADDED_SUCCESS,
   DELETE_MOVIE_DB,
-  UPDATE_MOVIE_DB
+  UPDATE_MOVIE_DB,
+  RESET_MOVIE_SUCCESS
 } from "./types";
 
 export const getAllMovies = () => dispatch => {
@@ -86,9 +87,9 @@ export const getMovieInfoAddtoDb = movieId => dispatch => {
   axios.get(trailerUrl + movieId + trailerKey).then(res => {
     let trailer = res.data.results;
     if (trailer.length > 0) {
-      trailerVideo = `http://youtube.com/watch?v=${trailer[0].key}`;
+      trailerVideo = `//youtube.com/watch?v=${trailer[0].key}`;
     } else {
-      trailerVideo = `http://youtube.com`;
+      trailerVideo = `//youtube.com`;
     }
   });
 
@@ -103,6 +104,11 @@ export const getMovieInfoAddtoDb = movieId => dispatch => {
       let genreArray = movieToAdd.genres.map(genre => {
         return genre.name;
       });
+
+      if (movieToAdd.overview === "") {
+        movieToAdd.overview =
+          "Beskrivning saknas, hojta på kråkan så fixar han det!";
+      }
 
       let addToDb = {
         title: movieToAdd.title,
@@ -185,9 +191,9 @@ export const addToMovieDb = (addToDb, movieId) => dispatch => {
   fetchTrailerUrl(id)
     .payload.then(data => {
       if (data.results.length > 0) {
-        movieInfo.trailer = `http://youtube.com/watch?v=${data.results[0].key}`;
+        movieInfo.trailer = `//youtube.com/watch?v=${data.results[0].key}`;
       } else {
-        movieInfo.trailer = `http://youtube.com/`;
+        movieInfo.trailer = `//youtube.com`;
       }
     })
     .then(() => {
@@ -208,6 +214,13 @@ export const movieAddedSuccess = success => {
     type: MOVIE_ADDED_SUCCESS,
     payload: success
   };
+};
+
+export const resetMovieSuccess = () => dispatch => {
+  dispatch({
+    type: RESET_MOVIE_SUCCESS,
+    payload: null
+  });
 };
 
 //DELETE FRÅN DB

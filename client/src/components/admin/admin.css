@@ -24,9 +24,9 @@
   height: 100%;
   width: 100%;
   position: relative;
-
   margin-top: 0.5rem;
 }
+
 .adminMovieBackdrop {
   height: 100%;
   width: 100%;
@@ -66,9 +66,6 @@
   float: left;
 }
 
-.makeItFloat .smallPicture {
-  /* margin-top: -2rem; */
-}
 .ui.horizontal.list div.item .smallOne {
   position: relative;
   border: 2px solid black;
@@ -85,14 +82,8 @@
   float: left;
   margin-top: 1rem;
   background: rgba(98, 30, 150, 1);
-
-  /* border-radius: 0.5rem; */
 }
 
 .makeItFloat .ui.list {
   margin-left: -2rem;
-}
-
-.smallPicture > .ui.tiny.image {
-  /* border-radius: 0.5rem; */
 }

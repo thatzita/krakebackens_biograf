@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Popup from "./Popup";
 import { Link } from "react-router-dom";
 import Admin from "../admin/Admin";
+import Footer from "../layout/Footer";
 
 import {
   Button,
@@ -18,7 +19,8 @@ import {
 import {
   getAllMovies,
   moviePopup,
-  deleteMovie
+  deleteMovie,
+  resetMovieSuccess
 } from "../../actions/movieActions";
 import "./movies.css";
 
@@ -58,6 +60,7 @@ class Movies extends Component {
 
   componentDidMount() {
     this.props.getAllMovies();
+    this.props.resetMovieSuccess();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -84,6 +87,7 @@ class Movies extends Component {
     const { showMore, open } = this.state;
     let showMoreContentButton;
     let movieContent;
+    let movieItem;
 
     if (movies !== undefined) {
       if (this.props.movies.movies.length > showMore) {
@@ -107,82 +111,134 @@ class Movies extends Component {
         );
       });
 
-      let movieItem = filteredMovies.map(movie => {
-        return (
-          <Item key={movie.imdb_id}>
-            <Item.Image
-              className="posterImg"
-              size="tiny"
-              onClick={e => this.showPopup(movie)}
-              src={movie.poster}
-              onError={e => {
-                e.target.src = "poster_not_available.jpg";
-              }}
-            />
-            <Item.Content>
-              <Item.Header>
-                {movie.title} ( {movie.release.substring(0, 4)} ){" "}
-                <em style={{ fontSize: "1rem", color: "gray" }}>
-                  {" "}
-                  - {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min
-                </em>{" "}
-              </Item.Header>
+      if (this.props.auth.user.admin) {
+        movieItem = filteredMovies.map(movie => {
+          return (
+            <Item key={movie.imdb_id}>
+              <Item.Image
+                className="posterImg"
+                size="tiny"
+                onClick={e => this.showPopup(movie)}
+                src={movie.poster}
+                onError={e => {
+                  e.target.src = "poster_not_available.jpg";
+                }}
+              />
+              <Item.Content>
+                <Item.Header>
+                  {movie.title} ( {movie.release.substring(0, 4)} ){" "}
+                  <em style={{ fontSize: "1rem", color: "gray" }}>
+                    {" "}
+                    - {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min
+                  </em>{" "}
+                </Item.Header>
 
-              <Item.Extra>
-                {movie.genres.map((genre, i) => {
-                  return (
-                    <span key={i} className="date">
-                      {genre}{" "}
-                    </span>
-                  );
-                })}
-              </Item.Extra>
-              <br />
-              {movie.dvdOrBluRay === "dvd" ? <Label>DVD</Label> : ""}
-              {movie.dvdOrBluRay === "bluRay" ? <Label>Blu-ray</Label> : ""}
-              {movie.dvdOrBluRay === "usb" ? <Label>USB</Label> : ""}
-              <Button.Group className="addMovieBtnGroup">
-                <Button
-                  basic
-                  style={{ height: "2.5rem", bottom: "0" }}
-                  onClick={e => this.show(movie)}
-                  attached="bottom"
-                  floated="right"
-                >
-                  <Icon name="delete" />
-                  Ta bort
-                </Button>
-                <Confirm
-                  open={open}
-                  className="confirmDeleteMovie"
-                  header="Du är på väg att ta bort en film"
-                  content="Är du säker att du vill ta bort filmen?"
-                  cancelButton="Gå tillbaka"
-                  confirmButton="Ta bort"
-                  onCancel={this.handleCancel}
-                  onConfirm={this.handleConfirm}
-                />
-                <Button
-                  color="violet"
-                  style={{ height: "2.5rem", bottom: "0" }}
-                  onClick={e => this.showPopup(movie)}
-                  attached="bottom"
-                  floated="right"
-                >
-                  <Icon name="edit" />
-                  Ändra
-                </Button>
-              </Button.Group>
-            </Item.Content>
-          </Item>
-        );
-      });
+                <Item.Extra>
+                  {movie.genres.map((genre, i) => {
+                    return (
+                      <span key={i} className="date">
+                        {genre}{" "}
+                      </span>
+                    );
+                  })}
+                </Item.Extra>
+                <br />
+                {movie.dvdOrBluRay === "dvd" ? <Label>DVD</Label> : ""}
+                {movie.dvdOrBluRay === "bluRay" ? <Label>Blu-ray</Label> : ""}
+                {movie.dvdOrBluRay === "usb" ? <Label>USB</Label> : ""}
+                <Button.Group className="addMovieBtnGroup">
+                  <Button
+                    basic
+                    style={{ height: "2.5rem", bottom: "0" }}
+                    onClick={e => this.show(movie)}
+                    attached="bottom"
+                    floated="right"
+                  >
+                    <Icon name="delete" />
+                    Ta bort
+                  </Button>
+                  <Confirm
+                    open={open}
+                    className="confirmDeleteMovie"
+                    header="Du är på väg att ta bort en film"
+                    content="Är du säker att du vill ta bort filmen?"
+                    cancelButton="Gå tillbaka"
+                    confirmButton="Ta bort"
+                    onCancel={this.handleCancel}
+                    onConfirm={this.handleConfirm}
+                  />
+                  <Button
+                    color="violet"
+                    style={{ height: "2.5rem", bottom: "0" }}
+                    onClick={e => this.showPopup(movie)}
+                    attached="bottom"
+                    floated="right"
+                  >
+                    <Icon name="edit" />
+                    Ändra
+                  </Button>
+                </Button.Group>
+              </Item.Content>
+            </Item>
+          );
+        });
+      } else {
+        movieItem = filteredMovies.map(movie => {
+          return (
+            <Item key={movie.imdb_id}>
+              <Item.Image
+                className="posterImg"
+                size="tiny"
+                onClick={e => this.showPopup(movie)}
+                src={movie.poster}
+                onError={e => {
+                  e.target.src = "poster_not_available.jpg";
+                }}
+              />
+              <Item.Content>
+                <Item.Header>
+                  {movie.title} ( {movie.release.substring(0, 4)} ){" "}
+                  <em style={{ fontSize: "1rem", color: "gray" }}>
+                    {" "}
+                    - {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min
+                  </em>{" "}
+                </Item.Header>
+
+                <Item.Extra>
+                  {movie.genres.map((genre, i) => {
+                    return (
+                      <span key={i} className="date">
+                        {genre}{" "}
+                      </span>
+                    );
+                  })}
+                </Item.Extra>
+                <Button.Group className="addMovieBtnGroup">
+                  <Button
+                    color="blue"
+                    style={{ height: "2.5rem", bottom: "0" }}
+                    onClick={e => this.showPopup(movie)}
+                    attached="bottom"
+                    floated="right"
+                  >
+                    <Icon name="eye" />
+                    Mer info
+                  </Button>
+                </Button.Group>
+              </Item.Content>
+            </Item>
+          );
+        });
+      }
 
       movieContent = (
-        <div>
+        <div className="movieAlign">
           <br />
           <br />
-          <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
+          <Segment
+            className="containerMoviesUser"
+            style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}
+          >
             <Item.Group divided>{movieItem.slice(0, showMore)}</Item.Group>
           </Segment>
         </div>
@@ -192,27 +248,42 @@ class Movies extends Component {
     }
 
     return (
-      <div className="movies">
-        <div className="containerMovies">
-          <h1 className="title">
+      <div className={this.props.auth.user.admin ? "movies" : ""}>
+        <div className={this.props.auth.user.admin ? "containerMovies" : ""}>
+          <h1 className={this.props.auth.user.admin ? "title" : "userMovies"}>
             <Icon name="film" />
-            Filmer
+            {this.props.auth.user.admin
+              ? "Filmer"
+              : "Filmer i Kråkans sortiment"}
           </h1>
-          <hr />
-          <br />
-          <Admin />
-          <Link to="/addmovie">
-            <Button color="green" floated="right">
-              <Icon name="add" />
-              Lägg till nya filmer
-            </Button>
-          </Link>
+
+          {this.props.auth.user.admin ? (
+            <hr />
+          ) : (
+            <hr style={{ width: "40rem" }} />
+          )}
+          {this.props.auth.user.admin ? <Admin /> : ""}
+          {this.props.auth.user.admin ? (
+            <Link to="/addmovie">
+              <Button color="green" floated="right">
+                <Icon name="add" />
+                Lägg till nya filmer
+              </Button>
+            </Link>
+          ) : (
+            ""
+          )}
 
           <div
             className="searchContainer"
-            style={{ marginTop: "5rem", marginBottom: "-4rem" }}
+            style={
+              this.props.auth.user.admin
+                ? { marginTop: "5rem", marginBottom: "-4rem" }
+                : { marginTop: "1rem", marginBottom: "-4rem" }
+            }
           >
             <Input
+              style={{ zIndex: "1" }}
               className="movieSearch"
               placeholder="Sök i databasen..."
               onChange={this.onChange}
@@ -224,8 +295,17 @@ class Movies extends Component {
           <br />
           {movieContent}
         </div>
-        <div className="loadMoreBtnContainer">{showMoreContentButton}</div>
+        <div
+          className={
+            this.props.auth.user.admin
+              ? "loadMoreBtnContainer"
+              : "loadMoreBtnContainerUser"
+          }
+        >
+          {showMoreContentButton}
+        </div>
         <br />
+        {this.props.auth.user.admin ? "" : <Footer />}
       </div>
     );
   }
@@ -250,6 +330,7 @@ export default connect(
   {
     getAllMovies,
     moviePopup,
-    deleteMovie
+    deleteMovie,
+    resetMovieSuccess
   }
 )(Movies);

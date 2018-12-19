@@ -41,7 +41,9 @@ export default function ProfileHeader(props) {
               {props.profile.username}
             </Item.Header>
             <Item.Description style={{ color: "gold" }}>
-              <Icon name="film" /> {props.profile.stats.total} poäng
+              <Icon name="film" />{" "}
+              {props.profile.stats.total ? props.profile.stats.total : "0"}{" "}
+              poäng
             </Item.Description>
             <Item.Description style={{ color: "#f4f4f4" }}>
               {/* props.profile.vip.status */}

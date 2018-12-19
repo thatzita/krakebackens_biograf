@@ -1,10 +1,7 @@
-require("dotenv").config();
-
 const express = require("express");
 const router = express.Router();
 const saloonCollection = require("../../seatingStructure/saloonCollection");
 const nodemailer = require("nodemailer");
-// const salong_2 = require("../../seatingStructure/saloonCollection");
 
 const { MonMovie, MonMovieArchive } = require("../../models/MonthlyMovie");
 const Movie = require("../../models/Movie");
@@ -29,7 +26,6 @@ router.get("/moviearchive", (req, res) => {
 //@desc     Post a movie premiere to monthlyMovies
 //@access   private
 router.post("/uploadMoviePremiere", (req, res) => {
-  // console.log(req.body);
   let updateField = {
     crowRating: req.body.crowRating
   };
@@ -38,7 +34,6 @@ router.post("/uploadMoviePremiere", (req, res) => {
     new: true
   }).then(movie => {
     if (movie) {
-      console.log("update crowrating: ", movie);
     } else {
       return res.status(400).json({
         title: "we could not find the movie to update the crow rating"
@@ -115,7 +110,6 @@ router.post("/uploadMoviePremiere", (req, res) => {
               cancel_utc_time: req.body.cancel_utc_time,
               reminder_utc_time: req.body.reminder_utc_time,
               reminderIsSent: false,
-              // screeningStatus: "active",
               seating: saloon,
               saloon: req.body.saloon,
               fullyBooked: false
@@ -143,16 +137,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
 //@access   private
 
 router.post("/updateMonthlyMovie", (req, res) => {
-  // let updateField = {
-  //   title: req.body.title,
-  //   description: req.body.description,
-  //   screeningDate: req.body.date,
-  //   screeningTime: req.body.time
-  // };
-
   let updateField = req.body;
-
-  // console.log("uppdatefield: ", req.body);
 
   MonMovie.findOneAndUpdate({ _id: req.body._id }, updateField, { new: true })
     .then(monMovie => {
@@ -172,7 +157,6 @@ router.post("/updateMonthlyMovie", (req, res) => {
 //@route    Get api/monthlyMovies/deleteMonthlyMovie
 //@desc     delete monthly movie
 //@access   private
-
 router.delete("/deleteMonthlyMovie", (req, res) => {
   MonMovie.findOneAndDelete({ _id: req.body.objId }).then(() => {
     res.json({ success: true });
@@ -185,7 +169,6 @@ router.delete("/deleteMonthlyMovie", (req, res) => {
 router.get("/getAllMonthlyMovies", (req, res) => {
   MonMovie.find({})
     .then(monMovies => {
-      // console.log(monMovies);
       res.json({ monMovies });
     })
     .catch(err => {
@@ -412,9 +395,9 @@ router.post("/completeAndSaveBooking", (req, res) => {
                         <tr>
                           <td style="padding:auto;" align="center" valign="top">
         
-                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Dina billjetter till filmen <strong> ${
+                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Dina biljetter till filmen <strong> ${
                                 movie.title
-                              } </strong> kommer finnas på din profilsida. På din profilsida kan du även reglera och avboka biljetter</p>
+                              } </strong> kommer finnas på din profilsida. Du kan ändra din bokning på under din profil.</p>
         
                           </td>
                         </tr>
@@ -451,8 +434,8 @@ router.post("/completeAndSaveBooking", (req, res) => {
           });
 
           let mailOptions = {
-            from: '"Kråkebackens Bio" <bringmybeerbro@gmail.com>',
-            to: `bringmybeerbro@gmail.com`, // list of receivers
+            from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
+            to: seatResarvation[0].responsible.email, // list of receivers
             subject: "Bokningsbekräftelse", // Subject line
             // text: 'Hello world?', // plain text body
             html: output // html body
@@ -472,6 +455,19 @@ router.post("/completeAndSaveBooking", (req, res) => {
               "Någon var tyvärr snabbare och bokade platserna före dig, vänligen försök igen "
           });
         }
+
+        // let mailOptions = {
+        //   from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
+        //   to: seatResarvation[0].responsible.email, // list of receivers
+        //   subject: "Bokningsbekräftelse", // Subject line
+        //   html: output // html body
+        // };
+
+        // transporter.sendMail(mailOptions, (error, info) => {
+        //   if (error) {
+        //     return console.log(error);
+        //   }
+        // });
       } else {
         return res
           .status(404)

@@ -58,7 +58,7 @@ class MonMovieList extends Component {
             >
               <div>
                 {" "}
-                <Icon name="star" /> Månadens filmer
+                <Icon name="star" /> Kommande filmer
               </div>
               <Button
                 color="green"
@@ -125,7 +125,7 @@ class MonMovieList extends Component {
                     </Item.Description>
                     {item.monMovieMessage ? (
                       <Segment style={{ backgroundColor: "#f4f4f4" }}>
-                        <h5>Meddelande</h5>
+                        <h5>Meddelande:</h5>
                         {item.monMovieMessage}
                       </Segment>
                     ) : null}

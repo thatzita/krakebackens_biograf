@@ -1,4 +1,3 @@
-require("dotenv").config(); // inlogg till epost som skickar mail
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
@@ -52,25 +51,75 @@ router.post("/register", (req, res) => {
             .save()
             .then(user => {
               const output = `
-        <h1>Välkommen till Kråkebackens biograf!</h1>
-        <p>${
-          req.body.username
-        }, du har blivit godkänd av dom högre höjderna och är nu
-        medlem i Kråkebackens biograf!</p>
-        <ul>
-            <li>Ditt användarnamn är:<br>
-            <strong>${req.body.username}</strong></li>
-            <li>Använd följande epost för att logga: <br>
-            <strong>${req.body.email}</strong>
-            </li>
-            <li>Använd följande lösenord när du loggar in första gången: <br>
-            <strong>${passwordForUser}</strong> <br>
-            Observera att du kan ändra lösenord när du väl loggat in!
-            </li>
-        </ul>
-
-        Med vänlig hälsning,
-        Kråkan
+        
+  
+        <!DOCTYPE html>
+        <html lang="en" dir="ltr">
+        
+        <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+          <title></title>
+          <style></style>
+        </head>
+        
+        <body>
+          <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+            <tr>
+              <td align="center" valign="top">
+                <table style="background-color:rgb(71,8,119)" border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
+                  <tr>
+                    <td align="center" valign="top">
+                      <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
+                        <tr>
+                          <td style="padding-bottom: 5px" align="center" valign="top">
+                            <h2 style=" font-family: Arial,sans-serif; color:white">Välkommen till Kråkebackens biograf!</h2>
+                            <!-- <hr/> -->
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="background-color:white;" align="center" valign="top">
+                      <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody">
+                        <tr>
+                          <td style="padding:auto;" align="center" valign="top">
+        
+                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Du har blivit godkänd av dom högre makterna!</p>
+                              <ul style="list-style: none; font-family: Arial,sans-serif;  margin:0; line-height:27px;">
+                                <li>Ditt användarnamn är:<br>
+                                <strong>${req.body.username}</strong></li>
+                                <li>Använd följande epost för att logga: <br>
+                                <strong>${req.body.email}</strong>
+                                </li>
+                                <li>Använd följande lösenord när du loggar in första gången: <br>
+                                <strong>${passwordForUser}</strong> <br>
+                                Observera att du kan ändra lösenord när du väl loggat in under din profil!
+                                </li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:0" align="center" valign="top">
+                      <table style="background-color:#f4f4f4" border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
+                        <tr>
+                          <td align="center" valign="top">
+                            <p style="font-family: Arial,sans-serif; margin-top:1rem; font-size: 0.8rem;"> <em>Hälsningar Kråkan</em> </p>
+        
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
         `;
               let transporter = nodemailer.createTransport({
                 service: "Gmail",
@@ -286,19 +335,71 @@ router.post("/forgot", (req, res, next) => {
       function(token, user, done) {
         const url = "https://krakebackensbiograf.herokuapp.com/reset";
         const output = `
-      <h1>Glömt lösenord?</h1>
-      
-      <p>Usch då det var ju dumt att du glömt ditt lösenord.</p>
-      <p>Klicka på länken nedan för att skapa ett nytt lösenord:</p>
-      <a href="${url}/${token}">Återställ mitt lösenord</a>
-      <p>Med vänlig hälsning,
-      Kråkan</p>
-      `;
+        <!DOCTYPE html>
+        <html lang="en" dir="ltr">
+        
+        <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+          <title></title>
+          <style></style>
+        </head>
+        
+        <body>
+          <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+            <tr>
+              <td align="center" valign="top">
+                <table style="background-color:rgb(71,8,119)" border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
+                  <tr>
+                    <td align="center" valign="top">
+                      <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
+                        <tr>
+                          <td style="padding-bottom: 5px" align="center" valign="top">
+                            <h2 style=" font-family: Arial,sans-serif; color:white">Glömt lösenord?</h2>
+                            <!-- <hr/> -->
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="background-color:white;" align="center" valign="top">
+                      <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody">
+                        <tr>
+                          <td style="padding:auto;" align="center" valign="top">
+        
+                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Usch det var ju dumt att du glömt ditt lösenord. Klicka på länken nedan för att återställa det!</p>
+                              </p>
+                              <a style="font-family: Arial,sans-serif;  margin:0; line-height:27px;" href="${url}/${token}">Återställ mitt lösenord</a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:0" align="center" valign="top">
+                      <table style="background-color:#f4f4f4" border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
+                        <tr>
+                          <td align="center" valign="top">
+                            <p style="font-family: Arial,sans-serif; margin-top:1rem; font-size: 0.8rem;"> <em>Hälsningar Kråkan</em> </p>
+        
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+        `;
 
         let transporter = nodemailer.createTransport({
           service: "Gmail",
           host: "smtp.gmail.com",
           auth: {
+            type: "login",
             user: process.env.MAIL_ADDR,
             pass: process.env.MAIL_PW
           }
@@ -313,15 +414,11 @@ router.post("/forgot", (req, res, next) => {
         };
 
         // send mail with defined transport object
-        transporter
-          .sendMail(mailOptions, (error, info) => {
-            if (error) {
-              throw error;
-            }
-          })
-          .catch(err => {
-            throw err;
-          });
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            throw error;
+          }
+        });
       }
     ],
     function(err) {
@@ -383,11 +480,64 @@ router.post("/reset/:token", function(req, res) {
                 });
 
                 const output = `
-    <h1>Vi har återställt ditt lösenord</h1>
-    <p>Du kan logga in med dina nya uppgifter.</p>
-    <p>Med vänlig hälsning,<br>
-    Kråkan</p>
-    `;
+        <!DOCTYPE html>
+        <html lang="en" dir="ltr">
+        
+        <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+          <title></title>
+          <style></style>
+        </head>
+        
+        <body>
+          <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+            <tr>
+              <td align="center" valign="top">
+                <table style="background-color:rgb(71,8,119)" border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
+                  <tr>
+                    <td align="center" valign="top">
+                      <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
+                        <tr>
+                          <td style="padding-bottom: 5px" align="center" valign="top">
+                            <h2 style=" font-family: Arial,sans-serif; color:white">Vi har återställt ditt lösenord!</h2>
+                            <!-- <hr/> -->
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="background-color:white;" align="center" valign="top">
+                      <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody">
+                        <tr>
+                          <td style="padding:auto;" align="center" valign="top">
+        
+                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Ditt lösenord är nu återställt. Du kan logga in med dina nya uppgifter.</p>
+        
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:0" align="center" valign="top">
+                      <table style="background-color:#f4f4f4" border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
+                        <tr>
+                          <td align="center" valign="top">
+                            <p style="font-family: Arial,sans-serif; margin-top:1rem; font-size: 0.8rem;"> <em>Hälsningar Kråkan</em> </p>
+        
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+          `;
 
                 let transporter = nodemailer.createTransport({
                   service: "Gmail",
