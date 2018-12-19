@@ -71,6 +71,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
                 x.screeningDate = req.body.date;
                 x.screeningTime = req.body.time;
                 x._id = req.body.mov.imdb_id;
+                x.poster = req.body.mov.poster;
               });
             });
 
@@ -95,6 +96,7 @@ router.post("/uploadMoviePremiere", (req, res) => {
             }
 
             const newMonMovie = new MonMovie({
+              eventType: "movie",
               title: req.body.mov.title,
               description: req.body.mov.description,
               monMovieMessage: req.body.monMovieMessage,

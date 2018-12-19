@@ -7,6 +7,10 @@ const Schema = mongoose.Schema;
 // required: true
 
 const MonthlyMovieSchema = new Schema({
+  eventType: {
+    type: String,
+    required: true
+  },
   title: {
     type: String,
     required: true

@@ -4,13 +4,13 @@ import "../seating/seatingTwo.css";
 import { Button, Segment, Header, Image, Icon } from "semantic-ui-react";
 
 const sortExistingTickets = array => {
-  if (array.lenght > 1) {
+  if (array.length > 1) {
     let sortedTickest = array.sort((x, y) => {
       if (x.customer.status > y.customer.status) {
-        return -1;
+        return 1;
       }
       if (x.customer.status < y.customer.status) {
-        return 1;
+        return -1;
       }
       return 0;
     });
@@ -21,13 +21,14 @@ const sortExistingTickets = array => {
 };
 
 const findAllResponsibleTickets = (currentUser, monMovies = []) => {
-  let arrayOfTickets = [];
+  let arryMovieGroup = [];
   console.log("monMovies ", monMovies);
   let movieArray = monMovies || [];
   console.log("monMovieslist ", movieArray);
 
   if (movieArray.length > 0) {
     movieArray.map(monMovie => {
+      let arrayOfTickets = [];
       monMovie.seating.map(array => {
         array.map(seat => {
           if (currentUser.id === seat.responsible.id) {
@@ -35,11 +36,21 @@ const findAllResponsibleTickets = (currentUser, monMovies = []) => {
           }
         });
       });
+      if (arrayOfTickets.length > 0) {
+        let sortdArrayOfTickets = sortExistingTickets(arrayOfTickets);
+        arryMovieGroup.push(sortdArrayOfTickets);
+      }
     });
   }
 
-  console.log("tickets: ", arrayOfTickets);
-  return sortExistingTickets(arrayOfTickets);
+  // let arryMovieGroup = [];
+  // if(arrayOfTickets.length > 0){
+
+  // }
+
+  console.log("tickets: ", arryMovieGroup);
+  // return sortExistingTickets(arryMovieGroup);
+  return arryMovieGroup;
 };
 
 export default function ProfileTicketDisplay(props) {
@@ -48,112 +59,147 @@ export default function ProfileTicketDisplay(props) {
 
   return (
     <Segment.Group>
-      <Segment inverted>
-        {userTickets.map((item, index) =>
-          item.customer.status === 1 || item.customer.status === 2 ? (
-            <div key={index} style={{ display: "flex" }}>
-              <div
-                style={{
-                  width: "30%",
-                  minWidth: "280px",
-                  maxWidth: "400px",
-                  padding: "11px",
-                  background: "beige",
-                  marginBottom: " 2rem"
-                }}
-              >
-                <Header style={{ padding: "0", margin: "0" }} as="h5">
-                  <Image
-                    style={{ margin: "0 1rem 0 0" }}
-                    src="userDefault.png"
-                    circular
-                    // size="small"
-                  />
-                  <Header.Content>
-                    {item.customer.username}
-                    <Header.Subheader>
-                      Datum:{" "}
-                      {item.screeningDate ? item.screeningDate : "yyyy-mm-dd"}
-                    </Header.Subheader>
-                    <Header.Subheader>
-                      Tid: {item.screeningTime ? item.screeningTime : "00:00"}
-                    </Header.Subheader>
-                    <Header.Subheader>
-                      plats 2 rad 1{/* {seatNameConverter(item.seat)} */}
-                    </Header.Subheader>
-                  </Header.Content>
-                </Header>
-              </div>
-              <Button
-                onClick={() =>
-                  props.removeBooking(
-                    item,
-                    item.customer.id,
-                    item.responsible.id,
-                    item._id
-                  )
+      <Segment style={{ backgroundColor: "black" }} inverted>
+        {userTickets.map((mon, index) => (
+          <Segment inverted key={index}>
+            <Header inverted dividing as="h2">
+              <Image
+                rounded
+                src={
+                  mon[index].poster
+                    ? mon[index].poster
+                    : "poster_not_available.jpg"
                 }
-                style={{ margin: "auto auto auto 1rem" }}
-                icon
-              >
-                <Icon name="delete" />
-              </Button>
-            </div>
-          ) : (
-            <div key={index} style={{ display: "flex" }}>
-              <div
-                style={{
-                  width: "30%",
+              />{" "}
+              <Header.Content>
+                {mon[index].title ? mon[index].title : "Filmtitel"}
+                <Header.Subheader>
+                  Datum:{" "}
+                  {mon[index].screeningDate
+                    ? mon[index].screeningDate
+                    : "Filmtitel"}
+                </Header.Subheader>
+                <Header.Subheader>
+                  Tid:{" "}
+                  {mon[index].screeningTime
+                    ? mon[index].screeningTime
+                    : "Filmtitel"}
+                </Header.Subheader>
+              </Header.Content>
+            </Header>
+            {mon.map((item, index) =>
+              item.customer.status === 1 || item.customer.status === 2 ? (
+                <div key={index} style={{ display: "flex" }}>
+                  <div
+                    style={{
+                      width: "30%",
+                      minWidth: "280px",
+                      maxWidth: "400px",
+                      padding: "11px",
+                      background: "beige",
+                      marginBottom: " 2rem"
+                    }}
+                  >
+                    <Header style={{ padding: "0", margin: "0" }} as="h5">
+                      <Image
+                        style={{ margin: "0 1rem 0 0" }}
+                        src="userDefault.png"
+                        circular
+                        // size="small"
+                      />
+                      <Header.Content>
+                        {item.customer.username}
+                        <Header.Subheader>
+                          Datum:{" "}
+                          {item.screeningDate
+                            ? item.screeningDate
+                            : "yyyy-mm-dd"}
+                        </Header.Subheader>
+                        <Header.Subheader>
+                          Tid:{" "}
+                          {item.screeningTime ? item.screeningTime : "00:00"}
+                        </Header.Subheader>
+                        <Header.Subheader>
+                          plats 2 rad 1{/* {seatNameConverter(item.seat)} */}
+                        </Header.Subheader>
+                      </Header.Content>
+                    </Header>
+                  </div>
+                  <Button
+                    onClick={() =>
+                      props.removeBooking(
+                        item,
+                        item.customer.id,
+                        item.responsible.id,
+                        item._id
+                      )
+                    }
+                    style={{ margin: "auto auto auto 1rem" }}
+                    icon
+                  >
+                    <Icon name="delete" />
+                  </Button>
+                </div>
+              ) : (
+                <div key={index} style={{ display: "flex" }}>
+                  <div
+                    style={{
+                      width: "30%",
 
-                  minWidth: "280px",
-                  maxWidth: "400px",
-                  padding: "11px",
-                  background: "powderblue",
-                  marginBottom: " 2rem"
-                }}
-              >
-                <Header
-                  style={{ padding: "0", margin: "0", height: "100%" }}
-                  as="h5"
-                >
-                  <Image
-                    style={{ margin: "0 1rem 0 0" }}
-                    src="userDefault.png"
-                    circular
-                    // size="small"
-                  />
-                  <Header.Content>
-                    Gäst
-                    <Header.Subheader>
-                      Datum:{" "}
-                      {item.screeningDate ? item.screeningDate : "yyyy-mm-dd"}
-                    </Header.Subheader>
-                    <Header.Subheader>
-                      Tid: {item.screeningTime ? item.screeningTime : "00:00"}
-                    </Header.Subheader>
-                    <Header.Subheader>
-                      plats 2 rad 1{/* {seatNameConverter(item.seat)} */}
-                    </Header.Subheader>
-                  </Header.Content>
-                </Header>
-              </div>
-              <Button
-                onClick={() =>
-                  props.removeBooking(
-                    item,
-                    item.customer.id,
-                    item.responsible.id,
-                    item._id
-                  )
-                }
-                style={{ margin: "auto auto auto 1rem" }}
-                icon
-              >
-                <Icon name="delete" />
-              </Button>
-            </div>
-          )
-        )}
+                      minWidth: "280px",
+                      maxWidth: "400px",
+                      padding: "11px",
+                      background: "powderblue",
+                      marginBottom: " 2rem"
+                    }}
+                  >
+                    <Header
+                      style={{ padding: "0", margin: "0", height: "100%" }}
+                      as="h5"
+                    >
+                      <Image
+                        style={{ margin: "0 1rem 0 0" }}
+                        src="userDefault.png"
+                        circular
+                        // size="small"
+                      />
+                      <Header.Content>
+                        Gäst
+                        <Header.Subheader>
+                          Datum:{" "}
+                          {item.screeningDate
+                            ? item.screeningDate
+                            : "yyyy-mm-dd"}
+                        </Header.Subheader>
+                        <Header.Subheader>
+                          Tid:{" "}
+                          {item.screeningTime ? item.screeningTime : "00:00"}
+                        </Header.Subheader>
+                        <Header.Subheader>
+                          plats 2 rad 1{/* {seatNameConverter(item.seat)} */}
+                        </Header.Subheader>
+                      </Header.Content>
+                    </Header>
+                  </div>
+                  <Button
+                    onClick={() =>
+                      props.removeBooking(
+                        item,
+                        item.customer.id,
+                        item.responsible.id,
+                        item._id
+                      )
+                    }
+                    style={{ margin: "auto auto auto 1rem" }}
+                    icon
+                  >
+                    <Icon name="delete" />
+                  </Button>
+                </div>
+              )
+            )}
+          </Segment>
+        ))}
       </Segment>
     </Segment.Group>
   );
