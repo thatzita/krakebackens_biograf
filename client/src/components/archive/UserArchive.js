@@ -1,18 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
-// import Popup from "./Popup";
-import { Link } from "react-router-dom";
 
-import {
-  Button,
-  Input,
-  Icon,
-  Item,
-  Segment,
-  Confirm,
-  Label
-} from "semantic-ui-react";
+import { Button, Icon, Item, Segment, Label } from "semantic-ui-react";
 
 import { getUserArchive } from "../../actions/usersActions";
 import "../movies/movies.css";
@@ -54,8 +43,7 @@ class UserArchive extends Component {
   }
 
   render() {
-    const { userArchive } = this.state;
-    const { showMore, open } = this.state;
+    const { showMore, userArchive } = this.state;
     let showMoreContentButton;
     let userContent;
 
@@ -83,7 +71,6 @@ class UserArchive extends Component {
       });
 
       let archiveItem = filteredArchive.map((archive, index) => {
-        let count = 0;
         return (
           <Item key={archive._id}>
             <Item.Content>
@@ -121,15 +108,6 @@ class UserArchive extends Component {
 
     return (
       <React.Fragment>
-        {/* <div className="searchContainer">
-          <Input
-            className="movieSearch"
-            placeholder="Sök i arkivet..."
-            onChange={this.onChange}
-            value={this.state.search}
-            name="search"
-          />
-        </div> */}
         <br />
         {userContent}
         <div style={{ marginLeft: "-2rem" }} className="loadMoreBtnContainer">

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Icon } from "semantic-ui-react";
 
 export default class DrawGrid extends React.Component {
@@ -10,7 +10,6 @@ export default class DrawGrid extends React.Component {
       currentRow: 1
     };
   }
-  componentDidMount() {}
 
   hoverOn = (value, seat) => {
     this.setState({
@@ -37,9 +36,11 @@ export default class DrawGrid extends React.Component {
       );
       newArray.map(y => {
         seatsThatAreLeft.push(y);
+        return null;
       });
+      return null;
     });
-    //-------------------
+
     let reservedList = this.props.reservedList || [];
 
     return (

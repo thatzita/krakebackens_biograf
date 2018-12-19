@@ -1,21 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
-// import Popup from "./Popup";
-import { Link } from "react-router-dom";
 import Admin from "../admin/Admin";
 import MovieArchive from "./Archive";
 import UserArchive from "./UserArchive";
 
-import {
-  Button,
-  Input,
-  Icon,
-  Item,
-  Segment,
-  Confirm,
-  Label
-} from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 
 class ArchiveMain extends Component {
   constructor() {

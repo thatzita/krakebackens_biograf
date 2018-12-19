@@ -11,7 +11,6 @@ import {
   Icon,
   Form,
   Item,
-  Image,
   Divider,
   Button
 } from "semantic-ui-react";

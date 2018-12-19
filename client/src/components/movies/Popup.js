@@ -10,12 +10,9 @@ import {
 import {
   Card,
   Button,
-  Header,
-  Container,
   Divider,
   Image,
   Icon,
-  Segment,
   Confirm,
   Form,
   Checkbox

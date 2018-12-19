@@ -3,12 +3,10 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCurrentProfile } from "../../actions/profileActions";
 import { getAllMonMovies } from "../../actions/monMovieActions";
-import { setCurrentCloseUpMovieId } from "../../actions/webPageStateActions";
 import { Segment, Modal, Button } from "semantic-ui-react";
 import Footer from "../layout/Footer";
 import MonMovieDisplay from "./MonMovieDisplay";
 import MovieBackdropDisplay from "./MovieBackdropDisplay";
-import MovieCloseUp from "./MovieCloseUp";
 
 class Mainpage extends Component {
   state = { ticketBooked: false };
@@ -43,23 +41,11 @@ class Mainpage extends Component {
     }
   }
   render() {
-    const { user } = this.props.auth;
-
     const { ticketBooked } = this.state;
-
-    const { profile, loading } = this.props.profile;
 
     const movieList = this.props.monMovies.monMovies || [];
     let randomMovieObj =
       movieList[Math.floor(Math.random() * movieList.length)] || {};
-
-    let mainpageContent;
-
-    if (profile === null || loading) {
-      mainpageContent = <h2>Laddar innehåll...</h2>;
-    } else {
-      mainpageContent = <h2>Välkommen {user.username}</h2>;
-    }
 
     return (
       <React.Fragment>

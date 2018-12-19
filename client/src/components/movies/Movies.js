@@ -90,6 +90,8 @@ class Movies extends Component {
     let movieItem;
 
     if (movies !== undefined) {
+      // this.props.movies.map(movie => {});
+
       if (this.props.movies.movies.length > showMore) {
         showMoreContentButton = (
           <Button

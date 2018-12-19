@@ -40,7 +40,7 @@ class MonMovieList extends Component {
 
   handleCancel = () => this.setState({ open: false });
   render() {
-    const { movie, open } = this.state;
+    const { open } = this.state;
     let monList = this.props.monMovies.monMovies || [];
 
     return (

@@ -140,6 +140,7 @@ class Seating extends Component {
             username: "Gäst",
             status: 3
           };
+          return null;
         });
 
         this.setState({
@@ -160,6 +161,7 @@ class Seating extends Component {
         username: "Gäst",
         status: 3
       };
+      return null;
     });
     this.setState({
       memberList: newMemberList,
@@ -175,6 +177,7 @@ class Seating extends Component {
           username: "Gäst",
           status: 3
         };
+        return null;
       });
       this.setState({ reservedList: newList });
     } else {

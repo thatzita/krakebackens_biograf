@@ -7,7 +7,6 @@ import {
   Icon,
   Image,
   Button,
-  Menu,
   Label,
   Divider
 } from "semantic-ui-react";
@@ -41,7 +40,7 @@ export default function TicketDisplay(props) {
               size="medium"
               style={{ margin: "0.5rem 0.5rem 0.5rem 0" }}
             >
-              <img alt="user image" src="userDefault.png" />
+              <img alt="user" src="userDefault.png" />
               {x.username}
               <Icon
                 name="delete"

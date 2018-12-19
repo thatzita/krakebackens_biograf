@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
-import { Button, Form, Header, Message, Icon } from "semantic-ui-react";
+import { Button, Form, Message, Icon } from "semantic-ui-react";
 import Footer from "../layout/Footer";
 import { Link } from "react-router-dom";
 import "./auth.css";

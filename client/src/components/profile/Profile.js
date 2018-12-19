@@ -2,15 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { seatNameConverter } from "../common/seatingFunctions";
-import {
-  Button,
-  Divider,
-  Segment,
-  Card,
-  Image,
-  Icon,
-  Confirm
-} from "semantic-ui-react";
+import { Button, Segment, Card, Image, Icon, Confirm } from "semantic-ui-react";
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
 import { Link } from "react-router-dom";
 import Footer from "../layout/Footer";

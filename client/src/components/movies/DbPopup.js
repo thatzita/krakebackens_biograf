@@ -36,7 +36,7 @@ class DbPopup extends Component {
   }
 
   saveToDb() {
-    let { movieInfo, title, description, dvdOrBluRay } = this.state;
+    let { movieInfo, title, description } = this.state;
 
     let genreArray = movieInfo.genres.map(genre => {
       return genre.name;

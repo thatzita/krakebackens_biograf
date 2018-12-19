@@ -141,6 +141,7 @@ class Users extends Component {
               </Item.Group>
             </div>
           );
+          return null;
         } else {
           return (
             <Item key={user._id}>

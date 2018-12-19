@@ -68,11 +68,30 @@ class Apply extends Component {
   render() {
     const { username, email, checked, errors, success } = this.state;
 
-    const tos = <a href="#">Terms of Service</a>;
+    const tos = (
+      <button
+        style={{
+          backgroundColor: "transparent",
+          color: "white",
+          border: "transparent",
+          cursor: "pointer"
+        }}
+      >
+        Terms of Service
+      </button>
+    );
     const pp = (
-      <a href="#" style={{ marginLeft: "1rem" }}>
+      <button
+        style={{
+          marginLeft: "1rem",
+          backgroundColor: "transparent",
+          color: "white",
+          border: "transparent",
+          cursor: "pointer"
+        }}
+      >
         Privacy Policy
-      </a>
+      </button>
     );
     return (
       <div>

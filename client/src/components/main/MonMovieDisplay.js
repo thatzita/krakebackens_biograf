@@ -5,7 +5,6 @@ import {
   Button,
   Dimmer,
   Reveal,
-  Header,
   Image,
   Segment,
   Icon,

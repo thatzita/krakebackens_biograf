@@ -11,8 +11,6 @@ import {
 
 import {
   Button,
-  Dimmer,
-  Reveal,
   Header,
   Image,
   Segment,
@@ -52,8 +50,11 @@ class MovieCloseUp extends Component {
             if (x.responsible.id === nextProps.profile.profile.id) {
               howManySeatsAreBooked.push(x);
             }
+            return null;
           }
+          return null;
         });
+        return null;
       });
 
       this.setState({
@@ -88,7 +89,9 @@ class MovieCloseUp extends Component {
       let newArray = array.filter(x => x.booked === false);
       newArray.map(y => {
         seatsThatAreLeft.push(y);
+        return null;
       });
+      return null;
     });
 
     if (displayImage === "http://image.tmdb.org/t/p/originalnull") {
@@ -103,7 +106,6 @@ class MovieCloseUp extends Component {
               className="coverImage"
               style={{
                 backgroundImage: "url(" + displayImage + ")",
-                backgroundSize: "cover",
                 WebkitBackgroundSize: "cover",
                 MozBackgroundSize: "cover",
                 OBackgroundSize: "cover",
@@ -221,7 +223,12 @@ class MovieCloseUp extends Component {
                           </p>
                         </div>
                       ) : (
-                        <iframe width="900" height="600" src={movieTrailer} />
+                        <iframe
+                          title="movie trailer"
+                          width="900"
+                          height="600"
+                          src={movieTrailer}
+                        />
                       )}
                     </React.Fragment>
                   }
