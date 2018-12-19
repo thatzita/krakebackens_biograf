@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { seatNameConverter } from "../common/seatingFunctions";
+
 import {
   Button,
   Divider,
@@ -13,6 +13,8 @@ import {
 } from "semantic-ui-react";
 import ProfileHeader from "./ProfileHeader";
 import ProfileTicketDisplay from "./ProfileTicketDisplay";
+import ProfileStatistik from "./ProfileStatistik";
+
 import { getCurrentProfile } from "../../actions/profileActions";
 import {
   getAllMonMovies,
@@ -42,6 +44,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.props.getCurrentProfile();
     this.props.getAllMonMovies();
   }
@@ -221,18 +224,12 @@ class Profile extends Component {
     return (
       <div>
         <ProfileHeader profile={this.state.profile} />
+        <ProfileStatistik profile={this.state.profile} />
         <ProfileTicketDisplay
           removeBooking={this.removeBooking}
           profile={this.state.profile}
           monMovies={this.state.monMovies}
         />
-
-        {/* <h1 style={{ marginTop: "3rem", color: "white", textAlign: "center" }}>
-          Profilsida
-        </h1>
-
-        {loggedInProfile} */}
-
         <Footer />
       </div>
     );

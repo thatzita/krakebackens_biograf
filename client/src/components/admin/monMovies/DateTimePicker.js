@@ -6,7 +6,10 @@ export default function DateTimePicker(props) {
   return (
     <Segment
       className="timeAndDate"
-      style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}
+      style={{
+        boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)",
+        marginBottom: "2rem"
+      }}
     >
       <Header as="h2">
         <Icon name="calendar alternate outline" />

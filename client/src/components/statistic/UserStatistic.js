@@ -171,23 +171,54 @@ class UserStatistic extends Component {
 
       userContent = (
         <div className="statsFromUsers">
-          <Statistic.Group className="userGroup">
+          <Statistic.Group size="small" className="userGroup">
             <Statistic>
               <Statistic.Value>{seasonUserStats}</Statistic.Value>
               <Statistic.Label>Besök i år</Statistic.Label>
             </Statistic>
+            <span
+              style={{
+                borderRight: "1px solid grey",
+                height: "5rem",
+                opacity: "0.5"
+              }}
+            />
             <Statistic>
               <Statistic.Value>{guestUserSeason}</Statistic.Value>
               <Statistic.Label>gäster i år</Statistic.Label>
             </Statistic>
+            <span
+              style={{
+                borderRight: "1px solid grey",
+                height: "5rem",
+                opacity: "0.5"
+              }}
+            />
+
             <Statistic>
               <Statistic.Value>{totalUserStats}</Statistic.Value>
               <Statistic.Label>besökare totalt</Statistic.Label>
             </Statistic>
+            <span
+              style={{
+                borderRight: "1px solid grey",
+                height: "5rem",
+                opacity: "0.5"
+              }}
+            />
+
             <Statistic>
               <Statistic.Value>{guestUserTotal}</Statistic.Value>
               <Statistic.Label>gäster totalt</Statistic.Label>
             </Statistic>
+            <span
+              style={{
+                borderRight: "1px solid grey",
+                height: "5rem",
+                opacity: "0.5"
+              }}
+            />
+
             <Statistic>
               <Statistic.Value>{users.length}</Statistic.Value>
               <Statistic.Label>medlemmar </Statistic.Label>

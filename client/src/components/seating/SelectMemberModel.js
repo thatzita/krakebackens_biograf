@@ -53,6 +53,7 @@ class ModalExampleSize extends Component {
           style={{ color: "black" }}
           onClick={() => this.open()}
         >
+          <Icon name="star" />
           Lägg till extra medlem
         </Button>
 

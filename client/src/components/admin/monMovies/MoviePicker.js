@@ -12,7 +12,12 @@ import {
 export default function MoviePicker(props) {
   return (
     <div className="containerMonMoviesList">
-      <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
+      <Segment
+        style={{
+          boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)",
+          marginTop: "3rem"
+        }}
+      >
         <Header as="h2" dividing>
           <Icon name="film" />
           <Header.Content>Välj en film</Header.Content>
