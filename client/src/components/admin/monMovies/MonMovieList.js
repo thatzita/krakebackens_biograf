@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 
 import {
   getAllMonMovies,
-  deleteMonMovie
+  deleteMonMovie,
+  getAllMonEvents
 } from "../../../actions/monMovieActions";
 
 import Admin from "../../admin/Admin";
@@ -29,6 +30,11 @@ class MonMovieList extends Component {
   }
   componentDidMount() {
     this.props.getAllMonMovies();
+    this.props.getAllMonEvents();
+  }
+  componentDidUpdate() {
+    console.log(this.props);
+    console.log(this.state);
   }
   show = movie => {
     this.setState({ open: true, movie: movie });
@@ -42,6 +48,7 @@ class MonMovieList extends Component {
   render() {
     const { open } = this.state;
     let monList = this.props.monMovies.monMovies || [];
+    let monEventList = this.props.monMovies.monEvents || [];
 
     return (
       <div className="monMovies">
@@ -68,6 +75,15 @@ class MonMovieList extends Component {
               >
                 <Icon name="add" />
                 Skapa Film
+              </Button>
+              <Button
+                color="green"
+                position="right"
+                as={Link}
+                to="/createMonEvent"
+              >
+                <Icon name="add" />
+                Skapa Event
               </Button>
             </Header.Content>
           </Header>
@@ -165,6 +181,96 @@ class MonMovieList extends Component {
                 </Item>
               ))}
             </Item.Group>
+            <hr />
+            <Item.Group divided>
+              {monEventList.map(item => (
+                <Item key={item._id}>
+                  <Item.Image
+                    style={{
+                      paddingTop: "15px",
+                      height: "120px",
+                      background: "#470877"
+                    }}
+                    size="tiny"
+                    src={item.poster}
+                  />
+                  <Item.Content verticalAlign="middle">
+                    <Item.Header>{item.title}</Item.Header>
+                    <Item.Meta>
+                      <Icon name="clock outline" color="grey" />{" "}
+                      {item.screeningTime}
+                    </Item.Meta>
+                    <Item.Meta>
+                      <Icon name="calendar alternate outline" color="grey" />{" "}
+                      {item.screeningDate}
+                    </Item.Meta>
+                    <Item.Meta>
+                      <Icon name="users" color="grey" />{" "}
+                      {item.seating.length + " platser"}
+                    </Item.Meta>
+
+                    <Item.Description
+                      style={{ maxWidth: "70%", minWidth: "280px" }}
+                    >
+                      {item.description}
+                    </Item.Description>
+
+                    <Item.Header
+                      style={{ fontSize: "1rem", marginTop: "1rem" }}
+                    >
+                      Kråkan tycker:
+                    </Item.Header>
+                    <Item.Description
+                      style={{
+                        maxWidth: "50%",
+                        minWidth: "280px",
+                        marginTop: "0"
+                      }}
+                    >
+                      {item.crowRating}
+                    </Item.Description>
+                    {item.monEventMessage ? (
+                      <Segment style={{ backgroundColor: "#f4f4f4" }}>
+                        <h5>Meddelande:</h5>
+                        {item.monEventMessage}
+                      </Segment>
+                    ) : null}
+
+                    <Item.Extra>
+                      <Button
+                        color="violet"
+                        floated="right"
+                        // as={Link}
+                        // to={{
+                        //   pathname: "/updatemovie",
+                        //   state: { monMovie: item }
+                        // }}
+                      >
+                        <Icon name="edit" /> Ändra
+                      </Button>
+                      <Button
+                        // onClick={e => this.show(item)}
+                        basic
+                        floated="right"
+                      >
+                        <Icon name="delete" />
+                        Ta bort
+                      </Button>
+                      <Confirm
+                        open={open}
+                        className="confirmDeleteMovie"
+                        header="Du är på väg att ta bort en visning"
+                        content="Är du säker att du vill ta bort visningen?"
+                        cancelButton="Gå tillbaka"
+                        confirmButton="Ta bort"
+                        onCancel={this.handleCancel}
+                        onConfirm={this.handleConfirm}
+                      />
+                    </Item.Extra>
+                  </Item.Content>
+                </Item>
+              ))}
+            </Item.Group>
           </Segment>
         </div>
       </div>
@@ -173,10 +279,11 @@ class MonMovieList extends Component {
 }
 
 const mapStateToProps = state => ({
-  monMovies: state.monMovies
+  monMovies: state.monMovies,
+  monEvents: state.monEvents
 });
 
 export default connect(
   mapStateToProps,
-  { getAllMonMovies, deleteMonMovie }
+  { getAllMonMovies, deleteMonMovie, getAllMonEvents }
 )(MonMovieList);

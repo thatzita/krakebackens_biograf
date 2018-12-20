@@ -6,7 +6,11 @@ import {
   UPDATE_MONMOVIE,
   COMPLETE_BOOKING,
   GET_ARCHIVED_MOVIES,
-  END_BOOKING_ON_SUCCESS
+  END_BOOKING_ON_SUCCESS,
+  UPDATE_BOOKING,
+  POST_MON_EVENT,
+  GET_MON_EVENTS,
+  COMPLETE_BOOKING_EVENT
 } from "../actions/types";
 
 const initialState = {};
@@ -23,10 +27,20 @@ export default function(state = initialState, action) {
         ...state,
         monMovies: [...state.monMovies, action.payload]
       };
+    case POST_MON_EVENT:
+      return {
+        ...state,
+        monEvents: [...state.monEvents, action.payload]
+      };
     case GET_MONMOVIES:
       return {
         ...state,
         monMovies: action.payload
+      };
+    case GET_MON_EVENTS:
+      return {
+        ...state,
+        monEvents: action.payload
       };
     case UPDATE_MONMOVIE:
       // console.log("state before", state.monMovies);
@@ -54,12 +68,27 @@ export default function(state = initialState, action) {
         ...state,
         bookingResult: action.payload
       };
+    case COMPLETE_BOOKING_EVENT:
+      console.log(action.payload);
+      return {
+        ...state,
+        bookingResult: action.payload
+      };
     case END_BOOKING_ON_SUCCESS:
       return {
         ...state,
         bookingResult: action.payload
       };
+    case UPDATE_BOOKING:
+      let monMovieListAfterRemovedBooking = filterUpdate(
+        action.payload,
+        state.monMovies
+      );
 
+      return {
+        ...state,
+        monMovies: monMovieListAfterRemovedBooking
+      };
     default:
       return state;
   }

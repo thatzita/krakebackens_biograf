@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCurrentProfile } from "../../actions/profileActions";
-import { getAllMonMovies } from "../../actions/monMovieActions";
+import {
+  getAllMonMovies,
+  getAllMonEvents
+} from "../../actions/monMovieActions";
 import { Segment, Modal, Button } from "semantic-ui-react";
 import Footer from "../layout/Footer";
 import MonMovieDisplay from "./MonMovieDisplay";
@@ -22,6 +25,7 @@ class Mainpage extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
     this.props.getAllMonMovies();
+    this.props.getAllMonEvents();
     if (localStorage.adminPage) {
       this.props.history.push("/adminhome");
     }
@@ -42,7 +46,7 @@ class Mainpage extends Component {
   }
   render() {
     const { ticketBooked } = this.state;
-
+    const eventList = this.props.monMovies.monEvents || [];
     const movieList = this.props.monMovies.monMovies || [];
     let randomMovieObj =
       movieList[Math.floor(Math.random() * movieList.length)] || {};
@@ -70,6 +74,7 @@ class Mainpage extends Component {
           </Modal>
           <MovieBackdropDisplay monMovie={randomMovieObj} />
           <MonMovieDisplay monMovies={movieList} />
+          <MonMovieDisplay monMovies={eventList} />
         </Segment>
         <Footer />
       </React.Fragment>
@@ -95,6 +100,7 @@ export default connect(
   mapStateToProps,
   {
     getCurrentProfile,
-    getAllMonMovies
+    getAllMonMovies,
+    getAllMonEvents
   }
 )(Mainpage);

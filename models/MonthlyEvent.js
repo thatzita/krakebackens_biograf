@@ -1,12 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// const Movie = require('./Movie')
 
-// type: Schema.ObjectId,
-// ref: 'Movie',
-// required: true
-
-const MonthlyMovieSchema = new Schema({
+const MonthlyEventSchema = new Schema({
   eventType: {
     type: String,
     required: true
@@ -21,23 +16,12 @@ const MonthlyMovieSchema = new Schema({
   poster: {
     type: String
   },
-  runtime: {
-    type: Number
-  },
   description: {
     type: String
   },
-  monMovieMessage: {
+  monEventMessage: {
     type: String
   },
-  genres: [],
-  imdb_id: {
-    type: String
-  },
-  release: {
-    type: String
-  },
-  rating: String,
   screeningDate: {
     type: String,
     required: true
@@ -58,31 +42,16 @@ const MonthlyMovieSchema = new Schema({
     type: String,
     required: true
   },
-  reminderIsSent: {
-    type: Boolean,
-    required: true
-  },
   seating: {
     type: Array,
     required: true
   },
-  saloon: {
-    type: String,
-    required: true
-  },
+  //   saloon: {
+  //     type: String,
+  //     required: true
+  //   },
   fullyBooked: Boolean,
-  crowRating: String,
-  trailer: String
+  crowRating: String
 });
 
-let MonMovie = mongoose.model("monthlyMovies", MonthlyMovieSchema);
-
-let MonMovieArchive = mongoose.model(
-  "monthlyMoviesArchives",
-  MonthlyMovieSchema
-);
-
-module.exports = {
-  MonMovie: MonMovie,
-  MonMovieArchive: MonMovieArchive
-};
+module.exports = MonEvent = mongoose.model("monthlyevent", MonthlyEventSchema);

@@ -2,11 +2,15 @@ import {
   GET_MONMOVIES,
   GET_CLOSEUP_MONMOVIE,
   POST_MONMOVIE,
+  POST_MON_EVENT,
+  GET_MON_EVENTS,
   DELETE_MONMOVIE,
   UPDATE_MONMOVIE,
   COMPLETE_BOOKING,
   GET_ARCHIVED_MOVIES,
-  END_BOOKING_ON_SUCCESS
+  END_BOOKING_ON_SUCCESS,
+  UPDATE_BOOKING,
+  COMPLETE_BOOKING_EVENT
 } from "./types";
 
 import axios from "axios";
@@ -33,6 +37,20 @@ export const postMonmovie = data => dispatch => {
     .then(res => {
       dispatch({
         type: POST_MONMOVIE,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      throw err;
+    });
+};
+
+export const postMonEvent = data => dispatch => {
+  axios
+    .post("/api/monthlyMovies/uploadEventPremiere", data)
+    .then(res => {
+      dispatch({
+        type: POST_MON_EVENT,
         payload: res.data
       });
     })
@@ -71,23 +89,57 @@ export const getAllMonMovies = () => dispatch => {
     });
 };
 
-// GET SPECIFIC MOVIE
-export const getSpecificMonMovie = data => dispatch => {
+export const getAllMonEvents = () => dispatch => {
   axios
-    .get("/api/monthlyMovies/singlemovie/", {
-      params: {
-        id: data
-      }
-    })
+    .get("/api/monthlyMovies/getAllMonEvents")
     .then(res => {
       dispatch({
-        type: GET_CLOSEUP_MONMOVIE,
-        payload: res.data.movie
+        type: GET_MON_EVENTS,
+        payload: res.data.monEvent
       });
     })
     .catch(err => {
       throw err;
     });
+};
+
+// GET SPECIFIC MOVIE
+export const getSpecificMonMovie = (data, eventType) => dispatch => {
+  if (eventType === "event") {
+    console.log(eventType);
+    axios
+      .get("/api/monthlyMovies/singleevent/", {
+        params: {
+          id: data
+          // eventType: eventType
+        }
+      })
+      .then(res => {
+        dispatch({
+          type: GET_CLOSEUP_MONMOVIE,
+          payload: res.data.movie
+        });
+      })
+      .catch(err => {
+        throw err;
+      });
+  } else {
+    axios
+      .get("/api/monthlyMovies/singlemovie/", {
+        params: {
+          id: data
+        }
+      })
+      .then(res => {
+        dispatch({
+          type: GET_CLOSEUP_MONMOVIE,
+          payload: res.data.movie
+        });
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
 };
 
 // DELETE A MONMOVIE
@@ -110,6 +162,22 @@ export const deleteMonMovie = movie => dispatch => {
     });
 };
 
+export const removeAndCancelMovieBooking = removeObj => dispatch => {
+  axios
+    .post("/api/monthlyMovies/removeMovieBooking", removeObj)
+    .then(res => {
+      console.log("final result data: ", res.data);
+
+      dispatch({
+        type: UPDATE_BOOKING,
+        payload: res.data.monMovie
+      });
+    })
+    .catch(err => {
+      throw err;
+    });
+};
+
 // complete user booking
 export const completeAndSaveBooking = bookingObj => dispatch => {
   axios
@@ -118,6 +186,24 @@ export const completeAndSaveBooking = bookingObj => dispatch => {
       if (res) {
         dispatch({
           type: COMPLETE_BOOKING,
+          payload: res.data
+        });
+      } else {
+        console.log("Något gick fel under bokningen.");
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
+};
+
+export const completeAndSaveBookingEvent = bookingObj => dispatch => {
+  axios
+    .post("/api/monthlyMovies/completeAndSaveBookingEvent", bookingObj)
+    .then(res => {
+      if (res) {
+        dispatch({
+          type: COMPLETE_BOOKING_EVENT,
           payload: res.data
         });
       } else {

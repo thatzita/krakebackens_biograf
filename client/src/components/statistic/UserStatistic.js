@@ -69,6 +69,7 @@ class UserStatistic extends Component {
 
     for (let i = 0; i < users.length; i++) {
       if (users[i].email === "charliegh.christyana@moneyln.com") {
+        //Dummy mail, existerar inte
         guest = users[i];
       }
     }
@@ -81,6 +82,7 @@ class UserStatistic extends Component {
 
     for (let i = 0; i < users.length; i++) {
       if (users[i].email === "charliegh.christyana@moneyln.com") {
+        //Dummy mail, existerar inte
         guest = users[i];
       }
     }
@@ -93,9 +95,9 @@ class UserStatistic extends Component {
       return parseFloat(b.stats.season) - parseFloat(a.stats.season);
     });
 
-    //TODO: Byt mail på Guestkonto
     for (let i = 0; i < newList.length; i++) {
       if (newList[i].email === "charliegh.christyana@moneyln.com") {
+        //Dummy mail, existerar inte
         newList.splice(i, 1);
         break;
       }
@@ -110,9 +112,9 @@ class UserStatistic extends Component {
       return parseFloat(b.stats.total) - parseFloat(a.stats.total);
     });
 
-    //TODO: Byt mail på Guestkonto
     for (let i = 0; i < newList.length; i++) {
       if (newList[i].email === "charliegh.christyana@moneyln.com") {
+        //Dummy mail, existerar inte
         newList.splice(i, 1);
         break;
       }

@@ -44,14 +44,40 @@ export default class MonMovieDisplay extends Component {
               as={Link}
               to={{
                 pathname: "/movieselection",
-                state: { movieId: item._id }
+                state: { movieId: item._id, eventType: item.eventType }
               }}
               animated="small fade"
             >
-              <Reveal.Content visible style={{ border: "1px solid gray" }}>
-                <Image size="small" src={item.poster} />
+              <Reveal.Content
+                visible
+                style={
+                  item.poster === "krakebackens_logo.png"
+                    ? {
+                        border: "1px solid gray",
+                        height: "222px",
+                        paddingTop: "35px"
+                      }
+                    : { border: "1px solid gray", height: "222px" }
+                }
+              >
+                <Image
+                  size="small"
+                  style={{ backgroundColor: "black" }}
+                  src={item.poster}
+                />
               </Reveal.Content>
-              <Reveal.Content hidden style={{ border: "1px solid black" }}>
+              <Reveal.Content
+                hidden
+                style={
+                  item.poster === "krakebackens_logo.png"
+                    ? {
+                        border: "1px solid gray",
+                        height: "222px",
+                        paddingTop: "35px"
+                      }
+                    : { border: "1px solid gray", height: "222px" }
+                }
+              >
                 <Dimmer.Dimmable dimmed={true}>
                   <Image size="small" src={item.poster} />
                   <Dimmer active={true} onClickOutside={this.handleHide}>

@@ -35,11 +35,10 @@ class ModalExampleSize extends Component {
 
   render() {
     const { open } = this.state;
-    //FIXME: Ändra Gäst e-post till något annat som du har bättre kontroll över (en av dina egna mailadresser)
     for (let i = 0; i < this.props.selectableMemberList.length; i++) {
       if (
         this.props.selectableMemberList[i].email ===
-        "charliegh.christyana@moneyln.com"
+        "charliegh.christyana@moneyln.com" //Dummy mail, existerar inte
       ) {
         this.props.selectableMemberList.splice(i, 1);
         break;
