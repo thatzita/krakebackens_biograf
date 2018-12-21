@@ -18,7 +18,6 @@ import { seatNameConverter } from "../common/seatingFunctions.js";
 export default function TicketDisplay(props) {
   let selectedMembersList =
     props.memberList.filter(x => x.id !== props.profile.id) || [];
-  console.log(props.reservedList.length > 0);
 
   return (
     <React.Fragment>

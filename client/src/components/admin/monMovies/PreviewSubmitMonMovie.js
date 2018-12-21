@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Admin from "../../admin/Admin";
 
 export default function PreviewSubmitMonMovie(props) {
-  console.log(props.eventObject);
   return (
     <div className="prevSubMonMovie">
       <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>

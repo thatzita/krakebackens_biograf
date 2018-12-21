@@ -81,13 +81,6 @@ export default class ProfileTicketDisplay extends Component {
     });
 
   handleConfirm = () => {
-    console.log(this.state.item);
-    console.log(this.state.customerId);
-    console.log(this.state.responsibleId);
-    console.log(this.state.itemId);
-    console.log(this.props);
-    console.log(this.state);
-
     if (this.state.itemId) {
       if (
         this.state.item &&

@@ -31,9 +31,7 @@ class UpdateMonMovie extends Component {
 
   componentDidMount() {
     let { monMovie } = this.props.location.state;
-    console.log("movie", monMovie);
     if (monMovie && monMovie.eventType === "movie") {
-      console.log("LOGGED IN MOVIE");
       this.setState({
         monMovie: monMovie,
         title: monMovie.title,
@@ -42,7 +40,6 @@ class UpdateMonMovie extends Component {
         monMovieMessage: monMovie.monMovieMessage
       });
     } else if (monMovie && monMovie.eventType === "event") {
-      console.log("LOGGED IN EVENT");
       this.setState({
         monMovie: monMovie,
         title: monMovie.title,
@@ -65,7 +62,6 @@ class UpdateMonMovie extends Component {
 
       this.props.updateMonmovie(updatedMonMovie);
     } else {
-      console.log("event update");
       let updatedMonEvent = this.shallowObjectCopy(this.state.monMovie);
       updatedMonEvent.title = this.state.title;
       updatedMonEvent.description = this.state.description;

@@ -48,7 +48,6 @@ class ChangePassword extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
 
     if (nextProps.errors) {
       this.setState({
@@ -65,9 +64,7 @@ class ChangePassword extends Component {
       });
     }
     if (nextProps.profile.profile) {
-      console.log(nextProps.profile.profile);
       let nameSuccess;
-      console.log(nextProps.nameSuccess);
 
       if (nextProps.nameSuccess) {
         nameSuccess = nextProps.nameSuccess;
@@ -95,9 +92,7 @@ class ChangePassword extends Component {
         username: this.state.username,
         id: this.state.userId
       };
-      console.log(updateObj);
       this.props.changeUsername(updateObj);
-      // console.log(this.state.userId);
     }
   };
 
@@ -131,7 +126,6 @@ class ChangePassword extends Component {
     const { errors } = this.state;
     const { password, password2 } = this.state;
     const { success } = this.state;
-    console.log(this.state.nameSuccess);
 
     return (
       <React.Fragment>

@@ -65,15 +65,11 @@ export const postMonEvent = data => dispatch => {
 // UPDATE monMovie
 export const updateMonmovie = data => dispatch => {
   if (data.eventType === "movie") {
-    console.log(data.title);
-    console.log(data.seating);
     data.seating.forEach(array => {
       array.forEach(title => {
         title.title = data.title;
       });
     });
-
-    console.log(data);
     axios
       .post("/api/monthlyMovies/updateMonthlyMovie", data)
       .then(res => {
@@ -86,13 +82,9 @@ export const updateMonmovie = data => dispatch => {
         throw err;
       });
   } else {
-    console.log("event magic");
-    console.log(data.title);
-    console.log(data.seating);
     data.seating.forEach(seat => {
       seat.title = data.title;
     });
-    console.log(data);
     axios
       .post("/api/monthlyMovies/updateMonthlyEvent", data)
       .then(res => {
@@ -139,7 +131,6 @@ export const getAllMonEvents = () => dispatch => {
 // GET SPECIFIC MOVIE
 export const getSpecificMonMovie = (data, eventType) => dispatch => {
   if (eventType === "event") {
-    console.log(eventType);
     axios
       .get("/api/monthlyMovies/singleevent/", {
         params: {
@@ -195,7 +186,6 @@ export const deleteMonMovie = movie => dispatch => {
         throw err;
       });
   } else {
-    console.log("remove event");
     axios
       .delete("/api/monthlyMovies/deleteMonthlyEvent", { data: { objId } })
       .then(res => {
@@ -205,7 +195,7 @@ export const deleteMonMovie = movie => dispatch => {
             payload: movie
           });
         } else {
-          console.log("Något gick fel när film skulle tas bort.");
+          console.log("Något gick fel när event skulle tas bort.");
         }
       })
       .catch(err => {

@@ -92,19 +92,9 @@ class CreateMonEvent extends Component {
       seat: this.state.seat,
       crowRating: this.state.crowRating,
       monEventMessage: this.state.monEventMessage
-      // saloong: "event"
     };
     this.props.postMonEvent(monEventDb);
-    console.log("posta till db ", monEventDb);
   };
-
-  // onSearch = value => {
-  //   this.setState({ search: value });
-  // };
-
-  componentDidUpdate() {
-    console.log(this.state);
-  }
 
   handleTimeChange = (e, { name, value }) => this.setState({ [name]: value });
 

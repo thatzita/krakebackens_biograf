@@ -6,6 +6,7 @@ const async = require("async");
 const path = require("path");
 
 const { MonMovie } = require("./models/MonthlyMovie");
+const MonEvent = require("./models/MonthlyEvent");
 const User = require("./models/User.js");
 
 //API paths
@@ -131,6 +132,23 @@ new CronJob(
       user.stats.season = user.stats.season + count;
       user.stats.total = user.stats.total + count;
       user.save();
+    });
+  },
+  null,
+  true,
+  "Europe/Stockholm"
+);
+
+new CronJob(
+  // "0 9,12,15,18,21,0 * * *", // At minute 0 past hour 9, 12, 15, 18, 21, and 0.
+  "* * * * *", // Varje minut
+  async function() {
+    let todaysDate = new Date();
+    let findMonEvent = await MonEvent.find({});
+    await findMonEvent.forEach(event => {
+      if (todaysDate > new Date(event.utc_time)) {
+        event.remove();
+      }
     });
   },
   null,

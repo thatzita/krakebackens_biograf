@@ -88,7 +88,6 @@ export default function(state = initialState, action) {
         bookingResult: action.payload
       };
     case COMPLETE_BOOKING_EVENT:
-      console.log(action.payload);
       return {
         ...state,
         bookingResult: action.payload
@@ -129,18 +128,13 @@ const removeMonMovie = (deleteItem, stateArray) => {
 };
 
 const filterUpdate = (updatedItem, currentArray = []) => {
-  console.log();
   let updatedList = currentArray.map(x => {
     if (x._id === updatedItem._id) {
-      // console.log(x.title);
       x = updatedItem;
       return x;
     } else {
       return x;
     }
   });
-  // console.log("update ", updatedList);
   return updatedList;
 };
-
-//

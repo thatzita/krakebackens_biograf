@@ -17,7 +17,6 @@ const tempProfile = {
 };
 
 export default function ProfileHeader(props) {
-  console.log(props);
 
   return (
     <Segment.Group>

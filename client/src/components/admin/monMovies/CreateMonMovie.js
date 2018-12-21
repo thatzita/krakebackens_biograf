@@ -29,10 +29,6 @@ class CreateMonMovie extends Component {
     };
   }
 
-  componentDidUpdate() {
-    console.log(this.state);
-  }
-
   componentDidMount() {
     window.scrollTo(0, 0);
     this.props.getAllMovies();

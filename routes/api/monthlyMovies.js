@@ -257,7 +257,6 @@ router.get("/singleevent/", (req, res) => {
 
 // complete and save booking
 router.post("/completeAndSaveBookingEvent", (req, res) => {
-  // console.log("the movieID: ", req.body.responsible.email);
   MonEvent.findOne({ _id: req.body.movieId })
     .then(event => {
       if (event) {
@@ -414,11 +413,7 @@ router.get("/singlemovie/", (req, res) => {
 
 // remove booking
 router.post("/removeMovieBooking", (req, res) => {
-  console.log("obj", req.body.reservations.eventType); //
-  // console.log("arr", req.body.reservations[0].eventType); //undefined
-
   if (req.body.reservations.eventType === "movie") {
-    console.log("do movie things part one");
     MonMovie.findOne({ imdb_id: req.body.movieId })
       .then(monMovie => {
         if (monMovie) {
@@ -472,8 +467,6 @@ router.post("/removeMovieBooking", (req, res) => {
 
               return newRow;
             });
-
-            // console.log("single: ", req.body.reservations);
           }
           monMovie.seating = newSeating;
           let newMonMovie = monMovie;
@@ -494,14 +487,11 @@ router.post("/removeMovieBooking", (req, res) => {
       });
   } else {
     if (req.body.reservations[0].eventType === "event") {
-      console.log("do event things");
       MonEvent.findOne({ _id: req.body.movieId })
         .then(monEvent => {
           if (monEvent) {
-            console.log("event found");
             let newSeating;
             if (req.body.responsibleMember) {
-              console.log("responsible member found");
               let seatList = req.body.reservations;
 
               newSeating = monEvent.seating.map(x => {
@@ -509,7 +499,6 @@ router.post("/removeMovieBooking", (req, res) => {
                 let reservation = {};
                 for (let index = 0; index < seatList.length; index++) {
                   if (seatList[index].seat === x.seat) {
-                    console.log("seat match!");
                     found = true;
                     reservation = seatList[index];
                     break;
@@ -542,7 +531,6 @@ router.post("/removeMovieBooking", (req, res) => {
           throw err;
         });
     } else if (req.body.reservations[0].eventType === "movie") {
-      console.log("do movie things");
       MonMovie.findOne({ imdb_id: req.body.movieId })
         .then(monMovie => {
           if (monMovie) {

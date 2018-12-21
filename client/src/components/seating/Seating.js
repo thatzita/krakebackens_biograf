@@ -119,7 +119,6 @@ class Seating extends Component {
       seatResarvation: this.state.reservedList,
       responsible: this.state.profile
     };
-    console.log(bookingBody);
     this.props.completeAndSaveBooking(bookingBody);
   };
 
@@ -212,7 +211,6 @@ class Seating extends Component {
   };
 
   render() {
-    console.log(this.state.reservedList);
 
     let movie = this.state.bookingObj;
     let movieImage = movie.poster || "default.jpg";

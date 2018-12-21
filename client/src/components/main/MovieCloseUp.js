@@ -42,7 +42,6 @@ class MovieCloseUp extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.bookingResult) {
       if (nextProps.bookingResult.success) {
         this.props.history.push({
@@ -84,7 +83,6 @@ class MovieCloseUp extends Component {
       nextProps.movieCloseUp.eventType === "event"
     ) {
       let checkSeatBookings = nextProps.movieCloseUp.seating;
-      console.log(nextProps.movieCloseUp);
 
       let howManySeatsAreBooked = [];
 
@@ -104,7 +102,6 @@ class MovieCloseUp extends Component {
         existingBookings: howManySeatsAreBooked
       });
     }
-    console.log(this.state);
   }
 
   handleOpen = () => this.setState({ modalOpen: true });
@@ -121,7 +118,6 @@ class MovieCloseUp extends Component {
 
   confirmBooking = () => {
     let eventCloseUp = this.state.movieCloseUp;
-    console.log(eventCloseUp);
     let seating = this.state.movieCloseUp.seating;
 
     seating = seating.filter(seat => seat.booked !== true);
