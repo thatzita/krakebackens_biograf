@@ -46,10 +46,7 @@ const MonthlyEventSchema = new Schema({
     type: Array,
     required: true
   },
-  //   saloon: {
-  //     type: String,
-  //     required: true
-  //   },
+  event_id: { type: String },
   fullyBooked: Boolean,
   crowRating: String
 });

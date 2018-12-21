@@ -42,6 +42,8 @@ class ChangePassword extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
+
     this.props.getCurrentProfile();
   }
 
@@ -136,7 +138,7 @@ class ChangePassword extends Component {
         <Segment.Group padded="very">
           <Segment
             inverted
-            style={{ width: "70%", minWidth: "300px", margin: "auto" }}
+            style={{ width: "60%", minWidth: "500px", margin: "auto" }}
             padded="very"
           >
             <Header
@@ -186,7 +188,7 @@ class ChangePassword extends Component {
                     floated="right"
                     color="green"
                   >
-                    <Icon name="save" /> spara
+                    <Icon name="save" /> spara användarnamn
                   </Button>
                 </Form>
               </Segment>

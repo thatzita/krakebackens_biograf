@@ -39,8 +39,8 @@ h1.title {
   width: 50rem;
   height: auto;
   /* width: 100%; */
-  margin-top: 5rem;
-  margin-bottom: -2rem;
+  /* margin-top: 5rem; */
+  /* margin-bottom: -2rem; */
   padding-top: 2rem;
   padding-bottom: 2rem;
   /* position: relative; */
@@ -49,19 +49,7 @@ h1.title {
 }
 
 .containerMonMoviesCreateBackground {
-  /* position: relative; */
-  /* margin: 0 40rem;
-  width: 50rem; */
-  /* width: 100%; */
-  /* margin-top: 2rem;
-  margin-bottom: -2rem;
-  padding-top: 2rem;
-  padding-bottom: 3rem;
-  position: relative; */
-  background-color: #f8f8ff;
-  margin-top: -5rem;
-  height: auto;
-  margin-bottom: -25rem;
+  padding-bottom: 10rem;
 }
 
 .monMovies {

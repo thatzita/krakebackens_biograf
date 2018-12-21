@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+
 import { seatNameConverter } from "../common/seatingFunctions";
 
 // import { Button, Segment, Card, Image, Icon, Confirm } from "semantic-ui-react";
@@ -17,9 +18,12 @@ import {
 } from "semantic-ui-react";
 import ProfileHeader from "./ProfileHeader";
 import ProfileTicketDisplay from "./ProfileTicketDisplay";
+import ProfileStatistik from "./ProfileStatistik";
+
 import { getCurrentProfile } from "../../actions/profileActions";
 import {
   getAllMonMovies,
+  getAllMonEvents,
   removeAndCancelMovieBooking
 } from "../../actions/monMovieActions";
 
@@ -46,68 +50,106 @@ class Profile extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.props.getCurrentProfile();
     this.props.getAllMonMovies();
+    this.props.getAllMonEvents();
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     if (nextProps.profile.profile) {
       this.setState({
         profile: nextProps.profile.profile,
-        monMovies: nextProps.monMovies.monMovies
+        monMovies: nextProps.monMovies.monMovies,
+        monEvents: nextProps.monMovies.monEvents
       });
     }
   }
 
-  removeBooking = (seatingObj, customerId, resonsibleId, movieId) => {
+  removeBooking = (
+    seatingObj,
+    customerId,
+    resonsibleId,
+    movieId,
+    eventType
+  ) => {
     let monMovies = this.state.monMovies || [];
+    let monEvents = this.state.monEvents || [];
     let obj;
-    let specificMovie = monMovies.filter(mov => mov.imdb_id === movieId);
+    let specificMovie;
 
-    console.log(specificMovie);
+    // console.log(specificMovie);
+    if (eventType === "movie") {
+      specificMovie = monMovies.filter(mov => mov.imdb_id === movieId);
+      // if customer is the same as responsible send list and not one obj
+      if (customerId === resonsibleId) {
+        console.log("movie ", specificMovie[0]);
+        let allBookings = [];
+        specificMovie[0].seating.map(array => {
+          array.map(seat => {
+            if (seat.responsible.id === resonsibleId) {
+              let newMultipulSeatingObj = this.shallowObjectCopy(seat);
+              newMultipulSeatingObj.customer = "";
+              newMultipulSeatingObj.responsible = { id: "" };
+              newMultipulSeatingObj.booked = false;
+              allBookings.push(newMultipulSeatingObj);
+            }
+          });
+        });
 
-    // if customer is the same as responsible send list and not one obj
-    if (customerId === resonsibleId) {
-      console.log("movie ", specificMovie[0]);
-      let allBookings = [];
-      specificMovie[0].seating.map(array => {
-        array.map(seat => {
-          if (seat.responsible.id === resonsibleId) {
-            let newMultipulSeatingObj = this.shallowObjectCopy(seat);
+        obj = {
+          reservations: allBookings,
+          resonsibleId,
+          movieId,
+          responsibleMember: true
+        };
+
+        // console.log("all res ", obj);
+      } else {
+        // let singleBooking = [];
+        let newSeatingObj = this.shallowObjectCopy(seatingObj);
+        newSeatingObj.customer = "";
+        newSeatingObj.responsible = { id: "" };
+        newSeatingObj.booked = false;
+
+        obj = {
+          reservations: newSeatingObj,
+          resonsibleId,
+          movieId,
+          responsibleMember: false
+        };
+      }
+
+      console.log("obj ", obj);
+      this.props.removeAndCancelMovieBooking(obj);
+    } else if (eventType === "event") {
+      console.log("event");
+      specificMovie = monEvents.filter(mov => mov._id === movieId);
+      // if customer is the same as responsible send list and not one obj
+      if (customerId === resonsibleId) {
+        console.log("movie ", specificMovie[0]);
+        let allBookings = [];
+        specificMovie[0].seating.map(array => {
+          if (array.responsible.id === resonsibleId) {
+            let newMultipulSeatingObj = this.shallowObjectCopy(array);
             newMultipulSeatingObj.customer = "";
             newMultipulSeatingObj.responsible = { id: "" };
             newMultipulSeatingObj.booked = false;
             allBookings.push(newMultipulSeatingObj);
           }
         });
-      });
 
-      obj = {
-        reservations: allBookings,
-        resonsibleId,
-        movieId,
-        responsibleMember: true
-      };
-
-      // console.log("all res ", obj);
-    } else {
-      // let singleBooking = [];
-      let newSeatingObj = this.shallowObjectCopy(seatingObj);
-      newSeatingObj.customer = "";
-      newSeatingObj.responsible = { id: "" };
-      newSeatingObj.booked = false;
-
-      obj = {
-        reservations: newSeatingObj,
-        resonsibleId,
-        movieId,
-        responsibleMember: false
-      };
+        obj = {
+          reservations: allBookings,
+          resonsibleId,
+          movieId,
+          responsibleMember: true
+        };
+        console.log("obj to remove ", obj);
+        this.props.removeAndCancelMovieBooking(obj);
+      }
     }
-
-    console.log("obj ", obj);
-    this.props.removeAndCancelMovieBooking(obj);
-    // this.props.getAllMonMovies();
   };
 
   shallowObjectCopy = src => {
@@ -225,18 +267,13 @@ class Profile extends Component {
     return (
       <div>
         <ProfileHeader profile={this.state.profile} />
+        <ProfileStatistik profile={this.state.profile} />
         <ProfileTicketDisplay
           removeBooking={this.removeBooking}
           profile={this.state.profile}
           monMovies={this.state.monMovies}
+          monEvents={this.state.monEvents}
         />
-
-        {/* <h1 style={{ marginTop: "3rem", color: "white", textAlign: "center" }}>
-          Profilsida
-        </h1>
-
-        {loggedInProfile} */}
-
         <Footer />
       </div>
     );
@@ -257,5 +294,10 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, getAllMonMovies, removeAndCancelMovieBooking }
+  {
+    getCurrentProfile,
+    getAllMonMovies,
+    removeAndCancelMovieBooking,
+    getAllMonEvents
+  }
 )(Profile);

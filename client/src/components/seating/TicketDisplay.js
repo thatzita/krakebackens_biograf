@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import TheGuestTicket from "../common/TheGuestTicket";
+import TheMemberTicket from "../common/TheMemberTicket";
 
 import {
   Segment,
@@ -16,6 +18,7 @@ import { seatNameConverter } from "../common/seatingFunctions.js";
 export default function TicketDisplay(props) {
   let selectedMembersList =
     props.memberList.filter(x => x.id !== props.profile.id) || [];
+  console.log(props.reservedList.length > 0);
 
   return (
     <React.Fragment>
@@ -25,11 +28,13 @@ export default function TicketDisplay(props) {
           selectableMemberList={props.selectableMemberList}
         />
         <Segment
-          className="ticketContainer"
+          inverted
+          // className="ticketContainer"
           style={{
             backgroundColor: "rgb(73, 73, 73)",
             width: "100%",
             height: "auto",
+            paddingBottom: "0.5rem",
             minHeight: "500px"
           }}
         >
@@ -37,8 +42,8 @@ export default function TicketDisplay(props) {
             <Label
               key={index}
               image
-              size="medium"
-              style={{ margin: "0.5rem 0.5rem 0.5rem 0" }}
+              size="tiny"
+              style={{ margin: "0 0.5rem 0 0" }}
             >
               <img alt="user" src="userDefault.png" />
               {x.username}
@@ -48,166 +53,60 @@ export default function TicketDisplay(props) {
               />
             </Label>
           ))}
-          <Divider />
-          {props.existingBookings.map((item, index) =>
-            item.customer.id ? (
-              <React.Fragment key={item.seat}>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    opacity: "0.6"
-                  }}
-                  className="ticketWrapper existingBooking"
-                >
-                  <div
-                    style={{
-                      width: "70%",
-                      padding: "11px",
-                      background: "beige",
-                      marginBottom: " 2rem"
-                    }}
-                  >
-                    <Header style={{ padding: "0", margin: "0" }} as="h5">
-                      <Image
-                        style={{ margin: "0 1rem 0 0" }}
-                        src="userDefault.png"
-                        circular
-                        // size="small"
-                      />
-                      <Header.Content>
-                        {item.customer.username} - <em>Medlem</em>
-                        <Header.Subheader>Datum: {props.date}</Header.Subheader>
-                        <Header.Subheader>Tid: {props.time}</Header.Subheader>
-                        <Header.Subheader>
-                          {seatNameConverter(item.seat)}
-                        </Header.Subheader>
-                      </Header.Content>
-                    </Header>
-                  </div>
-                </div>
-              </React.Fragment>
-            ) : (
-              <React.Fragment key={item.seat}>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    opacity: "0.6"
-                  }}
-                  className="ticketWrapper existingBooking"
-                >
-                  <div
-                    style={{
-                      width: "70%",
-                      padding: "11px",
-                      background: "powderblue",
-                      marginBottom: " 2rem"
-                    }}
-                  >
-                    <Header style={{ padding: "0", margin: "0" }} as="h5">
-                      <Image
-                        style={{ margin: "0 1rem 0 0" }}
-                        src="userDefault.png"
-                        circular
-                        // size="small"
-                      />
-                      <Header.Content>
-                        Gäst
-                        <Header.Subheader>Datum: {props.date}</Header.Subheader>
-                        <Header.Subheader>Tid: {props.time}</Header.Subheader>
-                        <Header.Subheader>
-                          {seatNameConverter(item.seat)}
-                        </Header.Subheader>
-                      </Header.Content>
-                    </Header>
-                  </div>
-                </div>
-              </React.Fragment>
-            )
-          )}
+          <Divider style={{ marginTop: "0.5rem" }} />
 
-          {props.reservedList.map((item, index) =>
-            item.customer.id ? (
-              <React.Fragment key={item.seat}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "nowrap",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "100%"
+            }}
+          >
+            {props.existingBookings.map((item, index) =>
+              item.customer.id ? (
                 <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between"
-                  }}
-                  className="ticketWrapper"
+                  style={{ marginBottom: "1rem", opacity: "0.5" }}
+                  key={item.seat}
                 >
-                  <div
-                    style={{
-                      width: "70%",
-                      padding: "11px",
-                      background: "beige",
-                      marginBottom: " 2rem"
-                    }}
-                  >
-                    <Header style={{ padding: "0", margin: "0" }} as="h5">
-                      <Image
-                        style={{ margin: "0 1rem 0 0" }}
-                        src="userDefault.png"
-                        circular
-                        // size="small"
-                      />
-                      <Header.Content>
-                        {item.customer.username} - <em>Medlem</em>
-                        <Header.Subheader>Datum: {props.date}</Header.Subheader>
-                        <Header.Subheader>Tid: {props.time}</Header.Subheader>
-                        <Header.Subheader>
-                          {seatNameConverter(item.seat)}
-                        </Header.Subheader>
-                      </Header.Content>
-                    </Header>
-                  </div>
+                  <TheMemberTicket item={item} />
                 </div>
-              </React.Fragment>
-            ) : (
-              <React.Fragment key={item.seat}>
+              ) : (
                 <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between"
-                  }}
-                  className="ticketWrapper"
+                  style={{ marginBottom: "1rem", opacity: "0.5" }}
+                  key={item.seat}
                 >
-                  <div
-                    style={{
-                      width: "70%",
-                      padding: "11px",
-                      background: "powderblue",
-                      marginBottom: " 2rem"
-                    }}
-                  >
-                    <Header style={{ padding: "0", margin: "0" }} as="h5">
-                      <Image
-                        style={{ margin: "0 1rem 0 0" }}
-                        src="userDefault.png"
-                        circular
-                        // size="small"
-                      />
-                      <Header.Content>
-                        Gäst
-                        <Header.Subheader>Datum: {props.date}</Header.Subheader>
-                        <Header.Subheader>Tid: {props.time}</Header.Subheader>
-                        <Header.Subheader>
-                          {seatNameConverter(item.seat)}
-                        </Header.Subheader>
-                      </Header.Content>
-                    </Header>
-                  </div>
+                  <TheGuestTicket item={item} />
                 </div>
-              </React.Fragment>
-            )
-          )}
+              )
+            )}
+
+            {props.reservedList.map((item, index) =>
+              item.customer.id ? (
+                <div style={{ marginBottom: "1rem" }} key={item.seat}>
+                  <TheMemberTicket item={item} />
+                </div>
+              ) : (
+                <div style={{ marginBottom: "1rem" }} key={item.seat}>
+                  <TheGuestTicket item={item} />
+                </div>
+              )
+            )}
+          </div>
         </Segment>
+
         <Button
+          disabled={props.reservedList.length === 0}
+          floated="right"
+          color="violet"
+          onClick={() => props.completeBooking()}
+        >
+          Slutför bokning
+        </Button>
+        <Button
+          style={{ marginRight: "1rem" }}
+          floated="right"
           as={Link}
           to={{
             pathname: "/movieselection",
@@ -216,22 +115,8 @@ export default function TicketDisplay(props) {
           inverted
           basic
         >
-          Gå tillbaka{" "}
+          <Icon name="left chevron" /> Gå tillbaka{" "}
         </Button>
-
-        {props.reservedList.length > 0 ? (
-          <Button color="violet" onClick={() => props.completeBooking()}>
-            Slutför bokning
-          </Button>
-        ) : (
-          <Button
-            disabled
-            color="violet"
-            onClick={() => props.completeBooking()}
-          >
-            Slutför bokning
-          </Button>
-        )}
       </div>
     </React.Fragment>
   );

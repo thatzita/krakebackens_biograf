@@ -32,10 +32,7 @@ class MonMovieList extends Component {
     this.props.getAllMonMovies();
     this.props.getAllMonEvents();
   }
-  componentDidUpdate() {
-    console.log(this.props);
-    console.log(this.state);
-  }
+
   show = movie => {
     this.setState({ open: true, movie: movie });
   };
@@ -240,16 +237,16 @@ class MonMovieList extends Component {
                       <Button
                         color="violet"
                         floated="right"
-                        // as={Link}
-                        // to={{
-                        //   pathname: "/updatemovie",
-                        //   state: { monMovie: item }
-                        // }}
+                        as={Link}
+                        to={{
+                          pathname: "/updatemovie",
+                          state: { monMovie: item }
+                        }}
                       >
                         <Icon name="edit" /> Ändra
                       </Button>
                       <Button
-                        // onClick={e => this.show(item)}
+                        onClick={e => this.show(item)}
                         basic
                         floated="right"
                       >

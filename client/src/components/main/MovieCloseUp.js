@@ -121,7 +121,7 @@ class MovieCloseUp extends Component {
 
   confirmBooking = () => {
     let eventCloseUp = this.state.movieCloseUp;
-
+    console.log(eventCloseUp);
     let seating = this.state.movieCloseUp.seating;
 
     seating = seating.filter(seat => seat.booked !== true);
@@ -150,7 +150,8 @@ class MovieCloseUp extends Component {
           screeningDate: eventCloseUp.screeningDate,
           screeningTime: eventCloseUp.screeningTime,
           title: eventCloseUp.title,
-          vip: false
+          vip: false,
+          _id: eventCloseUp._id
         }
       ],
       responsible: this.props.profile

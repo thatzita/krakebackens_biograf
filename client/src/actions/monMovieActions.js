@@ -10,7 +10,10 @@ import {
   GET_ARCHIVED_MOVIES,
   END_BOOKING_ON_SUCCESS,
   UPDATE_BOOKING,
-  COMPLETE_BOOKING_EVENT
+  COMPLETE_BOOKING_EVENT,
+  UPDATE_BOOKING_EVENT,
+  DELETE_MON_EVENT,
+  UPDATE_MON_EVENT
 } from "./types";
 
 import axios from "axios";
@@ -61,17 +64,47 @@ export const postMonEvent = data => dispatch => {
 
 // UPDATE monMovie
 export const updateMonmovie = data => dispatch => {
-  axios
-    .post("/api/monthlyMovies/updateMonthlyMovie", data)
-    .then(res => {
-      dispatch({
-        type: UPDATE_MONMOVIE,
-        payload: res.data.monMovie
+  if (data.eventType === "movie") {
+    console.log(data.title);
+    console.log(data.seating);
+    data.seating.forEach(array => {
+      array.forEach(title => {
+        title.title = data.title;
       });
-    })
-    .catch(err => {
-      throw err;
     });
+
+    console.log(data);
+    axios
+      .post("/api/monthlyMovies/updateMonthlyMovie", data)
+      .then(res => {
+        dispatch({
+          type: UPDATE_MONMOVIE,
+          payload: res.data.monMovie
+        });
+      })
+      .catch(err => {
+        throw err;
+      });
+  } else {
+    console.log("event magic");
+    console.log(data.title);
+    console.log(data.seating);
+    data.seating.forEach(seat => {
+      seat.title = data.title;
+    });
+    console.log(data);
+    axios
+      .post("/api/monthlyMovies/updateMonthlyEvent", data)
+      .then(res => {
+        dispatch({
+          type: UPDATE_MON_EVENT,
+          payload: res.data.monEvent
+        });
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
 };
 
 // GET ALL MONMOVIES
@@ -145,33 +178,57 @@ export const getSpecificMonMovie = (data, eventType) => dispatch => {
 // DELETE A MONMOVIE
 export const deleteMonMovie = movie => dispatch => {
   let objId = movie._id;
-  axios
-    .delete("/api/monthlyMovies/deleteMonthlyMovie", { data: { objId } })
-    .then(res => {
-      if (res) {
-        dispatch({
-          type: DELETE_MONMOVIE,
-          payload: movie
-        });
-      } else {
-        console.log("Något gick fel när film skulle tas bort.");
-      }
-    })
-    .catch(err => {
-      throw err;
-    });
+  if (movie.eventType === "movie") {
+    axios
+      .delete("/api/monthlyMovies/deleteMonthlyMovie", { data: { objId } })
+      .then(res => {
+        if (res) {
+          dispatch({
+            type: DELETE_MONMOVIE,
+            payload: movie
+          });
+        } else {
+          console.log("Något gick fel när film skulle tas bort.");
+        }
+      })
+      .catch(err => {
+        throw err;
+      });
+  } else {
+    console.log("remove event");
+    axios
+      .delete("/api/monthlyMovies/deleteMonthlyEvent", { data: { objId } })
+      .then(res => {
+        if (res) {
+          dispatch({
+            type: DELETE_MON_EVENT,
+            payload: movie
+          });
+        } else {
+          console.log("Något gick fel när film skulle tas bort.");
+        }
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
 };
 
 export const removeAndCancelMovieBooking = removeObj => dispatch => {
   axios
     .post("/api/monthlyMovies/removeMovieBooking", removeObj)
     .then(res => {
-      console.log("final result data: ", res.data);
-
-      dispatch({
-        type: UPDATE_BOOKING,
-        payload: res.data.monMovie
-      });
+      if (res.data.monMovie) {
+        dispatch({
+          type: UPDATE_BOOKING,
+          payload: res.data.monMovie
+        });
+      } else if (res.data.monEvent) {
+        dispatch({
+          type: UPDATE_BOOKING_EVENT,
+          payload: res.data.monEvent
+        });
+      }
     })
     .catch(err => {
       throw err;

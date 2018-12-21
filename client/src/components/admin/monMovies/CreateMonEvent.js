@@ -216,9 +216,20 @@ class CreateMonEvent extends Component {
     );
 
     return (
-      <div className="containerMonMoviesCreateBackground">
-        <div className="containerMonMoviesCreate">
-          {this.state.previewPage ? previewSubmitPage : createPage}
+      <div
+        style={{
+          backgroundColor: " #f8f8ff",
+          width: "100%"
+          // minHeight: "100vh"
+          // marginTop: "-5rem"
+          // position: "relative",
+          // top: "0"
+        }}
+      >
+        <div className="containerMonMoviesCreateBackground">
+          <div className="containerMonMoviesCreate">
+            {this.state.previewPage ? previewSubmitPage : createPage}
+          </div>
         </div>
       </div>
     );

@@ -177,17 +177,19 @@ router.post("/uploadEventPremiere", (req, res) => {
           });
         }
 
-        // seatingForEvent = eventSeating.map(x => {
-        //   {
-        //     x.eventType = "event";
-        //     x.title = req.body.event.title;
-        //     x.screeningDate = req.body.date;
-        //     x.screeningTime = req.body.time;
-        //     x.poster = req.body.event.poster;
-        //   }
-        // });
-
         seatingForEvent = seatingForEvent.splice(0, seatLimit);
+
+        let rand = function() {
+          return Math.random()
+            .toString(36)
+            .substr(2); // remove `0.`
+        };
+
+        let token = function() {
+          return rand() + rand(); // to make it longer
+        };
+
+        let event_id = token();
 
         const newMonEvent = new MonEvent({
           eventType: "event",
@@ -199,7 +201,7 @@ router.post("/uploadEventPremiere", (req, res) => {
           // runtime: req.body.mov.runtime,
 
           crowRating: req.body.event.crowRating,
-
+          imdb_id: event_id,
           screeningDate: req.body.date,
           screeningTime: req.body.time,
           utc_time: req.body.utc_time,
@@ -262,8 +264,6 @@ router.post("/completeAndSaveBookingEvent", (req, res) => {
         let seatResarvation = req.body.seatResarvation;
         let allSeatsAreAvailable = true;
 
-        console.log(event);
-
         let newRow = event.seating.map(x => {
           let found = false;
           let reservation = {};
@@ -311,6 +311,33 @@ router.post("/completeAndSaveBookingEvent", (req, res) => {
         return res
           .status(404)
           .json({ title: "The movie you are trying to book do not exist" });
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
+});
+//@route    Get api/monthlyMovies/deleteMonthlyMovie
+//@desc     delete monthly movie
+//@access   private
+router.delete("/deleteMonthlyEvent", (req, res) => {
+  MonEvent.findOneAndDelete({ _id: req.body.objId }).then(() => {
+    res.json({ success: true });
+  });
+});
+
+router.post("/updateMonthlyEvent", (req, res) => {
+  let updateField = req.body;
+
+  MonEvent.findOneAndUpdate({ _id: req.body._id }, updateField, { new: true })
+    .then(monEvent => {
+      console.log(monEvent);
+      if (monEvent) {
+        res.json({ monEvent });
+      } else {
+        res.status(400).json({
+          title: "Eventet finns inte i databasen och kan inte updateras"
+        });
       }
     })
     .catch(err => {
@@ -387,79 +414,210 @@ router.get("/singlemovie/", (req, res) => {
 
 // remove booking
 router.post("/removeMovieBooking", (req, res) => {
-  MonMovie.findOne({ imdb_id: req.body.movieId })
-    .then(monMovie => {
-      if (monMovie) {
-        let newSeating;
-        if (req.body.responsibleMember) {
-          let seatList = req.body.reservations;
+  console.log("obj", req.body.reservations.eventType); //
+  // console.log("arr", req.body.reservations[0].eventType); //undefined
 
-          newSeating = monMovie.seating.map(array => {
-            let newRow = array.map(x => {
-              let found = false;
-              let reservation = {};
-              for (let index = 0; index < seatList.length; index++) {
-                if (seatList[index].seat === x.seat) {
-                  found = true;
-                  reservation = seatList[index];
-                  break;
+  if (req.body.reservations.eventType === "movie") {
+    console.log("do movie things part one");
+    MonMovie.findOne({ imdb_id: req.body.movieId })
+      .then(monMovie => {
+        if (monMovie) {
+          let newSeating;
+          if (req.body.responsibleMember) {
+            let seatList = req.body.reservations;
+
+            newSeating = monMovie.seating.map(array => {
+              let newRow = array.map(x => {
+                let found = false;
+                let reservation = {};
+                for (let index = 0; index < seatList.length; index++) {
+                  if (seatList[index].seat === x.seat) {
+                    found = true;
+                    reservation = seatList[index];
+                    break;
+                  }
                 }
-              }
 
-              if (found) {
-                return reservation;
-              } else {
-                return x;
-              }
+                if (found) {
+                  return reservation;
+                } else {
+                  return x;
+                }
+              });
+
+              return newRow;
+            });
+          } else {
+            let seatObj = req.body.reservations;
+            let singleObjList = [seatObj];
+
+            newSeating = monMovie.seating.map(array => {
+              let newRow = array.map(x => {
+                let found = false;
+                let reservation = {};
+                for (let index = 0; index < singleObjList.length; index++) {
+                  if (singleObjList[index].seat === x.seat) {
+                    found = true;
+                    reservation = singleObjList[index];
+                    break;
+                  }
+                }
+
+                if (found) {
+                  return reservation;
+                } else {
+                  return x;
+                }
+              });
+
+              return newRow;
             });
 
-            return newRow;
-          });
+            // console.log("single: ", req.body.reservations);
+          }
+          monMovie.seating = newSeating;
+          let newMonMovie = monMovie;
+          newMonMovie
+            .save()
+            .then(monMovie => {
+              res.json({ monMovie });
+            })
+            .catch(err => console.log(err));
         } else {
-          let seatObj = req.body.reservations;
-          let singleObjList = [seatObj];
-
-          newSeating = monMovie.seating.map(array => {
-            let newRow = array.map(x => {
-              let found = false;
-              let reservation = {};
-              for (let index = 0; index < singleObjList.length; index++) {
-                if (singleObjList[index].seat === x.seat) {
-                  found = true;
-                  reservation = singleObjList[index];
-                  break;
-                }
-              }
-
-              if (found) {
-                return reservation;
-              } else {
-                return x;
-              }
-            });
-
-            return newRow;
-          });
-
-          // console.log("single: ", req.body.reservations);
+          return res
+            .status(404)
+            .json({ title: "The movie you are trying to book do not exist" });
         }
-        monMovie.seating = newSeating;
-        let newMonMovie = monMovie;
-        newMonMovie
-          .save()
-          .then(monMovie => {
-            res.json({ monMovie });
-          })
-          .catch(err => console.log(err));
-      } else {
-        return res
-          .status(404)
-          .json({ title: "The movie you are trying to book do not exist" });
-      }
-    })
-    .catch(err => {
-      throw err;
-    });
+      })
+      .catch(err => {
+        throw err;
+      });
+  } else {
+    if (req.body.reservations[0].eventType === "event") {
+      console.log("do event things");
+      MonEvent.findOne({ _id: req.body.movieId })
+        .then(monEvent => {
+          if (monEvent) {
+            console.log("event found");
+            let newSeating;
+            if (req.body.responsibleMember) {
+              console.log("responsible member found");
+              let seatList = req.body.reservations;
+
+              newSeating = monEvent.seating.map(x => {
+                let found = false;
+                let reservation = {};
+                for (let index = 0; index < seatList.length; index++) {
+                  if (seatList[index].seat === x.seat) {
+                    console.log("seat match!");
+                    found = true;
+                    reservation = seatList[index];
+                    break;
+                  }
+                }
+
+                if (found) {
+                  return reservation;
+                } else {
+                  return x;
+                }
+              });
+            }
+
+            monEvent.seating = newSeating;
+            let newMonEvent = monEvent;
+            newMonEvent
+              .save()
+              .then(monEvent => {
+                res.json({ monEvent });
+              })
+              .catch(err => console.log(err));
+          } else {
+            return res
+              .status(404)
+              .json({ title: "The movie you are trying to book do not exist" });
+          }
+        })
+        .catch(err => {
+          throw err;
+        });
+    } else if (req.body.reservations[0].eventType === "movie") {
+      console.log("do movie things");
+      MonMovie.findOne({ imdb_id: req.body.movieId })
+        .then(monMovie => {
+          if (monMovie) {
+            let newSeating;
+            if (req.body.responsibleMember) {
+              let seatList = req.body.reservations;
+
+              newSeating = monMovie.seating.map(array => {
+                let newRow = array.map(x => {
+                  let found = false;
+                  let reservation = {};
+                  for (let index = 0; index < seatList.length; index++) {
+                    if (seatList[index].seat === x.seat) {
+                      found = true;
+                      reservation = seatList[index];
+                      break;
+                    }
+                  }
+
+                  if (found) {
+                    return reservation;
+                  } else {
+                    return x;
+                  }
+                });
+
+                return newRow;
+              });
+            } else {
+              let seatObj = req.body.reservations;
+              let singleObjList = [seatObj];
+
+              newSeating = monMovie.seating.map(array => {
+                let newRow = array.map(x => {
+                  let found = false;
+                  let reservation = {};
+                  for (let index = 0; index < singleObjList.length; index++) {
+                    if (singleObjList[index].seat === x.seat) {
+                      found = true;
+                      reservation = singleObjList[index];
+                      break;
+                    }
+                  }
+
+                  if (found) {
+                    return reservation;
+                  } else {
+                    return x;
+                  }
+                });
+
+                return newRow;
+              });
+
+              // console.log("single: ", req.body.reservations);
+            }
+            monMovie.seating = newSeating;
+            let newMonMovie = monMovie;
+            newMonMovie
+              .save()
+              .then(monMovie => {
+                res.json({ monMovie });
+              })
+              .catch(err => console.log(err));
+          } else {
+            return res
+              .status(404)
+              .json({ title: "The movie you are trying to book do not exist" });
+          }
+        })
+        .catch(err => {
+          throw err;
+        });
+    }
+  }
 });
 
 // complete and save booking

@@ -31,8 +31,9 @@ class UpdateMonMovie extends Component {
 
   componentDidMount() {
     let { monMovie } = this.props.location.state;
-
-    if (monMovie) {
+    console.log("movie", monMovie);
+    if (monMovie && monMovie.eventType === "movie") {
+      console.log("LOGGED IN MOVIE");
       this.setState({
         monMovie: monMovie,
         title: monMovie.title,
@@ -40,19 +41,39 @@ class UpdateMonMovie extends Component {
         crowRating: monMovie.crowRating,
         monMovieMessage: monMovie.monMovieMessage
       });
+    } else if (monMovie && monMovie.eventType === "event") {
+      console.log("LOGGED IN EVENT");
+      this.setState({
+        monMovie: monMovie,
+        title: monMovie.title,
+        description: monMovie.description,
+        crowRating: monMovie.crowRating,
+        monMovieMessage: monMovie.monEventMessage
+      });
     }
   }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   onSaveAndUpdate = () => {
-    let updatedMonMovie = this.shallowObjectCopy(this.state.monMovie);
-    updatedMonMovie.title = this.state.title;
-    updatedMonMovie.description = this.state.description;
-    updatedMonMovie.crowRating = this.state.crowRating;
-    updatedMonMovie.monMovieMessage = this.state.monMovieMessage;
+    if (this.state.monMovie.eventType === "movie") {
+      let updatedMonMovie = this.shallowObjectCopy(this.state.monMovie);
+      updatedMonMovie.title = this.state.title;
+      updatedMonMovie.description = this.state.description;
+      updatedMonMovie.crowRating = this.state.crowRating;
+      updatedMonMovie.monMovieMessage = this.state.monMovieMessage;
 
-    this.props.updateMonmovie(updatedMonMovie);
+      this.props.updateMonmovie(updatedMonMovie);
+    } else {
+      console.log("event update");
+      let updatedMonEvent = this.shallowObjectCopy(this.state.monMovie);
+      updatedMonEvent.title = this.state.title;
+      updatedMonEvent.description = this.state.description;
+      updatedMonEvent.crowRating = this.state.crowRating;
+      updatedMonEvent.monEventMessage = this.state.monMovieMessage;
+
+      this.props.updateMonmovie(updatedMonEvent);
+    }
   };
 
   shallowObjectCopy = src => {
@@ -83,20 +104,39 @@ class UpdateMonMovie extends Component {
           >
             <Header as="h2" dividing>
               <Icon name="edit" />
-              <Header.Content>Ändra och Uppdatera film</Header.Content>
+              {this.state.monMovie.eventType === "movie" ? (
+                <Header.Content>Ändra och uppdatera film</Header.Content>
+              ) : (
+                <Header.Content>Ändra och uppdatera event</Header.Content>
+              )}
             </Header>
 
             <Item.Group>
               <Item>
-                <Item.Image
-                  size="tiny"
-                  // style={{width}}
-                  src={
-                    this.state.monMovie.poster
-                      ? this.state.monMovie.poster
-                      : "https://react.semantic-ui.com/images/wireframe/image.png"
-                  }
-                />
+                {this.state.monMovie.poster === "krakebackens_logo.png" ? (
+                  <Item.Image
+                    size="tiny"
+                    style={{
+                      paddingTop: "15px",
+                      height: "120px",
+                      background: "#470877"
+                    }}
+                    src={
+                      this.state.monMovie.poster
+                        ? this.state.monMovie.poster
+                        : "https://react.semantic-ui.com/images/wireframe/image.png"
+                    }
+                  />
+                ) : (
+                  <Item.Image
+                    size="tiny"
+                    src={
+                      this.state.monMovie.poster
+                        ? this.state.monMovie.poster
+                        : "https://react.semantic-ui.com/images/wireframe/image.png"
+                    }
+                  />
+                )}
 
                 <Item.Content>
                   <Item.Header>
@@ -122,10 +162,10 @@ class UpdateMonMovie extends Component {
                   </Item.Meta>
                   <Item.Meta>
                     <span className="cinema">
-                      <Icon name="users" /> Salong{" "}
+                      <Icon name="users" />
                       {this.state.monMovie.saloon
-                        ? this.state.monMovie.saloon
-                        : "1"}
+                        ? "Salong " + this.state.monMovie.saloon
+                        : ` Event har ingen specifik salong`}
                     </span>
                   </Item.Meta>
                 </Item.Content>

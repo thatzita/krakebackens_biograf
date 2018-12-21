@@ -10,7 +10,10 @@ import {
   UPDATE_BOOKING,
   POST_MON_EVENT,
   GET_MON_EVENTS,
-  COMPLETE_BOOKING_EVENT
+  COMPLETE_BOOKING_EVENT,
+  UPDATE_BOOKING_EVENT,
+  DELETE_MON_EVENT,
+  UPDATE_MON_EVENT
 } from "../actions/types";
 
 const initialState = {};
@@ -52,11 +55,27 @@ export default function(state = initialState, action) {
         ...state,
         monMovies: updatedMonMovieList
       };
+    case UPDATE_MON_EVENT:
+      // console.log("state before", state.monMovies);
+      let updatedMonEventList = filterUpdate(action.payload, state.monEvents);
+      // console.log("state ", state.monMovies);
+      // console.log("reducer new ", updatedMonMovieList);
+
+      return {
+        ...state,
+        monEvents: updatedMonEventList
+      };
     case DELETE_MONMOVIE:
       let newMonMovieState = removeMonMovie(action.payload, state.monMovies);
       return {
         ...state,
         monMovies: newMonMovieState
+      };
+    case DELETE_MON_EVENT:
+      let newMonEventState = removeMonMovie(action.payload, state.monEvents);
+      return {
+        ...state,
+        monEvents: newMonEventState
       };
     case GET_CLOSEUP_MONMOVIE:
       return {
@@ -89,6 +108,16 @@ export default function(state = initialState, action) {
         ...state,
         monMovies: monMovieListAfterRemovedBooking
       };
+    case UPDATE_BOOKING_EVENT:
+      let monEventListAfterRemovedBooking = filterUpdate(
+        action.payload,
+        state.monEvents
+      );
+
+      return {
+        ...state,
+        monEvents: monEventListAfterRemovedBooking
+      };
     default:
       return state;
   }
@@ -100,6 +129,7 @@ const removeMonMovie = (deleteItem, stateArray) => {
 };
 
 const filterUpdate = (updatedItem, currentArray = []) => {
+  console.log();
   let updatedList = currentArray.map(x => {
     if (x._id === updatedItem._id) {
       // console.log(x.title);
@@ -112,3 +142,5 @@ const filterUpdate = (updatedItem, currentArray = []) => {
   // console.log("update ", updatedList);
   return updatedList;
 };
+
+//
