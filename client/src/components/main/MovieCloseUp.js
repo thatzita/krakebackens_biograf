@@ -405,7 +405,10 @@ class MovieCloseUp extends Component {
                       ) : (
                         <Button
                           color="violet"
-                          disabled={this.state.amountOfSeatBookings === 1}
+                          disabled={
+                            this.state.amountOfSeatBookings === 1 ||
+                            seatsThatAreLeft.length === 0
+                          }
                           onClick={this.confirmBooking}
                         >
                           Boka

@@ -13,7 +13,6 @@ import {
   Divider
 } from "semantic-ui-react";
 import SelectMemberModel from "./SelectMemberModel";
-import { seatNameConverter } from "../common/seatingFunctions.js";
 
 export default function TicketDisplay(props) {
   let selectedMembersList =

@@ -13,7 +13,6 @@ const guestTicketContent = {
   padding: "1rem",
   backgroundColor: "#dcfeff",
   height: "100px",
-  // minWidth: "220px",
   width: "100%"
 };
 
@@ -22,7 +21,6 @@ export default function TheGuestTicket(props) {
     <div style={ticketContainer}>
       <div
         style={{
-          // backgroundColor: "pink",
           width: "40px",
           height: "100px",
           backgroundImage: "url(guestTicket_left.png)",

@@ -2,20 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { seatNameConverter } from "../common/seatingFunctions";
-
-// import { Button, Segment, Card, Image, Icon, Confirm } from "semantic-ui-react";
-// import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
-
-import {
-  Button,
-  Divider,
-  Segment,
-  Card,
-  Image,
-  Icon,
-  Confirm
-} from "semantic-ui-react";
 import ProfileHeader from "./ProfileHeader";
 import ProfileTicketDisplay from "./ProfileTicketDisplay";
 import ProfileStatistik from "./ProfileStatistik";
@@ -101,7 +87,6 @@ class Profile extends Component {
           movieId,
           responsibleMember: true
         };
-
       } else {
         let newSeatingObj = this.shallowObjectCopy(seatingObj);
         newSeatingObj.customer = "";
@@ -148,9 +133,6 @@ class Profile extends Component {
   };
 
   render() {
-
-    
-
     return (
       <div>
         <ProfileHeader profile={this.state.profile} />

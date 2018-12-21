@@ -13,7 +13,8 @@ import {
   COMPLETE_BOOKING_EVENT,
   UPDATE_BOOKING_EVENT,
   DELETE_MON_EVENT,
-  UPDATE_MON_EVENT
+  UPDATE_MON_EVENT,
+  GET_ARCHIVED_EVENTS
 } from "../actions/types";
 
 const initialState = {};
@@ -24,6 +25,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         movies: action.payload
+      };
+    case GET_ARCHIVED_EVENTS:
+      return {
+        ...state,
+        monEvents: action.payload
       };
     case POST_MONMOVIE:
       return {
@@ -46,21 +52,13 @@ export default function(state = initialState, action) {
         monEvents: action.payload
       };
     case UPDATE_MONMOVIE:
-      // console.log("state before", state.monMovies);
       let updatedMonMovieList = filterUpdate(action.payload, state.monMovies);
-      // console.log("state ", state.monMovies);
-      // console.log("reducer new ", updatedMonMovieList);
-
       return {
         ...state,
         monMovies: updatedMonMovieList
       };
     case UPDATE_MON_EVENT:
-      // console.log("state before", state.monMovies);
       let updatedMonEventList = filterUpdate(action.payload, state.monEvents);
-      // console.log("state ", state.monMovies);
-      // console.log("reducer new ", updatedMonMovieList);
-
       return {
         ...state,
         monEvents: updatedMonEventList

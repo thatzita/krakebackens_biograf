@@ -180,8 +180,11 @@ class UpdateMonMovie extends Component {
                 size="big"
                 name="description"
                 style={{ height: "10rem" }}
-                label="Filmbeskrivning"
-                onChange={this.handleChange}
+                label={
+                  this.state.monMovie.saloon
+                    ? "Filmbeskrivning"
+                    : "Eventbeskrivning"
+                }
                 value={this.state.description || ""}
                 placeholder="Beskrivning"
               />

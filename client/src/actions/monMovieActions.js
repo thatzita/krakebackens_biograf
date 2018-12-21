@@ -13,7 +13,8 @@ import {
   COMPLETE_BOOKING_EVENT,
   UPDATE_BOOKING_EVENT,
   DELETE_MON_EVENT,
-  UPDATE_MON_EVENT
+  UPDATE_MON_EVENT,
+  GET_ARCHIVED_EVENTS
 } from "./types";
 
 import axios from "axios";
@@ -25,6 +26,21 @@ export const getAllMoviesArchive = () => dispatch => {
     .then(res => {
       dispatch({
         type: GET_ARCHIVED_MOVIES,
+        payload: res.data.archive
+      });
+    })
+    .catch(err => {
+      throw err;
+    });
+};
+
+//GET ALL ARCHIVED EVENTS
+export const getEventArchive = () => dispatch => {
+  axios
+    .get("/api/monthlyMovies/eventarchive")
+    .then(res => {
+      dispatch({
+        type: GET_ARCHIVED_EVENTS,
         payload: res.data.archive
       });
     })

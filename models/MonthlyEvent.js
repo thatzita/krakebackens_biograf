@@ -52,3 +52,13 @@ const MonthlyEventSchema = new Schema({
 });
 
 module.exports = MonEvent = mongoose.model("monthlyevent", MonthlyEventSchema);
+
+let MonEventArchive = mongoose.model(
+  "monthlyEventsArchives",
+  MonthlyEventSchema
+);
+
+module.exports = {
+  MonEvent: MonEvent,
+  MonEventArchive: MonEventArchive
+};

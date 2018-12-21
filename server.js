@@ -6,7 +6,7 @@ const async = require("async");
 const path = require("path");
 
 const { MonMovie } = require("./models/MonthlyMovie");
-const MonEvent = require("./models/MonthlyEvent");
+const { MonEvent } = require("./models/MonthlyEvent");
 const User = require("./models/User.js");
 
 //API paths
@@ -144,11 +144,42 @@ new CronJob(
   "* * * * *", // Varje minut
   async function() {
     let todaysDate = new Date();
+    let seatsTaken = [];
     let findMonEvent = await MonEvent.find({});
+
     await findMonEvent.forEach(event => {
       if (todaysDate > new Date(event.utc_time)) {
+        let swap = new (mongoose.model("monthlyEventsArchives"))(event);
+        swap._id = mongoose.Types.ObjectId();
+        swap.isNew = true;
+
+        eventSeats = event;
+
+        eventSeats.seating.map(user => {
+          if (user.customer.id) {
+            seatsTaken.push(user.customer.email);
+          }
+        });
         event.remove();
+        swap.save();
+
+        return seatsTaken;
       }
+    });
+
+    let updateUser = await User.find({ email: { $in: seatsTaken } });
+
+    await updateUser.map(user => {
+      let count = 0;
+      for (let i = 0; i < seatsTaken.length; i++) {
+        if (user.email === seatsTaken[i]) {
+          count++;
+        }
+      }
+
+      user.stats.season = user.stats.season + count;
+      user.stats.total = user.stats.total + count;
+      user.save();
     });
   },
   null,

@@ -4,7 +4,7 @@ const saloonCollection = require("../../seatingStructure/saloonCollection");
 const nodemailer = require("nodemailer");
 
 const { MonMovie, MonMovieArchive } = require("../../models/MonthlyMovie");
-const MonEvent = require("../../models/MonthlyEvent");
+const { MonEvent, MonEventArchive } = require("../../models/MonthlyEvent");
 const Movie = require("../../models/Movie");
 const User = require("../../models/User");
 
@@ -147,18 +147,8 @@ router.post("/uploadEventPremiere", (req, res) => {
       } else {
         const seatLimit = Number(req.body.seat);
 
-        let eventSeating = saloonCollection.event;
         let seatingForEvent = [];
 
-        // for (i = 0; i < seatLimit; i++) {
-        //   seatingForEvent.push({
-        //     eventType: "event",
-        //     title: req.body.event.title,
-        //     screeningDate: req.body.date,
-        //     screeningTime: req.body.time,
-        //     poster: req.body.event.poster
-        //   });
-        // }
         for (i = 0; i < seatLimit; i++) {
           seatingForEvent.push({
             eventType: "event",
@@ -198,8 +188,6 @@ router.post("/uploadEventPremiere", (req, res) => {
           monEventMessage: req.body.monEventMessage,
           background: req.body.event.background,
           poster: req.body.event.poster,
-          // runtime: req.body.mov.runtime,
-
           crowRating: req.body.event.crowRating,
           imdb_id: event_id,
           screeningDate: req.body.date,
@@ -290,7 +278,6 @@ router.post("/completeAndSaveBookingEvent", (req, res) => {
           // the booking was successful, save and return the updated event
           event.seating = newRow;
           let newEvent = event;
-          let seatCount = 0;
 
           newEvent
             .save()
@@ -298,6 +285,90 @@ router.post("/completeAndSaveBookingEvent", (req, res) => {
               res.json({ event, success: true, msg: "Tack för din bokning" })
             )
             .catch(err => console.log(err));
+
+          let output = `
+            <!DOCTYPE html>
+            <html lang="en" dir="ltr">
+            
+            <head>
+              <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+              <title></title>
+              <style></style>
+            </head>
+            
+            <body>
+              <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+                <tr>
+                  <td align="center" valign="top">
+                    <table style="background-color:rgb(71,8,119)" border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
+                      <tr>
+                        <td align="center" valign="top">
+                          <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
+                            <tr>
+                              <td style="padding-bottom: 5px" align="center" valign="top">
+                                <h2 style=" font-family: Arial,sans-serif; color:white">Tack för din bokning!</h2>
+                                <!-- <hr/> -->
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="background-color:white;" align="center" valign="top">
+                          <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody">
+                            <tr>
+                              <td style="padding:auto;" align="center" valign="top">
+            
+                                  <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Du har bokat en plats till eventet  <strong> ${
+                                    event.title
+                                  } </strong> kommer finnas på din profilsida. Du kan ändra din bokning under din profil.</p>
+            
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:0" align="center" valign="top">
+                          <table style="background-color:#f4f4f4" border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
+                            <tr>
+                              <td align="center" valign="top">
+                                <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Varmt välkommen!</p>
+                               
+            
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </body>
+            </html>
+              `;
+
+          let transporter = nodemailer.createTransport({
+            service: "Gmail",
+            host: "smtp.gmail.com",
+            auth: {
+              user: process.env.MAIL_ADDR,
+              pass: process.env.MAIL_PW
+            }
+          });
+          let mailOptions = {
+            from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
+            to: seatResarvation[0].responsible.email, // list of receivers
+            subject: "Bokningsbekräftelse", // Subject line
+            html: output // html body
+          };
+
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              return console.log(error);
+            }
+          });
         } else {
           res.json({
             event,
@@ -330,7 +401,6 @@ router.post("/updateMonthlyEvent", (req, res) => {
 
   MonEvent.findOneAndUpdate({ _id: req.body._id }, updateField, { new: true })
     .then(monEvent => {
-      console.log(monEvent);
       if (monEvent) {
         res.json({ monEvent });
       } else {
@@ -341,6 +411,16 @@ router.post("/updateMonthlyEvent", (req, res) => {
     })
     .catch(err => {
       throw err;
+    });
+});
+
+router.get("/eventarchive", (req, res) => {
+  MonEventArchive.find({})
+    .then(archive => {
+      res.json({ archive });
+    })
+    .catch(err => {
+      res.json(err);
     });
 });
 
@@ -584,8 +664,6 @@ router.post("/removeMovieBooking", (req, res) => {
 
                 return newRow;
               });
-
-              // console.log("single: ", req.body.reservations);
             }
             monMovie.seating = newSeating;
             let newMonMovie = monMovie;
@@ -610,7 +688,6 @@ router.post("/removeMovieBooking", (req, res) => {
 
 // complete and save booking
 router.post("/completeAndSaveBooking", (req, res) => {
-  // console.log("the movieID: ", req.body.responsible.email);
   MonMovie.findOne({ _id: req.body.movieId })
     .then(movie => {
       if (movie) {
@@ -730,7 +807,7 @@ router.post("/completeAndSaveBooking", (req, res) => {
         
                               <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Dina biljetter till filmen <strong> ${
                                 movie.title
-                              } </strong> kommer finnas på din profilsida. Du kan ändra din bokning på under din profil.</p>
+                              } </strong> kommer finnas på din profilsida. Du kan ändra din bokning under din profil.</p>
         
                           </td>
                         </tr>
@@ -787,19 +864,6 @@ router.post("/completeAndSaveBooking", (req, res) => {
               "Någon var tyvärr snabbare och bokade platserna före dig, vänligen försök igen "
           });
         }
-
-        // let mailOptions = {
-        //   from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
-        //   to: seatResarvation[0].responsible.email, // list of receivers
-        //   subject: "Bokningsbekräftelse", // Subject line
-        //   html: output // html body
-        // };
-
-        // transporter.sendMail(mailOptions, (error, info) => {
-        //   if (error) {
-        //     return console.log(error);
-        //   }
-        // });
       } else {
         return res
           .status(404)
