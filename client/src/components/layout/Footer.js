@@ -13,7 +13,7 @@ class Footer extends Component {
               floated="left"
               style={{ top: "30px" }}
               size="mini"
-              src="krakebackens_logo.png"
+              src="krakelogo.gif"
               onError={e => {
                 e.target.src =
                   "https://firebasestorage.googleapis.com/v0/b/krakebackensbiograf-c3aa9.appspot.com/o/krakebackens_logo.png?alt=media&token=4c75370b-fa7d-4838-af81-040c458dd767";

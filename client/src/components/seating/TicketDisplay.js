@@ -25,6 +25,8 @@ export default function TicketDisplay(props) {
     <React.Fragment>
       <div style={{ width: "40%", minWidth: "450px", height: "100%" }}>
         <SelectMemberModel
+          existingBookings={props.existingBookings}
+          profile={props.profile}
           addMemberToBooking={props.addMemberToBooking}
           selectableMemberList={props.selectableMemberList}
         />
