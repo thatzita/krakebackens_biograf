@@ -25,6 +25,7 @@ class ModalExampleSize extends Component {
 
   filterSelectedMembersFromExistingBookings = (existing, membersList) => {
     let exirtingChoosenMembers = existing.filter(x => x.customer.status === 2);
+    let newMemberList;
 
     for (let i = 0; i < membersList.length; i++) {
       if (
@@ -34,13 +35,19 @@ class ModalExampleSize extends Component {
         break;
       }
     }
-    let newMemberList = membersList.filter(x => {
-      for (let i = 0; i < exirtingChoosenMembers.length; i++) {
-        if (exirtingChoosenMembers[i].customer.id !== x._id) {
-          return x;
+    if (exirtingChoosenMembers.length > 0) {
+      newMemberList = membersList.filter(x => {
+        for (let i = 0; i < exirtingChoosenMembers.length; i++) {
+          if (exirtingChoosenMembers[i].customer.id !== x._id) {
+            return x;
+          }
         }
-      }
-    });
+      });
+    } else {
+      newMemberList = membersList;
+    }
+    console.log(newMemberList);
+
     return newMemberList;
   };
 
@@ -60,7 +67,7 @@ class ModalExampleSize extends Component {
   };
 
   render() {
-    console.log(this.props.profile);
+    console.log(this.props);
     let membersList = this.filterSelectedMembersFromExistingBookings(
       this.props.existingBookings,
       this.props.selectableMemberList

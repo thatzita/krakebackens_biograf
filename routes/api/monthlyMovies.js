@@ -410,7 +410,9 @@ router.post("/completeAndSaveBooking", (req, res) => {
                         <tr>
                           <td align="center" valign="top">
                             <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Ni är varmt välkommna</p>
-                            <p style="font-family: Arial,sans-serif; margin-top:1rem; font-size: 0.8rem;"> <em>Kom gärna en halvtimme innan visning för mingel och tilltugg</em> </p>
+                            <p style="font-family: Arial,sans-serif; margin-top:1rem; font-size: 0.8rem;"> <em>${
+                              movie.monMovieMessage
+                            }</em> </p>
         
                           </td>
                         </tr>

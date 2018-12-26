@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import {
-  Button,
-  Divider,
-  Segment,
-  Card,
-  Image,
-  Icon,
-  Confirm
-} from "semantic-ui-react";
+// import {
+//   Button,
+//   Divider,
+//   Segment,
+//   Card,
+//   Image,
+//   Icon,
+//   Confirm
+// } from "semantic-ui-react";
+import ProfileUnableToCancelMessage from "./ProfileUnableToCancelMessage";
 import ProfileHeader from "./ProfileHeader";
 import ProfileTicketDisplay from "./ProfileTicketDisplay";
 import ProfileStatistik from "./ProfileStatistik";
@@ -39,7 +40,8 @@ class Profile extends Component {
           seat: ""
         }
       },
-      monMovies: []
+      monMovies: [],
+      showFailMessage: false
     };
   }
 
@@ -57,6 +59,10 @@ class Profile extends Component {
       });
     }
   }
+
+  closeFailMessage = () => {
+    this.setState({ showFailMessage: false });
+  };
 
   removeBooking = (seatingObj, customerId, resonsibleId, movieId) => {
     let monMovies = this.state.monMovies || [];
@@ -103,9 +109,22 @@ class Profile extends Component {
         responsibleMember: false
       };
     }
+    let todaysDate = new Date();
 
-    console.log("obj ", obj);
-    this.props.removeAndCancelMovieBooking(obj);
+    console.log("cancel time ", specificMovie[0].cancel_utc_time);
+    console.log(
+      specificMovie[0] &&
+        todaysDate > new Date(specificMovie[0].cancel_utc_time)
+    );
+    if (
+      specificMovie[0] &&
+      todaysDate > new Date(specificMovie[0].cancel_utc_time)
+    ) {
+      this.setState({ showFailMessage: true });
+    } else {
+      console.log("obj ", obj);
+      this.props.removeAndCancelMovieBooking(obj);
+    }
     // this.props.getAllMonMovies();
   };
 
@@ -229,6 +248,10 @@ class Profile extends Component {
           removeBooking={this.removeBooking}
           profile={this.state.profile}
           monMovies={this.state.monMovies}
+        />
+        <ProfileUnableToCancelMessage
+          closeFailMessage={this.closeFailMessage}
+          showFailMessage={this.state.showFailMessage}
         />
         <Footer />
       </div>

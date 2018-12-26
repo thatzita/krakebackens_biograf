@@ -8,6 +8,8 @@ const path = require("path");
 const { MonMovie } = require("./models/MonthlyMovie");
 const User = require("./models/User.js");
 
+const nodemailerReminder = require("./functionStorage/nodemailerReminder");
+
 //API paths
 const users = require("./routes/api/users");
 const apply = require("./routes/api/apply");
@@ -138,24 +140,52 @@ new CronJob(
   "Europe/Stockholm"
 );
 
-// Cronjob not complete
+// Cronjob for reminders fully functioning
+// TODO: add real emailadresses
 // new CronJob(
-//   "*/2 * * * *",
+//   "*/1 * * * *",
 //   function() {
 //     let todaysDate = new Date();
 //     MonMovie.find({}).then(movies => {
 //       movies.forEach(movie => {
-//         if (todaysDate > new Date(movie.reminder_utc_time)) {
+//         if (
+//           todaysDate > new Date(movie.reminder_utc_time) &&
+//           movie.reminderIsSent === false
+//         ) {
 //           console.log("skickar påminelse för filmen ", movie.title);
 //           let listOfEmailAdresses = [];
 //           movie.seating.map(array => {
 //             array.map(item => {
-//               if (item.email) {
-//                 listOfEmailAdresses.push(item.email);
+//               console.log(item.responsible.email);
+
+//               if (
+//                 item.responsible.email &&
+//                 listOfEmailAdresses.includes(item.responsible.email) === false
+//               ) {
+//                 listOfEmailAdresses.push(item.responsible.email);
 //               }
 //             });
 //           });
+
 //           console.log("emailList: ", listOfEmailAdresses);
+//           let resultValue = nodemailerReminder(
+//             movie.title,
+//             movie.screeningDate,
+//             movie.screeningTime,
+//             movie.monMovieMessage,
+//             listOfEmailAdresses
+//           );
+//           console.log("value ", resultValue);
+
+//           movie.reminderIsSent = true;
+//           let newMonMovie = movie;
+
+//           newMonMovie
+//             .save()
+//             .then(monMovie => console.log(monMovie))
+//             .catch(err => {
+//               throw err;
+//             });
 //         } else {
 //           console.log("hitta ingen");
 //         }
