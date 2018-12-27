@@ -2,15 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-// import {
-//   Button,
-//   Divider,
-//   Segment,
-//   Card,
-//   Image,
-//   Icon,
-//   Confirm
-// } from "semantic-ui-react";
 import ProfileUnableToCancelMessage from "./ProfileUnableToCancelMessage";
 import ProfileHeader from "./ProfileHeader";
 import ProfileTicketDisplay from "./ProfileTicketDisplay";
@@ -22,7 +13,6 @@ import {
   removeAndCancelMovieBooking
 } from "../../actions/monMovieActions";
 
-import { Link } from "react-router-dom";
 import Footer from "../layout/Footer";
 import "./profile.css";
 

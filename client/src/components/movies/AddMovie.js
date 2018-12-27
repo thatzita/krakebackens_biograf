@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {
-  Input,
-  Segment,
-  Button,
-  Item,
-  Image,
-  Icon,
-  Message
-} from "semantic-ui-react";
+import { Input, Segment, Button, Item, Icon, Message } from "semantic-ui-react";
 import {
   searchMovie,
   imdbPopup,

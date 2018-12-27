@@ -17,7 +17,13 @@ export default function DateTimePicker(props) {
       </Header>
 
       <Form>
-        <Form.Group>
+        <Form.Group
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            flexWrap: "wrap"
+          }}
+        >
           <Form.Input
             size="big"
             style={{ color: "#470877" }}
@@ -32,7 +38,7 @@ export default function DateTimePicker(props) {
           />
           <Form.Input
             size="big"
-            style={{ color: "#470877", paddingRight: "2rem" }}
+            style={{ color: "#470877" }}
             icon="time"
             iconPosition="left"
             type="time"
@@ -43,7 +49,7 @@ export default function DateTimePicker(props) {
             value={props.time}
           />
           <Form.Button
-            type="button"
+            // type="button"
             onClick={() => props.goToOrLeavePreviewPage(true)}
             disabled={
               props.time <= 0 ||
@@ -53,9 +59,9 @@ export default function DateTimePicker(props) {
                 props.eventObject.constructor === Object)
             }
             primary
-            icon
-            labelPosition="right"
-            style={{ marginTop: "24px" }}
+            // icon
+            // labelPosition="right"
+            style={{ marginTop: "24px", marginRight: "0.5rem" }}
             size="big"
           >
             Gå Vidare till Preview

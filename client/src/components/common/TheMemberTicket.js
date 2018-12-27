@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Segment, Header, Image, Icon } from "semantic-ui-react";
+import { Header, Image } from "semantic-ui-react";
 import { seatNameConverter } from "./seatingFunctions";
 
 const ticketContainer = {
@@ -31,7 +31,6 @@ export default function TheMemberTicket(props) {
           WebkitBackgroundSize: "contain",
           MozBackgroundSize: "contain",
           OBackgroundSize: "contain",
-          backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center 0",
           marginRight: "-8px"
@@ -73,7 +72,6 @@ export default function TheMemberTicket(props) {
           WebkitBackgroundSize: "contain",
           MozBackgroundSize: "contain",
           OBackgroundSize: "contain",
-          backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center 0",
           marginLeft: "-2px"

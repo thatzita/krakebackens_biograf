@@ -40,134 +40,162 @@ class MonMovieList extends Component {
 
   handleCancel = () => this.setState({ open: false });
   render() {
-    const { movie, open } = this.state;
+    const { open } = this.state;
     let monList = this.props.monMovies.monMovies || [];
 
     return (
-      <div className="monMovies">
-        <div className="containerMonMovies">
-          <Admin />
-          <Header as="h2" dividing>
-            <Header.Content
+      <React.Fragment>
+        <Admin />
+        <div
+          style={{
+            width: "100%",
+            height: "auto",
+            minHeight: "100vh",
+            display: "flex",
+            justifyContent: "flex-end",
+            backgroundColor: "#f4f4f4",
+            padding: "2rem"
+          }}
+        >
+          <div
+            style={{
+              marginRight: "5rem",
+              marginBottom: "2rem",
+              width: "60%",
+              minWidth: "300px",
+              position: "relative",
+              height: "100%"
+            }}
+          >
+            <Header as="h2" dividing>
+              <Header.Content
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  margin: "1rem"
+                }}
+              >
+                <div>
+                  {" "}
+                  <Icon name="star" /> Kommande filmer
+                </div>
+                <Button
+                  color="green"
+                  position="right"
+                  as={Link}
+                  to="/createMonMovie"
+                >
+                  <Icon name="add" />
+                  Skapa Film
+                </Button>
+              </Header.Content>
+            </Header>
+
+            <Segment
               style={{
-                display: "flex",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
-                margin: "1rem"
+                boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)",
+                marginBottom: "1rem"
               }}
             >
-              <div>
-                {" "}
-                <Icon name="star" /> Kommande filmer
-              </div>
-              <Button
-                color="green"
-                position="right"
-                as={Link}
-                to="/createMonMovie"
-              >
-                <Icon name="add" />
-                Skapa Film
-              </Button>
-            </Header.Content>
-          </Header>
+              <Item.Group divided>
+                {monList.map(item => (
+                  <Item key={item._id}>
+                    <Item.Image size="tiny" src={item.poster} />
+                    <Item.Content verticalAlign="middle">
+                      <Item.Header>
+                        {item.title} ( {item.release.substring(0, 4)} ){" "}
+                        <em style={{ fontSize: "1rem", color: "gray" }}>
+                          {" "}
+                          - {Math.floor(item.runtime / 60)}h {item.runtime % 60}
+                          min
+                        </em>{" "}
+                      </Item.Header>
+                      <Item.Meta>
+                        <Icon name="clock outline" color="grey" />{" "}
+                        {item.screeningTime}
+                      </Item.Meta>
+                      <Item.Meta>
+                        <Icon name="calendar alternate outline" color="grey" />{" "}
+                        {item.screeningDate}
+                      </Item.Meta>
+                      <Item.Meta>
+                        <Icon name="users" color="grey" />{" "}
+                        {"Salong " + item.saloon}
+                      </Item.Meta>
 
-          <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
-            <Item.Group divided>
-              {monList.map(item => (
-                <Item key={item._id}>
-                  <Item.Image size="tiny" src={item.poster} />
-                  <Item.Content verticalAlign="middle">
-                    <Item.Header>
-                      {item.title} ( {item.release.substring(0, 4)} ){" "}
-                      <em style={{ fontSize: "1rem", color: "gray" }}>
-                        {" "}
-                        - {Math.floor(item.runtime / 60)}h {item.runtime % 60}
-                        min
-                      </em>{" "}
-                    </Item.Header>
-                    <Item.Meta>
-                      <Icon name="clock outline" color="grey" />{" "}
-                      {item.screeningTime}
-                    </Item.Meta>
-                    <Item.Meta>
-                      <Icon name="calendar alternate outline" color="grey" />{" "}
-                      {item.screeningDate}
-                    </Item.Meta>
-                    <Item.Meta>
-                      <Icon name="users" color="grey" />{" "}
-                      {"Salong " + item.saloon}
-                    </Item.Meta>
-
-                    {/* <Item.Meta style={{ maxWidth: "50%", minWidth: "280px" }}>
+                      {/* <Item.Meta style={{ maxWidth: "50%", minWidth: "280px" }}>
                       <strong>Kråkan tycker:</strong> <br />
                       {item.crowRating}
                     </Item.Meta> */}
-                    <Item.Description
-                      style={{ maxWidth: "70%", minWidth: "280px" }}
-                    >
-                      {item.description}
-                    </Item.Description>
-                    <Item.Extra>{item.genres.map(gen => gen + " ")}</Item.Extra>
-                    <Item.Header
-                      style={{ fontSize: "1rem", marginTop: "1rem" }}
-                    >
-                      Kråkan tycker:
-                    </Item.Header>
-                    <Item.Description
-                      style={{
-                        maxWidth: "50%",
-                        minWidth: "280px",
-                        marginTop: "0"
-                      }}
-                    >
-                      {item.crowRating}
-                    </Item.Description>
-                    {item.monMovieMessage ? (
-                      <Segment style={{ backgroundColor: "#f4f4f4" }}>
-                        <h5>Meddelande:</h5>
-                        {item.monMovieMessage}
-                      </Segment>
-                    ) : null}
-
-                    <Item.Extra>
-                      <Button
-                        color="violet"
-                        floated="right"
-                        as={Link}
-                        to={{
-                          pathname: "/updatemovie",
-                          state: { monMovie: item }
+                      <Item.Description
+                        style={{ maxWidth: "70%", minWidth: "280px" }}
+                      >
+                        {item.description}
+                      </Item.Description>
+                      <Item.Extra>
+                        {item.genres.map(gen => gen + " ")}
+                      </Item.Extra>
+                      <Item.Header
+                        style={{ fontSize: "1rem", marginTop: "1rem" }}
+                      >
+                        Kråkan tycker:
+                      </Item.Header>
+                      <Item.Description
+                        style={{
+                          maxWidth: "50%",
+                          minWidth: "280px",
+                          marginTop: "0"
                         }}
                       >
-                        <Icon name="edit" /> Ändra
-                      </Button>
-                      <Button
-                        onClick={e => this.show(item)}
-                        basic
-                        floated="right"
-                      >
-                        <Icon name="delete" />
-                        Ta bort
-                      </Button>
-                      <Confirm
-                        open={open}
-                        className="confirmDeleteMovie"
-                        header="Du är på väg att ta bort en visning"
-                        content="Är du säker att du vill ta bort visningen?"
-                        cancelButton="Gå tillbaka"
-                        confirmButton="Ta bort"
-                        onCancel={this.handleCancel}
-                        onConfirm={this.handleConfirm}
-                      />
-                    </Item.Extra>
-                  </Item.Content>
-                </Item>
-              ))}
-            </Item.Group>
-          </Segment>
+                        {item.crowRating}
+                      </Item.Description>
+                      {item.monMovieMessage ? (
+                        <Segment style={{ backgroundColor: "#f4f4f4" }}>
+                          <h5>Meddelande:</h5>
+                          {item.monMovieMessage}
+                        </Segment>
+                      ) : null}
+
+                      <Item.Extra>
+                        <Button
+                          color="violet"
+                          floated="right"
+                          as={Link}
+                          to={{
+                            pathname: "/updatemovie",
+                            state: { monMovie: item }
+                          }}
+                        >
+                          <Icon name="edit" /> Ändra
+                        </Button>
+                        <Button
+                          onClick={e => this.show(item)}
+                          basic
+                          floated="right"
+                        >
+                          <Icon name="delete" />
+                          Ta bort
+                        </Button>
+                        <Confirm
+                          open={open}
+                          className="confirmDeleteMovie"
+                          header="Du är på väg att ta bort en visning"
+                          content="Är du säker att du vill ta bort visningen?"
+                          cancelButton="Gå tillbaka"
+                          confirmButton="Ta bort"
+                          onCancel={this.handleCancel}
+                          onConfirm={this.handleConfirm}
+                        />
+                      </Item.Extra>
+                    </Item.Content>
+                  </Item>
+                ))}
+              </Item.Group>
+            </Segment>
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

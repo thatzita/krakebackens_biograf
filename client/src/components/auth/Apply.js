@@ -9,7 +9,8 @@ import {
   Message,
   Icon,
   Modal,
-  Segment
+  Segment,
+  Divider
 } from "semantic-ui-react";
 import Footer from "../layout/Footer";
 import { userRequest } from "../../actions/applyActions";
@@ -32,6 +33,9 @@ class Apply extends Component {
 
   toggle = () => this.setState({ checked: !this.state.checked });
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({
@@ -78,7 +82,15 @@ class Apply extends Component {
       <div>
         <div className="applyContainer">
           <h1 className="loginTitle">Ansök om medlemskap</h1>
-          <hr />
+          <Divider
+            style={{
+              marginTop: "0.5rem",
+              marginBottom: "0",
+              padding: "0",
+              borderBottom: "1px solid #f4f4f4",
+              opacity: "0.3"
+            }}
+          />
           <Form error success>
             <Form.Field>
               <label className="applyFieldLabel">Användarnamn</label>
@@ -92,10 +104,10 @@ class Apply extends Component {
               <Message error content={errors.username} />
             </Form.Field>
             <Form.Field>
-              <label className="applyFieldLabel">Epost</label>
+              <label className="applyFieldLabel">E-post</label>
               <input
                 type="email"
-                placeholder="Epost"
+                placeholder="E-post"
                 name="email"
                 value={email}
                 onChange={this.onChange}
@@ -129,17 +141,17 @@ class Apply extends Component {
                 Skicka förfrågan
               </Button>
             ) : (
-              <Button disabled color="violet" type="submit">
+              <Button floated="right" disabled color="violet" type="submit">
                 <Icon name="send" />
                 Skicka förfrågan
               </Button>
             )}
-            <Link to="/">
-              <Button>
-                <Icon name="left chevron" />
-                Tillbaka
-              </Button>
-            </Link>
+
+            <Button floated="right" inverted basic as={Link} to="/">
+              <Icon name="left chevron" />
+              Tillbaka
+            </Button>
+
             <Message success header={success.title} content={success.msg} />
           </Form>
         </div>

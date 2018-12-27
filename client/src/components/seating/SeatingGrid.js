@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Icon } from "semantic-ui-react";
 
-export default class DrawGrid extends React.Component {
+export default class DrawGrid extends Component {
   constructor(props) {
     super(props);
     this.state = {

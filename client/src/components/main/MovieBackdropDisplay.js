@@ -45,7 +45,7 @@ export default class MovieBackdropDisplay extends Component {
             WebkitBackgroundSize: "cover",
             MozBackgroundSize: "cover",
             OBackgroundSize: "cover",
-            backgroundSize: "cover",
+
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center 0"
           }}

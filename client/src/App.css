@@ -1,39 +1,39 @@
 /*  LILA = rgba(71, 8, 119, 0.7) */
 /*  LILA = rgba(71, 8, 119, 1) */
 
-body {
-  /* background-color: ghostwhite; */
-  /* background-color: #f8f8ff; */
-  background-color: black;
-}
-img {
-  width: 100%;
-}
+/* body { */
+/* background-color: ghostwhite; */
+/* background-color: #f8f8ff; */
+/* background-color: black; */
+/* } */
+/* img { */
+/* width: 100%; */
+/* } */
 
-.landing {
+/* .landing {
   position: relative;
-  /* background: url("./img/theater_curtain.jpg") no-repeat; */
+  /* background: url("skogdel2.jpg") no-repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;
   margin-top: -24px;
   margin-bottom: -50px;
-}
+} */
 
-.landing-inner {
+/* .landing-inner {
   padding-top: 80px;
-}
+} */
 
-.dark-overlay {
-  /* background-color: rgba(0, 0, 0, 0.7); */
+/* .dark-overlay {
+  /* background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-}
+} */
 
-.card-form {
+/* .card-form {
   opacity: 0.9;
 }
 
@@ -44,16 +44,16 @@ img {
 
 .form-control::placeholder {
   color: #bbb !important;
-}
+} */
 
 /* Bootstrap */
-.display-3 {
+/* .display-3 {
   font-size: 4.5rem;
   font-weight: 300;
   line-height: 1.2;
-}
+} */
 
-.row {
+/* .row {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
@@ -65,26 +65,26 @@ img {
   -ms-flex: 0 0 100%;
   flex: 0 0 100%;
   max-width: 100%;
-}
-.containerApp {
-  /* width: 100%;
+} */
+/* .containerApp { */
+/* width: 100%;
   padding-top: 3rem;
   padding-bottom: 3rem;
   background-color: #f8f8ff;
   margin-right: auto;
   margin-left: auto; */
-  width: 100%;
-  /* padding-top: 3rem; */
-  /* padding-bottom: 6rem; */
-  /* background-color: #f8f8ff; */
-  background-color: black;
-  /* padding-right: 15px; */
-  /* margin-bottom: -45px; */
-  /* margin-right: auto; */
-  /* margin-left: auto; */
-}
+/* width: 100%; */
+/* padding-top: 3rem; */
+/* padding-bottom: 6rem; */
+/* background-color: #f8f8ff; */
+/* background-color: black; */
+/* padding-right: 15px; */
+/* margin-bottom: -45px; */
+/* margin-right: auto; */
+/* margin-left: auto; */
+/* } */
 
-.text-center {
+/* .text-center {
   text-align: center !important;
 }
 .mb-4,
@@ -189,16 +189,16 @@ img {
 
 .linkContainer {
   color: whitesmoke;
-  /* padding-left: 20rem; */
+  padding-left: 20rem;
   position: relative;
   margin-left: 25rem;
   padding-top: 2rem;
 }
 
 .crowFooter {
-  /* background-color: white; */
-  /* margin-top: 20rem; */
-  /* left: 10rem; */
+  background-color: white;
+  margin-top: 20rem;
+  left: 10rem;
   margin-top: 3rem;
   position: relative;
   bottom: -7rem;
@@ -206,18 +206,18 @@ img {
   margin-bottom: 5rem;
 }
 .contactUs {
-  /* border: 2px solid yellow; */
+  /* border: 2px solid yellow; 
   right: 33.5rem;
   top: 0rem;
   width: 40%;
   float: right;
-  /* display: inline-block; */
-  /* position: absolute; */
+  /* display: inline-block; 
+  /* position: absolute; 
   padding-top: 2.3rem;
 }
 .listContainer {
   border: 2px solid black;
-  /* width: 80%; */
+  /* width: 80%; 
 }
 .h3ContactFooter {
   text-decoration: underline;
@@ -233,18 +233,18 @@ img {
   position: relative;
 }
 .copyright {
-  /* border: 2px solid white; */
+  /* border: 2px solid white; 
   color: white;
   padding-top: 5rem;
-  /* padding-bottom: 1rem; */
+  /* padding-bottom: 1rem; 
   font-size: 10px;
   font-weight: 100;
   text-decoration: underline;
-  /* bottom: -10rem; */
-  /* position: absolute; */
+  /* bottom: -10rem; 
+  /* position: absolute; 
   float: right;
   margin-right: 60%;
-  /* left: 40%; */
+  /* left: 40%; 
 }
 .footerLinks > a > li {
   color: white;
@@ -259,7 +259,7 @@ img {
   text-decoration: underline white;
   /* margin-top: 1rem; */
 
-  /* position: relative; */
+/* position: relative; 
 }
 
 .navbar-brand {
@@ -395,4 +395,4 @@ img {
 .p-4 {
   padding: 1.5rem !important;
 }
-/* End Bootstrap */
+End Bootstrap */

@@ -1,20 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import {
-  Button,
-  Segment,
-  Form,
-  Message,
-  Icon,
-  Card,
-  Item,
-  Divider
-} from "semantic-ui-react";
-
-const tempProfile = {
-  name: "användarens namn"
-};
+import { Button, Segment, Icon, Item } from "semantic-ui-react";
 
 export default function ProfileHeader(props) {
   console.log(props);
@@ -34,7 +21,6 @@ export default function ProfileHeader(props) {
             inverted
             padded="very"
             style={{
-              // backgroundColor: "rgb(0,0,0)",
               margin: "0 1rem",
               borrder: "none",
               boxShadow: "none",
@@ -53,9 +39,6 @@ export default function ProfileHeader(props) {
                   <Item.Header style={{ color: "white" }}>
                     {props.profile.username}
                   </Item.Header>
-                  {/* <Divider
-                    style={{ backgroundColor: "rgba(244,244,244,0.2)" }}
-                  /> */}
 
                   <Item.Description style={{ color: "gold" }}>
                     <Icon name="film" />{" "}

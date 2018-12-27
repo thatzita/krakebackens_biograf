@@ -2,14 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getAllMoviesArchive } from "../../actions/monMovieActions";
-import {
-  Statistic,
-  List,
-  Divider,
-  Icon,
-  Image,
-  Button
-} from "semantic-ui-react";
+import { Statistic } from "semantic-ui-react";
 
 class MovieStatistic extends Component {
   constructor() {

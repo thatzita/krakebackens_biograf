@@ -5,7 +5,6 @@ import {
   Button,
   Dimmer,
   Reveal,
-  Header,
   Image,
   Segment,
   Icon,
@@ -18,7 +17,8 @@ const monMovieDisplaySize = {
   flexWrap: "wrap",
   justifyContent: "center",
   borderRadius: "0",
-  backgroundColor: "rgb(0,0,0)"
+  backgroundColor: "rgb(0,0,0)",
+  marginBottom: "0.5rem"
 };
 export default class MonMovieDisplay extends Component {
   constructor(props) {

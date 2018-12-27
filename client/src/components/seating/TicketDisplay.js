@@ -3,18 +3,8 @@ import { Link } from "react-router-dom";
 import TheGuestTicket from "../common/TheGuestTicket";
 import TheMemberTicket from "../common/TheMemberTicket";
 
-import {
-  Segment,
-  Header,
-  Icon,
-  Image,
-  Button,
-  Menu,
-  Label,
-  Divider
-} from "semantic-ui-react";
+import { Segment, Icon, Button, Label, Divider } from "semantic-ui-react";
 import SelectMemberModel from "./SelectMemberModel";
-import { seatNameConverter } from "../common/seatingFunctions.js";
 
 export default function TicketDisplay(props) {
   let selectedMembersList =

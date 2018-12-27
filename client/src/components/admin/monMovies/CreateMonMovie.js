@@ -169,15 +169,27 @@ class CreateMonMovie extends Component {
     return (
       <div
         style={{
-          backgroundColor: " #f8f8ff",
           width: "100%",
-          minHeight: "100vh"
-          // marginTop: "-5rem"
-          // position: "relative",
-          // top: "0"
+          height: "auto",
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "flex-end",
+          backgroundColor: "#f4f4f4",
+          padding: "2rem"
         }}
       >
-        <div className="containerMonMoviesCreate">
+        <div
+          style={{
+            marginRight: "5rem",
+            marginBottom: "2rem",
+            width: "60%",
+            minWidth: "300px",
+
+            position: "relative",
+            height: "100%"
+          }}
+          className="containerMonMoviesCreate"
+        >
           {this.state.previewPage ? previewSubmitPage : createPage}
         </div>
       </div>

@@ -52,6 +52,7 @@ class Navbar extends Component {
             <Segment style={tempMenuStyle}>
               <Menu inverted secondary>
                 <Menu.Item
+                  header
                   style={{ padding: "0" }}
                   as={Link}
                   to={isAuthenticated ? "/mainpage" : "/"}
@@ -164,15 +165,27 @@ class Navbar extends Component {
                       content="Logga ut"
                     />
                   ) : (
-                    <Menu.Item
-                      as={Link}
-                      to="/login"
-                      header
-                      name="Logga in"
-                      active={activeItem === "Logga in"}
-                      onClick={this.handleItemClick}
-                      content="Logga in"
-                    />
+                    <React.Fragment>
+                      <Menu.Item
+                        as={Link}
+                        to="/login"
+                        header
+                        name="Logga in"
+                        // active={activeItem === "Logga in"}
+                        // onClick={this.handleItemClick}
+                        content="Logga in"
+                      />
+
+                      <Menu.Item
+                        as={Link}
+                        to="/apply"
+                        header
+                        name="Ansök om medlemskap"
+                        // active={activeItem === "Logga in"}
+                        // onClick={this.handleItemClick}
+                        content="Ansök om medlemskap"
+                      />
+                    </React.Fragment>
                   )}
                 </Menu.Menu>
               </Menu>

@@ -5,7 +5,7 @@ import { Button, Form, Segment, Message, Icon } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Admin from "../admin/Admin";
 import "./auth.css";
-import Footer from "../layout/Footer";
+// import Footer from "../layout/Footer";
 import { registerUser } from "../../actions/authActions";
 
 class Register extends Component {

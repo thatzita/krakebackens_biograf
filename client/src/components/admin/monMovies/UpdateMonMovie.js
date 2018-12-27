@@ -11,7 +11,6 @@ import {
   Icon,
   Form,
   Item,
-  Image,
   Divider,
   Button
 } from "semantic-ui-react";
@@ -27,8 +26,6 @@ class UpdateMonMovie extends Component {
       monMovieMessage: ""
     };
   }
-
-  onChange;
 
   componentDidMount() {
     let { monMovie } = this.props.location.state;
@@ -70,14 +67,19 @@ class UpdateMonMovie extends Component {
             minHeight: "100vh",
             display: "flex",
             justifyContent: "flex-end",
-            backgroundColor: "#f4f4f4"
+            backgroundColor: "#f4f4f4",
+            padding: "2rem"
           }}
+          className="updateMonMovieFormContainer"
         >
           <Segment
             style={{
               marginRight: "5rem",
-              marginTop: "2rem",
+              marginTop: "3rem",
+              marginBottom: "2rem",
               width: "60%",
+              minWidth: "300px",
+
               position: "relative",
               height: "100%"
             }}

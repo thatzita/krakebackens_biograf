@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
-import { Button, Form, Header, Message, Icon } from "semantic-ui-react";
+import { Button, Form, Message, Icon, Divider } from "semantic-ui-react";
 import Footer from "../layout/Footer";
 import { Link } from "react-router-dom";
 import "./auth.css";
@@ -54,19 +54,26 @@ class Login extends Component {
     this.props.loginUser(user);
   }
   render() {
-    //samma som = errors = this.state.errors
     const { errors } = this.state;
     return (
       <div>
         <div className="loginContainer">
           <h1 className="loginTitle">Logga in</h1>
-          <hr />
+          <Divider
+            style={{
+              marginTop: "0.5rem",
+              marginBottom: "0",
+              padding: "0",
+              borderBottom: "1px solid #f4f4f4",
+              opacity: "0.3"
+            }}
+          />
           <Form error>
             <Form.Field>
-              <label className="loginFieldLabel">Epost</label>
+              <label className="loginFieldLabel">E-post</label>
               <input
                 type="email"
-                placeholder="Epost"
+                placeholder="E-post"
                 name="email"
                 value={this.state.email}
                 onChange={this.onChange}
@@ -86,16 +93,20 @@ class Login extends Component {
               <Message error content={errors.password} />
             </Form.Field>
             <br />
-            <Button color="violet" type="submit" onClick={this.onSubmit}>
+            <Button
+              floated="right"
+              color="violet"
+              type="submit"
+              onClick={this.onSubmit}
+            >
               <Icon name="sign in" />
               Logga in
             </Button>
-            <Link to="/">
-              <Button>
-                <Icon name="left chevron" />
-                Tillbaka
-              </Button>
-            </Link>
+
+            <Button floated="right" inverted basic as={Link} to="/">
+              <Icon name="left chevron" />
+              Tillbaka
+            </Button>
           </Form>
         </div>
         <Footer />
@@ -115,7 +126,6 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-//connect("map state to props", "funktioner vi vill anropa från actions")
 export default connect(
   mapStateToProps,
   { loginUser }

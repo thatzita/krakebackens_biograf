@@ -33,20 +33,20 @@ h1.title {
   /* border: 2px solid pink; */
   margin-left: -10rem;
 }
-.containerMonMoviesCreate {
+/* .containerMonMoviesCreate {
   /* position: relative; */
-  margin: 0 40rem;
-  width: 50rem;
-  height: auto;
-  /* width: 100%; */
-  /* margin-top: 5rem; */
-  /* margin-bottom: -2rem; */
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  /* position: relative; */
-  background-color: #f8f8ff;
-  /* border: 3px solid pink; */
-}
+/* margin: 0 40rem; */
+/* width: 50rem; */
+/* height: auto; */
+/* width: 100%; */
+/* margin-top: 5rem; */
+/* margin-bottom: -2rem; */
+/* padding-top: 2rem; */
+/* padding-bottom: 2rem; */
+/* position: relative; */
+/* background-color: #f8f8ff; */
+/* border: 3px solid pink; */
+/* } */
 
 /* .containerMonMoviesCreateBackground {
   /* position: relative; */
@@ -79,8 +79,8 @@ h1.title {
   margin-bottom: 1rem;
 }
 
-.containerMonMoviesCreate .ui.segment.timeAndDate {
+/* .containerMonMoviesCreate .ui.segment.timeAndDate {
   /* border: 2px solid pink; */
-  /* padding-bottom: 10rem; */
-  /* margin-bottom: 0rem; */
-}
+/* padding-bottom: 10rem; */
+/* margin-bottom: 0rem; */
+/* } */
