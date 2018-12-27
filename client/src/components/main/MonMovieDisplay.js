@@ -28,9 +28,13 @@ export default class MonMovieDisplay extends Component {
   render() {
     let movieProps = this.props.monMovies || [];
 
+    let sortedMovieProps = movieProps.sort(function(a, b) {
+      return new Date(a.utc_time) - new Date(b.utc_time);
+    });
+
     return (
       <Segment raised padded="very" inverted style={monMovieDisplaySize}>
-        {movieProps.map(item => (
+        {sortedMovieProps.map(item => (
           <div
             style={{
               margin: "1rem",

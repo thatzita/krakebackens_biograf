@@ -10,7 +10,7 @@ export default function DateTimePickerEvent(props) {
     >
       <Header as="h2">
         <Icon name="calendar alternate outline" />
-        <Header.Content>Välj datum och tid för filmvisning</Header.Content>
+        <Header.Content>Välj datum och tid för evenemanget</Header.Content>
       </Header>
 
       <Form>
