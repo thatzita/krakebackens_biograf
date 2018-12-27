@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Segment,
   Input,
@@ -6,19 +7,39 @@ import {
   Header,
   Image,
   Icon,
-  Label
+  Label,
+  Button
 } from "semantic-ui-react";
 
 export default function MoviePicker(props) {
   return (
     <div className="containerMonMoviesList">
+      <Header as="h2" dividing>
+        <Header.Content
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            margin: "1rem"
+          }}
+        >
+          <div>
+            <Icon name="film" />
+            Skapa film
+          </div>
+          <Button basic position="right" as={Link} to="/MonMovieList">
+            <Icon name="left chevron" />
+            Tillbaka
+          </Button>
+        </Header.Content>
+      </Header>
       <Segment
         style={{
           boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)",
-          marginTop: "3rem"
+          marginTop: "1rem"
         }}
       >
-        <Header as="h2" dividing>
+        <Header as="h3" dividing>
           <Icon name="film" />
           <Header.Content>Välj en film</Header.Content>
         </Header>

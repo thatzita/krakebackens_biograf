@@ -58,7 +58,7 @@ export default function DateTimePicker(props) {
             style={{ marginTop: "24px" }}
             size="big"
           >
-            Gå Vidare till Preview
+            Gå vidare till preview
             <Icon name="right angle" />
           </Form.Button>
         </Form.Group>

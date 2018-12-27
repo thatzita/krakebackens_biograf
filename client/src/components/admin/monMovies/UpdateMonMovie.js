@@ -187,6 +187,7 @@ class UpdateMonMovie extends Component {
                 }
                 value={this.state.description || ""}
                 placeholder="Beskrivning"
+                onChange={this.handleChange}
               />
               <Form.TextArea
                 size="big"

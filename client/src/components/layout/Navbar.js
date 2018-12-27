@@ -79,7 +79,7 @@ class Navbar extends Component {
                   {isAuthenticated ? (
                     <Menu.Item
                       as={Link}
-                      to="/mainpage"
+                      to="/profile"
                       name="Biljetter"
                       active={activeItem === "Biljetter"}
                       onClick={this.handleItemClick}

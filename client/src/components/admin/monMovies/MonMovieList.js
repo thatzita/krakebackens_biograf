@@ -64,24 +64,27 @@ class MonMovieList extends Component {
                 {" "}
                 <Icon name="star" /> Kommande filmer
               </div>
-              <Button
-                color="green"
-                position="right"
-                as={Link}
-                to="/createMonMovie"
-              >
-                <Icon name="add" />
-                Skapa Film
-              </Button>
-              <Button
-                color="green"
-                position="right"
-                as={Link}
-                to="/createMonEvent"
-              >
-                <Icon name="add" />
-                Skapa Event
-              </Button>
+              <Button.Group>
+                <Button
+                  color="green"
+                  position="right"
+                  as={Link}
+                  to="/createMonEvent"
+                >
+                  <Icon name="add" />
+                  Skapa Event
+                </Button>
+                <Button
+                  style={{ marginLeft: "5px" }}
+                  color="green"
+                  position="right"
+                  as={Link}
+                  to="/createMonMovie"
+                >
+                  <Icon name="add" />
+                  Skapa Film
+                </Button>
+              </Button.Group>
             </Header.Content>
           </Header>
 

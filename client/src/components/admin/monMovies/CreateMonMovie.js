@@ -172,9 +172,6 @@ class CreateMonMovie extends Component {
           backgroundColor: " #f8f8ff",
           width: "100%",
           minHeight: "100vh"
-          // marginTop: "-5rem"
-          // position: "relative",
-          // top: "0"
         }}
       >
         <div className="containerMonMoviesCreate">

@@ -13,7 +13,8 @@ import {
   Item,
   Segment,
   Confirm,
-  Label
+  Label,
+  Divider
 } from "semantic-ui-react";
 
 import {
@@ -90,8 +91,6 @@ class Movies extends Component {
     let movieItem;
 
     if (movies !== undefined) {
-      // this.props.movies.map(movie => {});
-
       if (this.props.movies.movies.length > showMore) {
         showMoreContentButton = (
           <Button
@@ -145,8 +144,9 @@ class Movies extends Component {
                   })}
                 </Item.Extra>
                 <br />
-                {movie.dvdOrBluRay === "dvd" ? <Label>DVD</Label> : ""}
                 {movie.dvdOrBluRay === "bluRay" ? <Label>Blu-ray</Label> : ""}
+                {movie.dvdOrBluRay === "3D" ? <Label>3D</Label> : ""}
+                {movie.dvdOrBluRay === "dvd" ? <Label>DVD</Label> : ""}
                 {movie.dvdOrBluRay === "usb" ? <Label>USB</Label> : ""}
                 <Button.Group className="addMovieBtnGroup">
                   <Button
@@ -187,48 +187,56 @@ class Movies extends Component {
       } else {
         movieItem = filteredMovies.map(movie => {
           return (
-            <Item key={movie.imdb_id}>
-              <Item.Image
-                className="posterImg"
-                size="tiny"
-                onClick={e => this.showPopup(movie)}
-                src={movie.poster}
-                onError={e => {
-                  e.target.src = "poster_not_available.jpg";
-                }}
-              />
-              <Item.Content>
-                <Item.Header>
-                  {movie.title} ( {movie.release.substring(0, 4)} ){" "}
-                  <em style={{ fontSize: "1rem", color: "gray" }}>
-                    {" "}
-                    - {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min
-                  </em>{" "}
-                </Item.Header>
+            <React.Fragment key={movie.imdb_id}>
+              <Item key={movie.imdb_id}>
+                <Item.Image
+                  className="posterImg"
+                  size="tiny"
+                  onClick={e => this.showPopup(movie)}
+                  src={movie.poster}
+                  onError={e => {
+                    e.target.src = "poster_not_available.jpg";
+                  }}
+                />
+                <Item.Content>
+                  <Item.Header style={{ color: "#FFFFFF" }}>
+                    {movie.title} ( {movie.release.substring(0, 4)} ){" "}
+                    <em style={{ fontSize: "1rem", color: "gray" }}>
+                      {" "}
+                      - {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}
+                      min
+                    </em>{" "}
+                  </Item.Header>
 
-                <Item.Extra>
-                  {movie.genres.map((genre, i) => {
-                    return (
-                      <span key={i} className="date">
-                        {genre}{" "}
-                      </span>
-                    );
-                  })}
-                </Item.Extra>
-                <Button.Group className="addMovieBtnGroup">
-                  <Button
-                    color="blue"
-                    style={{ height: "2.5rem", bottom: "0" }}
-                    onClick={e => this.showPopup(movie)}
-                    attached="bottom"
-                    floated="right"
-                  >
-                    <Icon name="eye" />
-                    Mer info
-                  </Button>
-                </Button.Group>
-              </Item.Content>
-            </Item>
+                  <Item.Extra>
+                    {movie.genres.map((genre, i) => {
+                      return (
+                        <span
+                          style={{ color: "#FFFFFF" }}
+                          key={i}
+                          className="date"
+                        >
+                          {genre}{" "}
+                        </span>
+                      );
+                    })}
+                  </Item.Extra>
+                  <Button.Group className="addMovieBtnGroup">
+                    <Button
+                      color="blue"
+                      style={{ height: "2.5rem", bottom: "0" }}
+                      onClick={e => this.showPopup(movie)}
+                      attached="bottom"
+                      floated="right"
+                    >
+                      <Icon name="eye" />
+                      Mer info
+                    </Button>
+                  </Button.Group>
+                </Item.Content>
+              </Item>
+              <Divider />
+            </React.Fragment>
           );
         });
       }
@@ -239,7 +247,10 @@ class Movies extends Component {
           <br />
           <Segment
             className="containerMoviesUser"
-            style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}
+            style={{
+              boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)"
+            }}
+            inverted={this.props.auth.user.admin ? false : true}
           >
             <Item.Group divided>{movieItem.slice(0, showMore)}</Item.Group>
           </Segment>

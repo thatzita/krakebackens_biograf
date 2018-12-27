@@ -272,7 +272,15 @@ class Popup extends Component {
                       checked={this.state.dvdOrBluRay === "bluRay"}
                       onChange={this.handleChange}
                     />
-
+                    <Checkbox
+                      style={{ marginLeft: "1rem" }}
+                      radio
+                      label="3D"
+                      name="checkboxRadioGroup"
+                      value="3D"
+                      checked={this.state.dvdOrBluRay === "3D"}
+                      onChange={this.handleChange}
+                    />
                     <Checkbox
                       style={{ marginLeft: "1rem" }}
                       radio

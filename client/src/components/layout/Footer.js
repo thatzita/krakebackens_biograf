@@ -35,7 +35,7 @@ class Footer extends Component {
             </div>
             <h3 className="h3headerFooter">Kråkebackens Biograf</h3>
             <ul style={{ listStyle: "none" }} className="footerLinks">
-              <Link to="/mainpage">
+              <Link to="/profile">
                 <li>Biljetter</li>
               </Link>
               <Link to="/profile">

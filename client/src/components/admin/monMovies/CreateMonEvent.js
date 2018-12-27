@@ -1,20 +1,18 @@
 import React, { Component } from "react";
 import {
   Segment,
-  Input,
-  Table,
   Header,
   Dropdown,
   Icon,
-  Form
+  Form,
+  Button
 } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAllMovies } from "../../../actions/movieActions";
 import { postMonEvent } from "../../../actions/monMovieActions";
 
 import DateTimePickerEvent from "./DateTimePickerEvent";
-import EventPicker from "./EventPicker";
-import ChooseSaloon from "./ChooseSaloon";
 import PreviewSubmitEvent from "./PreviewSubmitEvent";
 import MonEventMessage from "./MonEventMessage";
 import MonMovieCrowRating from "./MonMovieCrowRating";
@@ -26,11 +24,8 @@ class CreateMonEvent extends Component {
   constructor() {
     super();
     this.state = {
-      // search: "",
       date: "",
       time: "",
-      // movieId: "",
-      // eventObject: {},
       description: "",
       seat: null,
       title: "",
@@ -127,8 +122,23 @@ class CreateMonEvent extends Component {
       <React.Fragment>
         <Admin />
         <Header as="h2" dividing>
-          <Icon name="star" />
-          <Header.Content>Event</Header.Content>
+          <Header.Content
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              margin: "1rem"
+            }}
+          >
+            <div>
+              <Icon name="calendar check outline" />
+              Skapa event
+            </div>
+            <Button basic position="right" as={Link} to="/MonMovieList">
+              <Icon name="left chevron" />
+              Tillbaka
+            </Button>
+          </Header.Content>
         </Header>
 
         <Segment>
@@ -210,10 +220,6 @@ class CreateMonEvent extends Component {
         style={{
           backgroundColor: " #f8f8ff",
           width: "100%"
-          // minHeight: "100vh"
-          // marginTop: "-5rem"
-          // position: "relative",
-          // top: "0"
         }}
       >
         <div className="containerMonMoviesCreateBackground">
