@@ -107,8 +107,8 @@ class Navbar extends Component {
 
                   {isAuthenticated ? (
                     <Menu.Item
-                      // as={Link}
-                      // to="/mainpage"
+                      as={Link}
+                      to="/mainpage"
                       name="Filmer"
                       active={activeItem === "Filmer"}
                       onClick={this.handleItemClick}
@@ -116,8 +116,8 @@ class Navbar extends Component {
                   ) : null}
                   {isAuthenticated ? (
                     <Menu.Item
-                      // as={Link}
-                      // to="/mainpage"
+                      as={Link}
+                      to="/mainpage"
                       name="Evenemang"
                       active={activeItem === "Evenemang"}
                       onClick={this.handleItemClick}
