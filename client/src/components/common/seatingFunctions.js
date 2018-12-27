@@ -48,7 +48,7 @@ function seatNameConverter(seat) {
     row = "Ingen VIP-plats vald";
     seating = "";
   }
-  if (seat === "1") {
+  if (Number(seat) <= 30) {
     row = "";
     seating = "";
   }

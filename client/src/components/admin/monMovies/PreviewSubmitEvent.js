@@ -71,7 +71,7 @@ export default function PreviewSubmitMonEvent(props) {
                 labelPosition="right"
                 floated="right"
               >
-                Skapa event
+                Skapa evenemang
                 <Icon name="add" />
               </Button>
             </Item.Content>

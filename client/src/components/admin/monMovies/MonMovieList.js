@@ -72,7 +72,7 @@ class MonMovieList extends Component {
                   to="/createMonEvent"
                 >
                   <Icon name="add" />
-                  Skapa Event
+                  Skapa evenemang
                 </Button>
                 <Button
                   style={{ marginLeft: "5px" }}

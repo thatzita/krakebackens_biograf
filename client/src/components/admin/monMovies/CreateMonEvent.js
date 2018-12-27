@@ -132,7 +132,7 @@ class CreateMonEvent extends Component {
           >
             <div>
               <Icon name="calendar check outline" />
-              Skapa event
+              Skapa evenemang
             </div>
             <Button basic position="right" as={Link} to="/MonMovieList">
               <Icon name="left chevron" />
@@ -144,7 +144,7 @@ class CreateMonEvent extends Component {
         <Segment>
           <Header>
             <Icon name="users" />
-            Event information
+            Evenemang information
           </Header>
           <Form>
             <Form.Field>
@@ -153,7 +153,7 @@ class CreateMonEvent extends Component {
                 name="title"
                 value={title}
                 onChange={this.onChange}
-                placeholder="Namn på eventet"
+                placeholder="Namn på evenemanget"
               />
             </Form.Field>
             <Form.Field>
@@ -162,7 +162,7 @@ class CreateMonEvent extends Component {
                 name="description"
                 value={description}
                 onChange={this.onChange}
-                placeholder="Beskrivning av eventet"
+                placeholder="Beskrivning av evenemanget"
               />
             </Form.Field>
           </Form>

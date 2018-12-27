@@ -322,7 +322,7 @@ export default class ProfileTicketDisplay extends Component {
             }}
           >
             <Icon name="ticket" />
-            Bokade events
+            Bokade evenemang
           </Header>
           {userTicketsEvent.length > 0 ? (
             <Segment.Group

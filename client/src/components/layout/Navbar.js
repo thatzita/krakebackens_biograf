@@ -31,6 +31,12 @@ class Navbar extends Component {
     if (name === "Filmer") {
       window.scrollTo({ top: 550, behavior: "smooth" });
     }
+    if (name === "Evenemang") {
+      window.scrollTo({ top: 1000, behavior: "smooth" });
+    }
+    if (name === "Main") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   onLogoutClick = event => {
@@ -55,6 +61,9 @@ class Navbar extends Component {
                   style={{ padding: "0" }}
                   as={Link}
                   to={isAuthenticated ? "/mainpage" : "/"}
+                  name="Main"
+                  active={activeItem === "Main"}
+                  onClick={this.handleItemClick}
                 >
                   <Image
                     style={{ width: "40px" }}
@@ -98,14 +107,22 @@ class Navbar extends Component {
 
                   {isAuthenticated ? (
                     <Menu.Item
-                      as={Link}
-                      to="/mainpage"
+                      // as={Link}
+                      // to="/mainpage"
                       name="Filmer"
                       active={activeItem === "Filmer"}
                       onClick={this.handleItemClick}
                     />
                   ) : null}
-
+                  {isAuthenticated ? (
+                    <Menu.Item
+                      // as={Link}
+                      // to="/mainpage"
+                      name="Evenemang"
+                      active={activeItem === "Evenemang"}
+                      onClick={this.handleItemClick}
+                    />
+                  ) : null}
                   {isAuthenticated && admin !== true ? (
                     <Menu.Item
                       as={Link}
@@ -128,7 +145,7 @@ class Navbar extends Component {
                     />
                   ) : null}
 
-                  {isAuthenticated ? (
+                  {/* {isAuthenticated ? (
                     <Menu.Item
                       as={Link}
                       to="/mainpage"
@@ -137,7 +154,7 @@ class Navbar extends Component {
                       onClick={this.handleItemClick}
                       content="Kontakta oss"
                     />
-                  ) : null}
+                  ) : null} */}
 
                   {admin ? (
                     <Menu.Item

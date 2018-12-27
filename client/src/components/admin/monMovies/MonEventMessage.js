@@ -11,7 +11,7 @@ export default function MonEventMessage(props) {
       <Form>
         <Form.Group>
           <textarea
-            placeholder="Skriv in ett meddelande om eventet..."
+            placeholder="Skriv in ett meddelande..."
             name="monEventMessage"
             onChange={e => props.handleTextarea(e.target.name, e.target.value)}
             value={props.monEventMessage}
