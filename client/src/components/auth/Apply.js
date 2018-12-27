@@ -85,7 +85,7 @@ class Apply extends Component {
           <Divider
             style={{
               marginTop: "0.5rem",
-              marginBottom: "0",
+              marginBottom: "1rem",
               padding: "0",
               borderBottom: "1px solid #f4f4f4",
               opacity: "0.3"

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Button, Form, Message, Icon } from "semantic-ui-react";
+import { Button, Form, Message, Icon, Divider } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { forgotPassword } from "../../actions/authActions";
 import Footer from "../layout/Footer";
@@ -53,37 +53,49 @@ class Forgot extends Component {
     const { success } = this.state;
 
     return (
-      <div>
+      <React.Fragment>
         <div className="forgotContainer">
           <h1 className="forgotTitle">Glömt lösenord?</h1>
-          <hr />
+          <Divider
+            style={{
+              marginTop: "0.5rem",
+              marginBottom: "1rem",
+              padding: "0",
+              borderBottom: "1px solid #f4f4f4",
+              opacity: "0.3"
+            }}
+          />
           <Form error success>
             <Form.Field>
-              <label className="forgotLabel">Epost</label>
+              <label className="forgotLabel">E-post</label>
               <input
                 type="email"
-                placeholder="Skriv din epost du skapade kontot med"
+                placeholder="Skriv din e-post du skapade kontot med"
                 name="email"
                 value={this.state.email}
                 onChange={this.onChange}
               />
               <Message error content={errors.email} />
             </Form.Field>
-            <Button color="violet" type="submit" onClick={this.onSubmit}>
+            <Button
+              floated="right"
+              color="violet"
+              type="submit"
+              onClick={this.onSubmit}
+            >
               <Icon name="send" />
               Skicka
             </Button>
-            <Link to="/">
-              <Button>
-                <Icon name="left chevron" />
-                Tillbaka
-              </Button>
-            </Link>
+            <Button inverted basic floated="right" as={Link} to="/login">
+              <Icon name="left chevron" />
+              Tillbaka
+            </Button>
+
             <Message success header={success.title} content={success.msg} />
           </Form>
         </div>
         <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }

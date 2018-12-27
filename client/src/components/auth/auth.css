@@ -24,6 +24,8 @@ div.forgotContainer {
   max-width: 30rem;
   margin: 0 auto;
   text-align: center;
+  height: 100vh;
+  /* margin-bottom: 0.5rem; */
 }
 div.applyContainer {
   max-width: 30rem;

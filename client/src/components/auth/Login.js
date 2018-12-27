@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
-import { Button, Form, Message, Icon, Divider } from "semantic-ui-react";
+import { Button, Form, Message, Icon, Divider, Menu } from "semantic-ui-react";
 import Footer from "../layout/Footer";
 import { Link } from "react-router-dom";
 import "./auth.css";
@@ -62,7 +62,7 @@ class Login extends Component {
           <Divider
             style={{
               marginTop: "0.5rem",
-              marginBottom: "0",
+              marginBottom: "1rem",
               padding: "0",
               borderBottom: "1px solid #f4f4f4",
               opacity: "0.3"
@@ -92,6 +92,24 @@ class Login extends Component {
               />
               <Message error content={errors.password} />
             </Form.Field>
+            <div>
+              <Menu
+                fluid
+                inverted
+                secondary
+                vertical
+                style={{ textAlign: "right", margin: "0" }}
+              >
+                <Menu.Item
+                  position="right"
+                  style={{ margin: "0" }}
+                  name="forgot"
+                  as={Link}
+                  to="/forgot"
+                  content="Har du glömt ditt lösenord?"
+                />
+              </Menu>
+            </div>
             <br />
             <Button
               floated="right"

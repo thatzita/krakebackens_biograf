@@ -100,13 +100,13 @@ class Footer extends Component {
                 />
                 {isAuthenticated ? (
                   <React.Fragment>
-                    <Menu.Item
+                    {/* <Menu.Item
                       as={Link}
                       to="/mainpage"
                       name="Biljetter"
                       active={this.state.activeItem === "Biljetter"}
                       onClick={this.handleItemClick}
-                    />
+                    /> */}
                     <Menu.Item
                       as={Link}
                       to="/profile"
