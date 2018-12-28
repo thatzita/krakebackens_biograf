@@ -819,7 +819,7 @@ router.post("/completeAndSaveBooking", (req, res) => {
                       <table style="background-color:#f4f4f4" border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
                         <tr>
                           <td align="center" valign="top">
-                            <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Ni är varmt välkommna</p>
+                            <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Ni är varmt välkomna</p>
                             <p style="font-family: Arial,sans-serif; margin-top:1rem; font-size: 0.8rem;"> <em>${
                               movie.monMovieMessage
                             }</em> </p>

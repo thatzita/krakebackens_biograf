@@ -31,7 +31,7 @@ const nodemailerReminder = (
                       <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
                         <tr>
                           <td style="padding-bottom: 5px" align="center" valign="top">
-                            <h2 style=" font-family: Arial,sans-serif; color:white">Påminelse!</h2>
+                            <h2 style=" font-family: Arial,sans-serif; color:white">Påminnelse!</h2>
                             <!-- <hr/> -->
                           </td>
                         </tr>
@@ -44,7 +44,7 @@ const nodemailerReminder = (
                         <tr>
                           <td style="padding:auto;" align="center" valign="top">
 
-                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Detta är en påminelse till att du har biljetter till filmen <strong> ${movieName} </strong>.</p>
+                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Detta är en påminnelse till att du har biljetter till filmen <strong> ${movieName} </strong>.</p>
                               <p> Datum: ${movieDate}</p>
                               <p> tid: ${movieTime}</p>
 
@@ -60,7 +60,7 @@ const nodemailerReminder = (
                       <table style="background-color:#f4f4f4" border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
                         <tr>
                           <td align="center" valign="top">
-                            <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Ni är varmt välkommna</p>
+                            <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Ni är varmt välkomna</p>
                             <p style="font-family: Arial,sans-serif; margin-top:1rem; font-size: 0.8rem;"> <em>${movieMessage}</em> </p>
 
                           </td>
