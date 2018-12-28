@@ -25,10 +25,9 @@ export default class ProfileTicketDisplay extends Component {
   }
 
   findAllResponsibleTickets = (currentUser, monMovies = []) => {
-    let arryMovieGroup = [];
-    console.log("monMovies ", monMovies);
+    let arrayMovieGroup = [];
+
     let movieArray = monMovies || [];
-    console.log("monMovieslist ", movieArray);
 
     if (movieArray.length > 0) {
       movieArray.map(monMovie => {
@@ -42,11 +41,34 @@ export default class ProfileTicketDisplay extends Component {
         });
         if (arrayOfTickets.length > 0) {
           let sortdArrayOfTickets = this.sortExistingTickets(arrayOfTickets);
-          arryMovieGroup.push(sortdArrayOfTickets);
+          arrayMovieGroup.push(sortdArrayOfTickets);
         }
       });
     }
-    return arryMovieGroup;
+
+    return arrayMovieGroup;
+  };
+
+  findAllResponsibleTicketsEvents = (currentUser, monEvents = []) => {
+    let arrayEventGroup = [];
+    let eventArray = monEvents || [];
+
+    if (eventArray.length > 0) {
+      eventArray.map(monEvent => {
+        let arrayOfTickets = [];
+        monEvent.seating.map(seat => {
+          if (currentUser.id === seat.responsible.id) {
+            arrayOfTickets.push(seat);
+          }
+        });
+
+        if (arrayOfTickets.length > 0) {
+          let sortdArrayOfTickets = this.sortExistingTickets(arrayOfTickets);
+          arrayEventGroup.push(sortdArrayOfTickets);
+        }
+      });
+    }
+    return arrayEventGroup;
   };
 
   handleCancel = () =>
@@ -59,18 +81,30 @@ export default class ProfileTicketDisplay extends Component {
     });
 
   handleConfirm = () => {
-    if (
-      this.state.item &&
-      this.state.itemId &&
-      this.state.responsibleId.length > 0
-    ) {
-      this.props.removeBooking(
-        this.state.item,
-        this.state.customerId,
-        this.state.responsibleId,
-        this.state.itemId
-      );
-    } else {
+    if (this.state.itemId) {
+      if (
+        this.state.item &&
+        this.state.itemId &&
+        this.state.responsibleId.length > 0
+      ) {
+        this.props.removeBooking(
+          this.state.item,
+          this.state.customerId,
+          this.state.responsibleId,
+          this.state.itemId,
+          this.state.item.eventType
+        );
+      }
+    }
+    // else if (this.state.itemId === undefined) {
+    //   this.props.removeBooking(
+    //     this.state.item,
+    //     this.state.customerId,
+    //     this.state.responsibleId,
+    //     this.state.itemId
+    //   );
+    // }
+    else {
       alert(
         "avbokningen gick av någon anledning inte igenom, vänligen försök igen"
       );
@@ -111,6 +145,11 @@ export default class ProfileTicketDisplay extends Component {
       this.props.monMovies
     );
 
+    let userTicketsEvent = this.findAllResponsibleTicketsEvents(
+      this.props.profile,
+      this.props.monEvents
+    );
+
     return (
       <Segment.Group>
         <Segment
@@ -131,7 +170,7 @@ export default class ProfileTicketDisplay extends Component {
             }}
           >
             <Icon name="ticket" />
-            Biljetter
+            Biobiljetter
           </Header>
           {userTickets.length > 0 ? (
             <Segment.Group
@@ -264,6 +303,160 @@ export default class ProfileTicketDisplay extends Component {
             </Segment.Group>
           )}
         </Segment>
+        {/*  */}
+        <Segment
+          style={{
+            backgroundColor: "black",
+            paddingBottom: "1rem"
+          }}
+          inverted
+        >
+          <Header
+            as="h2"
+            style={{
+              paddingLeft: "3rem",
+              margin: "0 1rem",
+              fontWeight: "lighter",
+              marginBottom: "1rem",
+              borderBottom: "1px solid #333333"
+            }}
+          >
+            <Icon name="ticket" />
+            Bokade evenemang
+          </Header>
+          {userTicketsEvent.length > 0 ? (
+            <Segment.Group
+              style={{
+                width: "100%",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                flexDirection: "row"
+              }}
+            >
+              {userTicketsEvent.map((mon, i) => (
+                <Segment
+                  style={{
+                    width: "45%",
+                    minWidth: "500px",
+                    margin: "0 1rem 2rem 1rem"
+                  }}
+                  inverted
+                  key={i}
+                >
+                  <Header inverted dividing as="h2">
+                    <Image
+                      rounded
+                      src={
+                        mon[0].poster
+                          ? mon[0].poster
+                          : "poster_not_available.jpg"
+                      }
+                    />{" "}
+                    <Header.Content>
+                      {mon[0].title ? mon[0].title : "Filmtitel"}
+                      <Header.Subheader>
+                        Datum:{" "}
+                        {mon[0].screeningDate
+                          ? mon[0].screeningDate
+                          : "Filmtitel"}
+                      </Header.Subheader>
+                      <Header.Subheader>
+                        Tid:{" "}
+                        {mon[0].screeningTime
+                          ? mon[0].screeningTime
+                          : "Filmtitel"}
+                      </Header.Subheader>
+                    </Header.Content>
+                  </Header>
+                  {mon.map((item, index) =>
+                    item.customer.status === 1 || item.customer.status === 2 ? (
+                      <div
+                        key={index}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          alignContent: "center",
+                          marginBottom: "2rem",
+                          marginLeft: "1rem"
+                        }}
+                      >
+                        <TheMemberTicket item={item} />
+                        <Button
+                          onClick={() =>
+                            this.show(
+                              item,
+                              item.customer.id,
+                              item.responsible.id,
+                              item._id
+                            )
+                          }
+                          style={{ color: "gold", marginLeft: "1rem" }}
+                          icon
+                          color="black"
+                        >
+                          <Icon name="delete" /> Avboka
+                        </Button>
+                      </div>
+                    ) : (
+                      <div
+                        key={index}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          alignContent: "center",
+                          marginBottom: "2rem",
+                          marginLeft: "1rem"
+                        }}
+                      >
+                        <TheGuestTicket item={item} />
+                        <Button
+                          onClick={() =>
+                            this.show(
+                              item,
+                              item.customer.id,
+                              item.responsible.id,
+                              item._id
+                            )
+                          }
+                          style={{ marginLeft: "1rem" }}
+                          icon
+                          color="black"
+                        >
+                          <Icon name="delete" /> Avboka
+                        </Button>
+                      </div>
+                    )
+                  )}
+                </Segment>
+              ))}
+            </Segment.Group>
+          ) : (
+            <Segment.Group>
+              <Segment inverted style={{ margin: "0 1rem" }}>
+                <Header
+                  textAlign="center"
+                  inverted
+                  icon
+                  as="h3"
+                  style={{
+                    // margin: "0 2rem",
+                    fontWeight: "lighter",
+                    marginBottom: "2rem",
+                    opacity: "0.5"
+                  }}
+                >
+                  <Icon name="ticket" circular />
+                  <Header.Content>
+                    Du har för tillfället inga bokningar
+                  </Header.Content>
+                </Header>
+              </Segment>
+            </Segment.Group>
+          )}
+        </Segment>
+        {/*  */}
+
         <Confirm
           open={this.state.confirmOpen}
           className="confirmDeleteUser"

@@ -4,12 +4,12 @@ import TheGuestTicket from "../common/TheGuestTicket";
 import TheMemberTicket from "../common/TheMemberTicket";
 
 import { Segment, Icon, Button, Label, Divider } from "semantic-ui-react";
+
 import SelectMemberModel from "./SelectMemberModel";
 
 export default function TicketDisplay(props) {
   let selectedMembersList =
     props.memberList.filter(x => x.id !== props.profile.id) || [];
-  console.log(props.reservedList.length > 0);
 
   return (
     <React.Fragment>
@@ -38,7 +38,7 @@ export default function TicketDisplay(props) {
               size="tiny"
               style={{ margin: "0 0.5rem 0 0" }}
             >
-              <img alt="user image" src="userDefault.png" />
+              <img alt="user" src="userDefault.png" />
               {x.username}
               <Icon
                 name="delete"

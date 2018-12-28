@@ -32,6 +32,7 @@ class MovieStatistic extends Component {
       if (movie.screeningDate.substring(0, 4) === year) {
         count++;
       }
+      return null;
     });
     return count;
   }
@@ -43,6 +44,7 @@ class MovieStatistic extends Component {
       if (movie.fullyBooked) {
         count++;
       }
+      return null;
     });
     return count;
   }
@@ -61,11 +63,13 @@ class MovieStatistic extends Component {
           if (seat.booked) {
             count++;
           }
+          return null;
         });
         movie.seating[1].map(seat => {
           if (seat.booked) {
             count++;
           }
+          return null;
         });
         return count;
       }
@@ -76,19 +80,23 @@ class MovieStatistic extends Component {
           if (seat.booked) {
             count++;
           }
+          return null;
         });
         movie.seating[1].map(seat => {
           if (seat.booked) {
             count++;
           }
+          return null;
         });
         movie.seating[2].map(seat => {
           if (seat.booked) {
             count++;
           }
+          return null;
         });
         return count;
       }
+      return null;
     });
 
     let totalSaloonOneCount = saloonOneCount * 18;

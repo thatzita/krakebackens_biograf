@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Button, Segment, Icon, Item } from "semantic-ui-react";
 
 export default function ProfileHeader(props) {
-  console.log(props);
 
   return (
     <Segment.Group>

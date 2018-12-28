@@ -61,8 +61,6 @@ export const clearCurrentProfile = () => {
 };
 
 export const changeUsername = data => dispatch => {
-  console.log(data);
-
   axios
     .post("/api/users/changeusername", data)
     .then(res => {

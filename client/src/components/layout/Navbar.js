@@ -31,6 +31,12 @@ class Navbar extends Component {
     if (name === "Filmer") {
       window.scrollTo({ top: 550, behavior: "smooth" });
     }
+    if (name === "Evenemang") {
+      window.scrollTo({ top: 1000, behavior: "smooth" });
+    }
+    if (name === "Main" || name === "Hem") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   onLogoutClick = event => {
@@ -56,6 +62,9 @@ class Navbar extends Component {
                   style={{ padding: "0" }}
                   as={Link}
                   to={isAuthenticated ? "/mainpage" : "/"}
+                  name="Main"
+                  active={activeItem === "Main"}
+                  onClick={this.handleItemClick}
                 >
                   <Image
                     style={{ width: "60px" }}
@@ -80,7 +89,7 @@ class Navbar extends Component {
                   {/* {isAuthenticated ? (
                     <Menu.Item
                       as={Link}
-                      to="/mainpage"
+                      to="/profile"
                       name="Biljetter"
                       active={activeItem === "Biljetter"}
                       onClick={this.handleItemClick}
@@ -115,7 +124,15 @@ class Navbar extends Component {
                       onClick={this.handleItemClick}
                     />
                   ) : null}
-
+                  {isAuthenticated ? (
+                    <Menu.Item
+                      as={Link}
+                      to="/mainpage"
+                      name="Evenemang"
+                      active={activeItem === "Evenemang"}
+                      onClick={this.handleItemClick}
+                    />
+                  ) : null}
                   {isAuthenticated && admin !== true ? (
                     <Menu.Item
                       as={Link}

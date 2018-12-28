@@ -99,7 +99,7 @@ const nodemailerReminder = (
       return false;
     }
     return true;
-    console.log("info: ", info);
+    // console.log("info: ", info);
   });
 };
 

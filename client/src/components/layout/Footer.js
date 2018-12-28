@@ -15,6 +15,12 @@ class Footer extends Component {
     if (name === "Filmer") {
       window.scrollTo({ top: 550, behavior: "smooth" });
     }
+    if (name === "Evenemang") {
+      window.scrollTo({ top: 1000, behavior: "smooth" });
+    }
+    if (name === "Hem") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   render() {
@@ -119,6 +125,13 @@ class Footer extends Component {
                       to="/mainpage"
                       name="Filmer"
                       active={this.state.activeItem === "Filmer"}
+                      onClick={this.handleItemClick}
+                    />
+                    <Menu.Item
+                      as={Link}
+                      to="/mainpage"
+                      name="Evenemang"
+                      active={this.state.activeItem === "Evenemang"}
                       onClick={this.handleItemClick}
                     />
                     {/* <Menu.Item

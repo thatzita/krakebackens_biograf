@@ -5,6 +5,7 @@ import { seatNameConverter } from "./seatingFunctions";
 const ticketContainer = {
   width: "60%",
   minWidth: "300px",
+  maxWidth: "380px",
   display: "flex",
   justifyContent: "flex-start"
   // marginBottom: "2rem"
@@ -57,6 +58,7 @@ export default function TheMemberTicket(props) {
               {props.item.screeningTime ? props.item.screeningTime : "00:00"}
             </Header.Subheader>
             <Header.Subheader>
+              {/* FIXME: Event har fel placering, ska inte vara någon */}
               {seatNameConverter(props.item.seat)}
             </Header.Subheader>
           </Header.Content>

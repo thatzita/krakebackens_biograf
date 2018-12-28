@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCurrentProfile } from "../../actions/profileActions";
-import { getAllMonMovies } from "../../actions/monMovieActions";
-// import { setCurrentCloseUpMovieId } from "../../actions/webPageStateActions";
+import {
+  getAllMonMovies,
+  getAllMonEvents
+} from "../../actions/monMovieActions";
 import { Segment, Modal, Button } from "semantic-ui-react";
 import Footer from "../layout/Footer";
 import MonMovieDisplay from "./MonMovieDisplay";
@@ -25,6 +27,7 @@ class Mainpage extends Component {
     window.scrollTo(0, 0);
     this.props.getCurrentProfile();
     this.props.getAllMonMovies();
+    this.props.getAllMonEvents();
     if (localStorage.adminPage) {
       this.props.history.push("/adminhome");
     }
@@ -44,23 +47,11 @@ class Mainpage extends Component {
     }
   }
   render() {
-    // const { user } = this.props.auth;
-
     const { ticketBooked } = this.state;
-
-    // const { profile, loading } = this.props.profile;
-
+    const eventList = this.props.monMovies.monEvents || [];
     const movieList = this.props.monMovies.monMovies || [];
     let randomMovieObj =
       movieList[Math.floor(Math.random() * movieList.length)] || {};
-
-    // let mainpageContent;
-
-    // if (profile === null || loading) {
-    //   mainpageContent = <h2>Laddar innehåll...</h2>;
-    // } else {
-    //   mainpageContent = <h2>Välkommen {user.username}</h2>;
-    // }
 
     return (
       <React.Fragment>
@@ -85,6 +76,7 @@ class Mainpage extends Component {
           </Modal>
           <MovieBackdropDisplay monMovie={randomMovieObj} />
           <MonMovieDisplay monMovies={movieList} />
+          <MonMovieDisplay monMovies={eventList} />
         </Segment>
         <Footer />
       </React.Fragment>
@@ -110,6 +102,7 @@ export default connect(
   mapStateToProps,
   {
     getCurrentProfile,
-    getAllMonMovies
+    getAllMonMovies,
+    getAllMonEvents
   }
 )(Mainpage);

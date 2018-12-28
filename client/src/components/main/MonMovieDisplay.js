@@ -29,9 +29,13 @@ export default class MonMovieDisplay extends Component {
   render() {
     let movieProps = this.props.monMovies || [];
 
+    let sortedMovieProps = movieProps.sort(function(a, b) {
+      return new Date(a.utc_time) - new Date(b.utc_time);
+    });
+
     return (
       <Segment raised padded="very" inverted style={monMovieDisplaySize}>
-        {movieProps.map(item => (
+        {sortedMovieProps.map(item => (
           <div
             style={{
               margin: "1rem",
@@ -45,14 +49,40 @@ export default class MonMovieDisplay extends Component {
               as={Link}
               to={{
                 pathname: "/movieselection",
-                state: { movieId: item._id }
+                state: { movieId: item._id, eventType: item.eventType }
               }}
               animated="small fade"
             >
-              <Reveal.Content visible style={{ border: "1px solid gray" }}>
-                <Image size="small" src={item.poster} />
+              <Reveal.Content
+                visible
+                style={
+                  item.poster === "krakebackens_logo.png"
+                    ? {
+                        border: "1px solid gray",
+                        height: "222px",
+                        paddingTop: "35px"
+                      }
+                    : { border: "1px solid gray", height: "222px" }
+                }
+              >
+                <Image
+                  size="small"
+                  style={{ backgroundColor: "black" }}
+                  src={item.poster}
+                />
               </Reveal.Content>
-              <Reveal.Content hidden style={{ border: "1px solid black" }}>
+              <Reveal.Content
+                hidden
+                style={
+                  item.poster === "krakebackens_logo.png"
+                    ? {
+                        border: "1px solid gray",
+                        height: "222px",
+                        paddingTop: "35px"
+                      }
+                    : { border: "1px solid gray", height: "222px" }
+                }
+              >
                 <Dimmer.Dimmable dimmed={true}>
                   <Image size="small" src={item.poster} />
                   <Dimmer active={true} onClickOutside={this.handleHide}>

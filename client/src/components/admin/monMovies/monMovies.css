@@ -48,22 +48,9 @@ h1.title {
 /* border: 3px solid pink; */
 /* } */
 
-/* .containerMonMoviesCreateBackground {
-  /* position: relative; */
-/* margin: 0 40rem;
-  width: 50rem; */
-/* width: 100%; */
-/* margin-top: 2rem;
-  margin-bottom: -2rem;
-  padding-top: 2rem;
-  padding-bottom: 3rem;
-  position: relative; 
-  padding: 1rem;
-  background-color: #f8f8ff;
-  /* margin-top: -5rem;
-  height: auto;
-  margin-bottom: -25rem; 
-} */
+.containerMonMoviesCreateBackground {
+  padding-bottom: 10rem;
+}
 
 .monMovies {
   background-color: #f8f8ff;

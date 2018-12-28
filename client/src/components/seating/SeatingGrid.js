@@ -10,7 +10,6 @@ export default class DrawGrid extends Component {
       currentRow: 1
     };
   }
-  componentDidMount() {}
 
   hoverOn = (value, seat) => {
     this.setState({
@@ -37,9 +36,11 @@ export default class DrawGrid extends Component {
       );
       newArray.map(y => {
         seatsThatAreLeft.push(y);
+        return null;
       });
+      return null;
     });
-    //-------------------
+
     let reservedList = this.props.reservedList || [];
 
     return (

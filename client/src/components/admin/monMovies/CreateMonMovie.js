@@ -174,7 +174,7 @@ class CreateMonMovie extends Component {
           minHeight: "100vh",
           display: "flex",
           justifyContent: "flex-end",
-          backgroundColor: "#f4f4f4",
+          backgroundColor: "#f8f8ff",
           padding: "2rem"
         }}
       >

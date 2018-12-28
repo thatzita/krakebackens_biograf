@@ -41,7 +41,6 @@ export default class MovieBackdropDisplay extends Component {
           className="movieBackdrop"
           style={{
             backgroundImage: "url(" + displayImage + ")",
-            backgroundSize: "cover",
             WebkitBackgroundSize: "cover",
             MozBackgroundSize: "cover",
             OBackgroundSize: "cover",
@@ -132,7 +131,12 @@ export default class MovieBackdropDisplay extends Component {
                         </p>
                       </div>
                     ) : (
-                      <iframe width="900" height="600" src={movieTrailer} />
+                      <iframe
+                        title="movie trailer"
+                        width="900"
+                        height="600"
+                        src={movieTrailer}
+                      />
                     )}
                   </React.Fragment>
                 }

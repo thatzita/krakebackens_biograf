@@ -48,6 +48,10 @@ function seatNameConverter(seat) {
     row = "Ingen VIP-plats vald";
     seating = "";
   }
+  if (Number(seat) <= 30) {
+    row = "";
+    seating = "";
+  }
   let newSeat = `${row} ${seating}`;
   return newSeat;
 }

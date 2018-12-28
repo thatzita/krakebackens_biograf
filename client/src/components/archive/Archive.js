@@ -51,11 +51,13 @@ class Archive extends Component {
         if (seat.booked) {
           count++;
         }
+        return null;
       });
       movie.seating[1].map(seat => {
         if (seat.booked) {
           count++;
         }
+        return null;
       });
       return count + " bokade";
     } else if (movie.fullyBooked) {
@@ -67,16 +69,19 @@ class Archive extends Component {
         if (seat.booked) {
           count++;
         }
+        return null;
       });
       movie.seating[1].map(seat => {
         if (seat.booked) {
           count++;
         }
+        return null;
       });
       movie.seating[2].map(seat => {
         if (seat.booked) {
           count++;
         }
+        return null;
       });
       return count + " bokade";
     } else if (movie.fullyBooked) {
@@ -94,7 +99,7 @@ class Archive extends Component {
 
   render() {
     const { movies } = this.state.monMovies;
-    const { showMore, open } = this.state;
+    const { showMore } = this.state;
     let showMoreContentButton;
     let movieContent;
 

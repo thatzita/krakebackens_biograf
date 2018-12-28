@@ -3,15 +3,15 @@ import { connect } from "react-redux";
 
 import { Button, Icon, Item, Segment, Label } from "semantic-ui-react";
 
-import { getUserArchive } from "../../actions/usersActions";
+import { getEventArchive } from "../../actions/monMovieActions";
 import "../movies/movies.css";
 
-class UserArchive extends Component {
+class EventArchive extends Component {
   constructor() {
     super();
     this.state = {
       errors: {},
-      userArchive: null,
+      eventArchive: null,
       search: "",
       showMore: 10,
       show: false
@@ -32,23 +32,32 @@ class UserArchive extends Component {
   }
 
   componentDidMount() {
-    this.props.getUserArchive();
+    this.props.getEventArchive();
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       profile: nextProps.profile.profile,
-      userArchive: nextProps.users.userArchive
+      eventArchive: nextProps.monEvents.monEvents
     });
+  }
+  amountsOfSeatsTaken(seatings) {
+    let count = 0;
+
+    seatings.forEach(seat => {
+      if (seat.booked) {
+        count++;
+      }
+    });
+    return count;
   }
 
   render() {
-    const { showMore, userArchive } = this.state;
+    const { showMore, eventArchive } = this.state;
     let showMoreContentButton;
     let userContent;
-
-    if (userArchive !== null || undefined) {
-      if (this.props.users.userArchive.length > showMore) {
+    if (eventArchive !== null || undefined) {
+      if (this.props.monEvents.monEvents.length > showMore) {
         showMoreContentButton = (
           <Button
             className="loadMoreBtn"
@@ -62,31 +71,42 @@ class UserArchive extends Component {
         showMoreContentButton = "";
       }
 
-      let filteredArchive = this.props.users.userArchive.filter(archiveDate => {
-        return (
-          archiveDate.archivedDate
-            .toLowerCase()
-            .indexOf(this.state.search.toLowerCase()) !== -1
-        );
-      });
-
+      let filteredArchive = this.props.monEvents.monEvents.filter(
+        archiveDate => {
+          return (
+            archiveDate.screeningDate
+              .toLowerCase()
+              .indexOf(this.state.search.toLowerCase()) !== -1
+          );
+        }
+      );
       let archiveItem = filteredArchive.map((archive, index) => {
         return (
           <Item key={archive._id}>
             <Item.Content>
               <Item.Header>
-                <Icon name="calendar" /> Arkiveringsdatum: &nbsp;
-                {archive.archivedDate}
+                <Icon name="calendar" />
+                {archive.title}
               </Item.Header>
 
               <Item.Extra>
-                <p>Antal besökare: {archive.seasonUserViewings}</p>
+                <p>
+                  <Icon name="calendar" />
+                  {`${archive.screeningDate}`}
+                </p>
               </Item.Extra>
               <Item.Extra>
-                Topp 3: &nbsp;&nbsp;
-                {archive.seasonTopUsers.map((top, index) => {
-                  return <Label key={index}>{top}</Label>;
-                })}
+                <p>
+                  <Icon name="clock" />
+                  {`     ${archive.screeningTime}`}
+                </p>
+              </Item.Extra>
+
+              <Item.Extra>
+                <p>
+                  <strong>Antal bokade platser:&nbsp;</strong>{" "}
+                  {this.amountsOfSeatsTaken(archive.seating)}
+                </p>
               </Item.Extra>
             </Item.Content>
           </Item>
@@ -119,16 +139,16 @@ class UserArchive extends Component {
   }
 }
 
-UserArchive.propTypes = {};
+EventArchive.propTypes = {};
 
 const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth,
-  monMovies: state.monMovies,
+  monEvents: state.monMovies,
   users: state.users
 });
 
 export default connect(
   mapStateToProps,
-  { getUserArchive }
-)(UserArchive);
+  { getEventArchive }
+)(EventArchive);

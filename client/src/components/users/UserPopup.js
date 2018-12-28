@@ -11,8 +11,6 @@ import {
 import {
   Button,
   Dropdown,
-  Container,
-  Divider,
   Image,
   Icon,
   Card,
@@ -162,7 +160,6 @@ class UserPopup extends Component {
   render() {
     let { showOrHide, userInfo, total, season, status, seat } = this.state;
     let userPopup;
-    let vipInfo;
     let vipSeating;
 
     if (seat !== null || undefined) {
@@ -171,6 +168,7 @@ class UserPopup extends Component {
 
     if (showOrHide) {
       if (userInfo.email === "charliegh.christyana@moneyln.com") {
+        //Dummy mail, existerar inte
         userPopup = (
           <div className="popupUser">
             <Segment inverted>

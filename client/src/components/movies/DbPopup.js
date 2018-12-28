@@ -36,7 +36,7 @@ class DbPopup extends Component {
   }
 
   saveToDb() {
-    let { movieInfo, title, description, dvdOrBluRay } = this.state;
+    let { movieInfo, title, description } = this.state;
 
     let genreArray = movieInfo.genres.map(genre => {
       return genre.name;
@@ -235,7 +235,15 @@ class DbPopup extends Component {
                     checked={this.state.dvdOrBluRay === "bluRay"}
                     onChange={this.handleChange}
                   />
-
+                  <Checkbox
+                    style={{ marginLeft: "1rem" }}
+                    radio
+                    label="3D"
+                    name="checkboxRadioGroup"
+                    value="3D"
+                    checked={this.state.dvdOrBluRay === "3D"}
+                    onChange={this.handleChange}
+                  />
                   <Checkbox
                     style={{ marginLeft: "1rem" }}
                     radio

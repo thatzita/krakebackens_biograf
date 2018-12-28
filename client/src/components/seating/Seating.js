@@ -119,7 +119,6 @@ class Seating extends Component {
       seatResarvation: this.state.reservedList,
       responsible: this.state.profile
     };
-
     this.props.completeAndSaveBooking(bookingBody);
   };
 
@@ -140,6 +139,7 @@ class Seating extends Component {
             username: "Gäst",
             status: 3
           };
+          return null;
         });
 
         this.setState({
@@ -160,6 +160,7 @@ class Seating extends Component {
         username: "Gäst",
         status: 3
       };
+      return null;
     });
     this.setState({
       memberList: newMemberList,
@@ -175,6 +176,7 @@ class Seating extends Component {
           username: "Gäst",
           status: 3
         };
+        return null;
       });
       this.setState({ reservedList: newList });
     } else {
@@ -209,7 +211,6 @@ class Seating extends Component {
   };
 
   render() {
-    console.log(this.state.reservedList);
 
     let movie = this.state.bookingObj;
     let movieImage = movie.poster || "default.jpg";

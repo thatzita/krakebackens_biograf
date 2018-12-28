@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Admin from "./Admin";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Icon, Segment } from "semantic-ui-react";
 import AdminMonMovie from "./AdminMonMovie";

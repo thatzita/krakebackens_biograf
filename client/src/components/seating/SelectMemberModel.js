@@ -6,8 +6,7 @@ import {
   Header,
   Icon,
   Segment,
-  Table,
-  Image
+  Table
 } from "semantic-ui-react";
 
 class ModalExampleSize extends Component {
@@ -21,7 +20,7 @@ class ModalExampleSize extends Component {
   }
 
   open = () => this.setState({ open: true });
-  close = () => this.setState({ open: false });
+  close = () => this.setState({ open: false, search: "" });
 
   filterSelectedMembersFromExistingBookings = (existing, membersList) => {
     let exirtingChoosenMembers = existing.filter(x => x.customer.status === 2);
@@ -46,7 +45,6 @@ class ModalExampleSize extends Component {
     } else {
       newMemberList = membersList;
     }
-    console.log(newMemberList);
 
     return newMemberList;
   };
@@ -67,7 +65,6 @@ class ModalExampleSize extends Component {
   };
 
   render() {
-    console.log(this.props);
     let membersList = this.filterSelectedMembersFromExistingBookings(
       this.props.existingBookings,
       this.props.selectableMemberList
@@ -76,8 +73,6 @@ class ModalExampleSize extends Component {
     const { open } = this.state;
     //FIXME: Ändra Gäst e-post till något annat som du har bättre kontroll över (en av dina egna mailadresser)
     //FIXME: Har ändrat till användarens email, man ska inte kunna välja sig själv
-
-    // console.log(membersList);
 
     let membersListAfterSearch =
       this.state.search.length <= 0
@@ -89,7 +84,6 @@ class ModalExampleSize extends Component {
                 .indexOf(this.state.search.toLowerCase()) !== -1
             );
           });
-    // console.log("after ", membersListAfterSearch);
 
     return (
       <div>

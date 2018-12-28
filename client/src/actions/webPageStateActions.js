@@ -1,8 +1,8 @@
 import {
   ADMIN_PAGE_TRUE,
-  ADMIN_PAGE_FALSE,
-  CURRENT_CLOSE_UP_MOVIE_ID,
-  REMOVE_CURRENT_CLOSE_UP_MOVIE_ID
+  ADMIN_PAGE_FALSE
+  // CURRENT_CLOSE_UP_MOVIE_ID,
+  // REMOVE_CURRENT_CLOSE_UP_MOVIE_ID
 } from "./types";
 
 // Change or leave admon page, send in a true or false value

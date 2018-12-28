@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   Segment,
   Input,
@@ -7,57 +6,17 @@ import {
   Header,
   Image,
   Icon,
-  Label,
-  Button
+  Label
 } from "semantic-ui-react";
 
 export default function MoviePicker(props) {
   return (
     <div className="containerMonMoviesList">
-      <Header as="h2" dividing>
-        <Header.Content
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            margin: "1rem"
-          }}
-        >
-          <div>
-            <Icon name="film" />
-            Skapa film
-          </div>
-          <Button basic position="right" as={Link} to="/MonMovieList">
-            <Icon name="left chevron" />
-            Tillbaka
-          </Button>
-        </Header.Content>
-      </Header>
-      <Segment
-        style={{
-          boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)",
-          marginTop: "1rem"
-        }}
-      >
-        <Header as="h3" dividing>
-          <Icon name="film" />
-          <Header.Content>Välj en film</Header.Content>
+      <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
+        <Header as="h2" dividing>
+          <Icon name="star" />
+          <Header.Content>Event</Header.Content>
         </Header>
-
-        {props.eventObject.poster ? (
-          <Label
-            image
-            size="medium"
-            style={{ margin: "0.5rem 0.5rem 0.5rem 0" }}
-          >
-            <img alt="Bild av filmval" src={props.eventObject.poster} />
-            {props.eventObject.title ? props.eventObject.title : null}
-            <Icon
-              name="delete"
-              onClick={() => props.selectMovie(props.movieId, props.movies)}
-            />
-          </Label>
-        ) : null}
 
         <Input
           fluid
@@ -76,7 +35,7 @@ export default function MoviePicker(props) {
             padding: "0"
           }}
         >
-          <Table selectable basic>
+          {/* <Table selectable basic>
             <Table.Body>
               {props.movieList.map(item => (
                 <Table.Row
@@ -117,7 +76,7 @@ export default function MoviePicker(props) {
                 </Table.Row>
               ))}
             </Table.Body>
-          </Table>
+          </Table> */}
         </Segment>
       </Segment>
     </div>

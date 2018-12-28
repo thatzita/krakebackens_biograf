@@ -103,6 +103,7 @@ class Users extends Component {
 
       let userCards = filteredUsers.map(user => {
         if (user.email === "charliegh.christyana@moneyln.com") {
+          //Dummy mail, existerar inte
           guestAccount = (
             <div style={{ backgroundColor: "#f4f4f4" }}>
               <Item.Group>
@@ -141,6 +142,7 @@ class Users extends Component {
               </Item.Group>
             </div>
           );
+          return null;
         } else {
           return (
             <Item key={user._id}>

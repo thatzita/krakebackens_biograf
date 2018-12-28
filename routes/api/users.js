@@ -637,20 +637,10 @@ router.post("/changeusername", (req, res) => {
   let updateField = {
     username: req.body.username
   };
-  console.log("uppdate ", updateField);
 
   User.findOneAndUpdate({ _id: req.body.id }, updateField, { new: true })
     .then(profile => {
       if (profile) {
-        // let newProfile = {
-        //   id: req.profile._id,
-        //   username: req.profile.username,
-        //   email: req.profile.email,
-        //   vip: req.profile.vip,
-        //   stats: req.profile.stats,
-        //   moviesViewed: req.profile.moviesViewed,
-        //   admin: req.profile.admin
-        // };
         res.json({
           profile,
           success: { value: true, msg: "Ditt namn har blivit uppdaterat" }

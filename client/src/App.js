@@ -29,6 +29,7 @@ import Statistic from "./components/statistic/Statistic";
 import Seating from "./components/seating/Seating";
 import ArchiveMain from "./components/archive/ArchiveMain";
 
+import CreateMonEvent from "./components/admin/monMovies/CreateMonEvent";
 import CreateMonMovie from "./components/admin/monMovies/CreateMonMovie";
 import UpdateMonMovie from "./components/admin/monMovies/UpdateMonMovie";
 import MonMovieList from "./components/admin/monMovies/MonMovieList";
@@ -96,6 +97,11 @@ class App extends Component {
                   exact
                   path="/createMonMovie"
                   component={CreateMonMovie}
+                />
+                <AdminRoute
+                  exact
+                  path="/createMonEvent"
+                  component={CreateMonEvent}
                 />
                 <PrivateRoute
                   exact
