@@ -32,7 +32,7 @@ export default class MovieBackdropDisplay extends Component {
     let displayImage = movieItem.background || "skogdel3.jpg";
 
     if (displayImage === "http://image.tmdb.org/t/p/originalnull") {
-      displayImage = "curtain.jpg";
+      displayImage = "skogdel3.jpg";
     }
 
     return (

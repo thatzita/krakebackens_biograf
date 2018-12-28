@@ -73,7 +73,7 @@ class CreateMonEvent extends Component {
       title: this.state.title,
       description: this.state.description,
       poster: "krakebackens_logo.png",
-      background: "curtain.jpg",
+      background: "skogdel3.jpg",
       crowRating: this.state.crowRating
     };
 

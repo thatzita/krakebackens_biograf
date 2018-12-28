@@ -160,7 +160,7 @@ class MovieCloseUp extends Component {
     const { activeItem, movieTrailer } = this.state;
 
     let movieObject = this.state.movieCloseUp; // movieItem[0] || {};
-    let displayImage = movieObject.background || "default.jpg";
+    let displayImage = movieObject.background || "skogdel3.jpg";
     let countSeats = movieObject.seating || [];
     let seatsThatAreLeft = [];
 
