@@ -30,7 +30,6 @@ export default class MovieBackdropDisplay extends Component {
     const { activeItem, movieTrailer } = this.state;
     let movieItem = this.props.monMovie || {};
     let displayImage = movieItem.background || "skogdel3.jpg";
-    console.log(movieItem);
 
     if (displayImage === "http://image.tmdb.org/t/p/originalnull") {
       displayImage = "curtain.jpg";
