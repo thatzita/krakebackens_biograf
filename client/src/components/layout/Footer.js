@@ -121,20 +121,20 @@ class Footer extends Component {
                       active={this.state.activeItem === "Filmer"}
                       onClick={this.handleItemClick}
                     />
-                    <Menu.Item
+                    {/* <Menu.Item
                       as={Link}
                       to="/mainpage"
                       name="Om oss"
                       active={this.state.activeItem === "Om oss"}
                       onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
+                    /> */}
+                    {/* <Menu.Item
                       as={Link}
                       to="/mainpage"
                       name="Kontakta oss"
                       active={this.state.activeItem === "Kontakta oss"}
                       onClick={this.handleItemClick}
-                    />{" "}
+                    />{" "} */}
                   </React.Fragment>
                 ) : (
                   <React.Fragment>

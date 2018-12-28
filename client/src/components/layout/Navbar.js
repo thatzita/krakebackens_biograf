@@ -86,6 +86,15 @@ class Navbar extends Component {
                       onClick={this.handleItemClick}
                     />
                   ) : null} */}
+                  {isAuthenticated ? (
+                    <Menu.Item
+                      as={Link}
+                      to="/mainpage"
+                      name="Hem"
+                      active={activeItem === "Hem"}
+                      onClick={this.handleItemClick}
+                    />
+                  ) : null}
 
                   {isAuthenticated ? (
                     <Menu.Item
@@ -118,7 +127,7 @@ class Navbar extends Component {
                     />
                   ) : null}
 
-                  {isAuthenticated ? (
+                  {/* {isAuthenticated ? (
                     <Menu.Item
                       as={Link}
                       to="/"
@@ -127,9 +136,9 @@ class Navbar extends Component {
                       onClick={this.handleItemClick}
                       content="Om oss"
                     />
-                  ) : null}
+                  ) : null} */}
 
-                  {isAuthenticated ? (
+                  {/* {isAuthenticated ? (
                     <Menu.Item
                       as={Link}
                       to="/mainpage"
@@ -138,7 +147,7 @@ class Navbar extends Component {
                       onClick={this.handleItemClick}
                       content="Kontakta oss"
                     />
-                  ) : null}
+                  ) : null} */}
 
                   {admin ? (
                     <Menu.Item

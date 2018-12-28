@@ -80,8 +80,8 @@ const nodemailerReminder = (
     service: "Gmail",
     host: "smtp.gmail.com",
     auth: {
-      user: "bringmybeerbro@gmail.com",
-      pass: "jaggillaroel"
+      user: process.env.MAIL_ADDR,
+      pass: process.env.MAIL_PW
     }
   });
 
