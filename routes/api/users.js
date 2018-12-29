@@ -219,7 +219,7 @@ router.post("/login", (req, res) => {
         jwt.sign(
           payload,
           keys.secretOrKey,
-          { expiresIn: 3600 }, //Hur länge din token ska vara giltlig, 2h
+          // { expiresIn: 3600 }, //Hur länge din token ska vara giltlig, 2h
           (err, token) => {
             res.json({
               success: true,

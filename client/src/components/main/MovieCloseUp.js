@@ -61,6 +61,7 @@ class MovieCloseUp extends Component {
       let howManySeatsAreBooked = [];
       checkSeatBookings.map(array => {
         array.map(x => {
+          // console.log(x.responsible);
           if (x.responsible.hasOwnProperty("id")) {
             if (x.responsible.id === nextProps.profile.profile.id) {
               howManySeatsAreBooked.push(x);
