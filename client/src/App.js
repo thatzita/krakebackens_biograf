@@ -28,6 +28,7 @@ import Users from "./components/users/Users";
 import Statistic from "./components/statistic/Statistic";
 import Seating from "./components/seating/Seating";
 import ArchiveMain from "./components/archive/ArchiveMain";
+import Bookings from "./components/admin/Bookings";
 
 import CreateMonEvent from "./components/admin/monMovies/CreateMonEvent";
 import CreateMonMovie from "./components/admin/monMovies/CreateMonMovie";
@@ -81,6 +82,7 @@ class App extends Component {
                   path="/moviearchive"
                   component={ArchiveMain}
                 />
+                <AdminRoute exact path="/bookings" component={Bookings} />
                 <PrivateRoute exact path="/seating" component={Seating} />
                 <AdminRoute exact path="/adminhome" component={AdminHome} />
                 <AdminRoute

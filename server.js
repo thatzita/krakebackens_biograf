@@ -215,7 +215,7 @@ new CronJob(
             });
           });
 
-          console.log("emailList: ", listOfEmailAdresses);
+          // console.log("emailList: ", listOfEmailAdresses);
           let resultValue = nodemailerReminder(
             movie.title,
             movie.screeningDate,
@@ -235,7 +235,7 @@ new CronJob(
               throw err;
             });
         } else {
-          console.log("hitta ingen");
+          // console.log("hitta ingen");
         }
       });
     });

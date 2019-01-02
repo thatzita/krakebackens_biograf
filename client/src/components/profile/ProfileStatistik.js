@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Segment,
-  Header,
-  Image,
-  Icon,
-  Confirm,
-  Statistic
-} from "semantic-ui-react";
+import { Segment, Statistic } from "semantic-ui-react";
 export default function ProfileStatistik(props) {
   return (
     <Segment.Group>
@@ -28,7 +20,6 @@ export default function ProfileStatistik(props) {
               padding: "2rem",
               margin: "0 1rem"
             }}
-            inverted
           >
             {/* <Header
               textAlign="center"

@@ -51,15 +51,16 @@ export const moviePopupClose = () => {
 };
 
 //TMDB
-export const searchMovie = movieData => dispatch => {
+export const searchMovie = (movieData, moviePage) => dispatch => {
   let url = "https://api.themoviedb.org/3/search/movie?query=";
 
   let key = `&api_key=${keys.API_KEY}`;
 
-  delete axios.defaults.headers.common["Authorization"];
-  axios.get(url + movieData + key).then(res => {
-    let movieList = res.data.results;
+  let page = `&page=${moviePage}`;
 
+  delete axios.defaults.headers.common["Authorization"];
+  axios.get(url + movieData + key + page).then(res => {
+    let movieList = res.data.results;
     axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
     dispatch(showMoviesFound(movieList));
   });

@@ -141,6 +141,17 @@ class Admin extends Component {
 
           <Menu.Item
             as={Link}
+            to="/bookings"
+            name="Bokningar"
+            active={activeItem === "Bokningar"}
+            onClick={this.handleItemClick}
+          >
+            Bokningar
+            <Icon name="ticket" />
+          </Menu.Item>
+
+          <Menu.Item
+            as={Link}
             to="/statistic"
             name="Statistik"
             active={activeItem === "Statistik"}

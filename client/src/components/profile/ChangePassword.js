@@ -9,7 +9,6 @@ import {
   Form,
   Message,
   Icon,
-  Card,
   Divider,
   Confirm,
   Header
@@ -48,7 +47,6 @@ class ChangePassword extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors,

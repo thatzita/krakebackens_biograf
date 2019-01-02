@@ -18,12 +18,16 @@ class AddMovie extends Component {
     super();
     this.state = {
       moviesFound: [],
+      // Lägg till page
       searchedMovie: "",
+      searchedMoviePage: 1,
       popupMovie: null,
       success: null
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.increasePage = this.increasePage.bind(this);
+    this.decreasePage = this.decreasePage.bind(this);
   }
 
   componentDidMount() {
@@ -62,12 +66,19 @@ class AddMovie extends Component {
     }
   }
 
-  onSubmit(event) {
+  onSubmit(event, page) {
     this.props.resetMovieSuccess();
 
+    if (page === undefined || page < 1) {
+      page = 1;
+      this.setState({
+        searchedMoviePage: 1
+      });
+    }
     event.preventDefault();
     let { searchedMovie } = this.state;
-    this.props.searchMovie(searchedMovie);
+
+    this.props.searchMovie(searchedMovie, page);
   }
 
   showPopup(movieId) {
@@ -78,6 +89,18 @@ class AddMovie extends Component {
   addToDb(movieId) {
     this.props.getMovieInfoAddtoDb(movieId);
   }
+
+  increasePage = event => {
+    let count = this.state.searchedMoviePage + 1;
+
+    this.setState({ searchedMoviePage: this.state.searchedMoviePage + 1 });
+    this.onSubmit(event, count);
+  };
+  decreasePage = event => {
+    let count = this.state.searchedMoviePage - 1;
+    this.setState({ searchedMoviePage: this.state.searchedMoviePage - 1 });
+    this.onSubmit(event, count);
+  };
 
   render() {
     let { moviesFound, success } = this.state;
@@ -187,6 +210,27 @@ class AddMovie extends Component {
           <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
             {movieList}
           </Segment>
+          {this.state.moviesFound !== undefined ? (
+            <Button.Group fluid>
+              <Button
+                color="violet"
+                // style={{ width: "45%" }}
+                onClick={this.decreasePage}
+              >
+                Föregående sida
+              </Button>
+              <div style={{ padding: "0px 10px" }} />
+              <Button
+                // style={{ width: "45%" }}
+                color="violet"
+                onClick={this.increasePage}
+              >
+                Nästa sida
+              </Button>
+            </Button.Group>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );

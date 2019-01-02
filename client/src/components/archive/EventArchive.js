@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { Button, Icon, Item, Segment, Label } from "semantic-ui-react";
+import { Button, Icon, Item, Segment } from "semantic-ui-react";
 
 import { getEventArchive } from "../../actions/monMovieActions";
 import "../movies/movies.css";

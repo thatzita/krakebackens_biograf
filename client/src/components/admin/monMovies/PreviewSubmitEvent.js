@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Icon, Item, Button, Divider } from "semantic-ui-react";
+import { Segment, Icon, Item, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Admin from "../../admin/Admin";
 

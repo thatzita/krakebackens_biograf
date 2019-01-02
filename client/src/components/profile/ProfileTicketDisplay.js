@@ -37,12 +37,15 @@ export default class ProfileTicketDisplay extends Component {
             if (currentUser.id === seat.responsible.id) {
               arrayOfTickets.push(seat);
             }
+            return null;
           });
+          return null;
         });
         if (arrayOfTickets.length > 0) {
           let sortdArrayOfTickets = this.sortExistingTickets(arrayOfTickets);
           arrayMovieGroup.push(sortdArrayOfTickets);
         }
+        return null;
       });
     }
 
@@ -60,12 +63,14 @@ export default class ProfileTicketDisplay extends Component {
           if (currentUser.id === seat.responsible.id) {
             arrayOfTickets.push(seat);
           }
+          return null;
         });
 
         if (arrayOfTickets.length > 0) {
           let sortdArrayOfTickets = this.sortExistingTickets(arrayOfTickets);
           arrayEventGroup.push(sortdArrayOfTickets);
         }
+        return null;
       });
     }
     return arrayEventGroup;
