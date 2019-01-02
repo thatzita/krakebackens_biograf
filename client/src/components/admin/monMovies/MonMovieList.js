@@ -37,7 +37,6 @@ class MonMovieList extends Component {
     this.setState({ open: true, movie: movie });
   };
   handleConfirm = () => {
-    console.log(this.state.movie);
     this.props.deleteMonMovie(this.state.movie);
     this.setState({ open: false });
   };

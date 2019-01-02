@@ -204,8 +204,6 @@ new CronJob(
           let listOfEmailAdresses = [];
           movie.seating.map(array => {
             array.map(item => {
-              console.log(item.responsible.email);
-
               if (
                 item.responsible.email &&
                 listOfEmailAdresses.includes(item.responsible.email) === false
