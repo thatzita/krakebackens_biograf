@@ -387,12 +387,105 @@ router.post("/completeAndSaveBookingEvent", (req, res) => {
       throw err;
     });
 });
-//@route    Get api/monthlyMovies/deleteMonthlyMovie
+//@route    Get api/monthlyMovies/deleteMonthlyEvent
 //@desc     delete monthly movie
 //@access   private
 router.delete("/deleteMonthlyEvent", (req, res) => {
-  MonEvent.findOneAndDelete({ _id: req.body.objId }).then(() => {
-    res.json({ success: true });
+  MonEvent.findOneAndDelete({ _id: req.body.objId }).then(event => {
+    if (event) {
+      let eventList = [];
+
+      event.seating.forEach(member => {
+        if (member.booked === true) {
+          eventList.push(member.responsible.email);
+        }
+      });
+      let output = `
+      <!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title></title>
+  <style></style>
+  </head>
+  
+  <body>
+  <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+  <tr>
+      <td align="center" valign="top">
+      <table style="background-color:rgb(71,8,119)" border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
+          <tr>
+          <td align="center" valign="top">
+          <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
+                <tr>
+                <td style="padding-bottom: 5px" align="center" valign="top">
+                <h2 style=" font-family: Arial,sans-serif; color:white">Inställt evenemang!</h2>
+                <!-- <hr/> -->
+                </td>
+                </tr>
+                </table>
+                </td>
+                </tr>
+                <tr>
+                <td style="background-color:white;" align="center" valign="top">
+                <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody">
+                <tr>
+                <td style="padding:auto;" align="center" valign="top">
+                
+                <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;"><strong> ${
+                  event.title
+                } </strong> är tyvärr inställd.</p>
+                
+                </td>
+                </tr>
+                </table>
+                </td>
+                </tr>
+                <tr>
+                <td style="padding:0" align="center" valign="top">
+                <table style="background-color:#f4f4f4" border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
+                <tr>
+                <td align="center" valign="top">
+                <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Hälsningar Kråkan</p>
+                
+                
+                </td>
+                </tr>
+                </table>
+                </td>
+                </tr>
+                </table>
+                </td>
+                </tr>
+                </table>
+                </body>
+                </html>
+                `;
+
+      let transporter = nodemailer.createTransport({
+        service: "Gmail",
+        host: "smtp.gmail.com",
+        auth: {
+          user: process.env.MAIL_ADDR,
+          pass: process.env.MAIL_PW
+        }
+      });
+      let mailOptions = {
+        from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
+        to: eventList,
+        subject: `${event.title} inställd`, // Subject line
+        html: output // html body
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return console.log(error);
+        }
+      });
+
+      res.json({ success: true });
+    }
   });
 });
 
@@ -452,8 +545,103 @@ router.post("/updateMonthlyMovie", (req, res) => {
 //@desc     delete monthly movie
 //@access   private
 router.delete("/deleteMonthlyMovie", (req, res) => {
-  MonMovie.findOneAndDelete({ _id: req.body.objId }).then(() => {
-    res.json({ success: true });
+  MonMovie.findOneAndDelete({ _id: req.body.objId }).then(movie => {
+    if (movie) {
+      let emailList = [];
+      movie.seating.forEach(row => {
+        row.forEach(booked => {
+          if (booked.booked === true) {
+            emailList.push(booked.responsible.email);
+          }
+        });
+      });
+      // console.log(emailList);
+      let output = `
+            <!DOCTYPE html>
+            <html lang="en" dir="ltr">
+            
+            <head>
+              <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+              <title></title>
+              <style></style>
+            </head>
+            
+            <body>
+              <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+                <tr>
+                  <td align="center" valign="top">
+                    <table style="background-color:rgb(71,8,119)" border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
+                      <tr>
+                        <td align="center" valign="top">
+                          <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
+                            <tr>
+                              <td style="padding-bottom: 5px" align="center" valign="top">
+                                <h2 style=" font-family: Arial,sans-serif; color:white">Inställd visning!</h2>
+                                <!-- <hr/> -->
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="background-color:white;" align="center" valign="top">
+                          <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody">
+                            <tr>
+                              <td style="padding:auto;" align="center" valign="top">
+            
+                                  <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;"><strong> ${
+                                    movie.title
+                                  } </strong> är tyvärr inställd.</p>
+            
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:0" align="center" valign="top">
+                          <table style="background-color:#f4f4f4" border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
+                            <tr>
+                              <td align="center" valign="top">
+                                <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Hälsningar Kråkan</p>
+                               
+            
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </body>
+            </html>
+              `;
+
+      let transporter = nodemailer.createTransport({
+        service: "Gmail",
+        host: "smtp.gmail.com",
+        auth: {
+          user: process.env.MAIL_ADDR,
+          pass: process.env.MAIL_PW
+        }
+      });
+      let mailOptions = {
+        from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
+        to: emailList,
+        subject: `${movie.title} inställd`, // Subject line
+        html: output // html body
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return console.log(error);
+        }
+      });
+
+      res.json({ success: true });
+    }
   });
 });
 

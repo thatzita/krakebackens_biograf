@@ -37,6 +37,7 @@ class MonMovieList extends Component {
     this.setState({ open: true, movie: movie });
   };
   handleConfirm = () => {
+    console.log(this.state.movie);
     this.props.deleteMonMovie(this.state.movie);
     this.setState({ open: false });
   };
@@ -115,6 +116,7 @@ class MonMovieList extends Component {
               }}
             >
               <Item.Group divided>
+                {/* MOVIES */}
                 {monList.map(item => (
                   <Item key={item._id}>
                     <Item.Image size="tiny" src={item.poster} />
@@ -209,6 +211,7 @@ class MonMovieList extends Component {
                 ))}
               </Item.Group>
               <hr />
+              {/* EVENT */}
               <Item.Group divided>
                 {monEventList.map(item => (
                   <Item key={item._id}>
