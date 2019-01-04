@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Input, Segment, Button, Item, Icon, Message } from "semantic-ui-react";
+import {
+  Input,
+  Segment,
+  Button,
+  Item,
+  Icon,
+  Message,
+  Pagination
+} from "semantic-ui-react";
 import {
   searchMovie,
   imdbPopup,
@@ -20,15 +28,21 @@ class AddMovie extends Component {
       moviesFound: [],
       // Lägg till page
       searchedMovie: "",
-      searchedMoviePage: 1,
+      activePage: 1,
+      totalMoviePage: 1,
       popupMovie: null,
       success: null
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.increasePage = this.increasePage.bind(this);
-    this.decreasePage = this.decreasePage.bind(this);
+    // this.increasePage = this.increasePage.bind(this);
+    // this.decreasePage = this.decreasePage.bind(this);
   }
+
+  handlePaginationChange = (e, { activePage }) => {
+    this.setState({ activePage });
+    this.onSubmit(e, activePage);
+  };
 
   componentDidMount() {
     this.props.getCurrentProfile();
@@ -52,7 +66,9 @@ class AddMovie extends Component {
       this.setState({
         moviesFound: nextProps.movies.moviesFound,
         popupMovie: nextProps.movies.popupMovie,
-        profile: nextProps.profile.profile
+        profile: nextProps.profile.profile,
+        totalMoviePage: nextProps.movies.totalMoviePage,
+        activePage: nextProps.movies.activePage
       });
     }
   }
@@ -72,7 +88,7 @@ class AddMovie extends Component {
     if (page === undefined || page < 1) {
       page = 1;
       this.setState({
-        searchedMoviePage: 1
+        activePage: 1
       });
     }
     event.preventDefault();
@@ -90,20 +106,21 @@ class AddMovie extends Component {
     this.props.getMovieInfoAddtoDb(movieId);
   }
 
-  increasePage = event => {
-    let count = this.state.searchedMoviePage + 1;
+  // increasePage = event => {
+  //   let count = this.state.activePage + 1;
 
-    this.setState({ searchedMoviePage: this.state.searchedMoviePage + 1 });
-    this.onSubmit(event, count);
-  };
-  decreasePage = event => {
-    let count = this.state.searchedMoviePage - 1;
-    this.setState({ searchedMoviePage: this.state.searchedMoviePage - 1 });
-    this.onSubmit(event, count);
-  };
+  //   this.setState({ activePage: this.state.activePage + 1 });
+  //   this.onSubmit(event, count);
+  // };
+  // decreasePage = event => {
+  //   let count = this.state.activePage - 1;
+  //   this.setState({ activePage: this.state.activePage - 1 });
+  //   this.onSubmit(event, count);
+  // };
 
   render() {
     let { moviesFound, success } = this.state;
+
     let movieList;
     let posterUrl = "http://image.tmdb.org/t/p/w300";
 
@@ -210,7 +227,22 @@ class AddMovie extends Component {
           <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
             {movieList}
           </Segment>
-          {this.state.moviesFound !== undefined ? (
+          <div style={{ padding: "0", margin: "0", textAlign: "center" }}>
+            <Pagination
+              onPageChange={this.handlePaginationChange}
+              activePage={
+                this.props.movies.activePage !== undefined
+                  ? this.props.movies.activePage
+                  : 1
+              }
+              totalPages={
+                this.props.movies.totalMoviePage !== undefined
+                  ? this.props.movies.totalMoviePage
+                  : 1
+              }
+            />
+          </div>
+          {/* {this.state.moviesFound !== undefined ? (
             <Button.Group fluid>
               <Button
                 color="violet"
@@ -230,7 +262,7 @@ class AddMovie extends Component {
             </Button.Group>
           ) : (
             ""
-          )}
+          )} */}
         </div>
       </div>
     );

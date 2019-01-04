@@ -31,8 +31,6 @@ class Bookings extends Component {
   render() {
     const { monMovies, monEvents } = this.state;
 
-    let monMovieBookings;
-    let monEventBookings;
     let userBookedMovie = [];
     let userBookedEvent = [];
     let movieBookedContent;
@@ -113,6 +111,7 @@ class Bookings extends Component {
               email: customer.customer.email
             });
           }
+          return null;
         });
       }
 

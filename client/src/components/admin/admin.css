@@ -34,8 +34,8 @@
 
 .purpleBox {
   background-color: #621e96;
-  width: 9rem;
-  height: 9rem;
+  width: 6rem;
+  height: 6rem;
   position: relative;
   color: white;
   display: inline-block;
@@ -47,19 +47,19 @@
 }
 
 .purpleBox > p {
-  font-size: 1.5rem;
-  font-weight: 300;
+  font-size: 1rem;
+  font-weight: 400;
   text-align: center;
   margin-top: 1rem;
 }
-
-.film.huge.icon.iconPos,
-.users.huge.icon.iconPos,
-.chart.bar.huge.icon.iconPos,
-.archive.huge.icon.iconPos {
+.ticket.large.icon.iconPos,
+.film.large.icon.iconPos,
+.users.large.icon.iconPos,
+.chart.bar.large.icon.iconPos,
+.archive.large.icon.iconPos {
   text-align: center;
-  margin-left: 25%;
-  margin-top: 10%;
+  margin-left: 35%;
+  margin-top: 18%;
 }
 
 .makeItFloat .bigPicture {

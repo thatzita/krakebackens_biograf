@@ -36,7 +36,9 @@ export default function(state = initialState, action) {
     case SEARCH_MOVIE_TMDB:
       return {
         ...state,
-        moviesFound: action.payload
+        moviesFound: action.payload.results,
+        totalMoviePage: action.payload.total_pages,
+        activePage: action.payload.page
       };
     case RESET_MOVIE_SUCCESS:
       return {

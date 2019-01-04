@@ -54,27 +54,33 @@ class AdminHome extends Component {
             <Link to="/movies">
               {" "}
               <div className="purpleBox">
-                <Icon className="iconPos" size="huge" name="film" />
+                <Icon className="iconPos" size="large" name="film" />
                 <p>Filmer</p>
               </div>
             </Link>
             <Link to="/users">
               <div className="purpleBox">
-                <Icon className="iconPos" size="huge" name="users" />
+                <Icon className="iconPos" size="large" name="users" />
                 <p>Medlemmar</p>
+              </div>
+            </Link>
+            <Link to="/bookings">
+              <div className="purpleBox">
+                <Icon className="iconPos" size="large" name="ticket" />
+                <p>Bokningar</p>
               </div>
             </Link>
             <Link to="/statistic">
               <div className="purpleBox">
                 {" "}
-                <Icon className="iconPos" size="huge" name="chart bar" />
+                <Icon className="iconPos" size="large" name="chart bar" />
                 <p>Statistik</p>
               </div>
             </Link>
             <Link to="/moviearchive">
               <div className="purpleBox">
                 {" "}
-                <Icon className="iconPos" size="huge" name="archive" />
+                <Icon className="iconPos" size="large" name="archive" />
                 <p>Arkivet</p>
               </div>
             </Link>

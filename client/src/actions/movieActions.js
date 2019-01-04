@@ -60,7 +60,7 @@ export const searchMovie = (movieData, moviePage) => dispatch => {
 
   delete axios.defaults.headers.common["Authorization"];
   axios.get(url + movieData + key + page).then(res => {
-    let movieList = res.data.results;
+    let movieList = res.data;
     axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
     dispatch(showMoviesFound(movieList));
   });

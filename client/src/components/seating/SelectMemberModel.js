@@ -41,6 +41,7 @@ class ModalExampleSize extends Component {
             return x;
           }
         }
+        return null;
       });
     } else {
       newMemberList = membersList;

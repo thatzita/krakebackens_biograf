@@ -83,7 +83,9 @@ class Profile extends Component {
               newMultipulSeatingObj.booked = false;
               allBookings.push(newMultipulSeatingObj);
             }
+            return null;
           });
+          return null;
         });
 
         obj = {
@@ -120,6 +122,7 @@ class Profile extends Component {
             newMultipulSeatingObj.booked = false;
             allBookings.push(newMultipulSeatingObj);
           }
+          return null;
         });
 
         obj = {
