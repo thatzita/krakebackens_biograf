@@ -3,6 +3,13 @@ import { Header, Image } from "semantic-ui-react";
 import { seatNameConverter } from "./seatingFunctions";
 
 const ticketContainer = {
+  backgroundImage: "url(Biljett_bas_vers3.png)",
+  backgroundSize: "100% 100%",
+  WebkitBackgroundSize: "100% 100%",
+  MozBackgroundSize: "100% 100%",
+  OBackgroundSize: "100% 100%",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center 0",
   width: "60%",
   minWidth: "300px",
   maxWidth: "380px",
@@ -13,7 +20,7 @@ const ticketContainer = {
 
 const menberTicketContent = {
   padding: "1rem",
-  backgroundColor: "#ffffbb",
+  // backgroundColor: "#ffffbb",
   height: "100px",
   // minWidth: "220px",
   width: "100%"
@@ -22,7 +29,7 @@ const menberTicketContent = {
 export default function TheMemberTicket(props) {
   return (
     <div style={ticketContainer}>
-      <div
+      {/* <div
         style={{
           // backgroundColor: "pink",
           width: "40px",
@@ -36,14 +43,14 @@ export default function TheMemberTicket(props) {
           backgroundPosition: "center 0",
           marginRight: "-8px"
         }}
-      />
+      /> */}
       <div style={menberTicketContent}>
         <Header style={{ padding: "0", margin: "0" }} as="h5">
           <Image
-            style={{ margin: "0 1rem 0 0" }}
-            src="krakebackens_logo_violet.png"
+            style={{ margin: "0 1rem 0 0", width: "70px" }}
+            src="logo_vers3.png"
             circular
-            size="huge"
+            // size="huge"
           />
           <Header.Content>
             {props.item.customer.username}
@@ -64,7 +71,7 @@ export default function TheMemberTicket(props) {
           </Header.Content>
         </Header>
       </div>
-      <div
+      {/* <div
         style={{
           // backgroundColor: "pink",
           width: "40px",
@@ -78,7 +85,7 @@ export default function TheMemberTicket(props) {
           backgroundPosition: "center 0",
           marginLeft: "-2px"
         }}
-      />
+      /> */}
     </div>
   );
 }

@@ -3,16 +3,23 @@ import { Header, Image } from "semantic-ui-react";
 import { seatNameConverter } from "./seatingFunctions";
 
 const ticketContainer = {
+  backgroundImage: "url(Biljett_bas_vers2.png)",
+  backgroundSize: "100% 100%",
+  WebkitBackgroundSize: "100% 100%",
+  MozBackgroundSize: "100% 100%",
+  OBackgroundSize: "100% 100%",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center 0",
   width: "60%",
   minWidth: "300px",
-  maxWidth: "380px",
+  maxWidth: "350px",
   display: "flex",
   justifyContent: "flex-start"
 };
 
 const guestTicketContent = {
   padding: "1rem",
-  backgroundColor: "#dcfeff",
+  // backgroundColor: "#dcfeff",
   height: "100px",
   width: "100%"
 };
@@ -20,7 +27,7 @@ const guestTicketContent = {
 export default function TheGuestTicket(props) {
   return (
     <div style={ticketContainer}>
-      <div
+      {/* <div
         style={{
           width: "40px",
           height: "100px",
@@ -33,14 +40,14 @@ export default function TheGuestTicket(props) {
           backgroundPosition: "center 0",
           marginRight: "-8px"
         }}
-      />
+      /> */}
       <div style={guestTicketContent}>
         <Header style={{ padding: "0", margin: "0" }} as="h5">
           <Image
-            style={{ margin: "0 1rem 0 0" }}
-            src="krakebackens_logo_violet.png"
+            style={{ margin: "0 1rem 0 0", width: "70px" }}
+            src="logo_vers2.png"
             circular
-            size="huge"
+            // size="massive"
             // size="small"
           />
           <Header.Content>
@@ -61,7 +68,7 @@ export default function TheGuestTicket(props) {
           </Header.Content>
         </Header>
       </div>
-      <div
+      {/* <div
         style={{
           // backgroundColor: "pink",
           width: "40px",
@@ -75,7 +82,7 @@ export default function TheGuestTicket(props) {
           backgroundPosition: "center 0",
           marginLeft: "-2px"
         }}
-      />
+      /> */}
     </div>
   );
 }
