@@ -42,6 +42,10 @@ const MonthlyEventSchema = new Schema({
     type: String,
     required: true
   },
+  reminderIsSent: {
+    type: Boolean,
+    required: true
+  },
   seating: {
     type: Array,
     required: true

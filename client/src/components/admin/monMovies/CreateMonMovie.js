@@ -43,7 +43,7 @@ class CreateMonMovie extends Component {
       createDate_1.setHours(createDate_1.getHours() - 2)
     );
     let reminderTime = new Date(
-      createDate_2.setHours(createDate_2.getHours() - 6)
+      createDate_2.setHours(createDate_2.getHours() - 24)
     );
 
     let cancel_utc_time = cancelTime.toUTCString();

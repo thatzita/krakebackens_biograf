@@ -10,6 +10,7 @@ const { MonEvent } = require("./models/MonthlyEvent");
 const User = require("./models/User.js");
 
 const nodemailerReminder = require("./functionStorage/nodemailerReminder");
+const nodemailerReminderEvent = require("./functionStorage/nodemailerReminderEvent");
 
 //API paths
 const users = require("./routes/api/users");
@@ -221,7 +222,7 @@ new CronJob(
             movie.monMovieMessage,
             listOfEmailAdresses
           );
-          console.log("value ", resultValue);
+          // console.log("value ", resultValue);
 
           movie.reminderIsSent = true;
           let newMonMovie = movie;
@@ -242,6 +243,61 @@ new CronJob(
   true,
   "Europe/Stockholm"
 );
+
+// Remindeer for events
+new CronJob(
+  "*/1 * * * *",
+  function() {
+    let todaysDate = new Date();
+    MonEvent.find({}).then(events => {
+      events.forEach(event => {
+        if (
+          todaysDate > new Date(event.reminder_utc_time) &&
+          event.reminderIsSent === false
+        ) {
+          console.log("skickar påminelse för filmen ", event.title);
+          let listOfEmailAdresses = [];
+          // console.log("event ", event);
+
+          event.seating.map(item => {
+            if (
+              item.responsible.email &&
+              listOfEmailAdresses.includes(item.responsible.email) === false
+            ) {
+              listOfEmailAdresses.push(item.responsible.email);
+            }
+          });
+
+          // console.log("emailList: ", listOfEmailAdresses);
+          let resultValue = nodemailerReminderEvent(
+            event.title,
+            event.screeningDate,
+            event.screeningTime,
+            event.monEventMessage,
+            listOfEmailAdresses
+          );
+          // console.log("value ", resultValue);
+
+          event.reminderIsSent = true;
+          let newMonEvent = event;
+
+          newMonEvent
+            .save()
+            .then(monEvent => console.log(monEvent))
+            .catch(err => {
+              throw err;
+            });
+        } else {
+          // console.log("hitta ingen");
+        }
+      });
+    });
+  },
+  null,
+  true,
+  "Europe/Stockholm"
+);
+
 //Server static assets if in prod
 
 if (process.env.NODE_ENV === "production") {
