@@ -88,7 +88,7 @@ const nodemailerReminderEvent = (
   let mailOptions = {
     from: `"Kråkebackens Bio" <bringmybeerbro@gmail.com>`,
     to: emailList, // list of receivers
-    subject: "Påminelse", // Subject line
+    subject: "Påminnelse", // Subject line
     // text: 'Hello world?', // plain text body
     html: output // html body
   };

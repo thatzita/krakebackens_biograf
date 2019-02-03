@@ -201,7 +201,7 @@ new CronJob(
           todaysDate > new Date(movie.reminder_utc_time) &&
           movie.reminderIsSent === false
         ) {
-          console.log("skickar påminelse för filmen ", movie.title);
+          console.log("skickar påminnelse för filmen ", movie.title);
           let listOfEmailAdresses = [];
           movie.seating.map(array => {
             array.map(item => {
@@ -255,7 +255,7 @@ new CronJob(
           todaysDate > new Date(event.reminder_utc_time) &&
           event.reminderIsSent === false
         ) {
-          console.log("skickar påminelse för filmen ", event.title);
+          console.log("skickar påminnelse för filmen ", event.title);
           let listOfEmailAdresses = [];
           // console.log("event ", event);
 
