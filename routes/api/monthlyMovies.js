@@ -46,88 +46,89 @@ router.post("/uploadMoviePremiere", (req, res) => {
     $or: [{ title: req.body.mov.title }, { utc_time: req.body.utc_time }]
   })
     .then(movie => {
-      if (movie) {
-        // {
-        //   return res.status(400).json({ title: "This movie already is up" });
-        // } else
-        User.find({ "vip.status": "true" })
-          .then(users => {
-            const salong_1 = saloonCollection.salong_1;
-            const salong_2 = saloonCollection.salong_2;
-            let saloon;
-            if (req.body.saloon === "1") {
-              saloon = salong_1;
-            } else {
-              saloon = salong_2;
-            }
+      // console.log(movie);
+      // if (movie) {
+      // {
+      //   return res.status(400).json({ title: "This movie already is up" });
+      // } else
+      User.find({ "vip.status": "true" })
+        .then(users => {
+          const salong_1 = saloonCollection.salong_1;
+          const salong_2 = saloonCollection.salong_2;
+          let saloon;
+          if (req.body.saloon === "1") {
+            saloon = salong_1;
+          } else {
+            saloon = salong_2;
+          }
 
+          saloon.map(array => {
+            array.map(x => {
+              x.eventType = "movie";
+              x.title = req.body.mov.title;
+              x.screeningDate = req.body.date;
+              x.screeningTime = req.body.time;
+              x._id = req.body.mov.imdb_id;
+              x.poster = req.body.mov.poster;
+            });
+          });
+
+          if (users && req.body.saloon === "1") {
             saloon.map(array => {
               array.map(x => {
-                x.eventType = "movie";
-                x.title = req.body.mov.title;
-                x.screeningDate = req.body.date;
-                x.screeningTime = req.body.time;
-                x._id = req.body.mov.imdb_id;
-                x.poster = req.body.mov.poster;
+                let found = false;
+
+                for (let i = 0; i < users.length; i++) {
+                  if (x.seat === users[i].vip.seat) {
+                    found = true;
+                    break;
+                  }
+                }
+                if (found) {
+                  x.vip = true;
+                } else {
+                  x.vip = false;
+                }
               });
             });
+          }
 
-            if (users && req.body.saloon === "1") {
-              saloon.map(array => {
-                array.map(x => {
-                  let found = false;
+          const newMonMovie = new MonMovie({
+            eventType: "movie",
+            title: req.body.mov.title,
+            description: req.body.mov.description,
+            monMovieMessage: req.body.monMovieMessage,
+            background: req.body.mov.background,
+            poster: req.body.mov.poster,
+            runtime: req.body.mov.runtime,
+            genres: req.body.mov.genres,
+            imdb_id: req.body.mov.imdb_id,
+            release: req.body.mov.release,
+            crowRating: req.body.crowRating,
+            trailer: req.body.mov.trailer,
 
-                  for (let i = 0; i < users.length; i++) {
-                    if (x.seat === users[i].vip.seat) {
-                      found = true;
-                      break;
-                    }
-                  }
-                  if (found) {
-                    x.vip = true;
-                  } else {
-                    x.vip = false;
-                  }
-                });
-              });
-            }
-
-            const newMonMovie = new MonMovie({
-              eventType: "movie",
-              title: req.body.mov.title,
-              description: req.body.mov.description,
-              monMovieMessage: req.body.monMovieMessage,
-              background: req.body.mov.background,
-              poster: req.body.mov.poster,
-              runtime: req.body.mov.runtime,
-              genres: req.body.mov.genres,
-              imdb_id: req.body.mov.imdb_id,
-              release: req.body.mov.release,
-              crowRating: req.body.crowRating,
-              trailer: req.body.mov.trailer,
-
-              screeningDate: req.body.date,
-              screeningTime: req.body.time,
-              utc_time: req.body.utc_time,
-              cancel_utc_time: req.body.cancel_utc_time,
-              reminder_utc_time: req.body.reminder_utc_time,
-              reminderIsSent: false,
-              seating: saloon,
-              saloon: req.body.saloon,
-              fullyBooked: false
-            });
-
-            newMonMovie
-              .save()
-              .then(monMovie => res.json(monMovie))
-              .catch(err => {
-                throw err;
-              });
-          })
-          .catch(err => {
-            throw err;
+            screeningDate: req.body.date,
+            screeningTime: req.body.time,
+            utc_time: req.body.utc_time,
+            cancel_utc_time: req.body.cancel_utc_time,
+            reminder_utc_time: req.body.reminder_utc_time,
+            reminderIsSent: false,
+            seating: saloon,
+            saloon: req.body.saloon,
+            fullyBooked: false
           });
-      }
+
+          newMonMovie
+            .save()
+            .then(monMovie => res.json(monMovie))
+            .catch(err => {
+              throw err;
+            });
+        })
+        .catch(err => {
+          throw err;
+        });
+      // }
     })
     .catch(err => {
       throw err;
