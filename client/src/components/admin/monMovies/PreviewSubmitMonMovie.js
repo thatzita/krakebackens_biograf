@@ -8,7 +8,11 @@ export default function PreviewSubmitMonMovie(props) {
     <div className="prevSubMonMovie">
       <Segment style={{ boxShadow: "5px 5px 5px -6px rgba(0,0,0,0.75)" }}>
         <Admin />
-        <Button basic onClick={() => props.goToOrLeavePreviewPage(false)}>
+        <Button
+          basic
+          type="button"
+          onClick={() => props.goToOrLeavePreviewPage(false)}
+        >
           {" "}
           <Icon name="left angle" /> Gå tillbaka
         </Button>
@@ -73,6 +77,7 @@ export default function PreviewSubmitMonMovie(props) {
           <Item>
             <Item.Content>
               <Button
+                type="button"
                 as={Link}
                 to="/monMovieList"
                 onClick={() => props.onSubmitEvent()}

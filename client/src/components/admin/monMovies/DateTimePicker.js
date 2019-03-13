@@ -49,7 +49,7 @@ export default function DateTimePicker(props) {
             value={props.time}
           />
           <Form.Button
-            // type="button"
+            type="button"
             onClick={() => props.goToOrLeavePreviewPage(true)}
             disabled={
               props.time <= 0 ||
