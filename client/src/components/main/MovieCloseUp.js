@@ -213,11 +213,9 @@ class MovieCloseUp extends Component {
                 }}
               >
                 <h1>
-                  {movieObject.title ? movieObject.title : "Titel"} (
-                  {movieObject.release
-                    ? movieObject.release.substring(0, 4)
-                    : "2018"}
-                  )
+                  {movieObject.title ? movieObject.title : "Titel"}
+                  {movieObject.release &&
+                    ` (${movieObject.release.substring(0, 4)})`}
                 </h1>
                 <p>
                   {movieObject.saloon ? (
