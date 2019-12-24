@@ -108,6 +108,17 @@ class Navbar extends Component {
                   {isAuthenticated ? (
                     <Menu.Item
                       as={Link}
+                      to="/aboutus"
+                      name="Om oss"
+                      active={activeItem === "Om oss"}
+                      onClick={this.handleItemClick}
+                      content="Om oss"
+                    />
+                  ) : null}
+
+                  {isAuthenticated ? (
+                    <Menu.Item
+                      as={Link}
                       to="/profile"
                       name="Profil"
                       active={activeItem === "Profil"}
@@ -147,17 +158,6 @@ class Navbar extends Component {
                   {/* {isAuthenticated ? (
                     <Menu.Item
                       as={Link}
-                      to="/"
-                      name="Om oss"
-                      active={activeItem === "Om oss"}
-                      onClick={this.handleItemClick}
-                      content="Om oss"
-                    />
-                  ) : null} */}
-
-                  {/* {isAuthenticated ? (
-                    <Menu.Item
-                      as={Link}
                       to="/mainpage"
                       name="Kontakta oss"
                       active={activeItem === "Kontakta oss"}
@@ -166,7 +166,7 @@ class Navbar extends Component {
                     />
                   ) : null} */}
 
-                  {admin ? (
+                  {admin && (
                     <Menu.Item
                       as={Link}
                       to="/adminhome"
@@ -174,8 +174,6 @@ class Navbar extends Component {
                       active={activeItem === "Admin"}
                       onClick={() => this.props.goToAdminPage(true)}
                     />
-                  ) : (
-                    ""
                   )}
 
                   <Menu.Item />

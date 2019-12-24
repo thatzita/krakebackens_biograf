@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Button, Segment, Icon, Item } from "semantic-ui-react";
 
 export default function ProfileHeader(props) {
-
   return (
     <Segment.Group>
       <Segment
@@ -21,7 +20,7 @@ export default function ProfileHeader(props) {
             padded="very"
             style={{
               margin: "0 1rem",
-              borrder: "none",
+              border: "none",
               boxShadow: "none",
               paddingBottom: "1rem"
             }}

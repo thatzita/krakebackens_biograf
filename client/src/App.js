@@ -29,6 +29,7 @@ import Statistic from "./components/statistic/Statistic";
 import Seating from "./components/seating/Seating";
 import ArchiveMain from "./components/archive/ArchiveMain";
 import Bookings from "./components/admin/Bookings";
+import AboutUs from "./components/aboutus";
 
 import CreateMonEvent from "./components/admin/monMovies/CreateMonEvent";
 import CreateMonMovie from "./components/admin/monMovies/CreateMonMovie";
@@ -111,6 +112,7 @@ class App extends Component {
                   component={MovieCloseUp}
                 />
                 <PrivateRoute exact path="/mainpage" component={Mainpage} />
+                <PrivateRoute exact path="/aboutus" component={AboutUs} />
                 <PrivateRoute exact path="/profile" component={Profile} />
                 <PrivateRoute
                   exact

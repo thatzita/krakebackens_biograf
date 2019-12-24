@@ -143,7 +143,7 @@ class Bookings extends Component {
         <div className="movieAlign">
           <br />
           <br />
-          <h2 style={{ marginLeft: "5px" }}>Evenemag</h2>
+          <h2 style={{ marginLeft: "5px" }}>Evenemang</h2>
           <Segment
             className="containerMoviesUser"
             style={{

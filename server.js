@@ -19,6 +19,8 @@ const monthlyMovies = require("./routes/api/monthlyMovies");
 const movies = require("./routes/api/movies");
 const stats = require("./routes/api/userArchive");
 
+const motd = require("./routes/api/motd");
+
 const app = express();
 
 //Middleware
@@ -30,10 +32,7 @@ const db = require("./config/keys").mongoURI;
 
 //Koppla mot databasen med mongoose
 mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true }
-  )
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Kopplad till Kråkebackens databas");
   })
@@ -54,6 +53,7 @@ app.use("/api/apply", apply);
 app.use("/api/monthlyMovies", monthlyMovies);
 app.use("/api/movies", movies);
 app.use("/api/stats", stats);
+app.use("/api/motd", motd);
 
 //Schedule
 const CronJob = require("cron").CronJob;
