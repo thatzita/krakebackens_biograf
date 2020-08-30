@@ -8,74 +8,74 @@ import {
   MOVIE_ADDED_SUCCESS,
   DELETE_MOVIE_DB,
   UPDATE_MOVIE_DB,
-  RESET_MOVIE_SUCCESS
-} from "../actions/types";
+  RESET_MOVIE_SUCCESS,
+} from '../actions/types';
 
 const initialState = {};
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   //Om det blir en success kommer state uppdateras med information
   switch (action.type) {
     case GET_MOVIES:
       return {
         ...state,
-        movies: action.payload
+        movies: action.payload,
       };
     case MOVIE_POPUP:
       return {
         ...state,
-        ...(state.showOrHide = true),
-        movieInfo: action.payload
+        showOrHide: true,
+        movieInfo: action.payload,
       };
     case MOVIE_POPUP_CLOSE:
       return {
         ...state,
-        ...(state.showOrHide = false),
-        movieInfo: action.payload
+        showOrHide: false,
+        movieInfo: action.payload,
       };
     case SEARCH_MOVIE_TMDB:
       return {
         ...state,
         moviesFound: action.payload.results,
         totalMoviePage: action.payload.total_pages,
-        activePage: action.payload.page
+        activePage: action.payload.page,
       };
     case RESET_MOVIE_SUCCESS:
       return {
         ...state,
-        success: action.payload
+        success: action.payload,
       };
     case IMDB_POPUP:
       return {
         ...state,
-        ...(state.showOrHideImdb = true),
-        movieInfo: action.payload
+        showOrHideImdb: true,
+        movieInfo: action.payload,
       };
     case IMDB_POPUP_CLOSE:
       return {
         ...state,
-        ...(state.showOrHideImdb = false),
-        movieInfo: action.payload
+        showOrHideImdb: false,
+        movieInfo: action.payload,
       };
 
     case MOVIE_ADDED_SUCCESS:
       return {
         ...state,
-        ...(state.showOrHideImdb = false),
-        success: action.payload
+        showOrHideImdb: false,
+        success: action.payload,
       };
     case DELETE_MOVIE_DB:
       let newMovieState = removeMovie(action.payload, state.movies);
       return {
         ...state,
-        movies: newMovieState
+        movies: newMovieState,
       };
     case UPDATE_MOVIE_DB:
       let updatedMovieState = updateMovie(action.payload, state.movies);
 
       return {
         ...state,
-        movies: updatedMovieState
+        movies: updatedMovieState,
       };
     default:
       return state;
@@ -83,7 +83,7 @@ export default function(state = initialState, action) {
 }
 
 function removeMovie(deleteData, movieArray) {
-  let updatedMovieList = movieArray.filter(listItem => {
+  let updatedMovieList = movieArray.filter((listItem) => {
     return listItem !== deleteData;
   });
   return updatedMovieList;

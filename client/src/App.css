@@ -66,23 +66,23 @@
   flex: 0 0 100%;
   max-width: 100%;
 } */
-/* .containerApp { */
-/* width: 100%;
+.containerApp {
+  /* width: 100%;
   padding-top: 3rem;
   padding-bottom: 3rem;
   background-color: #f8f8ff;
   margin-right: auto;
   margin-left: auto; */
-/* width: 100%; */
-/* padding-top: 3rem; */
-/* padding-bottom: 6rem; */
-/* background-color: #f8f8ff; */
-/* background-color: black; */
-/* padding-right: 15px; */
-/* margin-bottom: -45px; */
-/* margin-right: auto; */
-/* margin-left: auto; */
-/* } */
+  /* width: 100%; */
+  /* padding-top: 3rem; */
+  /* padding-bottom: 6rem; */
+  /* background-color: #f8f8ff; */
+  background-color: black;
+  /* padding-right: 15px; */
+  /* margin-bottom: -45px; */
+  /* margin-right: auto; */
+  /* margin-left: auto; */
+}
 
 /* .text-center {
   text-align: center !important;

@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   moviePopupClose,
   updateDb,
   deleteMovie,
-  getAllMovies
-} from "../../actions/movieActions";
+  getAllMovies,
+} from '../../actions/movieActions';
 import {
   Card,
   Button,
@@ -15,9 +15,9 @@ import {
   Icon,
   Confirm,
   Form,
-  Checkbox
-} from "semantic-ui-react";
-import "./movies.css";
+  Checkbox,
+} from 'semantic-ui-react';
+import './movies.css';
 
 class Popup extends Component {
   constructor() {
@@ -25,12 +25,12 @@ class Popup extends Component {
     this.state = {
       showOrHide: false,
       movieInfo: {},
-      title: "",
-      description: "",
-      crowRating: "",
+      title: '',
+      description: '',
+      crowRating: '',
       show: false,
       movie: {},
-      dvdOrBluRay: ""
+      dvdOrBluRay: '',
     };
     this.editValues = this.editValues.bind(this);
   }
@@ -53,86 +53,86 @@ class Popup extends Component {
 
     if (movieInfo.crowRating === null) {
       this.setState({
-        crowRating: "Kråkan har inte tyckt till, än..."
+        crowRating: 'Kråkan har inte tyckt till, än...',
       });
     }
     if (movieInfo.dvdOrBluRay === undefined) {
       this.setState({
-        dvdOrBluRay: "bluRay"
+        dvdOrBluRay: 'bluRay',
       });
     }
 
-    if (title === "" && description === "" && crowRating === "") {
+    if (title === '' && description === '' && crowRating === '') {
       movieDb = {
         title: movieInfo.title,
         description: movieInfo.description,
         crowRating: movieInfo.crowRating,
         id: movieInfo._id,
-        dvdOrBluRay: dvdOrBluRay
+        dvdOrBluRay: dvdOrBluRay,
       };
-    } else if (title !== "" && description !== "" && crowRating !== "") {
+    } else if (title !== '' && description !== '' && crowRating !== '') {
       movieDb = {
         title: title,
         description: description,
         crowRating: crowRating,
         id: movieInfo._id,
-        dvdOrBluRay: dvdOrBluRay
+        dvdOrBluRay: dvdOrBluRay,
       };
-    } else if (title !== "" && description === "" && crowRating === "") {
+    } else if (title !== '' && description === '' && crowRating === '') {
       movieDb = {
         title: title,
         description: movieInfo.description,
         crowRating: movieInfo.crowRating,
         id: movieInfo._id,
-        dvdOrBluRay: dvdOrBluRay
+        dvdOrBluRay: dvdOrBluRay,
       };
-    } else if (title === "" && description !== "" && crowRating === "") {
+    } else if (title === '' && description !== '' && crowRating === '') {
       movieDb = {
         title: movieInfo.title,
         description: description,
         crowRating: movieInfo.crowRating,
         id: movieInfo._id,
-        dvdOrBluRay: dvdOrBluRay
+        dvdOrBluRay: dvdOrBluRay,
       };
-    } else if (title === "" && description === "" && crowRating !== "") {
+    } else if (title === '' && description === '' && crowRating !== '') {
       movieDb = {
         title: movieInfo.title,
         description: movieInfo.description,
         crowRating: crowRating,
         id: movieInfo._id,
-        dvdOrBluRay: dvdOrBluRay
+        dvdOrBluRay: dvdOrBluRay,
       };
-    } else if (title !== "" && description !== "" && crowRating === "") {
+    } else if (title !== '' && description !== '' && crowRating === '') {
       movieDb = {
         title: title,
         description: description,
         crowRating: movieInfo.crowRating,
         id: movieInfo._id,
-        dvdOrBluRay: dvdOrBluRay
+        dvdOrBluRay: dvdOrBluRay,
       };
-    } else if (title === "" && description !== "" && crowRating !== "") {
+    } else if (title === '' && description !== '' && crowRating !== '') {
       movieDb = {
         title: movieInfo.title,
         description: description,
         crowRating: crowRating,
         id: movieInfo._id,
-        dvdOrBluRay: dvdOrBluRay
+        dvdOrBluRay: dvdOrBluRay,
       };
-    } else if (title !== "" && description === "" && crowRating !== "") {
+    } else if (title !== '' && description === '' && crowRating !== '') {
       movieDb = {
         title: title,
         description: movieInfo.description,
         crowRating: crowRating,
         id: movieInfo._id,
-        dvdOrBluRay: dvdOrBluRay
+        dvdOrBluRay: dvdOrBluRay,
       };
     }
 
     this.props.updateDb(movieDb);
     this.setState({
-      title: "",
-      description: "",
-      crowRating: ""
+      title: '',
+      description: '',
+      crowRating: '',
       // dvdOrBluRay: ""
     });
     this.closePopup();
@@ -146,19 +146,19 @@ class Popup extends Component {
 
   editValues(nameOfClass, data) {
     switch (nameOfClass) {
-      case "titlePopup":
+      case 'titlePopup':
         this.setState({
-          title: data
+          title: data,
         });
         break;
-      case "description":
+      case 'description':
         this.setState({
-          description: data
+          description: data,
         });
         break;
-      case "crowRating":
+      case 'crowRating':
         this.setState({
-          crowRating: data
+          crowRating: data,
         });
 
         break;
@@ -169,16 +169,16 @@ class Popup extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       movieInfo: nextProps.movies.movieInfo,
-      showOrHide: nextProps.movies.showOrHide
+      showOrHide: nextProps.movies.showOrHide,
     });
     if (nextProps.movies.movieInfo) {
       this.setState({
-        dvdOrBluRay: nextProps.movies.movieInfo.dvdOrBluRay
+        dvdOrBluRay: nextProps.movies.movieInfo.dvdOrBluRay,
       });
     }
   }
 
-  show = movie => {
+  show = (movie) => {
     this.setState({ open: true, movie: movie });
   };
   handleConfirm = () => {
@@ -196,35 +196,35 @@ class Popup extends Component {
 
     if (showOrHide) {
       moviePopup = (
-        <div className="popup">
-          <Card className="containerInPopup">
-            <div className="imgPosition">
+        <div className='popup'>
+          <Card className='containerInPopup'>
+            <div className='imgPosition'>
               <Image
-                className="imageBorder"
-                size="large"
+                className='imageBorder'
+                size='large'
                 src={movieInfo.background}
-                alt="Bild saknas"
-                onError={e => {
-                  e.target.src = "curtain.jpg";
+                alt='Bild saknas'
+                onError={(e) => {
+                  e.target.src = 'curtain.jpg';
                 }}
               />
               <Image
-                size="small"
-                className="imageBorder"
+                size='small'
+                className='imageBorder'
                 src={movieInfo.poster}
-                alt="Bild saknas"
-                onError={e => {
-                  e.target.src = "poster_not_available.jpg";
+                alt='Bild saknas'
+                onError={(e) => {
+                  e.target.src = 'poster_not_available.jpg';
                 }}
               />
             </div>
             <br />
-            <div className="descriptionContainer">
+            <div className='descriptionContainer'>
               <h1
-                className="titlePopup"
+                className='titlePopup'
                 contentEditable={this.props.auth.user.admin ? true : false}
-                suppressContentEditableWarning="true"
-                onInput={event => this.changeInput(event)}
+                suppressContentEditableWarning='true'
+                onInput={(event) => this.changeInput(event)}
               >
                 {movieInfo.title}
               </h1>
@@ -234,30 +234,30 @@ class Popup extends Component {
                 <strong>Genres:</strong> <br />
                 {movieInfo.genres.map((genre, i) => {
                   return (
-                    <span key={i} className="date">
-                      {genre}{" "}
+                    <span key={i} className='date'>
+                      {genre}{' '}
                     </span>
                   );
                 })}
               </p>
-              <Icon name="time" />
-              <span className="date boldSpan">{movieInfo.runtime} min</span>
+              <Icon name='time' />
+              <span className='date boldSpan'>{movieInfo.runtime} min</span>
               <br />
               <br />
-              <span className="date boldSpan">Betyg: {movieInfo.rating} </span>
+              <span className='date boldSpan'>Betyg: {movieInfo.rating} </span>
               <br />
               <br />
-              <span className="date boldSpan">
+              <span className='date boldSpan'>
                 Kråkan tycker till:
                 <p
-                  className="crowRating"
+                  className='crowRating'
                   contentEditable={this.props.auth.user.admin ? true : false}
-                  suppressContentEditableWarning="true"
-                  onInput={event => this.changeInput(event)}
+                  suppressContentEditableWarning='true'
+                  onInput={(event) => this.changeInput(event)}
                 >
                   {movieInfo.crowRating
                     ? movieInfo.crowRating
-                    : "Kråkan har inte tyckt till, än..."}
+                    : 'Kråkan har inte tyckt till, än...'}
                 </p>
               </span>
               <br />
@@ -266,52 +266,52 @@ class Popup extends Component {
                   <Form.Field>
                     <Checkbox
                       radio
-                      label="Blu-ray"
-                      name="checkboxRadioGroup"
-                      value="bluRay"
-                      checked={this.state.dvdOrBluRay === "bluRay"}
+                      label='Blu-ray'
+                      name='checkboxRadioGroup'
+                      value='bluRay'
+                      checked={this.state.dvdOrBluRay === 'bluRay'}
                       onChange={this.handleChange}
                     />
                     <Checkbox
-                      style={{ marginLeft: "1rem" }}
+                      style={{ marginLeft: '1rem' }}
                       radio
-                      label="3D"
-                      name="checkboxRadioGroup"
-                      value="3D"
-                      checked={this.state.dvdOrBluRay === "3D"}
+                      label='3D'
+                      name='checkboxRadioGroup'
+                      value='3D'
+                      checked={this.state.dvdOrBluRay === '3D'}
                       onChange={this.handleChange}
                     />
                     <Checkbox
-                      style={{ marginLeft: "1rem" }}
+                      style={{ marginLeft: '1rem' }}
                       radio
-                      label="DVD"
-                      name="checkboxRadioGroup"
-                      value="dvd"
-                      checked={this.state.dvdOrBluRay === "dvd"}
+                      label='DVD'
+                      name='checkboxRadioGroup'
+                      value='dvd'
+                      checked={this.state.dvdOrBluRay === 'dvd'}
                       onChange={this.handleChange}
                     />
 
                     <Checkbox
-                      style={{ marginLeft: "1rem" }}
+                      style={{ marginLeft: '1rem' }}
                       radio
-                      label="USB"
-                      name="checkboxRadioGroup"
-                      value="usb"
-                      checked={this.state.dvdOrBluRay === "usb"}
+                      label='USB'
+                      name='checkboxRadioGroup'
+                      value='usb'
+                      checked={this.state.dvdOrBluRay === 'usb'}
                       onChange={this.handleChange}
                     />
                   </Form.Field>
                 </Form>
               ) : (
-                ""
+                ''
               )}
               <br />
-              <span className="date boldSpan">Beskrivning:</span>
+              <span className='date boldSpan'>Beskrivning:</span>
               <p
-                className="description"
+                className='description'
                 contentEditable={this.props.auth.user.admin ? true : false}
-                suppressContentEditableWarning="true"
-                onInput={event => this.changeInput(event)}
+                suppressContentEditableWarning='true'
+                onInput={(event) => this.changeInput(event)}
               >
                 {movieInfo.description}
               </p>
@@ -319,53 +319,53 @@ class Popup extends Component {
               {this.props.auth.user.admin ? (
                 <Button.Group
                   fluid
-                  style={{ marginTop: "-2rem" }}
-                  className="btnGroupPopup"
+                  style={{ marginTop: '-2rem' }}
+                  className='btnGroupPopup'
                 >
                   <Button
-                    attached="bottom"
-                    className="deleteButtonPopup"
-                    onClick={e => this.show(movieInfo)}
+                    attached='bottom'
+                    className='deleteButtonPopup'
+                    onClick={(e) => this.show(movieInfo)}
                   >
                     Ta bort från databasen
                   </Button>
                   <Confirm
                     open={open}
-                    className="confirmDeleteMovie"
-                    header="Du är på väg att ta bort en film"
-                    content="Är du säker att du vill ta bort filmen?"
-                    cancelButton="Gå tillbaka"
-                    confirmButton="Ta bort"
+                    className='confirmDeleteMovie'
+                    header='Du är på väg att ta bort en film'
+                    content='Är du säker att du vill ta bort filmen?'
+                    cancelButton='Gå tillbaka'
+                    confirmButton='Ta bort'
                     onCancel={this.handleCancel}
                     onConfirm={this.handleConfirm}
                   />
                   <Button
-                    className="UpdateButton"
-                    color="green"
-                    attached="bottom"
-                    onClick={e => this.updateMovieDb(movieInfo)}
+                    className='UpdateButton'
+                    color='green'
+                    attached='bottom'
+                    onClick={(e) => this.updateMovieDb(movieInfo)}
                   >
                     Uppdatera databasen
                   </Button>
 
                   <Button
-                    attached="bottom"
-                    className="closeButton"
-                    onClick={e => this.closePopup()}
+                    attached='bottom'
+                    className='closeButton'
+                    onClick={(e) => this.closePopup()}
                   >
-                    <Icon name="left chevron" />
+                    <Icon name='left chevron' />
                     Stäng
                   </Button>
                 </Button.Group>
               ) : (
                 <Button
                   fluid
-                  style={{ marginTop: "-0.5rem", marginLeft: "0rem" }}
-                  attached="bottom"
+                  style={{ marginTop: '-0.5rem', marginLeft: '0rem' }}
+                  attached='bottom'
                   // className="closeButton"
-                  onClick={e => this.closePopup()}
+                  onClick={(e) => this.closePopup()}
                 >
-                  <Icon name="left chevron" />
+                  <Icon name='left chevron' />
                   Stäng
                 </Button>
               )}
@@ -374,7 +374,7 @@ class Popup extends Component {
         </div>
       );
     } else {
-      moviePopup = "";
+      moviePopup = '';
     }
     return <div>{moviePopup}</div>;
   }
@@ -385,22 +385,19 @@ Popup.propTypes = {
   updateDb: PropTypes.func.isRequired,
   deleteMovie: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  movies: PropTypes.object.isRequired
+  movies: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   movieInfo: state.movieInfo,
   movies: state.movies,
-  auth: state.auth
+  auth: state.auth,
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    //func goes here
-    moviePopupClose,
-    deleteMovie,
-    updateDb,
-    getAllMovies
-  }
-)(Popup);
+export default connect(mapStateToProps, {
+  //func goes here
+  moviePopupClose,
+  deleteMovie,
+  updateDb,
+  getAllMovies,
+})(Popup);

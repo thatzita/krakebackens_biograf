@@ -1,5 +1,5 @@
-import axios from "axios";
-import keys from "../config/keys";
+import axios from 'axios';
+import keys from '../config/keys';
 import {
   GET_MOVIES,
   GET_ERRORS,
@@ -11,81 +11,81 @@ import {
   MOVIE_ADDED_SUCCESS,
   DELETE_MOVIE_DB,
   UPDATE_MOVIE_DB,
-  RESET_MOVIE_SUCCESS
-} from "./types";
+  RESET_MOVIE_SUCCESS,
+} from './types';
 
-export const getAllMovies = () => dispatch => {
+export const getAllMovies = () => (dispatch) => {
   axios
-    .get("/api/movies/allmovies")
-    .then(res => {
+    .get('/api/movies/allmovies')
+    .then((res) => {
       let movieList = res.data.movies;
 
       dispatch(getMovieList(movieList));
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.response.data,
       });
     });
 };
 
-export const getMovieList = success => {
+export const getMovieList = (success) => {
   return {
     type: GET_MOVIES,
-    payload: success
+    payload: success,
   };
 };
 
-export const moviePopup = movieData => {
+export const moviePopup = (movieData) => {
   return {
     type: MOVIE_POPUP,
-    payload: movieData
+    payload: movieData,
   };
 };
 export const moviePopupClose = () => {
   return {
     type: MOVIE_POPUP_CLOSE,
-    payload: {}
+    payload: {},
   };
 };
 
 //TMDB
-export const searchMovie = (movieData, moviePage) => dispatch => {
-  let url = "https://api.themoviedb.org/3/search/movie?query=";
+export const searchMovie = (movieData, moviePage) => (dispatch) => {
+  let url = 'https://api.themoviedb.org/3/search/movie?query=';
 
   let key = `&api_key=${keys.API_KEY}`;
 
   let page = `&page=${moviePage}`;
 
-  delete axios.defaults.headers.common["Authorization"];
-  axios.get(url + movieData + key + page).then(res => {
+  delete axios.defaults.headers.common['Authorization'];
+  axios.get(url + movieData + key + page).then((res) => {
     let movieList = res.data;
-    axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
+    axios.defaults.headers.common['Authorization'] = localStorage.jwtToken;
     dispatch(showMoviesFound(movieList));
   });
 };
 
-export const showMoviesFound = movieData => {
+export const showMoviesFound = (movieData) => {
   return {
     type: SEARCH_MOVIE_TMDB,
-    payload: movieData
+    payload: movieData,
   };
 };
 
 //ADD IMDB DATA WITHOUT POPUP
-export const getMovieInfoAddtoDb = movieId => dispatch => {
-  let url = "https://api.themoviedb.org/3/movie/";
+export const getMovieInfoAddtoDb = (movieId) => (dispatch) => {
+  let url = 'https://api.themoviedb.org/3/movie/';
   let key = `?api_key=${keys.API_KEY}&language=sv`;
 
-  let trailerUrl = "https://api.themoviedb.org/3/movie/";
+  let trailerUrl = 'https://api.themoviedb.org/3/movie/';
   let trailerKey = `/videos?api_key=${keys.API_KEY}`;
 
-  delete axios.defaults.headers.common["Authorization"];
+  delete axios.defaults.headers.common['Authorization'];
 
   let trailerVideo;
 
-  axios.get(trailerUrl + movieId + trailerKey).then(res => {
+  axios.get(trailerUrl + movieId + trailerKey).then((res) => {
     let trailer = res.data.results;
     if (trailer.length > 0) {
       trailerVideo = `//youtube.com/watch?v=${trailer[0].key}`;
@@ -96,19 +96,19 @@ export const getMovieInfoAddtoDb = movieId => dispatch => {
 
   axios
     .get(url + movieId + key)
-    .then(res => {
+    .then((res) => {
       let movie = res.data;
       return movie;
     })
-    .then(movieToAdd => {
-      let urlForImg = "http://image.tmdb.org/t/p/original";
-      let genreArray = movieToAdd.genres.map(genre => {
+    .then((movieToAdd) => {
+      let urlForImg = 'http://image.tmdb.org/t/p/original';
+      let genreArray = movieToAdd.genres.map((genre) => {
         return genre.name;
       });
 
-      if (movieToAdd.overview === "") {
+      if (movieToAdd.overview === '') {
         movieToAdd.overview =
-          "Beskrivning saknas, hojta på kråkan så fixar han det!";
+          'Beskrivning saknas, hojta på kråkan så fixar han det!';
       }
 
       let addToDb = {
@@ -121,15 +121,15 @@ export const getMovieInfoAddtoDb = movieId => dispatch => {
         imdb_id: movieToAdd.imdb_id,
         release: movieToAdd.release_date,
         rating: movieToAdd.vote_average,
-        dvdOrBluRay: "bluRay",
-        trailer: trailerVideo
+        dvdOrBluRay: 'bluRay',
+        trailer: trailerVideo,
       };
 
-      axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
-      axios.post("/api/movies/addmovie", addToDb).then(res => {
+      axios.defaults.headers.common['Authorization'] = localStorage.jwtToken;
+      axios.post('/api/movies/addmovie', addToDb).then((res) => {
         let success = {
-          title: "Film tillagd!",
-          msg: "Filmen finns nu i databasen"
+          title: 'Film tillagd!',
+          msg: 'Filmen finns nu i databasen',
         };
         dispatch(movieAddedSuccess(success));
       });
@@ -137,15 +137,15 @@ export const getMovieInfoAddtoDb = movieId => dispatch => {
 };
 
 //IMDB POPUP
-export const imdbPopup = movieId => dispatch => {
-  let url = "https://api.themoviedb.org/3/movie/";
+export const imdbPopup = (movieId) => (dispatch) => {
+  let url = 'https://api.themoviedb.org/3/movie/';
   let key = `?api_key=${keys.API_KEY}&language=sv`;
 
-  delete axios.defaults.headers.common["Authorization"];
+  delete axios.defaults.headers.common['Authorization'];
 
-  axios.get(url + movieId + key).then(res => {
+  axios.get(url + movieId + key).then((res) => {
     let movie = res.data;
-    axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
+    axios.defaults.headers.common['Authorization'] = localStorage.jwtToken;
     dispatch(showSpecificMovie(movie));
   });
 };
@@ -153,44 +153,44 @@ export const imdbPopup = movieId => dispatch => {
 export const imdbPopupClose = () => {
   return {
     type: IMDB_POPUP_CLOSE,
-    payload: {}
+    payload: {},
   };
 };
 
-export const showSpecificMovie = movieData => {
+export const showSpecificMovie = (movieData) => {
   return {
     type: IMDB_POPUP,
-    payload: movieData
+    payload: movieData,
   };
 };
 
 //TODO: Trailer via
 //LÄGG TILL I DB
-export const addToMovieDb = (addToDb, movieId) => dispatch => {
+export const addToMovieDb = (addToDb, movieId) => (dispatch) => {
   let movieInfo = addToDb;
   let id = movieId;
 
-  delete axios.defaults.headers.common["Authorization"];
+  delete axios.defaults.headers.common['Authorization'];
 
   function fetchTrailerUrl(id) {
-    let trailerUrl = "https://api.themoviedb.org/3/movie/";
+    let trailerUrl = 'https://api.themoviedb.org/3/movie/';
     let trailerKey = `/videos?api_key=${keys.API_KEY}`;
     const request = axios
       .get(trailerUrl + id + trailerKey)
-      .then(function(response) {
+      .then(function (response) {
         return response.data;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         return Promise.reject(error);
       });
 
     return {
-      payload: request
+      payload: request,
     };
   }
 
   fetchTrailerUrl(id)
-    .payload.then(data => {
+    .payload.then((data) => {
       if (data.results.length > 0) {
         movieInfo.trailer = `//youtube.com/watch?v=${data.results[0].key}`;
       } else {
@@ -198,73 +198,73 @@ export const addToMovieDb = (addToDb, movieId) => dispatch => {
       }
     })
     .then(() => {
-      axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
+      axios.defaults.headers.common['Authorization'] = localStorage.jwtToken;
 
-      axios.post("/api/movies/addmovie", movieInfo).then(res => {
+      axios.post('/api/movies/addmovie', movieInfo).then((res) => {
         let success = {
-          title: "Film tillagd!",
-          msg: "Filmen finns nu i databasen"
+          title: 'Film tillagd!',
+          msg: 'Filmen finns nu i databasen',
         };
         dispatch(movieAddedSuccess(success));
       });
     });
 };
 
-export const movieAddedSuccess = success => {
+export const movieAddedSuccess = (success) => {
   return {
     type: MOVIE_ADDED_SUCCESS,
-    payload: success
+    payload: success,
   };
 };
 
-export const resetMovieSuccess = () => dispatch => {
+export const resetMovieSuccess = () => (dispatch) => {
   dispatch({
     type: RESET_MOVIE_SUCCESS,
-    payload: null
+    payload: null,
   });
 };
 
 //DELETE FRÅN DB
-export const deleteMovie = movie => dispatch => {
+export const deleteMovie = (movie) => (dispatch) => {
   let objId = movie._id;
   axios
-    .delete("/api/movies", { data: { objId } })
-    .then(res => {
+    .delete('/api/movies', { data: { objId } })
+    .then((res) => {
       if (res) {
         dispatch(movieDeleteSuccess(movie));
       } else {
-        console.log("Något gick fel när film skulle tas bort från databasen.");
+        console.log('Något gick fel när film skulle tas bort från databasen.');
       }
     })
-    .catch(err => {
+    .catch((err) => {
       throw err;
     });
 };
 
-export const movieDeleteSuccess = deletedMovie => {
+export const movieDeleteSuccess = (deletedMovie) => {
   return {
     type: DELETE_MOVIE_DB,
-    payload: deletedMovie
+    payload: deletedMovie,
   };
 };
 
 //UPPDATERA DB
-export const updateDb = updatedMovie => dispatch => {
+export const updateDb = (updatedMovie) => (dispatch) => {
   axios
-    .post("/api/movies/update", { data: { updatedMovie } })
-    .then(res => {
+    .post('/api/movies/update', { data: { updatedMovie } })
+    .then((res) => {
       if (res) {
         dispatch(movieUpdated(updatedMovie));
       }
     })
-    .catch(err => {
+    .catch((err) => {
       throw err;
     });
 };
 
-export const movieUpdated = updated => {
+export const movieUpdated = (updated) => {
   return {
     type: UPDATE_MOVIE_DB,
-    payload: updated
+    payload: updated,
   };
 };
