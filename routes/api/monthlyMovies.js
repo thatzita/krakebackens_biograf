@@ -321,9 +321,7 @@ router.post("/completeAndSaveBookingEvent", (req, res) => {
                             <tr>
                               <td style="padding:auto;" align="center" valign="top">
             
-                                  <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Du har bokat en plats till eventet  <strong> ${
-                                    event.title
-                                  } </strong> kommer finnas på din profilsida. Du kan ändra din bokning under din profil.</p>
+                                  <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Du har bokat en plats till eventet  <strong> ${event.title} </strong> kommer finnas på din profilsida. Du kan ändra din bokning under din profil.</p>
             
                               </td>
                             </tr>
@@ -435,9 +433,7 @@ router.delete("/deleteMonthlyEvent", (req, res) => {
                 <tr>
                 <td style="padding:auto;" align="center" valign="top">
                 
-                <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;"><strong> ${
-                  event.title
-                } </strong> är tyvärr inställd.</p>
+                <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;"><strong> ${event.title} </strong> är tyvärr inställd.</p>
                 
                 </td>
                 </tr>
@@ -591,9 +587,7 @@ router.delete("/deleteMonthlyMovie", (req, res) => {
                             <tr>
                               <td style="padding:auto;" align="center" valign="top">
             
-                                  <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;"><strong> ${
-                                    movie.title
-                                  } </strong> är tyvärr inställd.</p>
+                                  <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;"><strong> ${movie.title} </strong> är tyvärr inställd.</p>
             
                               </td>
                             </tr>
@@ -995,9 +989,7 @@ router.post("/completeAndSaveBooking", (req, res) => {
                         <tr>
                           <td style="padding:auto;" align="center" valign="top">
         
-                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Dina biljetter till filmen <strong> ${
-                                movie.title
-                              } </strong> kommer finnas på din profilsida. Du kan ändra din bokning under din profil.</p>
+                              <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Dina biljetter till filmen <strong> ${movie.title} </strong> kommer finnas på din profilsida. Du kan ändra din bokning under din profil.</p>
         
                           </td>
                         </tr>
@@ -1010,9 +1002,7 @@ router.post("/completeAndSaveBooking", (req, res) => {
                         <tr>
                           <td align="center" valign="top">
                             <p style="font-family: Arial,sans-serif;  margin:0; line-height:27px;">Ni är varmt välkomna</p>
-                            <p style="font-family: Arial,sans-serif; margin-top:1rem; font-size: 0.8rem;"> <em>${
-                              movie.monMovieMessage
-                            }</em> </p>
+                            <p style="font-family: Arial,sans-serif; margin-top:1rem; font-size: 0.8rem;"> <em>${movie.monMovieMessage}</em> </p>
         
                           </td>
                         </tr>
@@ -1032,7 +1022,8 @@ router.post("/completeAndSaveBooking", (req, res) => {
             auth: {
               user: process.env.MAIL_ADDR,
               pass: process.env.MAIL_PW
-            }
+            },
+            secure: true
           });
 
           let mailOptions = {

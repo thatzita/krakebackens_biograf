@@ -3,3 +3,46 @@
   -webkit-box-shadow: inset -40px -40px 100px 10px rgb(0, 0, 0);
   -moz-box-shadow: inset -40px -40px 100px 10px rgb(0, 0, 0);
 }
+
+.kursivt {
+  font-style: oblique;
+}
+
+#om-oss-main-segment {
+  background-color: rgb(0, 0, 0);
+  border-radius: 0;
+  padding: 1em;
+}
+
+.white-space {
+  white-space: pre-line;
+}
+
+.image-container {
+  box-shadow: inset 200px 200px 40px -177px rgba(0, 0, 0, 0.84);
+  width: 45%;
+  height: auto;
+}
+
+.padding-0-1em {
+  padding: 0 1em;
+}
+
+.float-right {
+  float: right;
+}
+
+.om-oss-flex-container {
+  padding: 2em 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: flex;
+  justify-content: space-around;
+}
+
+.om-oss-background-segment {
+  border: none;
+  box-shadow: none;
+  padding: 0.5em 1em;
+  width: 45%;
+}

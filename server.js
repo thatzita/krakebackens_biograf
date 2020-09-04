@@ -32,7 +32,7 @@ const db = require("./config/keys").mongoURI;
 
 //Koppla mot databasen med mongoose
 mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(db, { useNewUrlParser: true })
   .then(() => {
     console.log("Kopplad till Kråkebackens databas");
   })
