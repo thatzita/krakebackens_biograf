@@ -8,17 +8,21 @@ import { logoutUser } from "../../actions/authActions";
 import { clearCurrentProfile } from "../../actions/profileActions";
 import { goToAdminPage } from "../../actions/webPageStateActions";
 
-const tempMenuStyle = {
-  backgroundColor: "#470877",
-  borderRadius: "0",
-  position: "fixed",
-  width: "100%",
-  zIndex: "2",
-  top: "0",
-  WebkitBoxShadow: "0 0 20px rgba(0,0,0,0.8)",
-  MozBoxShadow: "0 0 20px rgba(0,0,0,0.8)",
-  boxShadow: "0 0 20px rgba(0,0,0,0.8)"
-};
+import "./navbar.css";
+import {
+  MAIN,
+  HEM,
+  OM_OSS,
+  ANSOK_MEDLEMSKAP,
+  LOGGA_IN,
+  LOGGA_UT,
+  ADMIN,
+  FILMSORTIMENT,
+  EVENTS,
+  FILMER,
+  PROFIL
+} from "./layoutConstants";
+import { KRAKEBACKENS_BIOGRAF } from "./layoutTexts";
 
 class Navbar extends Component {
   constructor() {
@@ -28,13 +32,13 @@ class Navbar extends Component {
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
-    if (name === "Filmer") {
+    if (name === FILMER) {
       window.scrollTo({ top: 550, behavior: "smooth" });
     }
-    if (name === "Evenemang") {
+    if (name === EVENTS) {
       window.scrollTo({ top: 1000, behavior: "smooth" });
     }
-    if (name === "Main" || name === "Hem") {
+    if (name === MAIN || name === HEM) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -47,135 +51,94 @@ class Navbar extends Component {
 
   render() {
     let { activeItem } = this.state;
-
-    let { isAuthenticated } = this.props.auth;
-    let { admin } = this.props.auth.user;
+    const { isAuthenticated } = this.props.auth;
+    const { admin } = this.props.auth.user;
 
     return (
       <React.Fragment>
         {!(localStorage.adminPage || false) ? (
           <React.Fragment>
-            <Segment style={tempMenuStyle}>
+            <Segment id="main-menu-nav-style">
               <Menu inverted secondary>
                 <Menu.Item
                   header
-                  style={{ padding: "0" }}
+                  className="no-padding"
                   as={Link}
                   to={isAuthenticated ? "/mainpage" : "/"}
-                  name="Main"
-                  active={activeItem === "Main"}
+                  name={MAIN}
+                  active={activeItem === MAIN}
                   onClick={this.handleItemClick}
                 >
-                  <Image
-                    style={{ width: "60px" }}
-                    src="krakelogo.gif"
-                    onError={e => {
-                      e.target.src =
-                        "https://firebasestorage.googleapis.com/v0/b/krakebackensbiograf-c3aa9.appspot.com/o/krakebackens_logo.png?alt=media&token=4c75370b-fa7d-4838-af81-040c458dd767";
-                    }}
-                  />
-                  <h2
-                    style={{
-                      fontWeight: "lighter",
-                      padding: "0",
-                      margin: "0 1rem"
-                    }}
-                  >
-                    Kråkebackens biograf
+                  <div className="hide-logo">
+                    <Image
+                      className="image-size-60"
+                      src="krakelogo.gif"
+                      onError={e => {
+                        e.target.src =
+                          "https://firebasestorage.googleapis.com/v0/b/krakebackensbiograf-c3aa9.appspot.com/o/krakebackens_logo.png?alt=media&token=4c75370b-fa7d-4838-af81-040c458dd767";
+                      }}
+                    />
+                  </div>
+                  <h2 className="biograf-title hide-text">
+                    {KRAKEBACKENS_BIOGRAF}
                   </h2>
                 </Menu.Item>
-
-                <Menu.Menu position="right">
-                  {/* {isAuthenticated ? (
-                    <Menu.Item
-                      as={Link}
-                      to="/profile"
-                      name="Biljetter"
-                      active={activeItem === "Biljetter"}
-                      onClick={this.handleItemClick}
-                    />
-                  ) : null} */}
-                  {isAuthenticated ? (
-                    <Menu.Item
-                      as={Link}
-                      to="/mainpage"
-                      name="Hem"
-                      active={activeItem === "Hem"}
-                      onClick={this.handleItemClick}
-                    />
-                  ) : null}
-
-                  {isAuthenticated ? (
-                    <Menu.Item
-                      as={Link}
-                      to="/aboutus"
-                      name="Om oss"
-                      active={activeItem === "Om oss"}
-                      onClick={this.handleItemClick}
-                      content="Om oss"
-                    />
-                  ) : null}
-
-                  {isAuthenticated ? (
-                    <Menu.Item
-                      as={Link}
-                      to="/profile"
-                      name="Profil"
-                      active={activeItem === "Profil"}
-                      onClick={this.handleItemClick}
-                    />
-                  ) : null}
-
-                  {isAuthenticated ? (
-                    <Menu.Item
-                      as={Link}
-                      to="/mainpage"
-                      name="Filmer"
-                      active={activeItem === "Filmer"}
-                      onClick={this.handleItemClick}
-                    />
-                  ) : null}
-                  {isAuthenticated ? (
-                    <Menu.Item
-                      as={Link}
-                      to="/mainpage"
-                      name="Evenemang"
-                      active={activeItem === "Evenemang"}
-                      onClick={this.handleItemClick}
-                    />
-                  ) : null}
-                  {isAuthenticated && admin !== true ? (
+                <Menu.Menu className="menu-flex-container" position="right">
+                  <Menu.Item
+                    as={Link}
+                    to="/mainpage"
+                    name={HEM}
+                    active={activeItem === HEM}
+                    onClick={this.handleItemClick}
+                  />
+                  <Menu.Item
+                    as={Link}
+                    to="/aboutus"
+                    name={OM_OSS}
+                    active={activeItem === OM_OSS}
+                    onClick={this.handleItemClick}
+                    content={OM_OSS}
+                  />
+                  <Menu.Item
+                    as={Link}
+                    to="/profile"
+                    name={PROFIL}
+                    active={activeItem === PROFIL}
+                    onClick={this.handleItemClick}
+                  />
+                  <Menu.Item
+                    as={Link}
+                    to="/mainpage"
+                    name={FILMER}
+                    active={activeItem === FILMER}
+                    onClick={this.handleItemClick}
+                  />
+                  <Menu.Item
+                    as={Link}
+                    to="/mainpage"
+                    name={EVENTS}
+                    active={activeItem === EVENTS}
+                    onClick={this.handleItemClick}
+                  />
+                  {isAuthenticated && admin !== true && (
                     <Menu.Item
                       as={Link}
                       to="/movies"
-                      name="Filmsortiment"
-                      active={activeItem === "Filmsortiment"}
+                      name={FILMSORTIMENT}
+                      active={activeItem === FILMSORTIMENT}
                       onClick={this.handleItemClick}
-                      content="Filmsortiment"
+                      content={FILMSORTIMENT}
                     />
-                  ) : null}
-
-                  {/* {isAuthenticated ? (
-                    <Menu.Item
-                      as={Link}
-                      to="/mainpage"
-                      name="Kontakta oss"
-                      active={activeItem === "Kontakta oss"}
-                      onClick={this.handleItemClick}
-                      content="Kontakta oss"
-                    />
-                  ) : null} */}
-
+                  )}
                   {admin && (
                     <Menu.Item
                       as={Link}
                       to="/adminhome"
-                      name="Admin"
-                      active={activeItem === "Admin"}
+                      name={ADMIN}
+                      active={activeItem === ADMIN}
                       onClick={() => this.props.goToAdminPage(true)}
                     />
                   )}
-
                   <Menu.Item />
 
                   {isAuthenticated ? (
@@ -183,10 +146,10 @@ class Navbar extends Component {
                       as={Link}
                       to="/"
                       header
-                      name="Logga ut"
-                      active={activeItem === "Logga ut"}
+                      name={LOGGA_UT}
+                      active={activeItem === LOGGA_UT}
                       onClick={event => this.onLogoutClick(event)}
-                      content="Logga ut"
+                      content={LOGGA_UT}
                     />
                   ) : (
                     <React.Fragment>
@@ -194,27 +157,22 @@ class Navbar extends Component {
                         as={Link}
                         to="/login"
                         header
-                        name="Logga in"
-                        // active={activeItem === "Logga in"}
-                        // onClick={this.handleItemClick}
-                        content="Logga in"
+                        name={LOGGA_IN}
+                        content={LOGGA_IN}
                       />
-
                       <Menu.Item
                         as={Link}
                         to="/apply"
                         header
-                        name="Ansök om medlemskap"
-                        // active={activeItem === "Logga in"}
-                        // onClick={this.handleItemClick}
-                        content="Ansök om medlemskap"
+                        name={ANSOK_MEDLEMSKAP}
+                        content={ANSOK_MEDLEMSKAP}
                       />
                     </React.Fragment>
                   )}
                 </Menu.Menu>
               </Menu>
             </Segment>
-            <Segment style={{ height: "40px" }} />
+            <Segment className="segment-height-40" />
           </React.Fragment>
         ) : null}
       </React.Fragment>

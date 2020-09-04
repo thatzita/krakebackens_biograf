@@ -1,0 +1,47 @@
+#main-menu-nav-style {
+  background-color: #470877;
+  border-radius: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  top: 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.biograf-title {
+  font-weight: lighter;
+  padding: 0;
+  margin: 0 1rem;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.menu-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.segment-height-40 {
+  height: 40px;
+}
+
+.image-size-60 {
+  width: 60px;
+}
+
+@media (max-width: 990px) {
+  .hide-text {
+    display: none;
+    font-weight: lighter;
+    padding: 0;
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 750px) {
+  .hide-logo {
+    display: none;
+  }
+}

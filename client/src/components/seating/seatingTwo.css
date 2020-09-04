@@ -20,9 +20,10 @@
 }
 
 .seatingContainer {
-  width: 35%;
+  /* width: 35%; */
   /* margin: 1rem; */
   min-width: 450px;
+  max-width: 630px;
   /* position: absolute; */
   /* left: 2rem; */
 }

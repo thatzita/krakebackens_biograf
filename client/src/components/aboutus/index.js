@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
 import {
   Segment,
   Button,
@@ -10,17 +9,25 @@ import {
   Header,
   Message
 } from "semantic-ui-react";
+
 import Footer from "../layout/Footer";
 import "./styles.css";
 import axios from "axios";
+import { IMAGE_OF_MATS } from "./constants";
+import {
+  OM_OSS,
+  BASTA_MINSTA_BIOGRAF,
+  KOSTA_SKJORTA,
+  KRAKAN_MEDDELAR,
+  SPARA_TEXT,
+  UPPDATERAD_TEXT,
+  NYTT_MEDDELANDE_INFO
+} from "./aboutUsText";
 
-const AboutUs = ({ auth, profile }) => {
-  console.log({ auth, profile });
-
+const AboutUs = ({ auth }) => {
   const { user } = auth;
   const [inputValue, setInputValue] = useState("");
   const [updateText, setUpdatedText] = useState(false);
-  const [previewMotd, setPreviewMotdText] = useState(false);
 
   useEffect(() => {
     axios
@@ -48,54 +55,24 @@ const AboutUs = ({ auth, profile }) => {
       });
   };
 
-  const imageOfMats =
-    "https://firebasestorage.googleapis.com/v0/b/krakebackensbiograf-e8f4e.appspot.com/o/mats2.jpg?alt=media";
-
   return (
     <>
-      <Segment
-        style={{
-          backgroundColor: "rgb(0,0,0)",
-          borderRadius: "0",
-          padding: "1em"
-        }}
-      >
-        <div
-          style={{
-            padding: "2em 0",
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "flex",
-            justifyContent: "space-around"
-          }}
-        >
-          <Segment
-            inverted
-            style={{
-              border: "none",
-              boxShadow: "none",
-              padding: "0.5em 1em",
-              width: "45%",
-              height: "30em"
-            }}
-          >
+      <Segment id="om-oss-main-segment">
+        <div className="om-oss-flex-container">
+          <Segment inverted className="om-oss-background-segment">
             <Header as="h2" dividing inverted>
-              Om oss
+              {OM_OSS}
             </Header>
             <Header as="h2" inverted>
               <Header.Subheader>
-                Sveriges bästa biograf! (Även den minsta - sorry Tollereds
-                biograf!)
+                {BASTA_MINSTA_BIOGRAF}
                 <br />
                 <br />
-                <span style={{ fontStyle: "oblique" }}>
-                  "Det skall inte kosta skjortan att gå på bio - inte ens Mats
-                  skjorta!" /M.Udéhn
-                </span>
+                <span className="kursivt">{KOSTA_SKJORTA}</span>
               </Header.Subheader>
             </Header>
 
-            <Header inverted>Kråkan meddelar</Header>
+            <Header inverted>{KRAKAN_MEDDELAR}</Header>
 
             {user.admin ? (
               <Form>
@@ -109,32 +86,26 @@ const AboutUs = ({ auth, profile }) => {
                     rows="5"
                   />
                 </Form.Group>
-                <div style={{ float: "right" }}>
+                <div className="float-right">
                   <Button primary onClick={() => motd()}>
-                    Spara
+                    {SPARA_TEXT}
                   </Button>
                 </div>
                 {updateText && (
                   <Message positive>
-                    <Message.Header>Texten är uppdaterad!</Message.Header>
-                    <p>Medlemmar ser nu ditt nya meddelande</p>
+                    <Message.Header>{UPPDATERAD_TEXT}</Message.Header>
+                    <p>{NYTT_MEDDELANDE_INFO}</p>
                   </Message>
                 )}
               </Form>
             ) : (
-              <div style={{ padding: "0 1em" }}>
-                <span>{inputValue}</span>
+              <div className="padding-0-1em">
+                <span className="white-space">{inputValue}</span>
               </div>
             )}
           </Segment>
-          <div
-            style={{
-              boxShadow: "inset 200px 200px 40px -177px rgba(0,0,0,0.84)",
-              width: "45%",
-              height: "auto"
-            }}
-          >
-            <Image fluid src={imageOfMats} />
+          <div className="image-container">
+            <Image fluid src={IMAGE_OF_MATS} />
           </div>
         </div>
       </Segment>

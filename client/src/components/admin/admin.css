@@ -12,14 +12,13 @@
 
 .adminhome {
   background-color: #f8f8ff;
-  padding-bottom: 8rem;
-  margin-bottom: -7rem;
-  height: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.containerAdminHome {
-  margin-left: 30rem;
-  max-width: 60rem;
-}
+
 .adminMovieBackdropContainer {
   height: 100%;
   width: 100%;
