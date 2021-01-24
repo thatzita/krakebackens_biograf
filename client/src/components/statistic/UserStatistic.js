@@ -73,7 +73,8 @@ class UserStatistic extends Component {
         guest = users[i];
       }
     }
-    return guest.stats.total;
+    console.log(guest)
+    return guest ? guest.stats.total : 0;
   }
 
   guestStatsSeason() {
@@ -86,7 +87,8 @@ class UserStatistic extends Component {
         guest = users[i];
       }
     }
-    return guest.stats.season;
+    console.log(guest)
+    return guest ? guest.stats.season : 0;
   }
 
   topUsersThisSeason() {
@@ -148,7 +150,7 @@ class UserStatistic extends Component {
       seasonTopUsers: newTopUsers,
       archivedDate: newDate
     };
-
+    console.log("objToArchive",objToArchive)
     this.props.resetStats();
     this.props.saveUserStatsToArchive(objToArchive);
   }
