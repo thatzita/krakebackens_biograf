@@ -140,7 +140,7 @@ class AddMovie extends Component {
             />
             <Item.Content>
               <Item.Header>
-                {movie.title} ( {movie.release_date.substring(0, 4)} ){" "}
+                {movie.title} ( {movie.release_date ? movie.release_date.substring(0, 4) : "" } ){" "}
               </Item.Header>
               <Item.Extra>&nbsp;</Item.Extra>
               <Button.Group className="addMovieBtnGroup">
