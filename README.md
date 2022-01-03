@@ -1,1 +1,1 @@
-Kråkebackens biograf
+Kråkebackens biograf för folket i skogen.
