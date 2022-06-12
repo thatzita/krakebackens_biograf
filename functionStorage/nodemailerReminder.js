@@ -77,8 +77,7 @@ const nodemailerReminder = (
           `;
 
   let transporter = nodemailer.createTransport({
-    service: "Gmail",
-    host: "smtp.gmail.com",
+    service: process.env.SERVICE,
     auth: {
       user: process.env.MAIL_ADDR,
       pass: process.env.MAIL_PW
@@ -86,7 +85,7 @@ const nodemailerReminder = (
   });
 
   let mailOptions = {
-    from: `"Kråkebackens Bio" <bringmybeerbro@gmail.com>`,
+    from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
     to: emailList, // list of receivers
     subject: "Påminnelse", // Subject line
     // text: 'Hello world?', // plain text body

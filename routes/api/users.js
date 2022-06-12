@@ -121,14 +121,13 @@ router.post("/register", (req, res) => {
         </body>
         </html>
         `;
-              let transporter = nodemailer.createTransport({
-                service: "Gmail",
-                host: "smtp.gmail.com",
-                auth: {
-                  user: process.env.MAIL_ADDR,
-                  pass: process.env.MAIL_PW
-                }
-              });
+        let transporter = nodemailer.createTransport({
+          service: process.env.SERVICE,
+          auth: {
+            user: process.env.MAIL_ADDR,
+            pass: process.env.MAIL_PW
+          }
+        });
 
               // setup email data with unicode symbols
               let mailOptions = {
@@ -396,10 +395,8 @@ router.post("/forgot", (req, res, next) => {
         `;
 
         let transporter = nodemailer.createTransport({
-          service: "Gmail",
-          host: "smtp.gmail.com",
+          service: process.env.SERVICE,
           auth: {
-            type: "login",
             user: process.env.MAIL_ADDR,
             pass: process.env.MAIL_PW
           }
@@ -539,14 +536,13 @@ router.post("/reset/:token", function(req, res) {
         </html>
           `;
 
-                let transporter = nodemailer.createTransport({
-                  service: "Gmail",
-                  host: "smtp.gmail.com",
-                  auth: {
-                    user: process.env.MAIL_ADDR,
-                    pass: process.env.MAIL_PW
-                  }
-                });
+          let transporter = nodemailer.createTransport({
+            service: process.env.SERVICE,
+            auth: {
+              user: process.env.MAIL_ADDR,
+              pass: process.env.MAIL_PW
+            }
+          });
 
                 // setup email data with unicode symbols
                 let mailOptions = {

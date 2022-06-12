@@ -349,14 +349,13 @@ router.post("/completeAndSaveBookingEvent", (req, res) => {
             </html>
               `;
 
-          let transporter = nodemailer.createTransport({
-            service: "Gmail",
-            host: "smtp.gmail.com",
-            auth: {
-              user: process.env.MAIL_ADDR,
-              pass: process.env.MAIL_PW
-            }
-          });
+              let transporter = nodemailer.createTransport({
+                service: process.env.SERVICE,
+                auth: {
+                  user: process.env.MAIL_ADDR,
+                  pass: process.env.MAIL_PW
+                }
+              });
           let mailOptions = {
             from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
             to: seatResarvation[0].responsible.email, // list of receivers
@@ -461,14 +460,13 @@ router.delete("/deleteMonthlyEvent", (req, res) => {
                 </html>
                 `;
 
-      let transporter = nodemailer.createTransport({
-        service: "Gmail",
-        host: "smtp.gmail.com",
-        auth: {
-          user: process.env.MAIL_ADDR,
-          pass: process.env.MAIL_PW
-        }
-      });
+                let transporter = nodemailer.createTransport({
+                  service: process.env.SERVICE,
+                  auth: {
+                    user: process.env.MAIL_ADDR,
+                    pass: process.env.MAIL_PW
+                  }
+                });
       let mailOptions = {
         from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
         to: eventList,
@@ -615,14 +613,13 @@ router.delete("/deleteMonthlyMovie", (req, res) => {
             </html>
               `;
 
-      let transporter = nodemailer.createTransport({
-        service: "Gmail",
-        host: "smtp.gmail.com",
-        auth: {
-          user: process.env.MAIL_ADDR,
-          pass: process.env.MAIL_PW
-        }
-      });
+              let transporter = nodemailer.createTransport({
+                service: process.env.SERVICE,
+                auth: {
+                  user: process.env.MAIL_ADDR,
+                  pass: process.env.MAIL_PW
+                }
+              });
       let mailOptions = {
         from: `"Kråkebackens Bio" ${process.env.MAIL_ADDR}`,
         to: emailList,
@@ -1017,13 +1014,11 @@ router.post("/completeAndSaveBooking", (req, res) => {
         </html>
           `;
           let transporter = nodemailer.createTransport({
-            service: "Gmail",
-            host: "smtp.gmail.com",
+            service: process.env.SERVICE,
             auth: {
               user: process.env.MAIL_ADDR,
               pass: process.env.MAIL_PW
-            },
-            secure: true
+            }
           });
 
           let mailOptions = {
