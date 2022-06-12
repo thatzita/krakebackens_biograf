@@ -95,7 +95,7 @@ class UserPopup extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.users.userInfo && nextProps.users.userInfo.stats) {
       this.setState({
         userInfo: nextProps.users.userInfo,
