@@ -95,7 +95,7 @@ class UserPopup extends Component {
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.users.userInfo && nextProps.users.userInfo.stats) {
       this.setState({
         userInfo: nextProps.users.userInfo,
@@ -161,6 +161,7 @@ class UserPopup extends Component {
     let { showOrHide, userInfo, total, season, status, seat } = this.state;
     let userPopup;
     let vipSeating;
+    console.log('showOrHide ', showOrHide)
 
     if (seat !== null || undefined) {
       vipSeating = this.seatingNrToName();
