@@ -38,13 +38,13 @@ export default function(state = initialState, action) {
     case USER_POPUP:
       return {
         ...state,
-        ...(state.showOrHide = true),
+        showOrHide:true,
         userInfo: action.payload
       };
     case USER_POPUP_CLOSE:
       return {
         ...state,
-        ...(state.showOrHide = false),
+        showOrHide: false,
         userInfo: action.payload
       };
     case RESET_USER_STATS:
