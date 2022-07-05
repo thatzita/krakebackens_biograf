@@ -56,7 +56,7 @@ class Users extends Component {
   }
 
   showUserPopup(user) {
-    // console.log("clicked")
+    console.log(user)
     window.scrollTo(0, 50);
     this.props.userPopup(user);
   }
