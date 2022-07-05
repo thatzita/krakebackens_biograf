@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Admin from './Admin';
 import { connect } from 'react-redux';
-import { Icon, Segment, Button } from 'semantic-ui-react';
+import { Icon, Segment } from 'semantic-ui-react';
 import AdminMonMovie from './AdminMonMovie';
 import { Link } from 'react-router-dom';
 
@@ -11,9 +11,7 @@ import './admin.css';
 class AdminHome extends Component {
   constructor() {
     super();
-    this.state = {
-      hideAdminMenu: false,
-    };
+    this.state = {};
   }
 
   componentDidMount() {
@@ -26,10 +24,6 @@ class AdminHome extends Component {
     });
   }
 
-  updateMenu() {
-    this.setState({ hideAdminMenu: !this.state.hideAdminMenu });
-  }
-
   render() {
     let adminName;
     if (this.state.profile) {
@@ -39,11 +33,6 @@ class AdminHome extends Component {
 
     return (
       <div className='adminhome'>
-        <div style={{ position: 'absolute', left: 0 }}>
-          <Button primary onClick={() => this.updateMenu()}>
-            Visa menu
-          </Button>
-        </div>
         <div className='containerAdminHome'>
           <h1 className='title'>
             <Icon name='home' />
@@ -92,7 +81,7 @@ class AdminHome extends Component {
             </Link>
           </Segment>
         </div>
-        <Admin hideAdminMenu={this.state.hideAdminMenu} />
+        <Admin />
       </div>
     );
   }

@@ -43,14 +43,13 @@ class Admin extends Component {
   render() {
     const { username } = this.props.auth.user;
 
-    const { activeItem, hideAdminMenu } = this.state;
+    const { activeItem } = this.state;
 
     return (
       <div>
         <Segment
           inverted
           style={{
-            display: hideAdminMenu ? "none" : "block",
             borderRadius: "0",
             position: "fixed",
             zIndex: "2",
@@ -63,13 +62,6 @@ class Admin extends Component {
             maxWidth: "300px"
           }}
         >
-          <div
-            onClick={() => {
-              this.setState({ hideAdminMenu: true });
-            }}
-          >
-            X
-          </div>
           <Header
             dividing
             inverted
