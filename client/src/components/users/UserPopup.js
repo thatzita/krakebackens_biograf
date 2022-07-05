@@ -96,7 +96,9 @@ class UserPopup extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log("nextProps", nextProps)
     if (nextProps.users.userInfo && nextProps.users.userInfo.stats) {
+      console.log("showOrHide: nextProps.users.showOrHide",  nextProps.users.showOrHide)
       this.setState({
         userInfo: nextProps.users.userInfo,
         showOrHide: nextProps.users.showOrHide,
