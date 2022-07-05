@@ -201,7 +201,6 @@ new CronJob(
           todaysDate > new Date(movie.reminder_utc_time) &&
           movie.reminderIsSent === false
         ) {
-          console.log("skickar påminnelse för filmen ", movie.title);
           let listOfEmailAdresses = [];
           movie.seating.map(array => {
             array.map(item => {
@@ -214,7 +213,6 @@ new CronJob(
             });
           });
 
-          // console.log("emailList: ", listOfEmailAdresses);
           let resultValue = nodemailerReminder(
             movie.title,
             movie.screeningDate,
@@ -222,7 +220,6 @@ new CronJob(
             movie.monMovieMessage,
             listOfEmailAdresses
           );
-          // console.log("value ", resultValue);
 
           movie.reminderIsSent = true;
           let newMonMovie = movie;
@@ -234,7 +231,6 @@ new CronJob(
               throw err;
             });
         } else {
-          // console.log("hitta ingen");
         }
       });
     });
@@ -257,7 +253,6 @@ new CronJob(
         ) {
           console.log("skickar påminnelse för filmen ", event.title);
           let listOfEmailAdresses = [];
-          // console.log("event ", event);
 
           event.seating.map(item => {
             if (
@@ -268,7 +263,6 @@ new CronJob(
             }
           });
 
-          // console.log("emailList: ", listOfEmailAdresses);
           let resultValue = nodemailerReminderEvent(
             event.title,
             event.screeningDate,
@@ -276,7 +270,6 @@ new CronJob(
             event.monEventMessage,
             listOfEmailAdresses
           );
-          // console.log("value ", resultValue);
 
           event.reminderIsSent = true;
           let newMonEvent = event;
@@ -287,8 +280,6 @@ new CronJob(
             .catch(err => {
               throw err;
             });
-        } else {
-          // console.log("hitta ingen");
         }
       });
     });

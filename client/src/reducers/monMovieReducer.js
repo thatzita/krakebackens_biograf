@@ -37,8 +37,6 @@ export default function(state = initialState, action) {
         monMovies: [...state.monMovies, action.payload]
       };
     case POST_MON_EVENT:
-      // console.log(action.payload);
-      // console.log(state.monEvents);
       return {
         ...state,
         monEvents: [...state.monEvents, action.payload]

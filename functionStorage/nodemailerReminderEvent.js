@@ -9,7 +9,6 @@ const nodemailerReminderEvent = (
   movieMessage,
   emailList
 ) => {
-  // console.log("function works");
 
   let output = `
         <!DOCTYPE html>
@@ -98,7 +97,6 @@ const nodemailerReminderEvent = (
       return false;
     }
     return true;
-    // console.log("info: ", info);
   });
 };
 

@@ -4,18 +4,18 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   Button,
-  Form,
-  Checkbox,
-  Message,
+  // Form,
+  // Checkbox,
+  // Message,
   Icon,
-  Modal,
-  Segment,
+  // Modal,
+  // Segment,
   Divider
 } from "semantic-ui-react";
 import Footer from "../layout/Footer";
 import { userRequest } from "../../actions/applyActions";
-import termsOfService from "./policy/termsOfService";
-import privacyPolicy from "./policy/privacyPolicy";
+// import termsOfService from "./policy/termsOfService";
+// import privacyPolicy from "./policy/privacyPolicy";
 
 class Apply extends Component {
   constructor() {
@@ -70,33 +70,33 @@ class Apply extends Component {
   }
 
   render() {
-    const { username, email, checked, errors, success } = this.state;
+    // const { username, email, checked, errors, success } = this.state;
 
-    const tos = (
-      <button
-        style={{
-          backgroundColor: "transparent",
-          color: "white",
-          border: "transparent",
-          cursor: "pointer"
-        }}
-      >
-        Terms of Service
-      </button>
-    );
-    const pp = (
-      <button
-        style={{
-          marginLeft: "1rem",
-          backgroundColor: "transparent",
-          color: "white",
-          border: "transparent",
-          cursor: "pointer"
-        }}
-      >
-        Privacy Policy
-      </button>
-    );
+    // const tos = (
+    //   <button
+    //     style={{
+    //       backgroundColor: "transparent",
+    //       color: "white",
+    //       border: "transparent",
+    //       cursor: "pointer"
+    //     }}
+    //   >
+    //     Terms of Service
+    //   </button>
+    // );
+    // const pp = (
+    //   <button
+    //     style={{
+    //       marginLeft: "1rem",
+    //       backgroundColor: "transparent",
+    //       color: "white",
+    //       border: "transparent",
+    //       cursor: "pointer"
+    //     }}
+    //   >
+    //     Privacy Policy
+    //   </button>
+    // );
     return (
       <div>
         <div className="applyContainer">
@@ -110,7 +110,11 @@ class Apply extends Component {
               opacity: "0.3"
             }}
           />
-          <Form error success>
+          <div class="ui segment">
+  <p>För att ansöka om medlemskap får du kontakta Kråkan, skicka iväg ett mejl till <strong>krakebackensbiograf@gmail.com</strong></p>
+</div>
+
+          {/* <Form error success>
             <Form.Field>
               <label className="applyFieldLabel">Användarnamn</label>
               <input
@@ -164,15 +168,15 @@ class Apply extends Component {
                 <Icon name="send" />
                 Skicka förfrågan
               </Button>
-            )}
+            )} */}
 
             <Button floated="right" inverted basic as={Link} to="/">
               <Icon name="left chevron" />
               Tillbaka
             </Button>
 
-            <Message success header={success.title} content={success.msg} />
-          </Form>
+            {/* <Message success header={success.title} content={success.msg} />
+          </Form> */}
         </div>
         <Footer />
       </div>

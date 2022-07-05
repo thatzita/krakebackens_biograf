@@ -46,11 +46,6 @@ router.post("/uploadMoviePremiere", (req, res) => {
     $or: [{ title: req.body.mov.title }, { utc_time: req.body.utc_time }]
   })
     .then(movie => {
-      // console.log(movie);
-      // if (movie) {
-      // {
-      //   return res.status(400).json({ title: "This movie already is up" });
-      // } else
       User.find({ "vip.status": "true" })
         .then(users => {
           const salong_1 = saloonCollection.salong_1;
@@ -551,7 +546,6 @@ router.delete("/deleteMonthlyMovie", (req, res) => {
           }
         });
       });
-      // console.log(emailList);
       let output = `
             <!DOCTYPE html>
             <html lang="en" dir="ltr">
