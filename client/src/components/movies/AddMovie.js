@@ -85,7 +85,7 @@ class AddMovie extends Component {
   onSubmit(event, page) {
     this.props.resetMovieSuccess();
 
-    if (page === undefined || page < 1) {
+    if (page === undefined || typeof page === 'object') {
       page = 1;
       this.setState({
         activePage: 1
@@ -93,7 +93,7 @@ class AddMovie extends Component {
     }
     event.preventDefault();
     let { searchedMovie } = this.state;
-
+    
     this.props.searchMovie(searchedMovie, page);
   }
 
