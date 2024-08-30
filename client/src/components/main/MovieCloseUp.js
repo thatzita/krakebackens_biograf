@@ -192,6 +192,7 @@ class MovieCloseUp extends Component {
             <div
               className="coverImage"
               style={{
+                marginTop: "5em",
                 backgroundImage: "url(" + displayImage + ")",
                 WebkitBackgroundSize: "cover",
                 MozBackgroundSize: "cover",
@@ -206,6 +207,7 @@ class MovieCloseUp extends Component {
               <Segment
                 inverted
                 style={{
+                  marginTop:"5em",
                   background: "none",
                   border: "none",
                   boxShadow: "none"
